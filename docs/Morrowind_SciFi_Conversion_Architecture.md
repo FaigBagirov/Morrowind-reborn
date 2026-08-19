@@ -273,8 +273,11 @@ Paste into project instructions:
 - Replacement strings must not be longer than the string they replace.
 - Do not perform substitutions yourself. Write a deterministic transform
   script plus a rules table; the script performs all substitutions.
-- Before and after any dialogue transform, count references to each topic
-  keyword and report any change in count.
+- Never modify DIAL topic IDs, general dialogue response text, greetings,
+  or journal entries. Only uniquely-filtered INFO records may be rewritten.
+- When rewriting an INFO record, keep at least one literal instance of the
+  original topic keyword so the hyperlink still fires. Report before/after
+  keyword counts for every record touched.
 - Do not generate or edit NIF files.
 - One system per change set. Report the diff summary before applying.
 ```
