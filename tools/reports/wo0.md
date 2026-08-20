@@ -51,9 +51,11 @@ load context.** Per Part 12, "if INFO text turns out to be read-only, the
 architecture changes completely."
 
 The load context is not a dead end, but it is much narrower than Part 3
-assumed. It covers **books and GMST strings**. It does not cover item names,
-creature names, or dialogue -- which is most of the rewrite surface in the
-table in Part 12.
+assumed. It covers **books, GMST strings, spells, ingredients, potions, magic
+effects and the other twelve record types listed above**. It does not cover
+item names, creature names, or dialogue -- which is most of the rewrite surface
+in the table in Part 12. Probes 5-8 measure how much of the naming table
+survives inside that narrower boundary.
 
 Run the spike before acting on this. The point of the run is to confirm the
 static reading and, more importantly, to catch the one failure mode static
@@ -67,12 +69,20 @@ analysis cannot see: a write that is accepted and then silently discarded.
 static analysis above says you should see; a mismatch is the interesting
 result and means the analysis was wrong somewhere.
 
-| record_type | field | write_ok | readback_ok | Predicted | notes |
-| --- | --- | --- | --- | --- | --- |
-| ARMO | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.armors`; `armors` absent from the binary entirely |
-| CREA | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
-| BOOK | `text` | | | `WRITE_OK` | `content.books.records` exists and is documented mutable |
-| INFO | response `text` | | | `WRITE_THREW` or `NO_API_SURFACE` | no content sub-package; only `core.dialogue`, documented read-only |
+Probes 1-4 are the fields the project needs and expects to fail. Probes 5-8
+are sub-packages that **do** exist and appear in the naming table, so the same
+run reports both what is broken and what survives.
+
+| # | record_type | field | write_ok | readback_ok | Predicted | notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | ARMO | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.armors`; `armors` absent from the binary entirely |
+| 2 | CREA | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
+| 3 | BOOK | `text` | | | `WRITE_OK` | `content.books.records` exists and is documented mutable |
+| 4 | INFO | response `text` | | | `WRITE_THREW` or `NO_API_SURFACE` | no content sub-package; only `core.dialogue`, documented read-only |
+| 5 | GMST | the value itself | | | `WRITE_OK` | scalar store; the engine's own `esmfallbacks.lua` writes it this way |
+| 6 | SPEL | `name` | | | `WRITE_OK` | `content.spells.records` |
+| 7 | INGR | `name` | | | `WRITE_OK` | `content.ingredients.records` |
+| 8 | MGEF | `name` | | | `WRITE_OK` | `content.magicEffects.records`; `esmfallbacks.lua` proves in-place `effect.name =` works |
 
 Fill each row from `logs/wo0-spike.txt`, which `run-spike.bat` extracts for
 you. Layer 1 lines give `write_ok=`, Layer 2 lines give `readback_ok=`.
@@ -89,9 +99,9 @@ Result codes the script emits:
 
 ---
 
-## 3. Why these four targets
+## 3. Why these eight targets
 
-All four exist in vanilla and all four are in Seyda Neen.
+All eight exist in vanilla and all eight are in Seyda Neen.
 
 | # | Type | Record ID | Vanilla value | Why this one |
 | --- | --- | --- | --- | --- |
@@ -99,6 +109,15 @@ All four exist in vanilla and all four are in Seyda Neen.
 | 2 | CREA | `mudcrab` | `Mudcrab` | the **only** creature in the Seyda Neen exterior cell -- confirmed by cross-referencing every ref id in that cell against every CREA id |
 | 3 | BOOK | `bk_BriefHistoryEmpire1` | `Brief History of the Empire v 1` | sits in Seyda Neen, Census and Excise Office -- the room the game starts in |
 | 4 | INFO | `1248319992938512979` | Arrille's "little advice" reply | `filterActorId = arrille`, **no select rule at all**, and it precedes the other Arrille entry in the topic, so it always fires |
+| 5 | GMST | `sMagicEffects` | `Magic Effects` | the header of the tooltip that also shows probes 6 and 8 |
+| 6 | SPEL | `absorb fatigue` | `Absorb Fatigue` | sold by Arrille in Seyda Neen; its single effect is probe 8 |
+| 7 | INGR | `food_kwama_egg_02` | `Large Kwama Egg` | sits in Seyda Neen, Census and Excise Office, beside the book |
+| 8 | MGEF | `absorbfatigue` | `Absorb Fatigue` | the only effect on probe 6, so both appear in one tooltip |
+
+Probes 5, 6 and 8 were chosen to converge on a single screen. Open the Magic
+menu and hover **Absorb Fatigue**: the tooltip's section header is probe 5, the
+spell name is probe 6, and the effect line is probe 8. One tooltip, three
+answers.
 
 Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
 recalled from memory. `tools/input/` was opened read-only and not modified.
@@ -111,8 +130,12 @@ topic the moment you first speak to him.
 
 ## 4. VERIFICATION CARD
 
-Follow this blind. Run `run-spike.bat`, then do these four checks in one
+Follow this blind. Run `run-spike.bat`, then do these eight checks in one
 sitting. The console opens with the `~` key.
+
+Checks 1-4 are the ones predicted to fail. Checks 5-8 are the positive half:
+they say what the load context *can* still do. Checks 5, 6 and 8 all land in a
+single tooltip, so the eight checks take about five screens, not eight.
 
 Two possible outcomes per check, and **both are results** -- write down which
 one you see.
@@ -161,8 +184,8 @@ one you see.
 * **Expected instead:** the page begins
   `A Brief History of the Empire / Part One / by Stronach k'Thojj III`
 
-This is the one predicted to succeed. If exactly one of the four checks shows
-its sentinel, it should be this one.
+This is the only one of checks 1-4 predicted to succeed. If exactly one of the
+first four shows its sentinel, it should be this one.
 
 ---
 
@@ -178,7 +201,51 @@ its sentinel, it should be this one.
 
 ---
 
-### After the four checks
+### Checks 5, 6 and 8 -- one tooltip, three answers
+
+Do this one first if you only have time for one thing. It is the positive
+half of the answer.
+
+Setup, in the console:
+
+```
+player->AddSpell "absorb fatigue"
+```
+
+(You can also buy this spell from Arrille, who is standing right there --
+the console is just faster.)
+
+Now open the **Magic** menu and hover the spell **Absorb Fatigue**. One
+tooltip contains all three:
+
+| Check | What it is in the tooltip | If the write worked | Expected instead |
+| --- | --- | --- | --- |
+| 6 -- SPEL name | the spell's title, at the top | `SPIKE_SPEL_OK` | `Absorb Fatigue` |
+| 5 -- GMST string | the section header above the effect list | `SPIKE_GMST_OK` | `Magic Effects` |
+| 8 -- MGEF name | the effect line under that header | `SPIKE_MGEF_OK` | `Absorb Fatigue` |
+
+If check 8 shows `Absorb Fatigue` while the log says `write_ok=true` for probe
+8, that is the `esmfallbacks.lua` ordering hazard, not a writability failure --
+say so and I will look at it. The other two are unaffected by that.
+
+---
+
+### Check 7 -- INGR name
+
+* **Record ID:** `food_kwama_egg_02`
+* **Where:** Seyda Neen, Census and Excise Office -- the room the game starts
+  in, same room as the book in check 3. Pick up the large egg.
+* **Or by console:**
+  ```
+  player->AddItem "food_kwama_egg_02" 1
+  ```
+  then open Inventory and hover it.
+* **If the write worked, the item is called:** `SPIKE_INGR_OK`
+* **Expected instead:** `Large Kwama Egg`
+
+---
+
+### After the eight checks
 
 Quit the game. **Do not save** -- the spike needs nothing saved, and not saving
 keeps save files clean of the temporary global script.
@@ -205,10 +272,15 @@ tools/reports/wo0.md            this file
 ```
 
 Layer 2 exists because a write can be accepted by the load context and never
-reach the game data. It reads the same four values through a completely
-different path (`openmw.types` and `openmw.core.dialogue`) from a GLOBAL
-script, which has no relationship to the load context. Agreement between the
-layers is the only evidence that a write actually landed.
+reach the game data. It reads the same eight values through completely
+different paths (`openmw.types`, `openmw.core.dialogue`, `openmw.core.magic`
+and `core.getGMST`) from a GLOBAL script, which has no relationship to the load
+context. Agreement between the layers is the only evidence that a write
+actually landed.
+
+The GMST readback is the strongest of the eight: `core.getGMST` is documented
+as "Not available in load scripts", so it physically cannot be answered by
+whatever the load context left behind in its own map.
 
 The script never calls an API without probing for it first. Each write target
 is looked up against a list of candidate sub-package names, and every access is
@@ -262,6 +334,20 @@ lowercased forms, since the ESM and the engine store differ in case.
 
 Both are reverted by deleting `mod/` contents and neither reaches any
 permanent file.
+
+All four of the new probes (5-8) are length-compliant -- each vanilla value is
+at least as long as its 13-character sentinel, which is part of why these
+specific records were chosen over shorter alternatives:
+
+| Probe | Vanilla value | Length | Sentinel | Fits |
+| --- | --- | --- | --- | --- |
+| 5 GMST | `Magic Effects` | 13 | `SPIKE_GMST_OK` (13) | yes, exactly |
+| 6 SPEL | `Absorb Fatigue` | 14 | `SPIKE_SPEL_OK` (13) | yes |
+| 7 INGR | `Large Kwama Egg` | 15 | `SPIKE_INGR_OK` (13) | yes |
+| 8 MGEF | `Absorb Fatigue` | 14 | `SPIKE_MGEF_OK` (13) | yes |
+
+For probe 7 this ruled out `ingred_crab_meat_01` (`Crab Meat`, 9) and
+`ingred_comberry_01` (`Comberry`, 8), which are in the same room.
 
 ---
 

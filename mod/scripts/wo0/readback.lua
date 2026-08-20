@@ -1,6 +1,6 @@
 -- Work Order 0 -- load context writability spike (Layer 2).
 --
--- Reads the same four values back from a GLOBAL script -- a context with no
+-- Reads the same eight values back from a GLOBAL script -- a context with no
 -- relationship to the load context that wrote them. This is the check that
 -- matters: a write can be accepted locally and never reach the game data.
 --
@@ -8,7 +8,11 @@
 --   types.Armor.records[id].name        (types.lua: list<ArmorRecord> records)
 --   types.Creature.records[id].name     (types.lua: list<CreatureRecord> records)
 --   types.Book.records[id].text         (types.lua: list<BookRecord> records)
+--   types.Ingredient.records[id].name   (types.lua: list<IngredientRecord> records)
 --   core.dialogue.topic.records[t].infos[i].text
+--   core.magic.spells.records[id].name
+--   core.magic.effects.records[id].name
+--   core.getGMST(name)                  (core.lua: "Not available in load scripts")
 --
 -- This script stores nothing and implements no onSave handler, so it adds no
 -- data to save games.
@@ -80,12 +84,65 @@ local function checkRecord(label, store, id, field, sentinel)
     end
 end
 
+-- GMST readback goes through core.getGMST, which the API docs mark as "Not
+-- available in load scripts". That makes it a genuinely independent path:
+-- it cannot be answered by whatever the load context left in its own map.
+local function checkGMST(name, sentinel)
+    log('')
+    log('--- READBACK 5/8 GMST string ---')
+    log('  setting   :', name)
+
+    local ok, value = try(function() return core.getGMST(name) end)
+    if not ok then
+        log('  RESULT    : READ_FAILED')
+        log('  detail    :', tostring(value))
+        return
+    end
+    log('  value     :', brief(value))
+    if value == sentinel then
+        log('  RESULT    : SENTINEL_PRESENT  readback_ok=true')
+    else
+        log('  RESULT    : ORIGINAL_VALUE    readback_ok=false')
+    end
+end
+
+-- Spells and magic effects live under core.magic, not openmw.types.
+local function checkMagic(label, store, ids, sentinel)
+    log('')
+    log('--- READBACK ' .. label .. ' ---')
+    log('  record id :', ids[1])
+
+    if store == nil then
+        log('  RESULT    : NO_READ_SURFACE (store is nil)')
+        return
+    end
+
+    for _, id in ipairs(ids) do
+        local ok, value = try(function()
+            local rec = store[id]
+            if rec == nil then return nil end
+            return rec.name
+        end)
+        if ok and value ~= nil then
+            log('  matched id:', tostring(id))
+            log('  value     :', brief(value))
+            if value == sentinel then
+                log('  RESULT    : SENTINEL_PRESENT  readback_ok=true')
+            else
+                log('  RESULT    : ORIGINAL_VALUE    readback_ok=false')
+            end
+            return
+        end
+    end
+    log('  RESULT    : READ_FAILED (none of the candidate ids resolved)')
+end
+
 local INFO_TOPIC = 'little advice'
 local INFO_ACTOR = 'arrille'
 
 local function checkInfo(sentinel)
     log('')
-    log('--- READBACK 4/4 INFO response text ---')
+    log('--- READBACK 4/8 INFO response text ---')
     log('  topic        :', INFO_TOPIC)
     log('  filterActorId:', INFO_ACTOR)
 
@@ -133,13 +190,34 @@ local function runOnce()
     log('# Context: GLOBAL (not the load context)         #')
     log('##################################################')
 
-    checkRecord('1/4 ARMO name', types.Armor and types.Armor.records,
+    checkRecord('1/8 ARMO name', types.Armor and types.Armor.records,
                 'newtscale_cuirass', 'name', 'SPIKE_ARMO_OK')
-    checkRecord('2/4 CREA name', types.Creature and types.Creature.records,
+    checkRecord('2/8 CREA name', types.Creature and types.Creature.records,
                 'mudcrab', 'name', 'SPIKE_CREA_OK')
-    checkRecord('3/4 BOOK text', types.Book and types.Book.records,
+    checkRecord('3/8 BOOK text', types.Book and types.Book.records,
                 'bk_BriefHistoryEmpire1', 'text', 'SPIKE_BOOK_OK')
     checkInfo('SPIKE_INFO_OK')
+
+    -- Probes 5-8: the sub-packages that do exist.
+    checkGMST('sMagicEffects', 'SPIKE_GMST_OK')
+
+    -- core.magic.effects.records is documented as map<number, MagicEffect>
+    -- while EFFECT_TYPE entries carry string values, so try the constant
+    -- first and the literal id second rather than betting on either.
+    local effectIds = { 'absorbfatigue' }
+    local okEt, et = try(function() return core.magic.EFFECT_TYPE.AbsorbFatigue end)
+    if okEt and et ~= nil then table.insert(effectIds, 1, et) end
+
+    local okSpells, spellStore = try(function() return core.magic.spells.records end)
+    checkMagic('6/8 SPEL name', okSpells and spellStore or nil,
+               { 'absorb fatigue' }, 'SPIKE_SPEL_OK')
+
+    checkRecord('7/8 INGR name', types.Ingredient and types.Ingredient.records,
+                'food_kwama_egg_02', 'name', 'SPIKE_INGR_OK')
+
+    local okEff, effectStore = try(function() return core.magic.effects.records end)
+    checkMagic('8/8 MGEF name', okEff and effectStore or nil,
+               effectIds, 'SPIKE_MGEF_OK')
 
     log('')
     log('=== Layer 2 complete. Compare against Layer 1 results above. ===')

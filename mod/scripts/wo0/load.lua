@@ -91,15 +91,37 @@ local function findRecord(recs, id)
     return nil, nil
 end
 
+-- When a lookup misses, show a few real keys from the store. If a store uses
+-- a key format we did not anticipate, this is what tells us what it is.
+local function sampleKeys(recs, n)
+    n = n or 5
+    local ok, keys = try(function()
+        local out = {}
+        for k in pairs(recs) do
+            out[#out + 1] = tostring(k)
+            if #out >= n then break end
+        end
+        return out
+    end)
+    if not ok or keys == nil or #keys == 0 then return '<could not sample keys>' end
+    return table.concat(keys, ', ')
+end
+
 ----------------------------------------------------------------------------
 -- A single write attempt, fully reported.
 ----------------------------------------------------------------------------
 
+-- field == nil means the store maps id directly to a value rather than to a
+-- record with fields. content.gameSettings is the one store shaped that way:
+-- its stub documents records as map<string, any>, and the engine's own
+-- esmfallbacks.lua writes it as `store[id] = value`.
 local function attempt(label, candidates, recordId, field, sentinel)
+    local isScalar = (field == nil)
+
     log('')
     log('=== ATTEMPT ' .. label .. ' ===')
     log('  record id :', recordId)
-    log('  field     :', field)
+    log('  field     :', isScalar and '<the stored value itself>' or field)
     log('  sentinel  :', sentinel)
 
     local sub, subName = findSub(candidates)
@@ -115,19 +137,29 @@ local function attempt(label, candidates, recordId, field, sentinel)
     local rec, usedId = findRecord(sub.records, recordId)
     if rec == nil then
         log('  RESULT    : RECORD_NOT_FOUND')
+        log('  sample keys in this store:', sampleKeys(sub.records))
         log('  write_ok=false readback_load=n/a')
         return
     end
     log('  matched id:', usedId)
 
-    local okOld, oldValue = try(function() return rec[field] end)
+    local okOld, oldValue = try(function()
+        if isScalar then return rec end
+        return rec[field]
+    end)
     if okOld then
         log('  old value :', brief(oldValue))
     else
         log('  old value : <read failed: ' .. tostring(oldValue) .. '>')
     end
 
-    local okWrite, werr = try(function() rec[field] = sentinel end)
+    local okWrite, werr = try(function()
+        if isScalar then
+            sub.records[usedId] = sentinel
+        else
+            rec[field] = sentinel
+        end
+    end)
     if not okWrite then
         log('  RESULT    : WRITE_THREW')
         log('  detail    :', tostring(werr))
@@ -141,6 +173,7 @@ local function attempt(label, candidates, recordId, field, sentinel)
     local okBack, newValue = try(function()
         local r2 = findRecord(sub.records, recordId)
         if r2 == nil then return nil end
+        if isScalar then return r2 end
         return r2[field]
     end)
 
@@ -170,7 +203,7 @@ local INFO_ACTOR = 'arrille'
 
 local function attemptInfo(sentinel)
     log('')
-    log('=== ATTEMPT 4/4 INFO response text ===')
+    log('=== ATTEMPT 4/8 INFO response text ===')
     log('  topic        :', INFO_TOPIC)
     log('  filterActorId:', INFO_ACTOR)
     log('  sentinel     :', sentinel)
@@ -266,24 +299,59 @@ local function run()
     enumerate()
 
     -- 1. ARMO name (FNAM). Target sits in Seyda Neen, Arrille's Tradehouse.
-    attempt('1/4 ARMO name (FNAM)',
+    attempt('1/8 ARMO name (FNAM)',
             { 'armors', 'armor', 'armours', 'armo' },
             'newtscale_cuirass', 'name', 'SPIKE_ARMO_OK')
 
     -- 2. CREA name (FNAM). Mudcrab is the only creature in the Seyda Neen
     --    exterior cell, so it is the most reachable creature target there.
-    attempt('2/4 CREA name (FNAM)',
+    attempt('2/8 CREA name (FNAM)',
             { 'creatures', 'creature', 'crea' },
             'mudcrab', 'name', 'SPIKE_CREA_OK')
 
     -- 3. BOOK text. Target sits in Seyda Neen, Census and Excise Office --
     --    the room the game starts in.
-    attempt('3/4 BOOK text',
+    attempt('3/8 BOOK text',
             { 'books', 'book' },
             'bk_BriefHistoryEmpire1', 'text', 'SPIKE_BOOK_OK')
 
     -- 4. INFO response text, on a record filtered to a specific actor id.
     attemptInfo('SPIKE_INFO_OK')
+
+    ------------------------------------------------------------------------
+    -- Probes 5-8: sub-packages that DO exist in 0.51 and appear in the
+    -- project's naming table. Attempts 1-4 establish what is broken; these
+    -- establish what survives, in the same pass.
+    ------------------------------------------------------------------------
+
+    -- 5. GMST string. Scalar store, so no field name is passed.
+    --    sMagicEffects is the header of the tooltip that also displays
+    --    probes 6 and 8, so one tooltip verifies three probes at once.
+    attempt('5/8 GMST string',
+            { 'gameSettings', 'gamesettings', 'gmsts' },
+            'sMagicEffects', nil, 'SPIKE_GMST_OK')
+
+    -- 6. SPEL name. Sold by Arrille in Seyda Neen; its only effect is the
+    --    magic effect used by probe 8.
+    attempt('6/8 SPEL name',
+            { 'spells', 'spell', 'spel' },
+            'absorb fatigue', 'name', 'SPIKE_SPEL_OK')
+
+    -- 7. INGR name. Target sits in Seyda Neen, Census and Excise Office --
+    --    the room the game starts in.
+    attempt('7/8 INGR name',
+            { 'ingredients', 'ingredient', 'ingr' },
+            'food_kwama_egg_02', 'name', 'SPIKE_INGR_OK')
+
+    -- 8. MGEF name. Note the ordering hazard: the engine's own LOAD script
+    --    esmfallbacks.lua overwrites every magic effect name from its GMST
+    --    during onContentFilesLoaded. builtin.omwscripts is loaded before
+    --    this file, so that script runs first and this write lands on top.
+    --    If this probe reports WRITE_OK but the game still shows the vanilla
+    --    name, that ordering assumption is what to re-check first.
+    attempt('8/8 MGEF name',
+            { 'magicEffects', 'magiceffects', 'mgef' },
+            'absorbfatigue', 'name', 'SPIKE_MGEF_OK')
 
     log('')
     log('=== Layer 1 complete. Layer 2 readback runs when a game starts. ===')
