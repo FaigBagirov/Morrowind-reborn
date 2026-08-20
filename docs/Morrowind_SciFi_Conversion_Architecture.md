@@ -60,6 +60,8 @@ Why this is the right tool for a lore rewrite:
 
 Caveat: the context is marked work-in-progress upstream, so the API may shift between releases. Pin your OpenMW version during development.
 
+**Which fields are actually writable is unverified.** Part 12 (Work Order 0) exists to establish that before anything is built on this assumption.
+
 **Recommended split:** Load context for all text substitution. A small conventional plugin only for things that must be real records — new items, new spells, new magic effects.
 
 ---
@@ -206,7 +208,7 @@ Slot trade-offs:
 | Robe | Free slot for most builds, worn over armour, highly visible | Hides pauldrons and greaves visually |
 | Amulet | No armour conflict | Prime enchanting slot |
 
-**Tiering turns a restriction into progression:** let the device determine which schools are available or cap maximum magicka, so a basic emitter is weak and a full nanite weave grants everything.
+**No tiers.** `SETTLED` The device is a switch, not a ladder: it grants access to techniques the character has already learned, nothing more. Progression stays in skills, where vanilla put it. See *Canon* Part 13 for why a tiered design was rejected.
 
 ### Failure modes to plan for
 
@@ -284,9 +286,60 @@ Paste into project instructions:
 
 ---
 
-## Part 12. Work Order 1 — Dialogue Survey
+## Part 12. Work Order 0 — Load Context Spike
 
-**The first job. Runs before the rules table, before any text is written, before anything is renamed.**
+**The first thing built. Half an hour of work; it decides which architecture the project uses.**
+
+### The unverified assumption
+
+Part 3 recommends the load context on the strength of the upstream release note: scripts in this context receive the loaded records *as mutable data*. What that note does not say is **which fields of which record types are actually writable**.
+
+The project needs three things to be mutable:
+
+| Need | Record type | Field |
+| --- | --- | --- |
+| `Zenaric Cuirass`, `Zenaroth` | ARMO, WEAP, CLOT, CREA | FNAM |
+| Dwemer records, rewritten books | BOOK | text |
+| Informed characters' lines | INFO | response text |
+
+**If INFO text turns out to be read-only, the architecture changes completely** and the project falls back to plugins via `tes3conv`, with every load-order conflict that implies. This must be known before anything is built on top of it.
+
+### The spike
+
+A load-context script that attempts to modify one field of each required type and logs the outcome — succeeded, failed, silently reverted. One item, one creature, one book, one INFO record. Nothing more.
+
+Then launch the game and confirm with your eyes: did the item name change in the inventory, the book text on the page, the line in the NPC's mouth? **A write that succeeds in the log but does not appear in game is the failure mode worth catching**, and only a visual check catches it.
+
+### Output
+
+```
+record_type, field, writable, persists_in_game, notes
+```
+
+That table determines the boundary: what goes through the context, and what has to be a real plugin record.
+
+### A hybrid is certain regardless of outcome
+
+Even in the best case, some things must be actual records in a plugin:
+
+* The nanite device — a new item
+* Custom magic effects, if any are needed
+
+So the shape is fixed in advance: **a small stable plugin for new entities, plus the load context for bulk text rewriting.** The spike only establishes where the line falls.
+
+### The risk this makes visible
+
+The topic-ID policy (Part 5) was chosen for maximum mod compatibility and longevity. Sound reasoning — but the load context is marked work-in-progress upstream, and its API may change between engine releases. The risk did not disappear; it moved. **The mod will survive any mod list and may break on an OpenMW update.**
+
+Accept it, for one specific reason: **load-context breakage is loud.** The script throws on startup and you know within two seconds. Broken dialogue branches are silent — discovered twenty hours in, not reproducible. Trading a silent failure for a loud one is always the right trade.
+
+Practical consequence: **pin the engine version for the duration of development.** Update deliberately, with a test character run afterwards, never incidentally.
+
+---
+
+## Part 13. Work Order 1 — Dialogue Survey
+
+**Runs after Work Order 0, before the rules table and before any text is written.**
 
 Until this pass has run you do not know the size of the project. You cannot scope it, schedule it, or decide what is worth doing.
 

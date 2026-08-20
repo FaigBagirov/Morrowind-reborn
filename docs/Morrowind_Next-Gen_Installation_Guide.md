@@ -44,7 +44,10 @@ These mods transform the outdated 2002 gameplay into a modern experience using O
 ### 4.1. General Mechanics
 * **Purist Friendly Magicka Regen:** Adds slow, balanced, real-time magicka regeneration (perfect for simulating battery recharge in a Sci-Fi setting).
 * **Crafting Framework** or **Morrowind Crafting:** Allows forging weapons, armor, arrows, and cooking.
-* **Living Cities of Vvardenfell:** NPCs get daily schedules, going home at night and locking their doors.
+* **NPC schedules — pick exactly one of these three.** They all do the same job and will fight each other if stacked:
+  * **Living Cities of Vvardenfell (LCV)** — the classic ESP-based option.
+  * **Go Home!** — OpenMW Lua, by the MOMW team. **Not on Nexus** — it lives on GitLab under the `modding-openmw` group, and `umo` installs it as part of the MOMW lists. NPCs walk home at night or in bad weather; if they have no home they despawn out of sight. Extensive blacklists, and a debug mode under *Options -> Scripts* that logs which NPCs it took control of.
+  * **(OpenMW) Lua NPC Schedule** — on Nexus. Does what Go Home! does plus daytime activity: NPCs go shopping and visit temples. The most complete of the three. On OpenMW 0.51 it no longer needs `go-home.omwaddon` for its weather logic.
 * **Starfire's NPC Additions:** Adds travelers and patrols to the empty roads between cities.
 
 ### 4.2. Combat & Artificial Intelligence
@@ -163,7 +166,13 @@ In the OpenMW launcher, under the **Graphics** and **Advanced** tabs:
 * Enable dynamic shadows and set the shadow map quality to an acceptable level for your GPU.
 * Enable **Distant Terrain** to remove the original fog.
 
-## Step 8. Antigravity Integration (Sci-Fi Project)
+## Step 8. Sci-Fi Conversion (Lore Rewrite Project)
+
+> **This step is superseded.** The method below was the original sketch and is kept only for context. The current approach is documented in two companion files:
+> * *Morrowind Sci-Fi Conversion — Architecture* — method, safety rules, work orders
+> * *Morrowind Sci-Fi Conversion — Canon* — the setting and its rules
+>
+> Key deviations from what is written below: the master files are never converted or edited; text rewriting happens through the OpenMW 0.51 Lua **load context** rather than through plugins; and the model writes a deterministic transform script rather than performing substitutions itself.
 
 Once the base is assembled and tested in-game, you are ready to rewrite the lore:
 1. Download the **tes3conv** console utility.
