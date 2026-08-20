@@ -1,0 +1,5 @@
+# Work Order 0 - load context writability spike.
+# Remove by deleting mod/ contents; nothing else references these files.
+
+LOAD:   scripts/wo0/load.lua
+GLOBAL: scripts/wo0/readback.lua
