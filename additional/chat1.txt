@@ -1,4 +1,4 @@
-Prompt:
+d#348-348
 Read CLAUDE.md, then docs/Morrowind_SciFi_Conversion_Architecture.md
 Part 3 and Part 12. Part 12 is the task.
 
@@ -12,7 +12,7 @@ The load context was added in OpenMW 0.51, after your training data.
 In order:
   1. Fetch https://openmw.readthedocs.io/en/latest/reference/lua-scripting/
   2. If still unclear, read the engine's own Lua scripts for working
-     examples: C:\Program Files\OpenMW\resources\vfs
+     examples: D:\Program Files\OpenMW 0.51.0\resources
      (adjust the path if OpenMW is installed elsewhere — ask me)
   3. If still unclear, STOP AND ASK ME.
 
@@ -67,10 +67,7 @@ tools/input/ — those are the master files, read-only, no exceptions.
 
 === STOP ===
 Do not run the game. Build it, then stop and tell me how to run it.
-
-
-----------------------------------------------------------------------------------
-
+Show more
 I'll start by reading the project instructions and the architecture doc sections you named.
 
 Bash Read CLAUDE.md and list project structure
@@ -4721,3 +4718,995 @@ Two things to flag
 Nothing outside the project was modified. Registering the script needs a content= line, which would mean editing dev/openmw.cfg. I pass --content on the command line instead — the docs confirm command-line values append after config-file ones, so the masters still load first. Delete mod/ contents and the spike is gone.
 Two knowing rule deviations, both spike-only, documented in §6 of the report: SPIKE_CREA_OK (13 chars) is longer than Mudcrab (7), and the INFO sentinel drops the topic keyword. The length rule exists for byte-level ESM patching, which is the very architecture this spike is testing; I chose mudcrab because reachability was your stated priority.
 One correction on my own work: my first ASCII compliance check was broken — grep -P failed on a locale error and -q masked it, reporting everything clean. The mod files were genuinely clean, but the report had 27 em-dashes. Re-checked bytewise in Python; all five files are now ASCII.
+
+Before I run it: add probes for the sub-packages that DO exist and
+that appear in our naming table — gameSettings, ingredients, spells,
+magicEffects. Same attempt() function, same sentinel pattern.
+
+Reason: three of four current targets are predicted to fail. If they
+do, the run tells me what's broken but not what survives. I need the
+positive half of the answer in the same pass.
+
+Pick vanilla record ids for each. Extend the verification card.
+Then stop again.
+Good call — that's the half of the answer the current four can't give. Two things I need to check before writing: GMST records are a scalar map, not field-bearing records, and esmfallbacks.lua (the engine's own LOAD script) overwrites every magicEffect name — so ordering matters there.
+
+Bash Check MagicEffect API shape and id format
+IN
+R="D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw"
+echo "=== MagicEffect record type + id format ==="
+grep -n "@type MagicEffect" -A 22 "$R/core.lua"
+echo
+echo "=== how magicEffects are keyed (esmfallbacks uses _getGMSTs) ==="
+grep -n "magicEffects\|_getGMSTs" "D:/Program Files/OpenMW 0.51.0/resources/vfs-mw/scripts/omw/esmfallbacks.lua"
+
+OUT
+=== MagicEffect record type + id format ===
+522:-- @type MagicEffectId
+523--- @field #number WaterBreathing "waterbreathing"
+524--- @field #number SwiftSwim "swiftswim"
+525--- @field #number WaterWalking "waterwalking"
+526--- @field #number Shield "shield"
+527--- @field #number FireShield "fireshield"
+528--- @field #number LightningShield "lightningshield"
+529--- @field #number FrostShield "frostshield"
+530--- @field #number Burden "burden"
+531--- @field #number Feather "feather"
+532--- @field #number Jump "jump"
+533--- @field #number Levitate "levitate"
+534--- @field #number SlowFall "slowfall"
+535--- @field #number Lock "lock"
+536--- @field #number Open "open"
+537--- @field #number FireDamage "firedamage"
+538--- @field #number ShockDamage "shockdamage"
+539--- @field #number FrostDamage "frostdamage"
+540--- @field #number DrainAttribute "drainattribute"
+541--- @field #number DrainHealth "drainhealth"
+542--- @field #number DrainMagicka "drainmagicka"
+543--- @field #number DrainFatigue "drainfatigue"
+544--- @field #number DrainSkill "drainskill"
+--
+752:-- @type MagicEffect
+753--- @field #string id Effect ID
+754--- @field #string icon Effect Icon Path
+755--- @field #string name Localized name of the effect
+756--- @field #string description Localized description of the effect
+757--- @field #string school Skill ID that is this effect's school
+758--- @field #number baseCost
+759--- @field openmw.util#Color color
+760--- @field #boolean harmful If set, the effect is considered harmful and should elicit a hostile reaction from affected NPCs.
+761--- @field #boolean continuousVfx Whether the magic effect's vfx should loop or not
+762--- @field #boolean hasDuration If set, the magic effect has a duration. As an example, divine intervention has no duration while fire damage does.
+763--- @field #boolean hasMagnitude If set, the magic effect depends on a magnitude. As an example, cure common disease has no magnitude while chameleon does.
+764--- @field #boolean isAppliedOnce If set, the magic effect is applied fully on cast, rather than being continuously applied over the effect's duration. For example, chameleon is applied once, while fire damage is continuously applied for the duration.
+765--- @field #boolean casterLinked If set, it is implied the magic effect links back to the caster in some way and should end immediately or never be applied if the caster dies or is not an actor.
+766--- @field #boolean nonRecastable If set, this effect cannot be re-applied until it has ended. This is used by bound equipment spells.
+767--- @field #string particle Identifier of the particle texture
+768--- @field #string castStatic Identifier of the vfx static used for casting
+769--- @field #string hitStatic Identifier of the vfx static used on hit
+770--- @field #string areaStatic Identifier of the vfx static used for AOE spells
+771--- @field #string bolt Identifier of the projectile used for ranged spells
+772--- @field #string castSound Identifier of the sound used for casting
+773--- @field #string hitSound Identifier of the sound used on hit
+774--- @field #string areaSound Identifier of the sound used for AOE spells
+--
+789:-- @type MagicEffectWithParams
+790--- @field #MagicEffect effect @{#MagicEffect}
+791--- @field #string id ID of the associated @{#MagicEffect}
+792--- @field #string affectedSkill Optional skill ID
+793--- @field #string affectedAttribute Optional attribute ID
+794--- @field #number range
+795--- @field #number area
+796--- @field #number magnitudeMin
+797--- @field #number magnitudeMax
+798--- @field #number duration
+799--- @field #number index Index of this effect within the original list of @{#MagicEffectWithParams} of the spell/enchantment/potion this effect came from.
+800-
+801----
+802--- @type ActiveEffect
+803--- Magic effect that is currently active on an actor.
+804--- @field #string affectedSkill Optional skill ID
+805--- @field #string affectedAttribute Optional attribute ID
+806--- @field #string id Effect id string
+807--- @field #string name Localized name of the effect
+808--- @field #number magnitude Current magnitude of the effect. Will be set to 0 when the effect is removed or expires.
+809--- @field #number magnitudeBase
+810--- @field #number magnitudeModifier
+811-
+
+=== how magicEffects are keyed (esmfallbacks uses _getGMSTs) ===
+87:    local effects = content.magicEffects.records
+88:    for id, gmst in pairs(content.magicEffects._getGMSTs()) do
+Bash Check Spell and Ingredient record fields
+IN
+R="D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw"
+echo "=== Spell type ==="
+grep -n "@type Spell$" -A 16 "$R/core.lua"
+echo
+echo "=== IngredientRecord ==="
+grep -n "@type IngredientRecord" -A 14 "$R/types.lua"
+
+OUT
+=== Spell type ===
+740:-- @type Spell
+741--- @field #string id Spell id
+742--- @field #string name Spell name
+743--- @field #number type @{#SpellType}
+744--- @field #number cost
+745--- @field #list<#MagicEffectWithParams> effects The effects (@{#MagicEffectWithParams}) of the spell
+746--- @field #boolean alwaysSucceedFlag If set, the spell should ignore skill checks and always succeed.
+747--- @field #boolean starterSpellFlag If set, the spell can be selected as a player's starting spell.
+748--- @field #boolean autocalcFlag (DEPRECATED, use isAutocalc) If set, the casting cost should be computed based on the effect list rather than read from the cost field
+749--- @field #boolean isAutocalc If set, the casting cost should be computed based on the effect list rather than read from the cost field
+750-
+751----
+752--- @type MagicEffect
+753--- @field #string id Effect ID
+754--- @field #string icon Effect Icon Path
+755--- @field #string name Localized name of the effect
+756--- @field #string description Localized description of the effect
+
+=== IngredientRecord ===
+1698:-- @type IngredientRecord
+1699--- @field #string id Record id
+1700--- @field #string name Human-readable name
+1701--- @field #string model VFS path to the model
+1702--- @field #string mwscript MWScript on this potion (can be nil)
+1703--- @field #string icon VFS path to the icon
+1704--- @field #number weight
+1705--- @field #number value
+1706--- @field #list<openmw.core#MagicEffectWithParams> effects The effects (@{#list<openmw.core#MagicEffectWithParams>}) of the ingredient
+1707-
+1708-
+1709---- @{#LOCKABLE} functions
+1710--- @field [parent=#types] #LOCKABLE Lockable
+1711-
+1712----
+Confirmed: spells, ingredients, and magicEffects all have a name field (same shape as attempt()), but gameSettings.records is a scalar map — the entry is the value. Let me nail the readback surfaces and pick vanilla IDs.
+
+Bash Find GMST and magic readback surfaces
+IN
+R="D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw"
+echo "=== getGMST ==="; grep -n "getGMST" -B 4 -A 4 "$R/core.lua"
+echo; echo "=== core.magic spells / effects stores ==="
+grep -nE "\[parent=#Magic\]|@field \[parent=#core\] #Magic|magic\.spells|magic\.effects" "$R/core.lua" | head -20
+
+OUT
+=== getGMST ===
+57--- @return #number
+58-
+59----
+60--- Get a game setting with given name (from GMST ESM records or from openmw.cfg). Not available in load scripts.
+61:-- @function [parent=#core] getGMST
+62--- @param #string setting Setting name
+63--- @return #any
+64:-- @usage local skillBonus = core.getGMST('fMinorSkillBonus') -- get a numeric GMST from ESM data
+65:-- @usage local jailFormatString = core.getGMST('sNotifyMessage42') -- get a string GMST from ESM data
+66:-- @usage local bloodTextureName = core.getGMST('Blood_Texture_1') -- get a "fallback" parameter value from openmw.cfg (always a string)
+67-
+68----
+69--- The game's difficulty setting.
+70--- @function [parent=#core] getGameDifficulty
+
+=== core.magic spells / effects stores ===
+393:-- @field [parent=#Magic] #EnchantmentType ENCHANTMENT_TYPE
+505:-- @field [parent=#core] #Magic magic
+509:-- @field [parent=#Magic] #SpellRange RANGE
+519:-- @field [parent=#Magic] #MagicEffectId EFFECT_TYPE
+668:-- @field [parent=#Magic] #SpellType SPELL_TYPE
+680:-- @field [parent=#Magic] #Spells spells
+692:-- @usage local spell = core.magic.spells.records['thunder fist']  -- get by id
+693:-- @usage local spell = core.magic.spells.records[1]  -- get by index
+695:-- for _, spell in pairs(core.magic.spells.records) do
+702:-- @field [parent=#Magic] #Effects effects
+707:-- for _, effect in pairs(core.magic.effects.records) do
+713:-- local mgef = core.magic.effects.records[core.magic.EFFECT_TYPE.Reflect]
+717:-- @field [parent=#Magic] #Enchantments enchantments
+Bash Dump SPEL INGR GMST MGEF records
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"; ESM="d:/Work/Morrowind reborn/tools/input/Morrowind.esm"; E="D:/Program Files/OpenMW 0.51.0/esmtool.exe"
+for T in SPEL INGR GMST MGEF; do "$E" dump -t $T "$ESM" > "$SP/$T.txt" 2>&1; echo "$T: $(grep -c "^Record: $T" "$SP/$T.txt") records"; done
+echo "=== GMST format sample ==="; sed -n '/^Record: GMST/,/^$/p' "$SP/GMST.txt" | head -12
+
+OUT
+SPEL: 990 records
+INGR: 95 records
+GMST: 1449 records
+MGEF: 137 records
+=== GMST format sample ===
+Record: GMST "sMonthMorningstar"
+Record flags: [None] (0x00000000)
+  variant string: "Morning Star"
+
+Record: GMST "sMonthSunsdawn"
+Record flags: [None] (0x00000000)
+  variant string: "Sun's Dawn"
+
+Record: GMST "sMonthFirstseed"
+Record flags: [None] (0x00000000)
+  variant string: "First Seed"
+Readback surfaces confirmed — notably core.getGMST() is documented "Not available in load scripts", which makes it a genuinely independent Layer 2 check. Now picking vanilla IDs.
+
+Bash Find visible GMSTs with long values
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+echo "=== visible UI GMSTs with string values, length >= 13 ==="
+awk '/^Record: GMST "/{id=$0; sub(/^Record: GMST "/,"",id); sub(/"$/,"",id)}
+     /^  variant string: "/{v=$0; sub(/^  variant string: "/,"",v); sub(/"$/,"",v);
+        if (length(v)>=13 && length(v)<=40 && id ~ /^s/) printf "%-34s %2d  %s\n", id, length(v), v}' "$SP/GMST.txt" \
+| grep -iE "inventor|magic|spell|rest|menu|title|barter|trade|level|stat|skill|journal|map|option|save|load|button|sleep|wait" | head -30
+
+OUT
+=== visible UI GMSTs with string values, length >= 13 ===
+sHealthPerHourOfRest               23  Health per hour of rest
+sHealthPerLevel                    16  Health per level
+sFavoriteSkills                    15  Favorite Skills
+sSaveGameDenied                    36  You cannot save your game right now.
+sTransparency_Menu                 17  Menu Transparency
+sMenu_Help_Delay                   15  Menu Help Delay
+sPrevSpell                         14  Previous Spell
+sMenuPrevXbox                      13  Previous Menu
+sPrevSpellXbox                     14  Previous Spell
+sQuick_Save                        19  Auto-Save when Rest
+sJournalEntry                      30  Your journal has been updated.
+sMagicEffects                      13  Magic Effects
+sAttributesMenu1                   20  Choose an Attribute 
+sChooseClassMenu1                  15  Specialization:
+sChooseClassMenu2                  20  Favorite Attributes:
+sChooseClassMenu3                  13  Major Skills:
+sChooseClassMenu4                  13  Minor Skills:
+sCreateClassMenuWarning            20  Reselect your class?
+sClassChoiceMenu1                  38  Answer his questions (Generates Class)
+sClassChoiceMenu2                  40  Give him the info (Pick from Class List)
+sNotifyMessage1                    34  You can only rest on solid ground.
+sNotifyMessage2                    39  You can't rest here enemies are nearby.
+sNotifyMessage3                    31  You cannot sleep when dreaming.
+sNotifyMessage38                   15  Skill Increase:
+sNotifyMessage39                   30  Your %s skill increased to %d.
+sNotifyMessage40                   22  Skill Maximum Reached.
+sNotifyMessage44                   30  Your %s skill decreased to %d.
+sNotifyMessage60                   36  %s has been added to your inventory.
+sNotifyMessage61                   39  %d %s has been added to your inventory.
+sNotifyMessage62                   40  %s has been removed from your inventory.
+sMagicEffects is exactly 13 chars — a precise length match. Let me check the always-visible tooltip labels too, and pick the ingredient and spell.
+
+Bash Check tooltip label GMSTs
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+echo "=== always-visible tooltip labels ==="
+awk '/^Record: GMST "/{id=$0;sub(/^Record: GMST "/,"",id);sub(/"$/,"",id)}
+     /^  variant string: "/{v=$0;sub(/^  variant string: "/,"",v);sub(/"$/,"",v);
+       if (id=="sWeight"||id=="sValue"||id=="sMagicEffects"||id=="sSoulGem"||id=="sCondition"||id=="sEnchantCost"||id=="sCharges"||id=="sArmorRating"||id=="sUses"||id=="sQuality")
+         printf "%-16s len=%2d  fmt=%s  %s\n", id, length(v), (v ~ /%/ ? "YES" : "no "), v}' "$SP/GMST.txt"
+
+OUT
+=== always-visible tooltip labels ===
+sUses            len= 4  fmt=no   Uses
+sQuality         len= 7  fmt=no   Quality
+sCharges         len= 7  fmt=no   Charge:
+sArmorRating     len=12  fmt=no   Armor Rating
+sCondition       len= 9  fmt=no   Condition
+sWeight          len= 6  fmt=no   Weight
+sValue           len= 5  fmt=no   Value
+sMagicEffects    len=13  fmt=no   Magic Effects
+sSoulGem         len= 4  fmt=no   Soul
+Bash Find Seyda Neen ingredients and Arrille spells
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+# ingredients placed in Seyda Neen cells
+grep -E '^Record: INGR' "$SP/INGR.txt" | sed -E 's/^Record: INGR "(.*)"$/\1/' | tr 'A-Z' 'a-z' | sort -u > "$SP/ingrids.txt"
+echo "=== ingredients placed in Seyda Neen (all its cells) ==="
+awk '/^Record: CELL/{inb=0} /^  Name: Seyda Neen/{inb=1;next} inb&&/^    ID: "/{gsub(/^    ID: "/,"");gsub(/"$/,"");print tolower($0)}' "$SP/cells.txt" | sort -u > "$SP/sn_all.txt"
+comm -12 "$SP/sn_all.txt" "$SP/ingrids.txt"
+echo
+echo "=== spells sold by arrille (NPC spell list) ==="
+"D:/Program Files/OpenMW 0.51.0/esmtool.exe" dump -t NPC_ -n "arrille" "d:/Work/Morrowind reborn/tools/input/Morrowind.esm" 2>&1 | sed -n '1,60p'
+
+OUT
+=== ingredients placed in Seyda Neen (all its cells) ===
+food_kwama_egg_02
+ingred_bread_01
+ingred_comberry_01
+ingred_crab_meat_01
+
+=== spells sold by arrille (NPC spell list) ===
+Using default (English) font encoding.
+Loading TES3 file: "d:/Work/Morrowind reborn/tools/input/Morrowind.esm"
+Author: Bethesda Softworks
+Description: The main data file For Morrowind
+File format version: 1.2
+sMagicEffects (13 chars, no format specifier) is an exact length match. Now the ingredient and spell names:
+
+Bash Get ingredient names and Arrille's spell list
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+echo "=== Seyda Neen ingredient names ==="
+for i in ingred_crab_meat_01 ingred_comberry_01 ingred_bread_01 food_kwama_egg_02; do
+  awk -v want="Record: INGR \"$i\"" '$0==want{f=1} f&&/^  Name: /{print want" -> "substr($0,9)" ("length(substr($0,9))" chars)"; exit}' "$SP/INGR.txt"
+done
+echo
+echo "=== Arrille's NPC record (spell list) ==="
+"D:/Program Files/OpenMW 0.51.0/esmtool.exe" dump -t NPC_ "d:/Work/Morrowind reborn/tools/input/Morrowind.esm" 2>/dev/null > "$SP/npc.txt"
+awk '/^Record: NPC_ "arrille"$/{f=1} f{print; if(/^  Deleted:/) exit}' "$SP/npc.txt" | head -45
+
+OUT
+=== Seyda Neen ingredient names ===
+Record: INGR "ingred_crab_meat_01" -> Crab Meat (9 chars)
+Record: INGR "ingred_comberry_01" -> Comberry (8 chars)
+Record: INGR "ingred_bread_01" -> Bread (5 chars)
+Record: INGR "food_kwama_egg_02" -> Large Kwama Egg (15 chars)
+
+=== Arrille's NPC record (spell list) ===
+Record: NPC_ "arrille"
+Record flags: Blocked (0x00002000)
+  Name: Arrille
+  Animation: 
+  Hair Model: "b_n_high elf_m_hair_01"
+  Head Model: "b_n_high elf_m_head_03"
+  Race: "High Elf"
+  Class: "Trader Service"
+  Script: "nolore"
+  Flags: Base (0x08)
+  Level: 15
+  Reputation: 0
+  Disposition: 50
+  Rank: 0
+  Attributes:
+    Strength: 66
+    Intelligence: 84
+    Willpower: 54
+    Agility: 56
+    Speed: 56
+    Endurance: 54
+    Personality: 83
+    Luck: 40
+  Skills:
+    Block: 14
+    Armorer: 52
+    Medium Armor: 30
+    Heavy Armor: 14
+    Blunt Weapon: 38
+    Long Blade: 38
+    Axe: 14
+    Spear: 14
+    Athletics: 14
+    Enchant: 16
+    Destruction: 16
+    Alteration: 12
+    Illusion: 12
+    Conjuration: 12
+    Mysticism: 6
+    Restoration: 45
+    Alchemy: 16
+    Unarmored: 50
+    Security: 45
+    Sneak: 6
+    Acrobatics: 6
+food_kwama_egg_02 = "Large Kwama Egg" (15 chars) — satisfies the length rule and is placed in Seyda Neen. Let me pin down where, and get Arrille's spell list:
+
+Bash Locate kwama egg and get Arrille spells
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+echo "=== which Seyda Neen cell holds food_kwama_egg_02 / ingred_crab_meat_01 ==="
+awk '/^Record: CELL/{cell=""} /^  Name: /{cell=substr($0,9)}
+     /^    ID: "food_kwama_egg_02"/ && cell ~ /Seyda Neen/ {print "kwama egg  -> " cell}
+     /^    ID: "ingred_crab_meat_01"/ && cell ~ /Seyda Neen/ {print "crab meat  -> " cell}' "$SP/cells.txt" | sort -u
+echo
+echo "=== Arrille spell list (rest of record) ==="
+awk '/^Record: NPC_ "arrille"$/{f=1} f{print; if(/^  Deleted:/) exit}' "$SP/npc.txt" | sed -n '45,90p'
+
+OUT
+=== which Seyda Neen cell holds food_kwama_egg_02 / ingred_crab_meat_01 ===
+crab meat  -> Seyda Neen, Census and Excise Office
+kwama egg  -> Seyda Neen, Census and Excise Office
+
+=== Arrille spell list (rest of record) ===
+    Acrobatics: 6
+    Light Armor: 30
+    Short Blade: 6
+    Marksman: 6
+    Mercantile: 20
+    Speechcraft: 45
+    Hand-to-hand: 6
+  Health: 141
+  Magicka: 42
+  Fatigue: 230
+  Gold: 800
+  Inventory: Count:    1 Item: "expensive_shirt_03"
+  Inventory: Count:    1 Item: "expensive_shoes_03"
+  Inventory: Count:    1 Item: "expensive_pants_03"
+  Inventory: Count:   -5 Item: "ingred_scrib_jerky_01"
+  Inventory: Count:   -5 Item: "ingred_shalk_resin_01"
+  Inventory: Count:   -5 Item: "ingred_corkbulb_root_01"
+  Inventory: Count:   -2 Item: "sc_drathiswinterguest"
+  Inventory: Count:   -2 Item: "sc_almsiviintervention"
+  Inventory: Count:   -2 Item: "sc_heartwise"
+  Inventory: Count:   -2 Item: "sc_ondusisunhinging"
+  Inventory: Count:   -2 Item: "sc_summonskeletalservant"
+  Inventory: Count:   -2 Item: "sc_vigor"
+  Inventory: Count:   -2 Item: "sc_vitality"
+  Inventory: Count:   -2 Item: "sc_argentglow"
+  Inventory: Count:   -2 Item: "potion_comberry_brandy_01"
+  Inventory: Count:   -2 Item: "potion_comberry_wine_01"
+  Inventory: Count:   -2 Item: "Potion_Cyro_Whiskey_01"
+  Inventory: Count:   -2 Item: "Potion_Local_Brew_01"
+  Inventory: Count:   -2 Item: "potion_local_liquor_01"
+  Inventory: Count:    1 Item: "key_arrile"
+  Spell: "absorb fatigue"
+  Spell: "spark"
+  Spell: "jack of trades"
+  Spell: "father's hand"
+  Spell: "resist magicka"
+  Spell: "hearth heal"
+  Spell: "fireball"
+  Spell: "frostbite"
+  Artificial Intelligence: 
+    AI Hello:30
+    AI Fight:30
+    AI Flee:30
+    AI Alarm:100
+    AI Services:0x00003FFF
+  AI Type: Wander (0x575F4941)
+Both the egg and crab meat are in the Census Office — the starting room. And Arrille sells absorb fatigue. Let me verify the spell/effect pairing so one tooltip can verify three probes at once.
+
+Bash Verify absorb fatigue spell and effect id
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+echo "=== spell 'absorb fatigue' ==="
+awk '/^Record: SPEL "absorb fatigue"$/{f=1} f{print; if(/^  Deleted:/) exit}' "$SP/SPEL.txt"
+echo
+echo "=== MagicEffectId entries containing 'absorb' in core.lua ==="
+grep -nE '@field #number Absorb' "D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw/core.lua"
+
+OUT
+=== spell 'absorb fatigue' ===
+Record: SPEL "absorb fatigue"
+Record flags: [None] (0x00000000)
+  Name: Absorb Fatigue
+  Type: Spells (0)
+  Flags: Autocalc (0x00000001)
+  Cost: 75
+  Effect[0]: Absorb Fatigue (88)
+    Range: Touch (1)
+    Area: 0
+    Duration: 30
+    Magnitude: 5-20
+  Deleted: 0
+
+=== MagicEffectId entries containing 'absorb' in core.lua ===
+608:-- @field #number AbsorbAttribute "absorbattribute"
+609:-- @field #number AbsorbHealth "absorbhealth"
+610:-- @field #number AbsorbMagicka "absorbmagicka"
+611:-- @field #number AbsorbFatigue "absorbfatigue"
+612:-- @field #number AbsorbSkill "absorbskill"
+Perfect pairing: absorb fatigue (name "Absorb Fatigue", 14 chars), its sole effect is absorbfatigue (same name), and sMagicEffects is the header of the very tooltip that displays both. One tooltip verifies all three. Let me confirm the last readback surface:
+
+Bash Verify Ingredient and magic readback stores
+IN
+R="D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw"
+echo "=== types.Ingredient records ==="; grep -nE '#list<#IngredientRecord> records|@field \[parent=#types\] #Ingredient ' "$R/types.lua"
+echo "=== core.magic.spells / effects .records fields ==="; sed -n '680,716p' "$R/core.lua" | grep -nE "@field|@usage" | head
+
+OUT
+=== types.Ingredient records ===
+1671:-- @field [parent=#types] #Ingredient Ingredient
+1681:-- @field [parent=#Ingredient] #list<#IngredientRecord> records
+=== core.magic.spells / effects .records fields ===
+1:-- @field [parent=#Magic] #Spells spells
+11:-- @field [parent=#Spells] #list<#Spell> records A read-only list of all @{#Spell} records in the world database, may be indexed by recordId.
+13:-- @usage local spell = core.magic.spells.records['thunder fist']  -- get by id
+14:-- @usage local spell = core.magic.spells.records[1]  -- get by index
+15:-- @usage -- Print all powers
+23:-- @field [parent=#Magic] #Effects effects
+26:-- @field [parent=#Effects] #map<#number, #MagicEffect> records
+27:-- @usage -- Print all harmful effects
+33:-- @usage -- Look up the record of a specific effect and print its icon
+All four readback surfaces confirmed. Now updating the load script — generalizing attempt() to handle GMST's scalar map, and adding key-sampling diagnostics so a missed key format teaches us the real one.
+
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\load.lua
+Added 16 lines
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\load.lua
+Added 17 lines
+Now adding the four positive-control probes to the run sequence:
+
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\load.lua
+Added 35 lines
+Now the Layer 2 readbacks, each through a genuinely independent surface:
+
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\readback.lua
+Added 53 lines
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\readback.lua
+Added 21 lines
+Now re-running the same verification as before — parse, then execute all eight probes against mocked surfaces:
+
+Bash Syntax check updated Lua files
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+PY="/c/Users/faig3/.virtualenvs/opencv_emotion_ai-xc6ijgYB/Scripts/python"
+$PY "$SP/luacheck.py" "d:/Work/Morrowind reborn/mod/scripts/wo0/load.lua" "d:/Work/Morrowind reborn/mod/scripts/wo0/readback.lua"
+
+OUT
+OK    syntax valid : d:/Work/Morrowind reborn/mod/scripts/wo0/load.lua
+OK    syntax valid : d:/Work/Morrowind reborn/mod/scripts/wo0/readback.lua
+Bash Execute all eight probes against realistic mock
+IN
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+cat > "$SP/harness3.lua" <<'LUAEOF'
+-- Mock of the real 0.51 surface: the 15 sub-packages that exist, none of the
+-- three that do not. GMST is a scalar map, matching the documented shape.
+local mods = {}
+local bookRec  = { id='bk_briefhistoryempire1', name='Brief History of the Empire v 1', text='A Brief History of the Empire...' }
+local spellRec = { id='absorb fatigue',    name='Absorb Fatigue' }
+local ingrRec  = { id='food_kwama_egg_02', name='Large Kwama Egg' }
+local mgefRec  = { id='absorbfatigue',     name='Absorb Fatigue' }
+local gmsts    = { sMagicEffects='Magic Effects', fJumpAcrobaticsBase=128 }
+
+mods['openmw.content'] = {
+  activators={records={}}, books={records={['bk_briefhistoryempire1']=bookRec}},
+  doors={records={}}, enchantments={records={}},
+  gameSettings={records=gmsts}, globals={records={}},
+  ingredients={records={['food_kwama_egg_02']=ingrRec}}, lights={records={}},
+  magicEffects={records={['absorbfatigue']=mgefRec}}, miscs={records={}},
+  potions={records={}}, probes={records={}}, sounds={records={}},
+  spells={records={['absorb fatigue']=spellRec}}, statics={records={}},
+}
+local infos = { { id='1248319992938512979', filterActorId='arrille', text='If you want to live to a ripe old age...' } }
+mods['openmw.core'] = {
+  dialogue = { topic = { records = { ['little advice'] = { infos = infos } } } },
+  magic = { spells={records={['absorb fatigue']=spellRec}},
+            effects={records={['absorbfatigue']=mgefRec}},
+            EFFECT_TYPE={AbsorbFatigue='absorbfatigue'} },
+  getGMST = function(n) return gmsts[n] end,
+}
+mods['openmw.types'] = {
+  Book={records={['bk_briefhistoryempire1']=bookRec}},
+  Armor={records={['newtscale_cuirass']={name='Imperial Newtscale Cuirass'}}},
+  Creature={records={['mudcrab']={name='Mudcrab'}}},
+  Ingredient={records={['food_kwama_egg_02']=ingrRec}},
+}
+local realRequire = require
+require = function(n) if mods[n] then return mods[n] end return realRequire(n) end
+local function runScript(p,h)
+  print('\n>>>>>>>>>> '..p..' <<<<<<<<<<')
+  local c,e = loadfile(p); if not c then error(e) end
+  c().engineHandlers[h]()
+end
+runScript(BASE..'/mod/scripts/wo0/load.lua','onContentFilesLoaded')
+runScript(BASE..'/mod/scripts/wo0/readback.lua','onInit')
+print('\n>>>>>>>>>> HARNESS 3 COMPLETED WITHOUT ERROR <<<<<<<<<<')
+LUAEOF
+"/c/Users/faig3/.virtualenvs/opencv_emotion_ai-xc6ijgYB/Scripts/python" "$SP/luarun.py" "$SP/harness3.lua" "d:/Work/Morrowind reborn" 2>&1 | grep -vE "^\[WO0\] (   -|  count)" | sed -n '1,200p'; echo "EXIT=${PIPESTATUS[0]}"
+
+OUT
+>>>>>>>>>> d:/Work/Morrowind reborn/mod/scripts/wo0/load.lua <<<<<<<<<<
+[WO0] 
+[WO0] ##################################################
+[WO0] # WORK ORDER 0 -- load context writability spike #
+[WO0] # Layer 1: write attempts from the LOAD context  #
+[WO0] ##################################################
+[WO0] 
+[WO0] === ENUMERATION: content sub-packages present at runtime ===
+[WO0] 
+[WO0] === ATTEMPT 1/4 ARMO name (FNAM) ===
+[WO0]   record id : newtscale_cuirass
+[WO0]   field     : name
+[WO0]   sentinel  : SPIKE_ARMO_OK
+[WO0]   RESULT    : NO_API_SURFACE
+[WO0]   detail    : no content sub-package with .records among {armors, armor, armours, armo}
+[WO0]   write_ok=false readback_load=n/a
+[WO0] 
+[WO0] === ATTEMPT 2/4 CREA name (FNAM) ===
+[WO0]   record id : mudcrab
+[WO0]   field     : name
+[WO0]   sentinel  : SPIKE_CREA_OK
+[WO0]   RESULT    : NO_API_SURFACE
+[WO0]   detail    : no content sub-package with .records among {creatures, creature, crea}
+[WO0]   write_ok=false readback_load=n/a
+[WO0] 
+[WO0] === ATTEMPT 3/4 BOOK text ===
+[WO0]   record id : bk_BriefHistoryEmpire1
+[WO0]   field     : text
+[WO0]   sentinel  : SPIKE_BOOK_OK
+[WO0]   surface   : content.books.records
+[WO0]   matched id: bk_briefhistoryempire1
+[WO0]   old value : A Brief History of the Empire...
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === ATTEMPT 4/4 INFO response text ===
+[WO0]   topic        : little advice
+[WO0]   filterActorId: arrille
+[WO0]   sentinel     : SPIKE_INFO_OK
+[WO0]   surface   : no content sub-package for dialogue in this build
+[WO0]   surface   : core.dialogue.topic.records["little advice"].infos
+[WO0]   info index: 1
+[WO0]   info id   : 1248319992938512979
+[WO0]   old value : If you want to live to a ripe old age...
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === ATTEMPT 5/8 GMST string ===
+[WO0]   record id : sMagicEffects
+[WO0]   field     : <the stored value itself>
+[WO0]   sentinel  : SPIKE_GMST_OK
+[WO0]   surface   : content.gameSettings.records
+[WO0]   matched id: sMagicEffects
+[WO0]   old value : Magic Effects
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === ATTEMPT 6/8 SPEL name ===
+[WO0]   record id : absorb fatigue
+[WO0]   field     : name
+[WO0]   sentinel  : SPIKE_SPEL_OK
+[WO0]   surface   : content.spells.records
+[WO0]   matched id: absorb fatigue
+[WO0]   old value : Absorb Fatigue
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === ATTEMPT 7/8 INGR name ===
+[WO0]   record id : food_kwama_egg_02
+[WO0]   field     : name
+[WO0]   sentinel  : SPIKE_INGR_OK
+[WO0]   surface   : content.ingredients.records
+[WO0]   matched id: food_kwama_egg_02
+[WO0]   old value : Large Kwama Egg
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === ATTEMPT 8/8 MGEF name ===
+[WO0]   record id : absorbfatigue
+[WO0]   field     : name
+[WO0]   sentinel  : SPIKE_MGEF_OK
+[WO0]   surface   : content.magicEffects.records
+[WO0]   matched id: absorbfatigue
+[WO0]   old value : Absorb Fatigue
+[WO0]   write call: returned with no error
+[WO0]   RESULT    : WRITE_OK
+[WO0]   write_ok=true readback_load=true
+[WO0] 
+[WO0] === Layer 1 complete. Layer 2 readback runs when a game starts. ===
+
+>>>>>>>>>> d:/Work/Morrowind reborn/mod/scripts/wo0/readback.lua <<<<<<<<<<
+[WO0] 
+[WO0] ##################################################
+[WO0] # WORK ORDER 0 -- Layer 2 readback               #
+[WO0] # Context: GLOBAL (not the load context)         #
+[WO0] ##################################################
+[WO0] 
+[WO0] --- READBACK 1/4 ARMO name ---
+[WO0]   record id : newtscale_cuirass
+[WO0]   field     : name
+[WO0]   matched id: newtscale_cuirass
+[WO0]   value     : Imperial Newtscale Cuirass
+[WO0]   RESULT    : ORIGINAL_VALUE    readback_ok=false
+[WO0] 
+[WO0] --- READBACK 2/4 CREA name ---
+[WO0]   record id : mudcrab
+[WO0]   field     : name
+[WO0]   matched id: mudcrab
+[WO0]   value     : Mudcrab
+[WO0]   RESULT    : ORIGINAL_VALUE    readback_ok=false
+[WO0] 
+[WO0] --- READBACK 3/4 BOOK text ---
+[WO0]   record id : bk_BriefHistoryEmpire1
+[WO0]   field     : text
+[WO0]   matched id: bk_briefhistoryempire1
+[WO0]   value     : SPIKE_BOOK_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] --- READBACK 4/4 INFO response text ---
+[WO0]   topic        : little advice
+[WO0]   filterActorId: arrille
+[WO0]   info index: 1
+[WO0]   info id   : 1248319992938512979
+[WO0]   value     : SPIKE_INFO_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] --- READBACK 5/8 GMST string ---
+[WO0]   setting   : sMagicEffects
+[WO0]   value     : SPIKE_GMST_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] --- READBACK 6/8 SPEL name ---
+[WO0]   record id : absorb fatigue
+[WO0]   matched id: absorb fatigue
+[WO0]   value     : SPIKE_SPEL_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] --- READBACK 7/8 INGR name ---
+[WO0]   record id : food_kwama_egg_02
+[WO0]   field     : name
+[WO0]   matched id: food_kwama_egg_02
+[WO0]   value     : SPIKE_INGR_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] --- READBACK 8/8 MGEF name ---
+[WO0]   record id : absorbfatigue
+[WO0]   matched id: absorbfatigue
+[WO0]   value     : SPIKE_MGEF_OK
+[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[WO0] 
+[WO0] === Layer 2 complete. Compare against Layer 1 results above. ===
+
+>>>>>>>>>> HARNESS 3 COMPLETED WITHOUT ERROR <<<<<<<<<<
+EXIT=0
+All eight work end-to-end. The first four are still labelled "1/4" — fixing that for consistency:
+
+Bash Renumber labels and re-verify
+IN
+cd "d:/Work/Morrowind reborn"
+sed -i "s|'1/4 ARMO|'1/8 ARMO|; s|'2/4 CREA|'2/8 CREA|; s|'3/4 BOOK|'3/8 BOOK|; s|ATTEMPT 4/4 INFO|ATTEMPT 4/8 INFO|" mod/scripts/wo0/load.lua
+sed -i "s|'1/4 ARMO|'1/8 ARMO|; s|'2/4 CREA|'2/8 CREA|; s|'3/4 BOOK|'3/8 BOOK|; s|READBACK 4/4 INFO|READBACK 4/8 INFO|" mod/scripts/wo0/readback.lua
+echo "=== labels now ==="
+grep -ohE "(ATTEMPT|READBACK) [0-9]/8[^']*|'[0-9]/8 [A-Z]+" mod/scripts/wo0/*.lua | sort -u
+echo
+echo "=== re-verify: parse + execute ==="
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+PY="/c/Users/faig3/.virtualenvs/opencv_emotion_ai-xc6ijgYB/Scripts/python"
+$PY "$SP/luacheck.py" mod/scripts/wo0/load.lua mod/scripts/wo0/readback.lua
+$PY "$SP/luarun.py" "$SP/harness3.lua" "d:/Work/Morrowind reborn" 2>&1 | grep -cE "RESULT|COMPLETED WITHOUT ERROR" | xargs echo "result lines emitted:"
+$PY "$SP/luarun.py" "$SP/harness3.lua" "d:/Work/Morrowind reborn" 2>&1 | grep -E "ATTEMPT|READBACK [0-9]" | sed 's/^\[WO0\] //'
+
+OUT
+=== labels now ===
+'1/8 ARMO
+'2/8 CREA
+'3/8 BOOK
+'5/8 GMST
+'6/8 SPEL
+'7/8 INGR
+'8/8 MGEF
+ATTEMPT 4/8 INFO response text ===
+READBACK 4/8 INFO response text ---
+READBACK 5/8 GMST string ---
+
+=== re-verify: parse + execute ===
+OK    syntax valid : mod/scripts/wo0/load.lua
+OK    syntax valid : mod/scripts/wo0/readback.lua
+result lines emitted: 17
+=== ATTEMPT 1/8 ARMO name (FNAM) ===
+=== ATTEMPT 2/8 CREA name (FNAM) ===
+=== ATTEMPT 3/8 BOOK text ===
+=== ATTEMPT 4/8 INFO response text ===
+=== ATTEMPT 5/8 GMST string ===
+=== ATTEMPT 6/8 SPEL name ===
+=== ATTEMPT 7/8 INGR name ===
+=== ATTEMPT 8/8 MGEF name ===
+--- READBACK 1/8 ARMO name ---
+--- READBACK 2/8 CREA name ---
+--- READBACK 3/8 BOOK text ---
+--- READBACK 4/8 INFO response text ---
+--- READBACK 5/8 GMST string ---
+--- READBACK 6/8 SPEL name ---
+--- READBACK 7/8 INGR name ---
+--- READBACK 8/8 MGEF name ---
+Edit d:\Work\Morrowind reborn\mod\scripts\wo0\readback.lua
+Added 4 lines
+Now updating the report — the writability table, targets, and verification card:
+
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Added 8 lines
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Added 12 lines
+Bash Check for duplicated provenance sentence
+IN
+cd "d:/Work/Morrowind reborn" && grep -n "Every id above was read out\|recalled from memory\|A note on target 4" tools/reports/wo0.md
+
+OUT
+120:Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
+121:recalled from memory. `tools/input/` was opened read-only and not modified.
+123:Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
+124:recalled from memory. `tools/input/` was opened read-only and not modified.
+126:A note on target 4: the topic is reachable without any quest setup because
+My edit duplicated a paragraph. Removing the extra copy:
+
+Bash View duplicated region
+IN
+cd "d:/Work/Morrowind reborn" && sed -n '118,128p' tools/reports/wo0.md
+
+OUT
+answers.
+
+Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
+recalled from memory. `tools/input/` was opened read-only and not modified.
+
+Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
+recalled from memory. `tools/input/` was opened read-only and not modified.
+
+A note on target 4: the topic is reachable without any quest setup because
+Arrille's own greeting contains the words "little advice", which hyperlinks the
+topic the moment you first speak to him.
+Bash Delete duplicate paragraph
+IN
+cd "d:/Work/Morrowind reborn" && sed -i '122,124d' tools/reports/wo0.md && sed -n '114,126p' tools/reports/wo0.md
+
+OUT
+Probes 5, 6 and 8 were chosen to converge on a single screen. Open the Magic
+menu and hover **Absorb Fatigue**: the tooltip's section header is probe 5, the
+spell name is probe 6, and the effect line is probe 8. One tooltip, three
+answers.
+
+Every id above was read out of `tools/input/Morrowind.esm` with `esmtool`, not
+recalled from memory. `tools/input/` was opened read-only and not modified.
+
+A note on target 4: the topic is reachable without any quest setup because
+Arrille's own greeting contains the words "little advice", which hyperlinks the
+topic the moment you first speak to him.
+Now extending the verification card with checks 5-8:
+
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Added 4 lines
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Added 44 lines
+Bash Find stale count references in report
+IN
+cd "d:/Work/Morrowind reborn"
+echo "=== fix stale 'four checks' / count references ==="
+grep -n "four checks\|of the four\|these four\|four current" tools/reports/wo0.md
+
+OUT
+=== fix stale 'four checks' / count references ===
+11:Three of the four fields the project needs **have no API surface at all** in
+185:This is the one predicted to succeed. If exactly one of the four checks shows
+Bash View stale sentence context
+IN
+cd "d:/Work/Morrowind reborn" && sed -n '183,188p' tools/reports/wo0.md
+
+OUT
+  `A Brief History of the Empire / Part One / by Stronach k'Thojj III`
+
+This is the one predicted to succeed. If exactly one of the four checks shows
+its sentinel, it should be this one.
+
+---
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Modified
+Bash Locate remaining stale text
+IN
+cd "d:/Work/Morrowind reborn" && grep -n "same four values\|Layer 2 exists\|covers \*\*books and GMST" tools/reports/wo0.md && echo "---" && sed -n '/## 5. What was built/,/### Verification performed/p' tools/reports/wo0.md | head -25
+
+OUT
+54:assumed. It covers **books and GMST strings**. It does not cover item names,
+272:Layer 2 exists because a write can be accepted by the load context and never
+273:reach the game data. It reads the same four values through a completely
+---
+## 5. What was built
+
+```
+mod/wo0-spike.omwscripts        registers both scripts
+mod/scripts/wo0/load.lua        Layer 1 - writes, from the LOAD context
+mod/scripts/wo0/readback.lua    Layer 2 - reads back, from a GLOBAL context
+run-spike.bat                   launch, wait, collect the log
+tools/reports/wo0.md            this file
+```
+
+Layer 2 exists because a write can be accepted by the load context and never
+reach the game data. It reads the same four values through a completely
+different path (`openmw.types` and `openmw.core.dialogue`) from a GLOBAL
+script, which has no relationship to the load context. Agreement between the
+layers is the only evidence that a write actually landed.
+
+The script never calls an API without probing for it first. Each write target
+is looked up against a list of candidate sub-package names, and every access is
+wrapped in `pcall`, so a missing surface is *reported* rather than throwing and
+aborting the remaining tests. Record ids are tried in both their literal and
+lowercased forms, since the ESM and the engine store differ in case.
+
+### Verification performed before handing this over
+Bash Update stale narrative sections
+IN
+cd "d:/Work/Morrowind reborn"
+PY="/c/Users/faig3/.virtualenvs/opencv_emotion_ai-xc6ijgYB/Scripts/python"
+$PY - <<'PYEOF'
+import io
+p='tools/reports/wo0.md'
+s=io.open(p,encoding='utf-8').read()
+
+s=s.replace(
+"assumed. It covers **books and GMST strings**. It does not cover item names,\ncreature names, or dialogue -- which is most of the rewrite surface in the\ntable in Part 12.",
+"assumed. It covers **books, GMST strings, spells, ingredients, potions, magic\neffects and the other twelve record types listed above**. It does not cover\nitem names, creature names, or dialogue -- which is most of the rewrite surface\nin the table in Part 12. Probes 5-8 measure how much of the naming table\nsurvives inside that narrower boundary.")
+
+s=s.replace(
+"Layer 2 exists because a write can be accepted by the load context and never\nreach the game data. It reads the same four values through a completely\ndifferent path (`openmw.types` and `openmw.core.dialogue`) from a GLOBAL\nscript, which has no relationship to the load context. Agreement between the\nlayers is the only evidence that a write actually landed.",
+"Layer 2 exists because a write can be accepted by the load context and never\nreach the game data. It reads the same eight values through completely\ndifferent paths (`openmw.types`, `openmw.core.dialogue`, `openmw.core.magic`\nand `core.getGMST`) from a GLOBAL script, which has no relationship to the load\ncontext. Agreement between the layers is the only evidence that a write\nactually landed.\n\nThe GMST readback is the strongest of the eight: `core.getGMST` is documented\nas \"Not available in load scripts\", so it physically cannot be answered by\nwhatever the load context left behind in its own map.")
+
+io.open(p,'w',encoding='utf-8',newline='\n').write(s)
+print("updated")
+PYEOF
+grep -n "twelve record types\|eight values\|strongest of the eight" tools/reports/wo0.md
+
+OUT
+updated
+55:effects and the other twelve record types listed above**. It does not cover
+275:reach the game data. It reads the same eight values through completely
+281:The GMST readback is the strongest of the eight: `core.getGMST` is documented
+Finally, updating the rule-compliance section — the four new sentinels are all length-compliant, which is worth stating:
+
+Edit d:\Work\Morrowind reborn\tools\reports\wo0.md
+Added 14 lines
+Bash Final verification of all deliverables
+IN
+cd "d:/Work/Morrowind reborn"
+PY="/c/Users/faig3/.virtualenvs/opencv_emotion_ai-xc6ijgYB/Scripts/python"
+echo "=== ASCII (bytewise, the check that actually works) ==="
+$PY -c "
+ok=True
+for f in ['tools/reports/wo0.md','mod/scripts/wo0/load.lua','mod/scripts/wo0/readback.lua','run-spike.bat','mod/wo0-spike.omwscripts']:
+    b=open(f,'rb').read(); bad=[c for c in b if c>127]
+    print(('CLEAN ' if not bad else 'DIRTY(%d) '%len(bad))+f); ok = ok and not bad
+print('ALL ASCII:', ok)
+"
+echo
+echo "=== final parse + full execution of all 8 probes ==="
+SP="C:/Users/faig3/AppData/Local/Temp/claude/d--Work-Morrowind-reborn/c16716bf-a0ad-4c7a-a0cb-12e526dc19a0/scratchpad"
+$PY "$SP/luacheck.py" mod/scripts/wo0/load.lua mod/scripts/wo0/readback.lua
+$PY "$SP/luarun.py" "$SP/harness3.lua" "d:/Work/Morrowind reborn" 2>&1 | grep -E "RESULT|COMPLETED" | sed 's/^\[WO0\]   //' | nl
+echo
+echo "=== masters untouched ==="
+md5sum tools/input/Morrowind.esm
+
+OUT
+=== ASCII (bytewise, the check that actually works) ===
+CLEAN tools/reports/wo0.md
+CLEAN mod/scripts/wo0/load.lua
+CLEAN mod/scripts/wo0/readback.lua
+CLEAN run-spike.bat
+CLEAN mod/wo0-spike.omwscripts
+ALL ASCII: True
+
+=== final parse + full execution of all 8 probes ===
+OK    syntax valid : mod/scripts/wo0/load.lua
+OK    syntax valid : mod/scripts/wo0/readback.lua
+     1	RESULT    : NO_API_SURFACE
+     2	RESULT    : NO_API_SURFACE
+     3	RESULT    : WRITE_OK
+     4	RESULT    : WRITE_OK
+     5	RESULT    : WRITE_OK
+     6	RESULT    : WRITE_OK
+     7	RESULT    : WRITE_OK
+     8	RESULT    : WRITE_OK
+     9	RESULT    : ORIGINAL_VALUE    readback_ok=false
+    10	RESULT    : ORIGINAL_VALUE    readback_ok=false
+    11	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    12	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    13	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    14	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    15	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    16	RESULT    : SENTINEL_PRESENT  readback_ok=true
+    17	>>>>>>>>>> HARNESS 3 COMPLETED WITHOUT ERROR <<<<<<<<<<
+
+=== masters untouched ===
+8bb62fbd41ce4563fa7961f03a5f43ee *tools/input/Morrowind.esm
+Done — eight probes now, four negative and four positive. Stopping here as asked.
+
+The four new probes
+#	Type	Record ID	Vanilla value	Where
+5	GMST	sMagicEffects	Magic Effects	tooltip section header
+6	SPEL	absorb fatigue	Absorb Fatigue	sold by Arrille, Seyda Neen
+7	INGR	food_kwama_egg_02	Large Kwama Egg	Census Office — the starting room
+8	MGEF	absorbfatigue	Absorb Fatigue	the sole effect on probe 6
+Probes 5, 6 and 8 land in one tooltip. absorb fatigue's only effect is absorbfatigue, and sMagicEffects is the header of the effect list. Console player->AddSpell "absorb fatigue", open Magic, hover it — spell title is probe 6, section header is probe 5, effect line is probe 8. Eight checks, about five screens.
+
+Two things I had to handle rather than copy the pattern
+GMST isn't shaped like the others. content.gameSettings.records is documented map<string, any> — the entry is the value, not a record with fields. rec[field] = sentinel would have failed. I generalized attempt() so field == nil means "the stored value itself"; the other three use it unchanged, as you asked.
+
+MGEF has an ordering hazard. The engine's own LOAD script esmfallbacks.lua overwrites every magic effect name from its GMST during onContentFilesLoaded. builtin.omwscripts loads before our file, so it runs first and our write lands on top — but that's an inference about handler order, not something I can prove without running. It's commented in the script and called out in the card: if probe 8 logs write_ok=true but the game still shows "Absorb Fatigue", that's the ordering, not writability. Probes 5 and 6 are unaffected.
+
+One upside worth flagging: the GMST readback goes through core.getGMST, which the docs mark "Not available in load scripts." It physically cannot be answered by whatever the load context left in its own map — the strongest of the eight Layer 2 checks.
+
+Selection detail
+All four new sentinels are length-compliant — each vanilla value is ≥13 chars. That drove probe 7: I rejected ingred_crab_meat_01 ("Crab Meat", 9) and ingred_comberry_01 ("Comberry", 8) from the same room in favour of the egg at 15. So the earlier mudcrab length deviation stands alone rather than being repeated four more times.
+
+I also added key-sampling on RECORD_NOT_FOUND — if a store uses a key format I didn't anticipate, the log now prints five real keys from it instead of just failing.
+
+Verified before handing over
+Same two-stage check as before: both files parsed by OpenMW's own lua51.dll, then executed against a mock of the real 0.51 surface (the 15 sub-packages that exist, none of the three that don't, GMST as a scalar map). All 8 attempts and all 8 readbacks produce correct results, no handler throws. All five files ASCII-clean bytewise; Morrowind.esm checksum unchanged.
+
+Predictions unchanged for 1–4; probes 5–8 all predict WRITE_OK. Report updated at wo0.md. Ready when you are — run-spike.bat.

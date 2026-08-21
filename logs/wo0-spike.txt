@@ -1,106 +1,186 @@
-[08:53:09.498 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.499 I] Load[scripts/wo0/load.lua]:	[WO0] ##################################################
-[08:53:09.500 I] Load[scripts/wo0/load.lua]:	[WO0] # WORK ORDER 0 -- load context writability spike #
-[08:53:09.501 I] Load[scripts/wo0/load.lua]:	[WO0] # Layer 1: write attempts from the LOAD context  #
-[08:53:09.502 I] Load[scripts/wo0/load.lua]:	[WO0] ##################################################
-[08:53:09.503 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.505 I] Load[scripts/wo0/load.lua]:	[WO0] === ENUMERATION: content sub-packages present at runtime ===
-[08:53:09.506 I] Load[scripts/wo0/load.lua]:	[WO0]   count: 16
-[08:53:09.507 I] Load[scripts/wo0/load.lua]:	[WO0]    - RANGE (no .records)
-[08:53:09.508 I] Load[scripts/wo0/load.lua]:	[WO0]    - activators (has .records)
-[08:53:09.512 I] Load[scripts/wo0/load.lua]:	[WO0]    - books (has .records)
-[08:53:09.514 I] Load[scripts/wo0/load.lua]:	[WO0]    - doors (has .records)
-[08:53:09.514 I] Load[scripts/wo0/load.lua]:	[WO0]    - enchantments (has .records)
-[08:53:09.515 I] Load[scripts/wo0/load.lua]:	[WO0]    - gameSettings (has .records)
-[08:53:09.516 I] Load[scripts/wo0/load.lua]:	[WO0]    - globals (has .records)
-[08:53:09.517 I] Load[scripts/wo0/load.lua]:	[WO0]    - ingredients (has .records)
-[08:53:09.518 I] Load[scripts/wo0/load.lua]:	[WO0]    - lights (has .records)
-[08:53:09.519 I] Load[scripts/wo0/load.lua]:	[WO0]    - magicEffects (has .records)
-[08:53:09.519 I] Load[scripts/wo0/load.lua]:	[WO0]    - miscs (has .records)
-[08:53:09.522 I] Load[scripts/wo0/load.lua]:	[WO0]    - potions (has .records)
-[08:53:09.525 I] Load[scripts/wo0/load.lua]:	[WO0]    - probes (has .records)
-[08:53:09.525 I] Load[scripts/wo0/load.lua]:	[WO0]    - sounds (has .records)
-[08:53:09.526 I] Load[scripts/wo0/load.lua]:	[WO0]    - spells (has .records)
-[08:53:09.527 I] Load[scripts/wo0/load.lua]:	[WO0]    - statics (has .records)
-[08:53:09.528 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.529 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 1/8 ARMO name (FNAM) ===
-[08:53:09.529 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : newtscale_cuirass
-[08:53:09.530 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
-[08:53:09.531 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_ARMO_OK
-[08:53:09.531 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE
-[08:53:09.532 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : no content sub-package with .records among {armors, armor, armours, armo}
-[08:53:09.533 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
-[08:53:09.533 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.534 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 2/8 CREA name (FNAM) ===
-[08:53:09.534 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : mudcrab
-[08:53:09.535 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
-[08:53:09.535 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_CREA_OK
-[08:53:09.536 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE
-[08:53:09.536 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : no content sub-package with .records among {creatures, creature, crea}
-[08:53:09.538 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
-[08:53:09.542 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.542 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 3/8 BOOK text ===
-[08:53:09.543 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : bk_BriefHistoryEmpire1
-[08:53:09.544 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : text
-[08:53:09.544 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_BOOK_OK
-[08:53:09.545 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.books.records
-[08:53:09.545 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: bk_BriefHistoryEmpire1
-[08:53:09.546 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards">< ...(5403 chars)
-[08:53:09.547 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
-[08:53:09.547 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
-[08:53:09.548 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
-[08:53:09.548 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.549 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 4/8 INFO response text ===
-[08:53:09.549 I] Load[scripts/wo0/load.lua]:	[WO0]   topic        : little advice
-[08:53:09.550 I] Load[scripts/wo0/load.lua]:	[WO0]   filterActorId: arrille
-[08:53:09.551 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel     : SPIKE_INFO_OK
-[08:53:09.551 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : no content sub-package for dialogue in this build
-[08:53:09.552 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE (core.dialogue.topic unreadable here)
-[08:53:09.552 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : [string "scripts/wo0/load.lua"]:227: attempt to index field 'dialogue' (a nil value)
-[08:53:09.553 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
-[08:53:09.554 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.554 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 5/8 GMST string ===
-[08:53:09.555 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : sMagicEffects
-[08:53:09.557 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : <the stored value itself>
-[08:53:09.558 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_GMST_OK
-[08:53:09.559 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.gameSettings.records
-[08:53:09.559 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: sMagicEffects
-[08:53:09.560 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Magic Effects
-[08:53:09.561 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
-[08:53:09.561 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
-[08:53:09.562 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
-[08:53:09.563 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.563 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 6/8 SPEL name ===
-[08:53:09.563 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : absorb fatigue
-[08:53:09.564 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
-[08:53:09.565 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_SPEL_OK
-[08:53:09.565 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.spells.records
-[08:53:09.566 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: absorb fatigue
-[08:53:09.567 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Absorb Fatigue
-[08:53:09.567 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
-[08:53:09.568 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
-[08:53:09.568 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
-[08:53:09.569 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.569 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 7/8 INGR name ===
-[08:53:09.570 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : food_kwama_egg_02
-[08:53:09.571 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
-[08:53:09.572 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_INGR_OK
-[08:53:09.573 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.ingredients.records
-[08:53:09.574 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: food_kwama_egg_02
-[08:53:09.574 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Large Kwama Egg
-[08:53:09.575 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
-[08:53:09.576 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
-[08:53:09.576 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
-[08:53:09.577 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.577 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 8/8 MGEF name ===
-[08:53:09.578 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : absorbfatigue
-[08:53:09.578 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
-[08:53:09.579 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_MGEF_OK
-[08:53:09.580 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.magicEffects.records
-[08:53:09.580 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: absorbfatigue
-[08:53:09.581 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Absorb Fatigue
-[08:53:09.581 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
-[08:53:09.582 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
-[08:53:09.583 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
-[08:53:09.583 I] Load[scripts/wo0/load.lua]:	[WO0] 
-[08:53:09.584 I] Load[scripts/wo0/load.lua]:	[WO0] === Layer 1 complete. Layer 2 readback runs when a game starts. ===
+[11:48:11.886 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.888 I] Load[scripts/wo0/load.lua]:	[WO0] ##################################################
+[11:48:11.888 I] Load[scripts/wo0/load.lua]:	[WO0] # WORK ORDER 0 -- load context writability spike #
+[11:48:11.889 I] Load[scripts/wo0/load.lua]:	[WO0] # Layer 1: write attempts from the LOAD context  #
+[11:48:11.889 I] Load[scripts/wo0/load.lua]:	[WO0] ##################################################
+[11:48:11.890 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.890 I] Load[scripts/wo0/load.lua]:	[WO0] === ENUMERATION: content sub-packages present at runtime ===
+[11:48:11.891 I] Load[scripts/wo0/load.lua]:	[WO0]   count: 16
+[11:48:11.894 I] Load[scripts/wo0/load.lua]:	[WO0]    - RANGE (no .records)
+[11:48:11.895 I] Load[scripts/wo0/load.lua]:	[WO0]    - activators (has .records)
+[11:48:11.895 I] Load[scripts/wo0/load.lua]:	[WO0]    - books (has .records)
+[11:48:11.896 I] Load[scripts/wo0/load.lua]:	[WO0]    - doors (has .records)
+[11:48:11.896 I] Load[scripts/wo0/load.lua]:	[WO0]    - enchantments (has .records)
+[11:48:11.897 I] Load[scripts/wo0/load.lua]:	[WO0]    - gameSettings (has .records)
+[11:48:11.897 I] Load[scripts/wo0/load.lua]:	[WO0]    - globals (has .records)
+[11:48:11.898 I] Load[scripts/wo0/load.lua]:	[WO0]    - ingredients (has .records)
+[11:48:11.898 I] Load[scripts/wo0/load.lua]:	[WO0]    - lights (has .records)
+[11:48:11.899 I] Load[scripts/wo0/load.lua]:	[WO0]    - magicEffects (has .records)
+[11:48:11.899 I] Load[scripts/wo0/load.lua]:	[WO0]    - miscs (has .records)
+[11:48:11.900 I] Load[scripts/wo0/load.lua]:	[WO0]    - potions (has .records)
+[11:48:11.900 I] Load[scripts/wo0/load.lua]:	[WO0]    - probes (has .records)
+[11:48:11.901 I] Load[scripts/wo0/load.lua]:	[WO0]    - sounds (has .records)
+[11:48:11.902 I] Load[scripts/wo0/load.lua]:	[WO0]    - spells (has .records)
+[11:48:11.903 I] Load[scripts/wo0/load.lua]:	[WO0]    - statics (has .records)
+[11:48:11.903 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.904 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 1/8 ARMO name (FNAM) ===
+[11:48:11.905 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : newtscale_cuirass
+[11:48:11.906 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
+[11:48:11.906 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_ARMO_OK
+[11:48:11.907 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE
+[11:48:11.907 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : no content sub-package with .records among {armors, armor, armours, armo}
+[11:48:11.908 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
+[11:48:11.908 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.908 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 2/8 CREA name (FNAM) ===
+[11:48:11.909 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : mudcrab
+[11:48:11.909 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
+[11:48:11.910 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_CREA_OK
+[11:48:11.910 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE
+[11:48:11.911 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : no content sub-package with .records among {creatures, creature, crea}
+[11:48:11.911 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
+[11:48:11.912 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.912 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 3/8 BOOK text ===
+[11:48:11.914 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : bk_BriefHistoryEmpire1
+[11:48:11.914 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : text
+[11:48:11.915 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_BOOK_OK
+[11:48:11.915 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.books.records
+[11:48:11.916 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: bk_BriefHistoryEmpire1
+[11:48:11.927 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards">< ...(5403 chars)
+[11:48:11.928 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
+[11:48:11.928 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
+[11:48:11.929 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
+[11:48:11.929 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.930 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 4/8 INFO response text ===
+[11:48:11.930 I] Load[scripts/wo0/load.lua]:	[WO0]   topic        : little advice
+[11:48:11.931 I] Load[scripts/wo0/load.lua]:	[WO0]   filterActorId: arrille
+[11:48:11.932 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel     : SPIKE_INFO_OK
+[11:48:11.932 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : no content sub-package for dialogue in this build
+[11:48:11.933 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : NO_API_SURFACE (core.dialogue.topic unreadable here)
+[11:48:11.934 I] Load[scripts/wo0/load.lua]:	[WO0]   detail    : [string "scripts/wo0/load.lua"]:227: attempt to index field 'dialogue' (a nil value)
+[11:48:11.935 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=false readback_load=n/a
+[11:48:11.936 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.937 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 5/8 GMST string ===
+[11:48:11.937 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : sMagicEffects
+[11:48:11.938 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : <the stored value itself>
+[11:48:11.938 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_GMST_OK
+[11:48:11.939 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.gameSettings.records
+[11:48:11.939 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: sMagicEffects
+[11:48:11.940 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Magic Effects
+[11:48:11.941 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
+[11:48:11.941 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
+[11:48:11.942 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
+[11:48:11.942 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.943 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 6/8 SPEL name ===
+[11:48:11.943 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : absorb fatigue
+[11:48:11.944 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
+[11:48:11.944 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_SPEL_OK
+[11:48:11.945 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.spells.records
+[11:48:11.945 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: absorb fatigue
+[11:48:11.955 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Absorb Fatigue
+[11:48:11.956 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
+[11:48:11.956 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
+[11:48:11.957 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
+[11:48:11.958 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.958 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 7/8 INGR name ===
+[11:48:11.959 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : food_kwama_egg_02
+[11:48:11.959 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
+[11:48:11.960 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_INGR_OK
+[11:48:11.960 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.ingredients.records
+[11:48:11.961 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: food_kwama_egg_02
+[11:48:11.965 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Large Kwama Egg
+[11:48:11.966 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
+[11:48:11.966 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
+[11:48:11.967 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
+[11:48:11.968 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.968 I] Load[scripts/wo0/load.lua]:	[WO0] === ATTEMPT 8/8 MGEF name ===
+[11:48:11.969 I] Load[scripts/wo0/load.lua]:	[WO0]   record id : absorbfatigue
+[11:48:11.969 I] Load[scripts/wo0/load.lua]:	[WO0]   field     : name
+[11:48:11.971 I] Load[scripts/wo0/load.lua]:	[WO0]   sentinel  : SPIKE_MGEF_OK
+[11:48:11.971 I] Load[scripts/wo0/load.lua]:	[WO0]   surface   : content.magicEffects.records
+[11:48:11.972 I] Load[scripts/wo0/load.lua]:	[WO0]   matched id: absorbfatigue
+[11:48:11.973 I] Load[scripts/wo0/load.lua]:	[WO0]   old value : Absorb Fatigue
+[11:48:11.973 I] Load[scripts/wo0/load.lua]:	[WO0]   write call: returned with no error
+[11:48:11.974 I] Load[scripts/wo0/load.lua]:	[WO0]   RESULT    : WRITE_OK
+[11:48:11.974 I] Load[scripts/wo0/load.lua]:	[WO0]   write_ok=true readback_load=true
+[11:48:11.975 I] Load[scripts/wo0/load.lua]:	[WO0] 
+[11:48:11.975 I] Load[scripts/wo0/load.lua]:	[WO0] === Layer 1 complete. Layer 2 readback runs when a game starts. ===
+[11:48:32.759 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.760 I] Global[scripts/wo0/readback.lua]:	[WO0] ##################################################
+[11:48:32.761 I] Global[scripts/wo0/readback.lua]:	[WO0] # WORK ORDER 0 -- Layer 2 readback               #
+[11:48:32.761 I] Global[scripts/wo0/readback.lua]:	[WO0] # Context: GLOBAL (not the load context)         #
+[11:48:32.762 I] Global[scripts/wo0/readback.lua]:	[WO0] ##################################################
+[11:48:32.762 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.763 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 1/8 ARMO name ---
+[11:48:32.763 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : newtscale_cuirass
+[11:48:32.763 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : name
+[11:48:32.780 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: newtscale_cuirass
+[11:48:32.781 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : Imperial Newtscale Cuirass
+[11:48:32.781 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : ORIGINAL_VALUE    readback_ok=false
+[11:48:32.782 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.783 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 2/8 CREA name ---
+[11:48:32.784 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : mudcrab
+[11:48:32.784 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : name
+[11:48:32.814 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: mudcrab
+[11:48:32.816 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : Mudcrab
+[11:48:32.816 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : ORIGINAL_VALUE    readback_ok=false
+[11:48:32.817 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.818 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 3/8 BOOK text ---
+[11:48:32.819 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : bk_BriefHistoryEmpire1
+[11:48:32.820 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : text
+[11:48:32.825 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: bk_BriefHistoryEmpire1
+[11:48:32.826 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : SPIKE_BOOK_OK
+[11:48:32.826 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[11:48:32.827 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.827 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 4/8 INFO response text ---
+[11:48:32.828 I] Global[scripts/wo0/readback.lua]:	[WO0]   topic        : little advice
+[11:48:32.828 I] Global[scripts/wo0/readback.lua]:	[WO0]   filterActorId: arrille
+[11:48:32.865 I] Global[scripts/wo0/readback.lua]:	[WO0]   info index: 39
+[11:48:32.865 I] Global[scripts/wo0/readback.lua]:	[WO0]   info id   : 1248319992938512979
+[11:48:32.866 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : If you want to live to a ripe old age, buy a weapon and as much armor  ...(501 chars)
+[11:48:32.867 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : ORIGINAL_VALUE    readback_ok=false
+[11:48:32.867 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.868 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 5/8 GMST string ---
+[11:48:32.869 I] Global[scripts/wo0/readback.lua]:	[WO0]   setting   : sMagicEffects
+[11:48:32.869 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : SPIKE_GMST_OK
+[11:48:32.870 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[11:48:32.870 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.871 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 6/8 SPEL name ---
+[11:48:32.871 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : absorb fatigue
+[11:48:32.907 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: absorb fatigue
+[11:48:32.907 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : SPIKE_SPEL_OK
+[11:48:32.908 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[11:48:32.909 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.909 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 7/8 INGR name ---
+[11:48:32.910 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : food_kwama_egg_02
+[11:48:32.910 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : name
+[11:48:32.913 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: food_kwama_egg_02
+[11:48:32.914 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : SPIKE_INGR_OK
+[11:48:32.915 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[11:48:32.915 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.916 I] Global[scripts/wo0/readback.lua]:	[WO0] --- READBACK 8/8 MGEF name ---
+[11:48:32.916 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : absorbfatigue
+[11:48:32.918 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: absorbfatigue
+[11:48:32.918 I] Global[scripts/wo0/readback.lua]:	[WO0]   value     : SPIKE_MGEF_OK
+[11:48:32.919 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : SENTINEL_PRESENT  readback_ok=true
+[11:48:32.919 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.920 I] Global[scripts/wo0/readback.lua]:	[WO0] --- WRITE-FROM-GLOBAL 9/10 ARMO name (write from GLOBAL) ---
+[11:48:32.921 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : newtscale_cuirass
+[11:48:32.921 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : name
+[11:48:32.922 I] Global[scripts/wo0/readback.lua]:	[WO0]   sentinel  : SPIKE_ARMO_GLOBAL
+[11:48:32.922 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: newtscale_cuirass
+[11:48:32.923 I] Global[scripts/wo0/readback.lua]:	[WO0]   old value : Imperial Newtscale Cuirass
+[11:48:32.984 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : WRITE_THREW
+[11:48:32.985 I] Global[scripts/wo0/readback.lua]:	[WO0]   detail    : [string "scripts/wo0/readback.lua"]:185: sol: cannot write to a readonly property
+[11:48:32.986 I] Global[scripts/wo0/readback.lua]:	[WO0]   write_ok=false readback_ok=n/a
+[11:48:32.986 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.987 I] Global[scripts/wo0/readback.lua]:	[WO0] --- WRITE-FROM-GLOBAL 10/10 CREA name (write from GLOBAL) ---
+[11:48:32.987 I] Global[scripts/wo0/readback.lua]:	[WO0]   record id : mudcrab
+[11:48:32.988 I] Global[scripts/wo0/readback.lua]:	[WO0]   field     : name
+[11:48:32.989 I] Global[scripts/wo0/readback.lua]:	[WO0]   sentinel  : SPIKE_CREA_GLOBAL
+[11:48:32.989 I] Global[scripts/wo0/readback.lua]:	[WO0]   matched id: mudcrab
+[11:48:32.990 I] Global[scripts/wo0/readback.lua]:	[WO0]   old value : Mudcrab
+[11:48:32.990 I] Global[scripts/wo0/readback.lua]:	[WO0]   RESULT    : WRITE_THREW
+[11:48:32.991 I] Global[scripts/wo0/readback.lua]:	[WO0]   detail    : [string "scripts/wo0/readback.lua"]:185: sol: cannot write to a readonly property
+[11:48:32.991 I] Global[scripts/wo0/readback.lua]:	[WO0]   write_ok=false readback_ok=n/a
+[11:48:32.992 I] Global[scripts/wo0/readback.lua]:	[WO0] 
+[11:48:32.992 I] Global[scripts/wo0/readback.lua]:	[WO0] === Layer 2 complete. Compare against Layer 1 results above. ===

@@ -4,6 +4,12 @@
 -- relationship to the load context that wrote them. This is the check that
 -- matters: a write can be accepted locally and never reach the game data.
 --
+-- Probes 9-10 go further: they attempt to WRITE to types.Armor.records and
+-- types.Creature.records from this GLOBAL context. The docs describe these
+-- as "read-only lists", but if the engine does not enforce that, then the
+-- whole architecture problem (no content.armors/creatures in load context)
+-- disappears.
+--
 -- Read surfaces verified in resources/lua_api/openmw/types.lua and core.lua:
 --   types.Armor.records[id].name        (types.lua: list<ArmorRecord> records)
 --   types.Creature.records[id].name     (types.lua: list<CreatureRecord> records)
@@ -137,6 +143,80 @@ local function checkMagic(label, store, ids, sentinel)
     log('  RESULT    : READ_FAILED (none of the candidate ids resolved)')
 end
 
+-- Attempt to WRITE to a types.*.records field from GLOBAL context.
+-- The docs call these "read-only lists", but this probe tests whether the
+-- engine actually enforces that. Same pattern as checkRecord but writes first.
+local function writeFromGlobal(label, store, id, field, sentinel)
+    log('')
+    log('--- WRITE-FROM-GLOBAL ' .. label .. ' ---')
+    log('  record id :', id)
+    log('  field     :', field)
+    log('  sentinel  :', sentinel)
+
+    if store == nil then
+        log('  RESULT    : NO_READ_SURFACE (store is nil)')
+        log('  write_ok=false readback_ok=n/a')
+        return
+    end
+
+    -- Find the record.
+    local rec, usedId
+    local variants = { id, string.lower(id) }
+    for _, variant in ipairs(variants) do
+        local ok, r = try(function() return store[variant] end)
+        if ok and r ~= nil then rec = r; usedId = variant; break end
+    end
+    if rec == nil then
+        log('  RESULT    : RECORD_NOT_FOUND')
+        log('  write_ok=false readback_ok=n/a')
+        return
+    end
+    log('  matched id:', usedId)
+
+    -- Read old value.
+    local okOld, oldValue = try(function() return rec[field] end)
+    if okOld then
+        log('  old value :', brief(oldValue))
+    else
+        log('  old value : <read failed: ' .. tostring(oldValue) .. '>')
+    end
+
+    -- Attempt the write.
+    local okWrite, werr = try(function() rec[field] = sentinel end)
+    if not okWrite then
+        log('  RESULT    : WRITE_THREW')
+        log('  detail    :', tostring(werr))
+        log('  write_ok=false readback_ok=n/a')
+        return
+    end
+    log('  write call: returned with no error')
+
+    -- Re-fetch through the store (not the cached handle) to catch writes
+    -- that only mutated a local copy.
+    local okBack, newValue = try(function()
+        local r2
+        for _, variant in ipairs(variants) do
+            local ok2, rv = try(function() return store[variant] end)
+            if ok2 and rv ~= nil then r2 = rv; break end
+        end
+        if r2 == nil then return nil end
+        return r2[field]
+    end)
+
+    if not okBack then
+        log('  RESULT    : WRITE_OK_READBACK_THREW')
+        log('  detail    :', tostring(newValue))
+        log('  write_ok=true readback_ok=false')
+    elseif newValue == sentinel then
+        log('  RESULT    : WRITE_OK  (!!!)')
+        log('  write_ok=true readback_ok=true')
+    else
+        log('  RESULT    : WRITE_SILENTLY_REVERTED')
+        log('  now reads :', brief(newValue))
+        log('  write_ok=true readback_ok=false')
+    end
+end
+
 local INFO_TOPIC = 'little advice'
 local INFO_ACTOR = 'arrille'
 
@@ -218,6 +298,26 @@ local function runOnce()
     local okEff, effectStore = try(function() return core.magic.effects.records end)
     checkMagic('8/8 MGEF name', okEff and effectStore or nil,
                effectIds, 'SPIKE_MGEF_OK')
+
+    ------------------------------------------------------------------------
+    -- Probes 9-10: write to types.*.records from GLOBAL context.
+    --
+    -- WO0 probes 1-2 failed because content.armors / content.creatures do
+    -- not exist in the load context. But types.Armor.records and
+    -- types.Creature.records are live here in GLOBAL. The docs call them
+    -- "read-only lists" -- but maybe the engine doesn't enforce that.
+    -- If assignment lands, the architecture problem disappears entirely.
+    --
+    -- Same sentinel pattern, wrapped in pcall. Reports write_ok/readback_ok.
+    ------------------------------------------------------------------------
+
+    writeFromGlobal('9/10 ARMO name (write from GLOBAL)',
+                    types.Armor and types.Armor.records,
+                    'newtscale_cuirass', 'name', 'SPIKE_ARMO_GLOBAL')
+
+    writeFromGlobal('10/10 CREA name (write from GLOBAL)',
+                    types.Creature and types.Creature.records,
+                    'mudcrab', 'name', 'SPIKE_CREA_GLOBAL')
 
     log('')
     log('=== Layer 2 complete. Compare against Layer 1 results above. ===')
