@@ -1,256 +1,178 @@
 # Morrowind Sci-Fi Conversion — Canon
 
-Third document in the set:
+**Read *Shared World Canon* first.** This file assumes it and does not repeat it.
 
 | Document | Answers |
 | --- | --- |
+| *Shared World Canon* | What the world is: the species, the Schism, the Maker, the rules |
 | *Next-Gen Installation Guide* | What to install and how |
 | *Conversion Architecture* | How to make changes without breaking the game |
-| **Conversion Canon** (this file) | **What the world is, and what the rules are** |
+| **Morrowind Conversion Canon** (this file) | **Vvardenfell specifically** |
 
-This file is the authority. The substitution rules table is *derived from* this document, never the other way round. If a rule and this file disagree, the rule is wrong.
+This file is the authority for Morrowind. The substitution rules table is *derived from* it and from the shared canon, never the other way round. If a rule and these files disagree, the rule is wrong.
 
-**Status markers:** `SETTLED` — decided, build on it. `PROPOSED` — recommended, awaiting confirmation. `OPEN` — not yet decided.
+**Status markers:** `SETTLED` decided, build on it. `PROPOSED` recommended, awaiting confirmation. `OPEN` not yet decided.
 
 ---
 
-# Part I — The Setting
+# Part 1 — Local Glossary
 
-## 1. Premise `SETTLED`
+Terms that appear only in Morrowind. The general glossary is in the shared canon.
 
-There is no magic. There is one non-human species with technology no one else can replicate, and a planet full of people who mistake that technology for divinity.
+* **Vvardenfell** the island the game takes place on, in the province of Morrowind.
+* **Tribunal** Vivec, Almalexia, Sotha Sil. Three mortals who took power from the Heart.
+* **Dagoth Ur** antagonist. Drawing on the same Heart.
+* **Corprus** not a disease. A hostile payload running on Zenar nanites. See Part 3a.
 
-The species is called the **Zenar**.
+---
 
-## 2. Background glossary
-
-For anyone joining the project who does not know the source material:
-
-* **Nirn** — the planet. Tamriel is a continent on it, Morrowind a province, Vvardenfell an island.
-* **Oblivion** — where the Zenar live. Not "hell"; simply not-here.
-* **Heart of Lorkhan** — an object buried inside Red Mountain. The entire main quest revolves around it.
-* **Tribunal** — Vivec, Almalexia, Sotha Sil. Three mortals who took power from the Heart and became living gods.
-* **Dagoth Ur** — antagonist. Drawing on the same Heart.
-* **Corprus** — an incurable disease spreading from Red Mountain.
-* **Dwemer** — an extinct people who built steam-driven machines. Vanished in a single instant, all of them, thousands of years ago.
-
-## 3. The Schism `SETTLED`
-
-One species, split by an argument over a construction project.
-
-The Zenar undertook the terraforming of Nirn. One faction paid for it out of their own substance — energy, bodies, manufacturing base. The project succeeded: the planet exists. But those who paid were exhausted by it and are now bound to what they built. They cannot leave. Every living thing on Nirn is made partly of them.
-
-The other faction declined to contribute. They kept their full capability and their freedom of movement. They are stronger for the simple reason that they never spent anything.
-
-The mortal terms follow directly from this and are literally accurate:
-
-* **Zenad** — "our ancestors." The faction that became the world. `PROPOSED` (see Part V)
-* **Zenar** — "not our ancestors." The faction that did not.
-
-The near-identity of the two words is the clue that they are one species. A rewritten passage from a knowledgeable source should point this out explicitly.
-
-**There is no good and evil here.** There is an old grievance about who paid the bill. Mortals moralised it afterwards, because mortals moralise everything.
-
-## 3a. The Tribunal `SETTLED`
+# Part 2 — The Tribunal `SETTLED`
 
 **They know, and they lied.** The Temple's entire theology is a cover story for three engineers who tapped an alien reactor and did not share the access.
 
 But the antagonist is **the institution, not the three individuals**. The source material distributes them unevenly and fighting that distribution costs you the best writing in the game:
 
-* **Almalexia** — canonically the final boss of the Tribunal expansion. She murdered Sotha Sil to stop him talking, is killing her own Ordinators, and you kill her. The sanctioned violence you want already exists, fully written.
-* **Sotha Sil** — already dead when you reach him. Killed for knowing.
-* **Vivec** — **breaks ranks.** He is an ally in the main quest, hands you Wraithguard, and *voluntarily confesses*: the power was taken from the Heart, the oaths were broken, the Temple's account of Nerevar is false. He does this because the reactor is breached and there is no longer time to lie.
+* **Almalexia** canonically the final boss of the Tribunal expansion. She murdered Sotha Sil to stop him talking, is killing her own Ordinators, and you kill her. The sanctioned violence you want already exists, fully written.
+* **Sotha Sil** already dead when you reach him. Killed for knowing.
+* **Vivec** **breaks ranks.** He is an ally in the main quest, hands you Wraithguard, and *voluntarily confesses*: the power was taken from the Heart, the oaths were broken, the Temple's account of Nerevar is false. He does this because the reactor is breached and there is no longer time to lie.
 
-This is stronger than "all three are evil." Two held the legend to the end; the third gave up and talked. The institution they built keeps lying even after one of its founders has publicly recanted — that is where the evil actually lives.
+This is stronger than "all three are evil." Two held the legend to the end; the third gave up and talked. The institution they built keeps lying even after one of its founders has publicly recanted. That is where the evil actually lives.
 
 The **Temple** persecutes the Dissident Priests, declares the Nerevarine a false incarnate, and sends Ordinators after the player. It is hostile for most of the game. Aggression against it needs no justification beyond what the game already supplies.
 
-## 4. Lorkhan and the Heart `SETTLED`
+---
 
-Lorkhan proposed the project. When it went wrong — or when the cost became clear — the others tore out his power core and dropped it on the planet he had talked them into building. It came down inside Red Mountain.
+# Part 3 — The Heart, Locally `SETTLED`
 
-The Heart of Lorkhan is a **reactor**. Everything downstream of that follows without strain:
+The Heart of Lorkhan is a reactor (*Shared Canon* Part 4). In Vvardenfell that produces:
 
-* The **Tribunal** are three engineers who tapped an alien power source and did not share the access.
-* **Dagoth Ur** tapped the same source and disagrees about what to do with it.
-* **Corprus** is a self-replicating agent that escaped containment.
+* The **Tribunal**: three engineers who tapped an alien power source and did not share the access.
+* **Dagoth Ur**: tapped the same source and disagrees about what to do with it.
+* **Corprus**: a weapon, not an accident. See Part 3a.
 * The whole Sixth House plot converts to industrial-accident science fiction with almost no seams.
-
-## 5. The Dwemer `SETTLED`
-
-The Dwemer are not a second technological species. They are the mortals who **found Zenar hardware and reverse-engineered it**. Their machines are derivative work — competent, impressive, and not original.
-
-Kagrenak went into the reactor itself. The entire people vanished in one instant, which is exactly what happens when you make a mistake at that scale.
-
-This resolves the niche collision: only one species invented the technology. Everyone else is doing archaeology.
-
-## 6. The Sixteen `SETTLED`
-
-Not gods with domains. Sixteen factions or individuals with incompatible specialisations and long-standing grudges. Gods do not have domains and rivalries; research groups do.
-
-* **Azura** — long-range prediction. The Nerevarine prophecy is therefore a *forecast*, not a revelation. This single change makes the main quest more coherent than the original.
-* **Sheogorath** — works on cognition and perception. Locals call the results madness.
-* **Hircine** — genetic engineering. Werewolves are engineered, not cursed.
-* **Mehrunes Dagon** — demolition and controlled collapse.
-* **Molag Bal** — coercion and behavioural control.
-
-**Why no one can replicate it:** the manufacturing base belonged to the faction that spent itself building the planet. It is gone. Nobody can rebuild it — including the Zenar themselves. They are living off inventory. This also explains why they are territorial about it.
-
-Keep the word **"Prince."** It is what ignorant locals call them, and locals are the ones writing the books. See Part 8.
-
-## 6a. The Maker `SETTLED`
-
-Demoting the Zenar from gods to engineers leaves a throne empty. This section fills it — and it is the one place in the setting where the answer is not technological.
-
-**There is one maker of time and matter. It is not the Zenar, not the Zenad, not the Tribunal, and it cannot be perceived.**
-
-This does not violate the no-mysticism rule; it completes it. Everything *inside* the world has a mechanical explanation. The existence of the world is a separate question, outside the system, and the setting answers it once and then stops talking about it.
-
-The in-canon reason it cannot be seen is exact rather than poetic: **every living thing on Nirn is partly made of the Zenad, who spent themselves building it.** Our eyes are assembled out of the world. An instrument cannot measure what preceded and produced it. The blindness is structural, not spiritual.
-
-### The line
-
-Spoken by **Vivec** `SETTLED`, in the main-quest conversation, immediately after he confesses that the Tribunal took its power from the Heart.
-
-> It reduces to one thing. This world, every other world, every creature known to us and unknown — one maker. Not us. Not them. The one who made time itself and matter itself, before there was anything to make them from. There is nothing to see him with: our eyes are assembled out of this world, and he came before the world. Anything inside the world can be looked at from inside the world. He is not inside. It is elementary.
-
-Russian rendering, for a CP1251 install:
-
-> Всё сводится к одному. У этого мира, у всех прочих миров, у всех существ — известных нам и неизвестных — создатель один. Не мы. И не они. Тот, кто сделал само время и саму материю, прежде чем было из чего их делать. Увидеть его нечем: наши глаза собраны из этого мира, а он был до мира. Внутри мира можно разглядеть что угодно. Он не внутри. Это же элементарно.
-
-**Note on the wording.** An earlier draft read *"an instrument does not measure the hand that forged it."* It was cut because it is false — we build MRI scanners that then measure us. The barrier is not authorship, it is containment: a made thing can perceive its maker perfectly well when both sit inside the same order of reality. What cannot be perceived from inside a system is what preceded the system. Keep any rewording on that footing.
-
-**Why Vivec.** He is a living god who has just told you he is not one. Having demolished his own divinity, he points at what is actually above him. No other character can deliver both halves. The closing dismissal — *it is elementary* — is the arrogance of someone for whom the deepest fact in the cosmos is a triviality, and it is the only trace of godhood he has left.
-
-**Alternative speaker:** Divayth Fyr, if a colder reading is wanted. From Vivec the line is weary; from Fyr it is contempt for the listener. Vivec is the stronger choice because the confession and the revelation land in the same breath.
-
-**Scope discipline.** This is said **once**, by **one** character. Repeat it and the setting becomes a sermon. It is a floor under the world, not a theme to develop.
 
 ---
 
-# Part II — What Gets Rewritten
+# Part 3a — Corprus `SETTLED`
 
-## 7. The Unreliable Narrator Principle `SETTLED`
+**Corprus is not a disease. It is Zenar nanites carrying a hostile program that Dagoth Ur wrote and injected into them.**
 
-Almost every text in the game was written by someone on Nirn who sincerely believes this is magic and these are gods. **Which means almost every text is already correct and needs no changes at all.**
+The nanites are ordinary infrastructure, the same substrate behind everything mortals call magic. Dagoth Ur did not create them. He compromised them. What spreads from Red Mountain is not an infection in the biological sense but a **replicating payload** propagating through a machine population that was never designed to reject instructions.
 
-Rewriting is limited to sources that *know*: Dwemer records, Imperial technical reports, Zenar artefacts themselves, and the small set of individuals in Part 9.
+This resolves several things at once:
 
-The player assembles the truth from the contradiction between what the Temple says and what a Dwemer engineer wrote down.
+* **Why it is incurable.** There is no pathogen to kill. The nanites are working correctly; they are executing the wrong program. Divayth Fyr's cure does not remove them, it suppresses the payload and leaves the substrate in place, which is why survivors keep the physical changes.
+* **Why victims are linked to Dagoth Ur.** Compromised nodes report to whoever holds the key. The Sleepers and the dreams are not prophecy, they are a network under one administrator.
+* **Why the Tribunal could not stop it.** They are users of the system, not its authors. They can draw power from the Heart; they cannot revoke access from someone already inside.
+* **Why Yagrum Bagarn has it and is still lucid.** A Dwemer body running on reverse-engineered hardware responds differently to a payload written for the native substrate.
 
-This turns the project from "rewrite the entire game" into "write twenty books and a dozen notes." That is the difference between impossible and a weekend.
+**Consequence for the main quest:** the Nerevarine is not curing a plague and not exorcising a god. The Nerevarine is performing a **shutdown**, going to the reactor and severing the administrator's access at the source. Kagrenak's tools are not artefacts, they are the interface.
 
-## 8. The Rename Test `SETTLED`
+`ISLAM CONSISTENCY` Nothing here defines the soul or claims authorship of life. The nanites are manufactured, the payload is written, and both have authors inside the setting.
 
-Rename a word only if the word names the alien thing itself. Keep it if the word is a mortal's interpretation.
+---
 
-| Word | Verdict | Why |
-| --- | --- | --- |
-| Daedra | **Rename** | Names the species |
-| Daedric (material) | **Rename** | Names their manufacturing |
-| Prince | Keep | A mortal's word for them |
-| Shrine | Keep | A mortal's building |
-| Worship | Keep | A mortal's behaviour, accurately described |
-| Summon | Keep | What it looks like from outside |
-| Soul | Keep | A mortal's word for whatever is in the gem |
+# Part 4 — Vivec's Monologue `NEEDS REVISION`
 
-Applying this test aggressively is what keeps the change set small.
+Delivery of *Shared Canon* Part 7. Spoken **once**, by **one** character: Vivec, in the main-quest conversation, immediately after he confesses that the Tribunal took its power from the Heart.
 
-## 8a. Why Mortals Say "Daedra" `SETTLED`
+**Status: working text, kept for now, to be revised later.** Recorded here so the current wording is not lost.
 
-**This solves the voiced-audio problem completely. No audio file needs replacing.**
+## English
 
-The etymology is already in the source material: in old Aldmeris, **"Daedra" means "not our ancestors."** It was never a name. It is a category, coined by people sorting the world into ours and not-ours. The Zenar call themselves Zenar. Mortals never asked.
+> I have told you what we did. Now the only thing worth knowing, and then I am done.
+>
+> There were others here before us. Understand what they were, and understand what they were not. **They made nothing.** They found a world where nothing could live and they reworked it to suit themselves. They turned the rivers. They put the salt into the seas. They taught the air to be breathed, set the first grasses into ground that had never held anything, and leaned the year over until it agreed to carry four seasons in it.
+>
+> Strong, yes. And their strength was barely enough for one world. This one. These meadows. You and me. They spent very nearly all of what they had, and came within a hand's width of crumbling back down into the nameless thing they once rose out of. What is left of them now is a trace in the blood of everything that lives, and they are proud of that, because it is all they still own.
+>
+> There is one true maker. He made the earth and the sky, and time itself, which has not once stopped since. And he is not to be seen. How would a thing that came up out of the earth look upon the one who was before the earth, and before time, and before there was any before? Can a drawing see the hand that drew it? Can a line lift its eyes off the page?
+>
+> It is elementary.
+>
+> And do not take that to mean he is far away. A thing can be nearer to you than your own throat and still not be a thing you can turn and look at.
 
-Therefore:
+## Russian, for a CP1251 install
 
-* Every voiced line in which a mortal says "Daedra" is **correct by construction**. A local using the local word is not an error.
-* Dremora combat barks survive untouched — a Zenar soldier throwing a local's own word back at him is exactly in character.
-* No text needs a disclaimer. The two vocabularies simply coexist, which is what happens in any real contact situation.
+> Я сказал тебе, что мы сделали. Теперь единственное, что стоит знать, и я умолкаю.
+>
+> До нас здесь были другие. Пойми, чем они были, и пойми, чем они не были. **Они не создали ничего.** Они нашли мир, в котором жить было нельзя, и переделали его под себя. Они повернули реки. Они положили в моря соль. Они научили воздух быть вдыхаемым, вложили первые травы в землю, которая никогда ничего не держала, и наклонили год, пока он не согласился нести в себе четыре времени.
+>
+> Сильные, да. И силы их едва достало на один мир. Вот на этот. На эти луга. На тебя и на меня. Они издержали почти всё, что у них было, и на ширину ладони не дошли до того, чтобы осыпаться обратно в то безымянное, из чего когда-то поднялись. Всё, что от них осталось теперь, это след в крови всего живого, и они этим горды, потому что больше им владеть нечем.
+>
+> Истинный создатель один. Он сделал землю и небо, и само время, которое с тех пор ни разу не остановилось. И его не увидеть. Как тому, что поднялось из земли, взглянуть на того, кто был прежде земли, и прежде времени, и прежде всякого «прежде»? Может ли рисунок увидеть руку, которая его вела? Может ли линия поднять глаза с листа?
+>
+> Это же элементарно.
+>
+> И не считай, будто он потому далёк. Иное бывает к тебе ближе твоего горла и всё же не бывает тем, на что можно обернуться и посмотреть.
 
-**And the Temple kept the word on purpose.** Call a thing kin and you owe it something. Call it not-kin and you may do as you please. The word does political work, which is why it survived.
+## Constraints any revision must hold
 
-This is the single highest-leverage decision in the project: it converts an unsolvable problem (audio) into a characterisation opportunity.
+1. **No greatness is assigned to the Zenad.** Part 0 rule 1 of the shared canon. An earlier draft read "Call them great. They were great." It was cut for that reason.
+2. **The demotion happens out loud, inside the line.** Earlier drafts demoted the Zenad only in the document and left the spoken line ambiguous. "They made nothing" is the load-bearing sentence.
+3. **The imperceptibility argument is about containment, not resolution.** Drawing and hand, line and page. Never an argument that implies a better instrument would work.
+4. **The nearness clause is not optional.** Without it the passage reads as deism.
+5. **Vivec's register.** He is a living god who has just told you he is not one. The closing dismissal, "it is elementary", is the arrogance of someone for whom the deepest fact in the cosmos is a triviality, and it is the only trace of godhood he has left.
 
-### Placement requirement `SETTLED`
+## Alternative speaker
 
-**At least one of these lines must be reachable early — Seyda Neen, Balmora, or the first few hours.**
+Divayth Fyr, if a colder reading is wanted. From Vivec the line is weary; from Fyr it is contempt for the listener. Vivec is the stronger choice because the confession and the revelation land in the same breath.
+
+## Encoding
+
+The English text is plain ASCII per *Conversion Architecture* Part 4. The Russian text uses only characters available in CP1251. Both verified.
+
+---
+
+# Part 5 — Grumble Lines `SETTLED`
+
+Drop-in unvoiced dialogue for informed characters, selected by the rule in Part 6. These make the two-vocabulary premise legible.
+
+## Placement requirement `SETTLED`
+
+**At least one of these lines must be reachable early: Seyda Neen, Balmora, or the first few hours.**
 
 Under the settled topic-ID policy (*Architecture* Part 5), the player will see `Daedra` in the topic list while looting `Zenaric` armour and hearing informed characters say `Zenar`. That dissonance is the design. But a player who accumulates it for twenty hours with no explanation concludes the mod is broken, not that the world has two vocabularies.
 
 One grumble line early converts the whole thing from a bug into a premise. The smuggler is the natural candidate: low-status, found in a tavern, requires no quest progress to meet.
 
-### Grumble lines — unvoiced dialogue
+## The lines
 
-Drop-in text for informed characters selected by the rule in Part 10.
-
-**Yagrum Bagarn** — weary, precise, a body that is failing:
+**Yagrum Bagarn**, weary, precise, a body that is failing:
 > Daedra. Not-our-ancestors. Do you hear what that word does? It says nothing about them and everything about us. My people had another name. We stamped it on the housings so the apprentices would not forget who built the thing they were taking apart.
 
-**Divayth Fyr** — dry, four thousand years old, regards you as a specimen:
-> You use the Temple's word. Naturally. Everyone does. It means "not our ancestors" — which is true, useless, and precisely the quantity of thought most people will spend on a neighbour.
+**Divayth Fyr**, dry, four thousand years old, regards you as a specimen:
+> You use the Temple's word. Naturally. Everyone does. It means "not our ancestors", which is true, useless, and precisely the quantity of thought most people will spend on a neighbour.
 
-**A Dissident Priest** — bitter, political:
+**A Dissident Priest**, bitter, political:
 > It is not an error, it is a decision. The Temple did not misname the Zenar. The Temple filed them.
 
-**An Ashlander Wise Woman** — oral, earthbound:
+**An Ashlander Wise Woman**, oral, earthbound:
 > The settled folk name a thing by what it is not. Not-our-ancestors. Not-of-the-house. Not-of-the-tribe. That is how they keep their hands clean. We have older names, and we do not say them to outlanders.
 
-**A drunk smuggler** — crude, funny:
+**A drunk smuggler**, crude, funny:
 > Daedra, daedra. I've hauled their ironwork with these hands. It doesn't care what you call it. Neither do they, probably. It's priests who need a word for a thing before they can be frightened of it properly.
 
-**Anyone who has actually heard it** — short, for late in the game:
+**Anyone who has actually heard it**, short, for late in the game:
 > One of them gave me the name. Zenar. I asked it to say it again. It did not.
 
-## 9. Naming Table `SETTLED` (except where marked)
+## The mitochondrial line `PROPOSED`
 
-All replacements are equal to or shorter than what they replace, per the length rule in *Conversion Architecture* Part 6.
+Give this to one informed character, once. It supplies a physical mechanism for the Zenad trace (*Shared Canon* Part 3), which otherwise rests on a metaphor.
 
-| Original | Replacement | Length |
-| --- | --- | --- |
-| Daedra | Zenar | 6 → 5 |
-| Aedra | Zenad `PROPOSED` | 5 → 5 |
-| Daedric *(material, equipment)* | Zenaric | 7 → 7 |
-| Daedric *(shrine, cult, ruins)* | **Zetic** | 7 → 5 |
-| Daedroth | Zenaroth | 8 → 8 |
-| Daedra Lord | Zenar Lord | 11 → 10 |
-| Daedra's Heart *(ingredient)* | Zenar Heart | 14 → 11 |
-| Daedra Skin | Zenar Skin | 11 → 10 |
-| Daedra Worship *(topic)* | Zenar Worship | 14 → 13 |
-| daedra-worshipper | Zenar-worshipper | 17 → 16 |
-| Daedric alphabet | Zenaric script | 16 → 14 |
-| Lesser / Greater Daedra | Lesser / Greater Zenar | shorter |
+A mitochondrion is an endosymbiont: a foreign organism absorbed into a cell that stopped being foreign. Every living thing carries a descendant of an outsider inside every cell. Yagrum Bagarn or Divayth Fyr are the natural speakers, since both can plausibly have looked.
 
-### The two adjectives are the point
+Text not yet written.
 
-`Daedric` carries four unrelated meanings in the original, and one substitution rule for all four produces nonsense. Splitting it into **two** adjectives solves this lexically:
+## The one rule for hand-written lines
 
-* **Zenaric** — made by the Zenar. Equipment, materials, artefacts, their script.
-* **Zetic** — pertaining to the Zenar *cult*. Shrines, ruins, worshippers, rites.
-
-A Zetic Shrine is a building **mortals** built. There is no such thing as Zenar architecture on Nirn. Getting this wrong populates the map with alien temples that do not exist in your fiction.
-
-Because `Daedric → Zenaric` is length-preserving, **every equipment name is automatically safe**: Daedric Dai-Katana → Zenaric Dai-Katana, Daedric Cuirass → Zenaric Cuirass.
-
-### Free of charge — rename nothing
-
-These contain no "daedra" root and need zero records touched:
-
-Dremora · Scamp · Clannfear · Golden Saint · Winged Twilight · Ogrim · Hunger · Atronach (Flame/Frost/Storm)
-
-They already read as alien species names.
-
-### Also free
-
-The **Daedric alphabet** on textures requires no work whatsoever. It already reads as an alien writing system.
-
-> **This table is a starting point, not an inventory.** Generate the authoritative list mechanically with `esmtool` before writing rules. Assume it contains forms not listed here.
+**Keep at least one literal instance of the original keyword in the text** so the topic hyperlink still fires. Effortless in practice, because informed characters are usually talking *about* the word. Yagrum's line opens with "Daedra. Not-our-ancestors." and the link survives untouched.
 
 ---
 
-## 10. Selecting Who Knows `SETTLED`
+# Part 6 — Selecting Who Knows `SETTLED`
 
-### The technical rule
+## The technical rule
 
 Most Morrowind dialogue is **shared**. A line filtered by race, class, faction or cell is spoken by hundreds of NPCs. Rewrite one of those and your "rare informed individual" becomes every second Dunmer in Balmora.
 
@@ -258,55 +180,96 @@ But some INFO records are filtered **by a specific actor ID**. Those are spoken 
 
 > **Selection rule: an informed character is one who has INFO records filtered by their own actor ID.** Blast radius when rewritten: zero.
 
-This is machine-computable. Walk every INFO record, inspect its filter conditions, select those carrying an actor-ID condition, group by character, sort by count. The top of that list is the set of hand-written personalities with substantial unique dialogue — your cast, produced without a single manual judgement call.
+This is machine-computable. Walk every INFO record, inspect its filter conditions, select those carrying an actor-ID condition, group by character, sort by count.
 
-### Already in the game
+## Already in the game
 
 The source material ships with a "who knows the truth" channel. Do not invent one.
 
-* **Yagrum Bagarn** — the last living Dwemer, in the Corprusarium at Tel Fyr. A living primary source with unique dialogue, already written.
-* **The Dissident Priests** — an entire faction that knows the Temple is lying and is persecuted for it. The main quest already takes you to them.
-* **Ashlander Wise Women** — keepers of the uncorrupted version of the prophecy.
-* **Divayth Fyr** — four thousand years old, amoral, talks to you like a specimen.
+* **Yagrum Bagarn** the last living Dwemer, in the Corprusarium at Tel Fyr. A living primary source with unique dialogue, already written.
+* **The Dissident Priests** an entire faction that knows the Temple is lying and is persecuted for it.
+* **Ashlander Wise Women** keepers of the uncorrupted version of the prophecy.
+* **Divayth Fyr** four thousand years old, amoral, talks to you like a specimen.
 
-### The rare commoners
+## The rare commoners
 
 Hermits, madmen, smugglers and tomb robbers: people who physically handled the artefacts and whom nobody believed. Select them by the INFO rule above.
 
 ---
 
-# Part III — Magic as Technology
+# Part 7 — Work Order 1 Results `SETTLED`
 
-## 11. The Fiction `SETTLED`
+The survey has run. Four reports exist. Headline numbers:
 
-Zenar technology requires an interface to operate. Natives have theirs integrated — congenital, inherited, or implanted young. **The player is an outlander and has nothing.** The Empire issues one at the Census and Excise office in Seyda Neen, along with the paperwork.
+| Metric | Value |
+| --- | --- |
+| Actors with keyword-bearing unique dialogue | 82 |
+| Unique INFO records | 227 |
+| **Total words of hand-written text** | **11,502** |
+| Topics containing a target keyword | 19, holding 77 INFO |
+| Name-field records needing rename (Tier A) | ~65 |
 
-## 12. What the Gate Blocks `SETTLED`
+Distribution is lopsided as predicted: INFO 960 occurrences, BOOK 346, everything else together 111. Two record types carry 92% of the work.
+
+Concentration is convenient: the top 10 actors hold 42% of the words, the top 30 hold 70%. Median is 86 words. Forty-one actors have exactly one line, totalling 2,463 words between them.
+
+## Three findings that change the plan
+
+**1. `aedra` is a phantom keyword.** Recorded in *Shared Canon* Part 10. The substring warning there is mandatory.
+
+**2. The cast list is filtered by keyword, not by actor ID.** Yagrum Bagarn and Divayth Fyr are absent, because neither says the target words. But Part 6 defines Tier C as "who knows", not "who says daedra". These are different sets with partial overlap.
+
+**Therefore 11,502 words is a lower bound.** A second pass over actor-ID filters with no keyword filter is required to get the true figure. Caius Cosades at 3 records and 195 words is implausibly low for a character of his role, so the difference may be a multiple rather than a margin.
+
+**3. The cell report is broken.** It contains one row with an empty `cell_id` and an aggregate `referenced_by_script_count` of 1231. The walker collapsed all cells into one instead of listing them. Meanwhile the keyword table honestly reports `daedroth, CELL, name, 6`, so keyword-bearing cells exist. This report must be regenerated.
+
+## Gap in the WO1 specification
+
+Report 2 asks for `occurrence_count` only. For books that is insufficient: 163 occurrences of `daedric` in BOOK text could be one book or one hundred and sixty three. Add a column for **unique record count**.
+
+## Next actions
+
+1. Regenerate the cell report.
+2. Re-run the cast list on actor-ID alone, without the keyword filter.
+3. Add unique-record-count to the keyword report.
+4. Fix the `aedra` boundary and rule ordering in the rules table before any transform runs.
+
+---
+
+# Part 8 — The Magic Gate `SETTLED`
+
+Implementation of *Shared Canon* Part 11 for Morrowind.
+
+## The fiction
+
+The player is an outlander and has no integrated interface. The Empire issues one at the Census and Excise office in Seyda Neen, along with the paperwork.
+
+## What the gate blocks
 
 Mechanism: a **Silence** effect applied while no qualifying device is worn. Silence has a specific and unusually convenient scope in Morrowind.
 
 | Blocked | Still works | Fiction |
 | --- | --- | --- |
-| Casting spells | — | No interface, no access |
-| — | Enchanted items | Manufactured hardware runs on its own |
-| — | Potions | Nanite ampoules, injected |
-| — | Scrolls | Single-use data chips |
-| — | Abilities | Congenital endowment |
-| — | Powers | Congenital endowment |
+| Casting spells | | No interface, no access |
+| | Enchanted items | Manufactured hardware runs on its own |
+| | Potions | Nanite ampoules, injected |
+| | Scrolls | Single-use data chips |
+| | Abilities | Congenital endowment |
+| | Powers | Congenital endowment |
 
-**Consequences worth noting:**
+Consequences worth noting:
 
-* Story sections that hand you levitation use **potions**, which bypass the gate entirely. Those sections need no intervention at all.
+* Story sections that hand you levitation use **potions**, which bypass the gate entirely. Those sections need no intervention.
 * Scrolls working is both a fictional slot and a practical recovery path if the device is lost.
-* Abilities and powers are a **leak** in the gate — racial and birthsign bonuses fire regardless. Do not try to close it. Frame it as inherited endowment: the natives have it in their blood, the outlander needs a machine.
+* Abilities and powers are a **leak**. Racial and birthsign bonuses fire regardless. Do not try to close it. Frame it as inherited endowment.
 
-## 13. Mechanics `SETTLED`
+## Mechanics
 
 **Apply Silence as an ability, never as a cast spell.** Abilities are permanent, cannot be dispelled, and are not resisted by Willpower. A cast Silence would be both resistible and removable, which defeats the gate entirely.
 
-A Lua script watches equipment. No qualifying device → add the ability. Device equipped → remove it.
+A Lua script watches equipment. No qualifying device, add the ability. Device equipped, remove it.
 
-**Do not hardcode a slot.** Check a whitelist of item IDs across all equipped slots. Ring, glove, robe and amulet may all qualify. This costs a few lines and buys enormous flexibility.
+**Do not hardcode a slot.** Check a whitelist of item IDs across all equipped slots.
 
 | Slot | For | Against |
 | --- | --- | --- |
@@ -315,87 +278,97 @@ A Lua script watches equipment. No qualifying device → add the ability. Device
 | Glove / bracer | Reads visually as a device | Conflicts with armoured gauntlets |
 | Amulet | No armour conflict | Prime enchanting slot |
 
-**Tiering** turns the restriction into progression: let the device govern which schools are accessible or cap maximum magicka. A basic emitter is weak; a full nanite weave grants everything.
+**No tiers.** `SETTLED` The device is a switch, not a ladder. It grants access to whatever quasi-magical techniques the character has already learned, and nothing more. Progression stays exactly where vanilla put it, in skills and in the spells acquired.
 
-## 14. NPCs Are Not Gated `SETTLED`
+Tiers were considered and rejected: they would add a second progression axis competing with the skill system, a new balance surface to tune, and a standing obligation to place upgrade devices at the right pace across the whole game. The switch costs one equipment check and introduces no new economy.
+
+## NPCs are not gated
 
 Mechanically gating NPCs is tempting for consistency and wrong in practice.
 
 * A large share of ordinary NPCs carry spells in their spell list, not just visible mages.
-* Many casters are **creatures** — which cannot wear clothing in any meaningful sense.
+* Many casters are **creatures**, which cannot wear clothing in any meaningful sense.
 * Armoured casters (Ordinators, Buoyant Armigers) wear no robes.
 * Silencing NPCs breaks combat balance globally, breaks scripted fights, and interacts badly with combat AI mods such as Mercy.
-* Any NPC who loses the item — disarm, death, mod interaction — goes permanently mute.
+* Any NPC who loses the item goes permanently mute.
 
-**Gate the player only.** NPC consistency is solved by fiction: creature casters *are* Zenar constructs and need no device; humanoid casters have integrated interfaces. Optionally hand cosmetic devices to Mages Guild and Telvanni NPCs in a separate Lua pass — decoration only, no mechanics.
+**Gate the player only.** Creature casters *are* Zenar constructs and need no device; humanoid casters have integrated interfaces. Optionally hand cosmetic devices to Mages Guild and Telvanni NPCs in a separate Lua pass, decoration only.
 
-## 15. Failure Modes `SETTLED`
+## Failure modes
 
 * **Character creation.** A mage build is unplayable until the first device is found. Place one in the Census and Excise office. This doubles as a good scene.
-* **Loss of the device.** Theft, disarm, unequip during a scripted sequence. Scrolls are the recovery path — keep them working.
+* **Loss of the device.** Scrolls are the recovery path.
 * **Magicka regeneration.** Purist Friendly Magicka Regen is currently ungated. If casting needs the battery, so does charging it.
 
 ---
 
-# Part IV — Visuals
+# Part 9 — Visuals `SETTLED`
 
-Implementation tiers are in *Conversion Architecture* Part 9. This section records the design decisions behind them.
+Implementation tiers are in *Conversion Architecture* Part 9. This section records the design decisions.
 
-## 16. Hexagons Live in the Texture, Never in Geometry `SETTLED`
+## Hexagons live in the texture, never in geometry
 
 The instinct is to model hexagonal particles. Do not.
 
-* A particle occupies tens of pixels for a fraction of a second. **Geometric shape does not read at that size** — a week of mesh work produces no visible difference.
+* A particle occupies tens of pixels for a fraction of a second. **Geometric shape does not read at that size.**
 * Morrowind particles render as billboards, always facing the camera. Volume collapses to a plane regardless.
 * NIF editing cannot be automated. Texture work can be automated completely.
 
 **Replacing one DDS changes every cast in the game.** Best effort-to-result ratio in the project; start here.
 
-Two rules for the texture itself:
+Two rules for the texture:
 
-* **The alpha channel carries the shape.** Hexagons must be in alpha with soft edges. A hard edge under additive blending reads as a rendering fault, not an effect.
-* **Draw a sparse grid, not one hexagon.** Hundreds of overlapping particles produce moiré, which reads as a swarm. A single large hexagon overlaps into an undifferentiated smear.
+* **The alpha channel carries the shape.** Hexagons must be in alpha with soft edges. A hard edge under additive blending reads as a rendering fault.
+* **Draw a sparse grid, not one hexagon.** A single large hexagon overlaps into an undifferentiated smear. Hundreds of overlapping dense-grid particles produce moire, which reads as a swarm. The sparse structural variant is `SETTLED` for Zenaric casting; the dense swarming variant is reserved as a distinct Corprus signature.
 
-## 17. Grain Is Post-Processing Only `SETTLED`
+## Grain is post-processing only
 
-Grain cannot be done with particles: it must sit **on the frame**, not in the world. A particle has a position in space; grain does not.
+Grain cannot be done with particles: it must sit **on the frame**, not in the world.
 
-OMWFX shaders are GLSL — plain text, safe to generate. The pattern: a shader with an intensity uniform, Lua raises intensity on cast and fades it down. OpenMW 0.51 exposes post-processing control to Lua.
+OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with an intensity uniform, Lua raises intensity on cast and fades it down.
 
-**Grain must be animated and brief.** Static grain over the frame reads as a dirty monitor. A 0.3–0.5 second burst with fast decay reads as something happening to reality. This distinction is the entire difference between a cheap effect and an expensive-looking one.
+**Grain must be animated and brief.** Static grain over the frame reads as a dirty monitor. A 0.3 to 0.5 second burst with fast decay reads as something happening to reality.
 
-## 18. Higher-Value Targets Than the Cast Itself `SETTLED`
+## Higher-value targets than the cast itself
 
-* **Enchanted item glow.** Canon says enchanted items are functioning hardware. The current glow reads as a magical aura. Same cost as any texture swap, larger payoff — the player sees it constantly.
-* **Summoning effect.** The strongest place for hexagons: the effect lasts about a second instead of a fraction, so the shape is actually legible.
-* **Soul capture.** Under canon this is not a soul but a copy being taken. Distinct texture, distinct meaning.
+* **Enchanted item glow.** Canon says enchanted items are functioning hardware. The player sees it constantly.
+* **Summoning effect.** The strongest place for hexagons: the effect lasts about a second, so the shape is legible.
+* **Soul capture.** Under canon this is a copy being taken, not a soul. Distinct texture, distinct meaning. Per *Shared Canon* Part 0 rule 2, the visual may show a copy operation and must not explain what a soul is.
 
-## 19. Do Not Touch `SETTLED`
+## Do not touch
 
-* **NIF generation.** Binary format; the engine validates models on load and rejects machine-assembled files. Hand-edit in NifSkope or not at all.
-* **Casting animation.** Skeletal animation, shared across all spells, and coupled to the combat animations replaced by the mods in Installation Guide 4.3. Guaranteed collision.
+* **NIF generation.** Binary format. The engine validates models on load and rejects machine-assembled files. Hand-edit in NifSkope or not at all.
+* **Casting animation.** Shared across all spells and coupled to the combat animations replaced by the mods in Installation Guide 4.3. Guaranteed collision.
 
 ---
 
-# Part V — Open Decisions
+# Part 10 — Open Decisions
 
 | # | Question | Status |
 | --- | --- | --- |
-| 1 | `Aedra → Zenad` — confirm or replace | `PROPOSED` |
-| 2 | What is Corprus, precisely? Escaped self-replicator is assumed but not specified | `OPEN` |
-| 3 | Does the player's device tier by school, by magicka cap, or both? | `OPEN` |
-| 4 | ~~Does the Tribunal know what the Heart is?~~ | `SETTLED` — see Part 3a |
-| 5 | Which specific texts are rewritten? Needs the INFO-filter pass from Part 10 to produce the list | `OPEN` |
-| 6 | Hex motif — sparse and structural, or dense and swarming? Determines the particle texture | `OPEN` |
-
-Question 5 is now the critical path: nothing else can be scoped until the INFO-filter pass produces the actual list of rewritable characters. It is also the cheapest to resolve — it is a script, not a decision.
+| 1 | ~~What is Corprus?~~ | `SETTLED` Part 3a |
+| 2 | ~~Does the device tier?~~ | `SETTLED` Part 8, no tiers |
+| 3 | Which specific texts are rewritten? Blocked on the corrected actor-ID pass, Part 7 | `OPEN` |
+| 4 | Vivec's monologue, final wording | `NEEDS REVISION` |
+| 5 | Text of the mitochondrial line, and its speaker | `PROPOSED` |
 
 ### Resolved
 
-* **Q4 — the Tribunal knows and lied.** The institution is the antagonist, not the three individuals. Vivec breaks ranks and confesses; Almalexia kills to keep the secret; Sotha Sil is killed for knowing. Recorded in Part 3a.
+* **The Tribunal knows and lied.** Recorded in Part 2.
+* **`Aedra` to `Zenad`.** Confirmed. WO1 shows roughly twenty real occurrences game-wide, so this was a cosmetic decision, not a structural one.
+* **Hex motif.** Sparse and structural. Dense reserved for Corprus.
+* **Corprus is a weapon, not an accident.** Zenar nanites running a payload authored by Dagoth Ur. Recasts the main quest from cure to shutdown. Part 3a.
+* **No device tiers.** The device is a switch granting access to already-learned techniques. Progression stays in skills. Part 8.
 
 ---
 
 ## Reference
 
-Prior art worth reading: **Starwind**, a total conversion of Morrowind into a Star Wars setting, present in the MOMW mod lists. Regardless of the setting, they solved this exact class of problem — scope, naming, which texts to touch — and their decisions are visible in the shipped work.
+Prior art worth reading: **Starwind**, a total conversion of Morrowind into a Star Wars setting, present in the MOMW mod lists. Regardless of the setting, they solved this exact class of problem: scope, naming, which texts to touch.
+
+---
+
+## Revision log
+
+* **Rev 3.** Split. Everything true of the world regardless of game moved to *Shared World Canon*: the Schism, the Heart, the Dwemer, the Sixteen, the Maker, the unreliable narrator, the Rename Test, the naming table, the interface principle. This file now holds Vvardenfell only. Vivec's monologue updated to the current text and marked `NEEDS REVISION`. WO1 results recorded as Part 7.
+* **Rev 2.** Zenad demoted to terraformers. Part 0 added as a hard boundary. Imperceptibility argument reworked.
