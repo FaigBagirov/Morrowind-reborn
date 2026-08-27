@@ -309,10 +309,10 @@ There is no `armors`, no `weapons`, no `clothing`, no `creatures`, no `npcs`, no
 | Record type | Field | Write | In-game | Notes |
 | --- | --- | --- | --- | --- |
 | BOOK | text | **OK** | confirmed | see the HTML caveat below |
-| GMST | value | **OK** | confirmed | strongest evidence; readback via `core.getGMST`, unavailable to load scripts |
+| GMST | value | **OK** | changed* | strongest log evidence; readback via `core.getGMST`, unavailable to load scripts |
 | SPEL | name | **OK** | confirmed | |
 | INGR | name | **OK** | confirmed | |
-| MGEF | name | **OK** | confirmed | survives `esmfallbacks.lua` overwriting effect names from GMST |
+| MGEF | name | **OK** | changed* | survives `esmfallbacks.lua` overwriting effect names from GMST |
 | ARMO | name | fail | - | `NO_API_SURFACE` |
 | CREA | name | fail | - | `NO_API_SURFACE` |
 | INFO | text | fail | - | `core.dialogue` is nil in this context |
@@ -320,6 +320,17 @@ There is no `armors`, no `weapons`, no `clothing`, no `creatures`, no `npcs`, no
 | CREA from GLOBAL | name | fail | - | `sol: cannot write to a readonly property` |
 
 The last two rows matter as much as the rest. `types.Armor.records` and `types.Creature.records` are live and readable from a global script, and the engine **refuses the write explicitly** through its binding layer. There is no runtime path to those names in 0.51 from any context.
+
+\* **GMST and MGEF rest on a recollection, not a read-out.** The user recalls
+that on the one spell they inspected every line of the tooltip had changed, but
+not the exact strings. Those three lines are the spell name, the GMST section
+header and the effect name, so nothing there still read its vanilla value —
+which rules out the failure mode this check exists for. It is weaker than the
+other three rows, and the `confirmed` that stood here earlier was written by a
+Claude session, not observed. Both are two lines of one tooltip if ever
+re-checked.
+
+**One field in the available column is assumed, not measured: BOOK `name`.** The spike wrote BOOK `text` and never touched `name`, so the book's title in the inventory was unchanged during the in-game check — correctly, since nothing had been written to it. `name` lives in `content.books.records` alongside `text` and should therefore be writable, but that has not been demonstrated. Ten keyword hits ride on it. Probe it before the rules table depends on it.
 
 ### There is no silent-failure trap
 

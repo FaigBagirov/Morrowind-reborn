@@ -1,12 +1,24 @@
 # Work Order 0 -- Load Context Writability Spike
 
-**Status:** built, not yet run. Claude Code does not launch the game.
+**Summary of record:** Architecture **Part 12** is the canonical write-up of
+this result and is marked `SETTLED, MEASURED`. This file is the working detail
+behind it: how the targets were chosen, the verification card, and the
+provenance of each observation. Where the two differ, Part 12 wins.
+
+**Status:** RUN and ANSWERED, in both layers and on screen.
+Log run 2026-08-21 (`logs/wo0-spike.txt`, `logs/openmw.log`). On-screen check
+reported by the user in a later session whose log was not kept -- see the
+provenance note in section 4.
 **Engine:** OpenMW 0.51.0 (`resources/version`: `0.51.0`, commit `f4bec414`).
 **Profile:** clean vanilla dev profile, three masters only.
 
 ---
 
-## 1. The answer, from static analysis
+## 1. The answer
+
+Static analysis first, then the run, then the screen. **All three agree.**
+
+### What static analysis said
 
 Three of the four fields the project needs **have no API surface at all** in
 0.51. This is not a guess and not a prediction about behaviour -- it is the
@@ -57,35 +69,91 @@ item names, creature names, or dialogue -- which is most of the rewrite surface
 in the table in Part 12. Probes 5-8 measure how much of the naming table
 survives inside that narrower boundary.
 
-Run the spike before acting on this. The point of the run is to confirm the
-static reading and, more importantly, to catch the one failure mode static
-analysis cannot see: a write that is accepted and then silently discarded.
+### What the run added
+
+The run agreed with all of it and sharpened three points.
+
+**Probe 4 failed harder than predicted.** The prediction allowed either
+`WRITE_THREW` or `NO_API_SURFACE`. It is `NO_API_SURFACE`: in the load context
+`openmw.core.dialogue` is **nil**, and the attempt dies at
+`attempt to index field 'dialogue' (a nil value)`. There is no read-only
+dialogue surface to argue with -- in that context there is no dialogue surface
+at all. (`core.dialogue` *is* present in a GLOBAL script: Layer 2 read the
+target INFO record and reported its original text. The package exists; it is
+simply not exposed to the load context.)
+
+**Runtime enumeration matched the stubs exactly.** `pairs(content)` returned
+16 keys: the 15 sub-packages listed above, each with `.records`, plus `RANGE`,
+which has none. The shipped stub is not stale and the docs are not lying.
+
+**The obvious workaround is closed.** Probes 9-10 were added after the first
+run to test the one remaining hope: `types.Armor.records` and
+`types.Creature.records` are live in a GLOBAL script, and the docs call them
+read-only, but a documented restriction is not always an enforced one. It is
+enforced. Both writes fail with `sol: cannot write to a readonly property`.
+
+Together with `tools/reports/ui-hook.md` -- no display-time hook for names or
+tooltips exists in 0.51, the UI is C++/MyGUI and never routes those strings
+through Lua -- that exhausts the Lua-side options. Item names, creature names
+and dialogue have to be changed at the record level, in a real plugin.
+
+### The split this forces
+
+Counting keyword hits from `tools/reports/wo1-keyword-occurrences.csv`, one
+hit per record-field. **Read these as an upper bound, not a count of records.**
+`aedra` is a substring of `daedra`, so nearly every `aedra` row double-counts a
+`daedra` one -- *Shared World Canon* Part 10 puts the real Aedra total at about
+twenty lines game-wide. The routing split below is still correct about *which
+side of the line* each record type falls on, which is what it is for.
+
+| Route | Hits | Contents |
+| --- | --- | --- |
+| Load context, Lua, `mod/` | 369 | BOOK text 336, SPELL name 12, BOOK name 10, INGREDIENT name 6, MISCITEM name 5 |
+| Real plugin, `tes3conv` (Part 3 Option A) | 1005 | INFO text 960, WEAPON name 23, ARMOR name 14, CREATURE name 6, CLASS description 1, CLOTHING name 1 |
+| Frozen by policy, never touched | 43 | DIAL id 37, CELL name 6 |
+
+Tier A (equipment and species renaming) and all of Tier C (hand-written
+dialogue) sit on the plugin side. The load context keeps the books and the
+small records. Architecture Part 3 has been updated to record this.
+
+**Note one unmeasured assumption in that table:** BOOK *name* is placed on the
+load-context side because it lives in `content.books.records`, the same
+sub-package as BOOK text. The spike probed BOOK `text` only. It has not been
+demonstrated that BOOK `name` is writable, and the user's on-screen report is
+consistent with either answer, because the spike never wrote it.
 
 ---
 
 ## 2. Writability table
 
-`write_ok` and `readback_ok` are filled by the run. `Predicted` is what the
-static analysis above says you should see; a mismatch is the interesting
-result and means the analysis was wrong somewhere.
+Filled in from `logs/wo0-spike.txt`. `write_ok` is the Layer 1 result,
+`readback_ok` is Layer 2, `on screen` is the user's report. `Predicted` is what
+the static analysis said; a mismatch would have meant the analysis was wrong.
+**Nothing mismatched.**
 
-Probes 1-4 are the fields the project needs and expects to fail. Probes 5-8
+Probes 1-4 are the fields the project needs and expected to fail. Probes 5-8
 are sub-packages that **do** exist and appear in the naming table, so the same
-run reports both what is broken and what survives.
+run reports both what is broken and what survives. Probes 9-10 were added
+after the first run and write from a GLOBAL script rather than the load
+context.
 
-| # | record_type | field | write_ok | readback_ok | Predicted | notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | ARMO | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.armors`; `armors` absent from the binary entirely |
-| 2 | CREA | FNAM (`name`) | | | `NO_API_SURFACE` | no `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
-| 3 | BOOK | `text` | | | `WRITE_OK` | `content.books.records` exists and is documented mutable |
-| 4 | INFO | response `text` | | | `WRITE_THREW` or `NO_API_SURFACE` | no content sub-package; only `core.dialogue`, documented read-only |
-| 5 | GMST | the value itself | | | `WRITE_OK` | scalar store; the engine's own `esmfallbacks.lua` writes it this way |
-| 6 | SPEL | `name` | | | `WRITE_OK` | `content.spells.records` |
-| 7 | INGR | `name` | | | `WRITE_OK` | `content.ingredients.records` |
-| 8 | MGEF | `name` | | | `WRITE_OK` | `content.magicEffects.records`; `esmfallbacks.lua` proves in-place `effect.name =` works |
+| # | record_type | field | write_ok | readback_ok | on screen | Predicted | notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | ARMO | FNAM (`name`) | **false** | **false** | unchanged | `NO_API_SURFACE` | as predicted. No `content.armors`; `armors` absent from the binary entirely |
+| 2 | CREA | FNAM (`name`) | **false** | **false** | unchanged | `NO_API_SURFACE` | as predicted. No `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
+| 3 | BOOK | `text` | **true** | **true** | **changed, but blank** | `WRITE_OK` | writable, and the change does reach the screen -- the vanilla text is gone. The page renders empty instead of showing the sentinel; see section 7 |
+| 4 | INFO | response `text` | **false** | **false** | not checked | `WRITE_THREW` or `NO_API_SURFACE` | `NO_API_SURFACE`, the harder of the two. `core.dialogue` is nil in the load context, so there is nothing to write to |
+| 5 | GMST | the value itself | **true** | **true** | changed | `WRITE_OK` | as predicted. Readback via `core.getGMST`, which load scripts cannot call -- the strongest of the eight |
+| 6 | SPEL | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
+| 7 | INGR | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
+| 8 | MGEF | `name` | **true** | **true** | changed | `WRITE_OK` | as predicted. The `esmfallbacks.lua` ordering hazard did not bite in the log |
+| 9 | ARMO | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: `sol: cannot write to a readonly property` |
+| 10 | CREA | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: same message. `types.*.records` is enforced read-only |
 
-Fill each row from `logs/wo0-spike.txt`, which `run-spike.bat` extracts for
-you. Layer 1 lines give `write_ok=`, Layer 2 lines give `readback_ok=`.
+Five of the eight fields are writable from the load context. The three the
+project most needed -- ARMO name, CREA name, INFO text -- are not reachable at
+all, and probes 9-10 confirm there is no way round via GLOBAL either. Every
+field the user looked at on screen agreed with both log layers.
 
 Result codes the script emits:
 
@@ -128,7 +196,58 @@ topic the moment you first speak to him.
 
 ---
 
-## 4. VERIFICATION CARD
+## 4. VERIFICATION CARD -- and its result
+
+### Result, reported by the user
+
+Five of the eight checks were done and reported. **Every one agrees with the
+two log layers.** The card itself is kept below, unchanged, because the spike
+is still in `mod/` and the three unreported checks can still be done.
+
+| Check | What the logs said | What the user saw | Agrees |
+| --- | --- | --- | --- |
+| 1 ARMO name | write never happened | cuirass **not** renamed | yes |
+| 2 CREA name | write never happened | mudcrab **not** renamed | yes |
+| 3 BOOK text | written, sentinel read back | page **not** the vanilla text -- it came up **blank** | yes, with a caveat -- section 7 |
+| 4 INFO text | write never happened | not checked | -- |
+| 5 GMST string | written, sentinel read back | changed -- see the tooltip note | yes |
+| 6 SPEL name | written, sentinel read back | spell **renamed** | yes |
+| 7 INGR name | written, sentinel read back | egg **renamed** | yes |
+| 8 MGEF name | written, sentinel read back | changed -- see the tooltip note | yes |
+
+**On "the book was not renamed":** the user also reported that the book's name
+in the inventory was unchanged. That is correct and expected -- **probe 3
+wrote the `text` field, never `name`.** No sentinel was ever placed in the
+book's name, so an unchanged name is the only possible outcome and is not a
+failure. BOOK `name` remains unprobed; see the note at the end of section 1.
+
+**Provenance, and it differs in strength between rows.**
+
+Checks 1, 2, 3, 6 and 7 were reported by the user from what they saw: the
+cuirass and the mudcrab unchanged, the spell and the egg renamed, the book
+blank.
+
+Checks 5 and 8 rest on a **recollection, not a read-out.** Asked about them
+later, the user recalled that on the one spell they looked at, *every* line of
+the tooltip had changed, but did not recall the exact strings. The tooltip for
+`absorb fatigue` is exactly those three lines -- spell title (6), the section
+header above the effects (5), the effect line under it (8) -- so "all of them
+changed" means none of the three still read its vanilla value. That is
+evidence against the failure mode that matters here, which would show as
+*unchanged* text on screen despite a successful write. It is not the same as
+having read `SPIKE_GMST_OK` off the screen.
+
+Note that the `confirmed` markers previously in Architecture Part 12 for these
+two rows were **not** written by the user. They were written by an earlier
+Claude session and inherited into the document unchallenged.
+
+The run that produced these observations is **not** in `logs/`.
+`run-spike.bat` overwrites `logs/openmw.log` on each run and that copy was
+never taken, so the archived log is still the 93-second run of 2026-08-21 that
+produced the two log layers. If the checks are ever repeated, copy the log
+before anything else.
+
+### The card
 
 Follow this blind. Run `run-spike.bat`, then do these eight checks in one
 sitting. The console opens with the `~` key.
@@ -351,10 +470,46 @@ For probe 7 this ruled out `ingred_crab_meat_01` (`Crab Meat`, 9) and
 
 ---
 
-## 7. Open question I could not settle without running
+## 7. What is settled, and the one thing that is not
 
-Whether a write the load context accepts actually reaches game data. Static
-analysis cannot see `WRITE_SILENTLY_REVERTED`; only Layer 2 plus your eyes can.
-For BOOK specifically, watch for Layer 1 saying `write_ok=true` while Layer 2
-says `readback_ok=false` -- that combination would mean the load context is
-unusable even for the one record type it appears to support.
+The question this section used to hold -- whether a write the load context
+accepts actually reaches game data -- is **answered, all the way to the
+screen.** Every successful write read back from an unrelated GLOBAL context
+through a different API path, and the three the user looked at on screen
+matched. Nothing was silently reverted. The feared combination for BOOK,
+`write_ok=true` with `readback_ok=false`, did not occur.
+
+### The one anomaly: a written book renders blank
+
+Probe 3 replaced the whole 5403-character `text` field of
+`bk_BriefHistoryEmpire1` with the bare string `SPIKE_BOOK_OK`. The card
+predicted the page would show that string. The user opened the book and the
+page was **empty**.
+
+What this does and does not mean:
+
+* **It is not a writability failure.** The vanilla text is gone from the page.
+  The write reached the render layer; only the vanilla text disappearing could
+  produce that. BOOK text is writable end to end.
+* **The cause of the blank is not established.** Vanilla book text opens with
+  pseudo-HTML -- `<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic
+  Cards">` -- and the sentinel carried none of it. Whether OpenMW's book text
+  parser drops untagged content, or renders it in a colour invisible against
+  the page, or something else, **I do not know and cannot determine from the
+  web environment** -- it needs the engine source or a test on the Windows
+  side. Do not guess it in the rules table.
+
+**The consequence for the project is real regardless, and it is a rule:**
+book text must be rewritten by **substituting inside the existing field**,
+never by replacing the field wholesale. The markup is load-bearing. The WO2
+transform does substring substitution by design, so it preserves the markup by
+construction -- but this is now an explicit rule and the first test case for
+the book emitter: rewrite one book, open it in game, confirm it still renders.
+
+### Still outstanding
+
+* Whether BOOK `name` is writable. Assumed yes, never probed -- the spike wrote
+  `text` only. 10 keyword hits ride on it, and Part 12 now carries the same
+  caveat.
+* The blank-page cause above, if it is ever worth chasing. It is not a gate:
+  the transform never replaces a whole text field.
