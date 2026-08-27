@@ -143,10 +143,10 @@ context.
 | 2 | CREA | FNAM (`name`) | **false** | **false** | unchanged | `NO_API_SURFACE` | as predicted. No `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
 | 3 | BOOK | `text` | **true** | **true** | **changed, but blank** | `WRITE_OK` | writable, and the change does reach the screen -- the vanilla text is gone. The page renders empty instead of showing the sentinel; see section 7 |
 | 4 | INFO | response `text` | **false** | **false** | not checked | `WRITE_THREW` or `NO_API_SURFACE` | `NO_API_SURFACE`, the harder of the two. `core.dialogue` is nil in the load context, so there is nothing to write to |
-| 5 | GMST | the value itself | **true** | **true** | **confirmed** | `WRITE_OK` | as predicted. Readback via `core.getGMST`, which load scripts cannot call -- the strongest of the eight |
+| 5 | GMST | the value itself | **true** | **true** | changed | `WRITE_OK` | as predicted. Readback via `core.getGMST`, which load scripts cannot call -- the strongest of the eight |
 | 6 | SPEL | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
 | 7 | INGR | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
-| 8 | MGEF | `name` | **true** | **true** | **confirmed** | `WRITE_OK` | as predicted. The `esmfallbacks.lua` ordering hazard did not bite in the log |
+| 8 | MGEF | `name` | **true** | **true** | changed | `WRITE_OK` | as predicted. The `esmfallbacks.lua` ordering hazard did not bite in the log |
 | 9 | ARMO | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: `sol: cannot write to a readonly property` |
 | 10 | CREA | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: same message. `types.*.records` is enforced read-only |
 
@@ -210,10 +210,10 @@ is still in `mod/` and the three unreported checks can still be done.
 | 2 CREA name | write never happened | mudcrab **not** renamed | yes |
 | 3 BOOK text | written, sentinel read back | page **not** the vanilla text -- it came up **blank** | yes, with a caveat -- section 7 |
 | 4 INFO text | write never happened | not checked | -- |
-| 5 GMST string | written, sentinel read back | confirmed (per Part 12) | yes |
+| 5 GMST string | written, sentinel read back | changed -- see the tooltip note | yes |
 | 6 SPEL name | written, sentinel read back | spell **renamed** | yes |
 | 7 INGR name | written, sentinel read back | egg **renamed** | yes |
-| 8 MGEF name | written, sentinel read back | confirmed (per Part 12) | yes |
+| 8 MGEF name | written, sentinel read back | changed -- see the tooltip note | yes |
 
 **On "the book was not renamed":** the user also reported that the book's name
 in the inventory was unchanged. That is correct and expected -- **probe 3
@@ -221,12 +221,25 @@ wrote the `text` field, never `name`.** No sentinel was ever placed in the
 book's name, so an unchanged name is the only possible outcome and is not a
 failure. BOOK `name` remains unprobed; see the note at the end of section 1.
 
-**Provenance, and it differs between rows.** Checks 1, 2, 3, 6 and 7 were
-reported by the user in conversation. Checks 5 and 8 are recorded as confirmed
-in Architecture Part 12, which the user wrote after doing the checks; they were
-not named separately in conversation. That is consistent -- checks 5, 6 and 8
-are three lines of one tooltip, so seeing check 6 means having looked at all
-three -- but the two are different sources and this file says which is which.
+**Provenance, and it differs in strength between rows.**
+
+Checks 1, 2, 3, 6 and 7 were reported by the user from what they saw: the
+cuirass and the mudcrab unchanged, the spell and the egg renamed, the book
+blank.
+
+Checks 5 and 8 rest on a **recollection, not a read-out.** Asked about them
+later, the user recalled that on the one spell they looked at, *every* line of
+the tooltip had changed, but did not recall the exact strings. The tooltip for
+`absorb fatigue` is exactly those three lines -- spell title (6), the section
+header above the effects (5), the effect line under it (8) -- so "all of them
+changed" means none of the three still read its vanilla value. That is
+evidence against the failure mode that matters here, which would show as
+*unchanged* text on screen despite a successful write. It is not the same as
+having read `SPIKE_GMST_OK` off the screen.
+
+Note that the `confirmed` markers previously in Architecture Part 12 for these
+two rows were **not** written by the user. They were written by an earlier
+Claude session and inherited into the document unchallenged.
 
 The run that produced these observations is **not** in `logs/`.
 `run-spike.bat` overwrites `logs/openmw.log` on each run and that copy was

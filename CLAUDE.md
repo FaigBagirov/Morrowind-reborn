@@ -65,9 +65,14 @@ and 15 sub-packages that do -
 | 2 | CREA | name | NO_API_SURFACE | original value | **unreachable** |
 | 4 | INFO | response text | NO_API_SURFACE | original value | **unreachable** |
 
-On screen the user confirmed the spell and the egg **renamed**, the cuirass
-and the mudcrab **not** renamed, and Architecture Part 12 records GMST and
-MGEF as confirmed too - matching the logs on every row.
+On screen the user saw the spell and the egg **renamed**, the cuirass and the
+mudcrab **not** renamed, and the book blank. GMST and MGEF rest on a weaker
+footing: the user recalls that every line of the one spell tooltip they looked
+at had changed, but not the exact strings. Those lines are the spell name, the
+GMST header and the effect name, so nothing there still read its vanilla value
+- enough to rule out the failure mode, short of a read-out. The `confirmed`
+that stood in Architecture Part 12 for those two rows was written by a Claude
+session, not observed; it has been corrected.
 
 ### The book caveat - a rule falls out of it
 
