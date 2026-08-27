@@ -21,16 +21,22 @@ stopped. **Every change set ends by updating this section.**
 
 | # | What | Status |
 | --- | --- | --- |
-| WO0 | Load context writability spike (Architecture Part 12) | **Built and RUN. The answer is in `logs/wo0-spike.txt`.** The report has not been updated with it |
+| WO0 | Load context writability spike (Architecture Part 12) | **DONE** - both log layers plus the on-screen check. Written up in `tools/reports/wo0.md` and Architecture Parts 3 and 12 |
 | WO1 | Dialogue survey (Architecture Part 13) | **First pass done.** Produces the headline number, but has defects - see below |
 | WO2 | Rules table + transform script | Not started |
 
 ## WO0 - the answer, and why it is the constraint on everything
 
-Ran once, 2026-08-21, 93-second session. Raw output `logs/wo0-spike.txt`,
-full log `logs/openmw.log`. Layer 1 = writes attempted from the LOAD context.
-Layer 2 = independent readback from a GLOBAL script, which cannot see a local
-copy the load context left behind. Both layers agree on every probe.
+Log run 2026-08-21, 93 seconds; raw output `logs/wo0-spike.txt`, full log
+`logs/openmw.log`. Layer 1 = writes attempted from the LOAD context. Layer 2 =
+independent readback from a GLOBAL script, which cannot see a local copy the
+load context left behind. The user did the on-screen checks in a later
+session. **All three agree.**
+
+The on-screen run's log is **not** in `logs/` - `run-spike.bat` overwrites
+`logs/openmw.log` each run and that copy was never taken, so the archived log
+is still the 2026-08-21 one. The screen results below came from the user in
+conversation. If the checks are ever repeated, copy the log first.
 
 At runtime `openmw.content` exposes 16 keys: `RANGE`, which has no records,
 and 15 sub-packages that do -
@@ -41,7 +47,7 @@ and 15 sub-packages that do -
 
 | # | Record | Field | Layer 1 | Layer 2 | Verdict |
 | --- | --- | --- | --- | --- | --- |
-| 3 | BOOK | text | WRITE_OK | sentinel present | **writable** |
+| 3 | BOOK | text | WRITE_OK | sentinel present | **writable** (see the book caveat below) |
 | 5 | GMST | the value | WRITE_OK | sentinel present | **writable** |
 | 6 | SPEL | name | WRITE_OK | sentinel present | **writable** |
 | 7 | INGR | name | WRITE_OK | sentinel present | **writable** |
@@ -49,6 +55,33 @@ and 15 sub-packages that do -
 | 1 | ARMO | name | NO_API_SURFACE | original value | **unreachable** |
 | 2 | CREA | name | NO_API_SURFACE | original value | **unreachable** |
 | 4 | INFO | response text | NO_API_SURFACE | original value | **unreachable** |
+
+On screen the user confirmed: the spell **renamed**, the egg **renamed**, the
+cuirass and the mudcrab **not** renamed - matching the logs exactly on all
+four. Checks 5 (GMST) and 8 (MGEF) were not reported; they are two lines of
+the same tooltip that already showed the spell renamed, so they cost one hover
+next time.
+
+### The book caveat - a rule falls out of it
+
+The user opened the book whose `text` the spike overwrote and the page came up
+**blank**, not showing the sentinel.
+
+This is **not** a writability failure: the vanilla 5403-character text is gone
+from the page, so the write reached the render layer. What went with it was
+the vanilla pseudo-HTML markup - `<DIV ALIGN="CENTER"><FONT COLOR="000000"
+SIZE="3" FACE="Magic Cards">` - which the bare sentinel did not carry. Why that
+renders as nothing rather than as unstyled text is **not established**, and it
+cannot be determined from the web environment. Do not guess it.
+
+**The rule that follows is in the Rules section: substitute inside a book's
+text field, never replace the field.** The WO2 transform does substring
+substitution by design, so it satisfies this by construction - but the first
+book it rewrites must be opened in game to confirm the page still renders.
+
+The user also reported the book's *name* unchanged. That is expected, not a
+failure: **probe 3 wrote `text`, never `name`.** BOOK `name` remains unprobed,
+which matters because the routing table below assumes it is writable.
 
 Three findings that close the obvious workarounds:
 
@@ -82,23 +115,19 @@ Where the line falls, counting keyword hits from
 
 So Tier A (equipment and species renaming) and all of Tier C (hand-written
 dialogue) are on the plugin side. The load context keeps the books and the
-small records.
+small records. One unmeasured assumption in that table: BOOK *name* sits on
+the load-context side because it shares a sub-package with BOOK text. It was
+never probed. 10 hits ride on it.
 
-### Outstanding on WO0
+### Outstanding on WO0 - small, none of it blocking
 
-- **`tools/reports/wo0.md` is stale.** It still says "built, not yet run" and
-  its writability table has empty `write_ok` / `readback_ok` columns. The real
-  answer is only in `logs/wo0-spike.txt`. Fill the report in from the log.
-- **Architecture Parts 3 and 12 are stale** for the same reason. Part 3 still
-  recommends Option B unconditionally.
-- **The on-screen check was never done.** Section 4 of the report is a
-  VERIFICATION CARD of eight in-game checks, and nothing records the outcome.
-  The log shows launch at 11:48:03 and quit at 11:49:36 - 93 seconds, enough
-  for both scripts to log, not enough for eight checks. Two Lua contexts
-  agreeing is strong evidence but both are Lua; a value correct in the record
-  store and wrong on screen would be invisible to both. **Low risk and not a
-  gate** - the architecture turns on the three writes that failed, and a
-  screenshot cannot contradict a write that never happened.
+- Checks 5 (GMST) and 8 (MGEF) on screen. One tooltip hover.
+- Whether BOOK `name` is writable. Assumed, never probed.
+- Why a book with unmarked-up text renders blank. Not a gate - the transform
+  never replaces a whole field - but it is unexplained.
+
+`mod/` can be emptied whenever you like; deleting its contents removes the
+spike entirely.
 
 ## WO1 - the number, and what is wrong with how it was got
 
@@ -175,18 +204,20 @@ Part 13).
 
 ## Next action
 
-1. Write the WO0 result into `tools/reports/wo0.md` and into Architecture
-   Parts 3 and 12. The answer exists; only the documents are behind.
-2. Second WO1 iteration: fix the cell report, make the survey reproducible,
+1. Second WO1 iteration: fix the cell report, make the survey reproducible,
    settle the counting semantics, add the cross-check, re-run.
-3. Get Q1 answered.
+2. Get Q1 answered.
+3. Decide one plugin or two (Architecture Part 3, end of *Result*).
 4. Then WO2 - one rules table with a `route` column feeding two emitters, so
    the setting stays a single reviewable file while the load-context half and
    the plugin half are generated separately.
 
-Optional whenever convenient: work through the WO0 verification card and
-record the outcome in the report. That closes WO0 completely, and `mod/` can
-then be emptied.
+Raised by the user and not yet scoped: **will the mod be compatible with the
+MOMW `graphics-overhaul` list?** The Installation Guide already names that
+list as the target. Short answer: the Lua half is compatible by construction;
+the plugin half needs a mechanical check that has to run where the mods are
+installed, because it means intersecting the record IDs our plugin edits with
+the record IDs every plugin in the list edits. Not started.
 
 ---
 
@@ -205,6 +236,11 @@ then be emptied.
 - When rewriting an INFO record, keep at least one literal instance of the
   original topic keyword so the hyperlink still fires. Report before/after
   keyword counts for every record touched.
+- **Substitute inside a book's text field; never replace the field.** Book
+  text is pseudo-HTML and the markup is load-bearing. The WO0 spike replaced
+  one whole TEXT field with a bare sentinel and the page rendered blank in
+  game. Substring substitution preserves the markup by construction - the
+  point of this rule is that nothing may ever bypass it.
 - Do not generate or edit NIF files.
 - One system per change set. Report the diff summary before applying.
 

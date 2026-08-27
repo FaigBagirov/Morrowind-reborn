@@ -36,9 +36,18 @@ All changes live either in a separate plugin or, preferably, outside the plugin 
 
 ---
 
-## Part 3. Two Architectures — Pick the Second One
+## Part 3. Two Architectures — Both, With a Measured Line Between Them
 
-### Option A: `tes3conv` JSON round-trip (the original plan)
+> **Settled by Work Order 0, run 2026-08-21 and confirmed on screen.** This
+> part originally said "pick the second one". The spike established that the
+> second one cannot carry the rewrite on its own — item names, creature names
+> and dialogue have no writable surface in the load context at all. Both
+> architectures are now in use and the line between them is fixed by what 0.51
+> exposes. Read *Result* at the end of this part before designing anything;
+> the two option descriptions are kept because their trade-offs are still real.
+
+
+### Option A: `tes3conv` JSON round-trip — now carries the dialogue and the equipment
 
 Convert plugin → JSON → edit → convert back.
 
@@ -46,7 +55,7 @@ Convert plugin → JSON → edit → convert back.
 * Produces a real plugin, so it can be shared.
 * **But:** conflicts with any other mod touching the same records, requires careful load-order and merge handling, bloats fast, and must be re-run every time a dependency updates.
 
-### Option B: OpenMW Lua **Load context** (recommended)
+### Option B: OpenMW Lua **Load context** — now carries the books and the small records
 
 Introduced in OpenMW 0.51. Scripts in this context run once, immediately after all content files are loaded, and receive the loaded records as mutable data. Records injected this way are not serialised into save games.
 
@@ -60,9 +69,84 @@ Why this is the right tool for a lore rewrite:
 
 Caveat: the context is marked work-in-progress upstream, so the API may shift between releases. Pin your OpenMW version during development.
 
-**Which fields are actually writable is unverified.** Part 12 (Work Order 0) exists to establish that before anything is built on this assumption.
+~~**Which fields are actually writable is unverified.**~~ It is now verified. See *Result* below.
 
-**Recommended split:** Load context for all text substitution. A small conventional plugin only for things that must be real records — new items, new spells, new magic effects.
+---
+
+### Result: what Work Order 0 established `SETTLED`
+
+Measured on OpenMW 0.51.0 (commit `f4bec414`) from the load context, by
+independent readback from a GLOBAL script, and on screen. Full report:
+`tools/reports/wo0.md`. Raw output: `logs/wo0-spike.txt`.
+
+`openmw.content` exposes exactly 15 sub-packages with `.records`:
+
+```
+activators  books   doors    enchantments  gameSettings  globals
+ingredients lights  magicEffects  miscs   potions  probes
+sounds      spells  statics
+```
+
+| Writable from the load context | Not reachable at all |
+| --- | --- |
+| BOOK `text` — confirmed on screen | ARMO `name` — no `content.armors` |
+| GMST value | CREA `name` — no `content.creatures` |
+| SPEL `name` — confirmed on screen | INFO response `text` — `core.dialogue` is **nil** in this context |
+| INGR `name` — confirmed on screen | (also absent: weapons, clothing, NPCs) |
+| MGEF `name` | |
+
+Three doors were tried and all are shut:
+
+1. There is no content sub-package for armour, creatures or dialogue. The
+   string `armors` does not occur in the 0.51 binary at all, and the 0.52-dev
+   docs do not add it — this is not an oversight the next release closes.
+2. `types.Armor.records` and `types.Creature.records` are live in a GLOBAL
+   script and the docs call them read-only. That is enforced: assignment
+   fails with `sol: cannot write to a readonly property`.
+3. There is no display-time hook for names or tooltips. The UI is C++/MyGUI
+   and never routes those strings through Lua, so the string cannot be
+   intercepted at render time either. See `tools/reports/ui-hook.md`.
+
+**Part 12's fallback condition has fired.** INFO text is not writable, so
+Option A is not avoidable. The split is therefore:
+
+| Route | Carries | Keyword hits (WO1) |
+| --- | --- | --- |
+| **Option B**, load context, `mod/*.lua` | Book text (336), spell names (12), book names (10), ingredient names (6), misc-item names (5) | 369 |
+| **Option A**, plugin via `tes3conv` | **All INFO dialogue** (960), weapon names (23), armour names (14), creature names (6), class descriptions (1), clothing names (1) | 1005 |
+| Neither — frozen by policy | DIAL topic ids (37), cell names (6) | 43 |
+
+Counts from `tools/reports/wo1-keyword-occurrences.csv`, one hit per
+record-field. Book *names* are placed on the Option B side because they share
+a sub-package with book text; that specific field was never probed.
+
+So **Tier A** (equipment and species renaming, Part 5) and **all of Tier C**
+(hand-written dialogue) sit on the plugin side, with every load-order
+consequence Option A lists. The load context keeps the books, which is where
+the bulk of the *word count* lives even though it is a minority of the records.
+
+Consequences to design around, none of them optional now:
+
+* **Load order matters again.** The plugin conflicts with any other plugin
+  touching the same records, and a plugin conflict is resolved per record, not
+  per field — the last loaded wins the whole record. Use Delta Plugin for
+  record-level merges (Part 10) rather than hand-editing.
+* **The plugin is baked into saves.** Disabling it no longer cleanly reverts
+  the game, unlike the load context. Keep known-good saves (Part 10).
+* **The plugin does not cover mods you have not read.** Option B's "covers
+  mods automatically" property is lost for everything on the plugin side. A
+  mod adding new Daedric equipment ships it unrenamed.
+* **One rules table with a `route` column, feeding two emitters.** The setting
+  stays a single reviewable file (Part 6) and the route is a property of the
+  record type, which is mechanical.
+* **The plugin must be regenerated** when the masters or the mod list change;
+  the Lua half reapplies itself at every launch.
+
+Still open on the plugin side, worth settling before WO2: whether it is one
+plugin or two — a stable hand-authored plugin for new entities such as the
+nanite device, separate from a machine-generated text plugin that is safe to
+delete and rebuild. The generated half will be large and will churn; mixing
+hand-written records into it risks them on every regeneration.
 
 ---
 
@@ -286,9 +370,30 @@ Paste into project instructions:
 
 ---
 
-## Part 12. Work Order 0 — Load Context Spike
+## Part 12. Work Order 0 — Load Context Spike `ANSWERED`
 
 **The first thing built. Half an hour of work; it decides which architecture the project uses.**
+
+> **Done.** Log run 2026-08-21, on-screen check reported afterwards. Report:
+> `tools/reports/wo0.md`. Raw output: `logs/wo0-spike.txt`. The answer is in
+> Part 3 under *Result*.
+>
+> The trigger condition below fired: **INFO text is not writable** — in fact
+> `core.dialogue` does not exist in the load context at all, so the failure is
+> harder than "read-only". Item and creature names are equally unreachable.
+> Five of the eight probed fields do work: BOOK text, GMST, SPEL name, INGR
+> name, MGEF name, each confirmed by two independent Lua contexts, and three
+> of them confirmed on screen as well.
+>
+> **The on-screen check caught something the logs could not,** which is exactly
+> why this part demanded it. The book whose `text` was overwritten renders as
+> a *blank page* rather than showing the sentinel. The write landed — the
+> vanilla text is gone — but the vanilla pseudo-HTML markup went with it. The
+> rule that follows: book text is rewritten by substituting inside the
+> existing field, never by replacing the field. See section 7 of the report.
+>
+> Everything from "The unverified assumption" down is kept as the record of
+> what was asked and why. It is history now, not instruction.
 
 ### The unverified assumption
 
