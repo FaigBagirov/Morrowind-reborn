@@ -1,5 +1,10 @@
 # Work Order 0 -- Load Context Writability Spike
 
+**Summary of record:** Architecture **Part 12** is the canonical write-up of
+this result and is marked `SETTLED, MEASURED`. This file is the working detail
+behind it: how the targets were chosen, the verification card, and the
+provenance of each observation. Where the two differ, Part 12 wins.
+
 **Status:** RUN and ANSWERED, in both layers and on screen.
 Log run 2026-08-21 (`logs/wo0-spike.txt`, `logs/openmw.log`). On-screen check
 reported by the user in a later session whose log was not kept -- see the
@@ -95,7 +100,11 @@ and dialogue have to be changed at the record level, in a real plugin.
 ### The split this forces
 
 Counting keyword hits from `tools/reports/wo1-keyword-occurrences.csv`, one
-hit per record-field:
+hit per record-field. **Read these as an upper bound, not a count of records.**
+`aedra` is a substring of `daedra`, so nearly every `aedra` row double-counts a
+`daedra` one -- *Shared World Canon* Part 10 puts the real Aedra total at about
+twenty lines game-wide. The routing split below is still correct about *which
+side of the line* each record type falls on, which is what it is for.
 
 | Route | Hits | Contents |
 | --- | --- | --- |
@@ -134,10 +143,10 @@ context.
 | 2 | CREA | FNAM (`name`) | **false** | **false** | unchanged | `NO_API_SURFACE` | as predicted. No `content.creatures`; the `creatures` string in the binary belongs to CreatureLevelledList |
 | 3 | BOOK | `text` | **true** | **true** | **changed, but blank** | `WRITE_OK` | writable, and the change does reach the screen -- the vanilla text is gone. The page renders empty instead of showing the sentinel; see section 7 |
 | 4 | INFO | response `text` | **false** | **false** | not checked | `WRITE_THREW` or `NO_API_SURFACE` | `NO_API_SURFACE`, the harder of the two. `core.dialogue` is nil in the load context, so there is nothing to write to |
-| 5 | GMST | the value itself | **true** | **true** | not reported | `WRITE_OK` | as predicted. Readback via `core.getGMST`, which load scripts cannot call -- the strongest of the eight |
+| 5 | GMST | the value itself | **true** | **true** | **confirmed** | `WRITE_OK` | as predicted. Readback via `core.getGMST`, which load scripts cannot call -- the strongest of the eight |
 | 6 | SPEL | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
 | 7 | INGR | `name` | **true** | **true** | **renamed** | `WRITE_OK` | as predicted, and confirmed on screen |
-| 8 | MGEF | `name` | **true** | **true** | not reported | `WRITE_OK` | as predicted. The `esmfallbacks.lua` ordering hazard did not bite in the log |
+| 8 | MGEF | `name` | **true** | **true** | **confirmed** | `WRITE_OK` | as predicted. The `esmfallbacks.lua` ordering hazard did not bite in the log |
 | 9 | ARMO | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: `sol: cannot write to a readonly property` |
 | 10 | CREA | `name`, written from a GLOBAL script | **false** | n/a | n/a | (added after run 1) | `WRITE_THREW`: same message. `types.*.records` is enforced read-only |
 
@@ -201,10 +210,10 @@ is still in `mod/` and the three unreported checks can still be done.
 | 2 CREA name | write never happened | mudcrab **not** renamed | yes |
 | 3 BOOK text | written, sentinel read back | page **not** the vanilla text -- it came up **blank** | yes, with a caveat -- section 7 |
 | 4 INFO text | write never happened | not checked | -- |
-| 5 GMST string | written, sentinel read back | not reported | -- |
+| 5 GMST string | written, sentinel read back | confirmed (per Part 12) | yes |
 | 6 SPEL name | written, sentinel read back | spell **renamed** | yes |
 | 7 INGR name | written, sentinel read back | egg **renamed** | yes |
-| 8 MGEF name | written, sentinel read back | not reported | -- |
+| 8 MGEF name | written, sentinel read back | confirmed (per Part 12) | yes |
 
 **On "the book was not renamed":** the user also reported that the book's name
 in the inventory was unchanged. That is correct and expected -- **probe 3
@@ -212,14 +221,18 @@ wrote the `text` field, never `name`.** No sentinel was ever placed in the
 book's name, so an unchanged name is the only possible outcome and is not a
 failure. BOOK `name` remains unprobed; see the note at the end of section 1.
 
-**Provenance.** These observations came from the user in conversation. The run
-that produced them is not in `logs/` -- `run-spike.bat` overwrites
-`logs/openmw.log` on each run and that copy was never taken, so the archived
-log is still the 93-second run of 2026-08-21 that produced the two log layers.
-If the checks are ever repeated, copy the log before anything else.
+**Provenance, and it differs between rows.** Checks 1, 2, 3, 6 and 7 were
+reported by the user in conversation. Checks 5 and 8 are recorded as confirmed
+in Architecture Part 12, which the user wrote after doing the checks; they were
+not named separately in conversation. That is consistent -- checks 5, 6 and 8
+are three lines of one tooltip, so seeing check 6 means having looked at all
+three -- but the two are different sources and this file says which is which.
 
-Checks 5 and 8 are the cheapest thing still outstanding: they are two lines of
-the same tooltip that already showed check 6 renamed, so they cost one hover.
+The run that produced these observations is **not** in `logs/`.
+`run-spike.bat` overwrites `logs/openmw.log` on each run and that copy was
+never taken, so the archived log is still the 93-second run of 2026-08-21 that
+produced the two log layers. If the checks are ever repeated, copy the log
+before anything else.
 
 ### The card
 
@@ -482,8 +495,8 @@ the book emitter: rewrite one book, open it in game, confirm it still renders.
 
 ### Still outstanding
 
-* Checks 5 (GMST) and 8 (MGEF) on screen -- one tooltip hover.
-* Whether BOOK `name` is writable. Assumed yes, never probed. 10 keyword hits
-  ride on it.
+* Whether BOOK `name` is writable. Assumed yes, never probed -- the spike wrote
+  `text` only. 10 keyword hits ride on it, and Part 12 now carries the same
+  caveat.
 * The blank-page cause above, if it is ever worth chasing. It is not a gate:
   the transform never replaces a whole text field.

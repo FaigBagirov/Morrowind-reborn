@@ -3,8 +3,17 @@
 Rewrite Morrowind's lore, magic system and casting visuals into a nanite /
 alien-technology setting without breaking the game.
 
-Docs: `docs/` - Architecture (method), Canon (setting).
-**Read "State of play" below first**, then both docs, before proposing changes.
+Docs, three files, all of them authoritative over anything written here:
+
+- `docs/Morrowind_SciFi_Conversion_Architecture.md` - method. **Part 12 is the
+  measured writability result and everything else is subordinate to it.**
+- `docs/Morrowind_SciFi_Conversion_Canon.md` - Vvardenfell only.
+- `docs/Shared_World_Canon.md` - everything true of the world regardless of
+  game: premise, the Schism, the Rename Test, the naming table. **Shared with
+  the Skyrim project. It is edited here and re-uploaded there - never the
+  other way round.**
+
+**Read "State of play" below first**, then the docs, before proposing changes.
 
 Game: OpenMW 0.51.0, pinned (`resources/version` commit `f4bec414`).
 Clean vanilla dev profile, three masters only.
@@ -21,8 +30,8 @@ stopped. **Every change set ends by updating this section.**
 
 | # | What | Status |
 | --- | --- | --- |
-| WO0 | Load context writability spike (Architecture Part 12) | **DONE** - both log layers plus the on-screen check. Written up in `tools/reports/wo0.md` and Architecture Parts 3 and 12 |
-| WO1 | Dialogue survey (Architecture Part 13) | **First pass done.** Produces the headline number, but has defects - see below |
+| WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
+| WO1 | Dialogue survey (Architecture Part 13) | **First pass done**, results recorded in Canon Part 7. The headline number is a **lower bound** and three reports need regenerating - see below |
 | WO2 | Rules table + transform script | Not started |
 
 ## WO0 - the answer, and why it is the constraint on everything
@@ -56,11 +65,9 @@ and 15 sub-packages that do -
 | 2 | CREA | name | NO_API_SURFACE | original value | **unreachable** |
 | 4 | INFO | response text | NO_API_SURFACE | original value | **unreachable** |
 
-On screen the user confirmed: the spell **renamed**, the egg **renamed**, the
-cuirass and the mudcrab **not** renamed - matching the logs exactly on all
-four. Checks 5 (GMST) and 8 (MGEF) were not reported; they are two lines of
-the same tooltip that already showed the spell renamed, so they cost one hover
-next time.
+On screen the user confirmed the spell and the egg **renamed**, the cuirass
+and the mudcrab **not** renamed, and Architecture Part 12 records GMST and
+MGEF as confirmed too - matching the logs on every row.
 
 ### The book caveat - a rule falls out of it
 
@@ -121,8 +128,9 @@ never probed. 10 hits ride on it.
 
 ### Outstanding on WO0 - small, none of it blocking
 
-- Checks 5 (GMST) and 8 (MGEF) on screen. One tooltip hover.
-- Whether BOOK `name` is writable. Assumed, never probed.
+- Whether BOOK `name` is writable. Assumed, never probed: the spike wrote
+  `text` only. 10 keyword hits ride on it, and Architecture Part 12 now
+  carries the same caveat.
 - Why a book with unmarked-up text renders blank. Not a gate - the transform
   never replaces a whole field - but it is unexplained.
 
@@ -136,18 +144,30 @@ masters. Keywords `daedra` `daedric` `daedroth` `aedra`, case-insensitive
 substrings.
 
 **The number Part 13 asks for: 11,502 words**, across **227** INFO records
-filtered by a specific actor ID and spoken by **82** actors. That is the cost
-of Tier C.
+filtered by a specific actor ID and spoken by **82** actors. Plus roughly
+**65 name-field records** for Tier A.
+
+**Treat 11,502 as a lower bound, not the answer.** Canon Part 7 records why:
+the cast list was filtered by *keyword* rather than by *actor ID*, so it lists
+who says "daedra", not who knows. Yagrum Bagarn and Divayth Fyr - the two
+primary sources the fiction is built on - are absent from it entirely. Caius
+Cosades appears with 3 records and 195 words, implausibly little for his role.
+The true figure needs a second pass and may be a multiple, not a margin.
+
+Concentration is convenient: the top 10 actors hold 42% of the words, the top
+30 hold 70%, the median actor has 86 words, and 41 actors have exactly one
+line. Two record types carry 92% of the work.
 
 Top of the cast list: Sinnammu Mirpal (25 records / 1177 words), Lalatia
 Varian (9 / 601), Smokey Morth (15 / 559), Garothmuk gro-Muzgub (8 / 428),
 Vala Catraso (12 / 389). The Ashlander wise women and Temple figures rise to
-the top mechanically - the same set Canon Part 10 named from the fiction,
+the top mechanically - the same set Canon Part 6 named from the fiction,
 arrived at without a judgement call. That agreement is the evidence that the
 actor-ID selection rule works.
 
 2884 topics inventoried (2098 Topic, 758 Journal, 10 Persuasion, 10 Greeting,
-8 Voice); 19 carry a keyword in the id. All frozen under the Part 5 policy.
+8 Voice); 19 carry a keyword in the id, holding 77 INFO between them. All
+frozen under the Architecture Part 5 policy.
 
 ### Defects - do not build WO2 on these numbers until they are fixed
 
@@ -164,14 +184,16 @@ actor-ID selection rule works.
    output to `d:\Work\Morrowind reborn\tools\reports`. The JSON dumps were
    never kept. Reproducing the run currently means re-running tes3conv over
    three masters first.
-3. **`occurrence_count` is not occurrences.** It counts one hit per record
-   even when the word appears five times in it. A code comment admits the
-   choice; the column name contradicts it. Decide which is wanted and label it.
-4. **The cast list is narrower than Part 13 asks.** It keeps an INFO record
-   only if it is actor-filtered *and* contains a keyword (`if speaker and
-   has_kw`). Part 13 asks for every actor with actor-filtered INFOs. The
-   current file is the Tier C worklist, which is more immediately useful - but
-   it is not what the spec says, and the difference is not recorded anywhere.
+3. **The cast list is filtered by keyword, not by actor ID.** It keeps an INFO
+   record only if it is actor-filtered *and* contains a keyword (`if speaker
+   and has_kw`). Part 13 asks for every actor with actor-filtered INFOs, and
+   Canon Part 6 defines Tier C as "who knows", not "who says daedra". Re-run on
+   the actor-ID filter alone. This is what makes 11,502 a lower bound.
+4. **`occurrence_count` is not occurrences,** and there is no unique-record
+   count at all. It counts one hit per record even when the word appears five
+   times, and the column name contradicts that. Worse for books: 163
+   occurrences of `daedric` in BOOK text could be one book or 163. **Add a
+   unique-record-count column** (Canon Part 7).
 5. **No cross-check.** Part 13 asks for an esmtool check on a sample of
    records precisely because a walker with a field-traversal bug produces
    confident wrong numbers. Defect 1 is that bug.
@@ -180,37 +202,53 @@ actor-ID selection rule works.
    Concretely: **the report contains zero GMST rows.** GMST strings are
    writable from the load context and are explicitly in scope per the rules
    below, so zero is a number to verify rather than trust.
+7. **`aedra` counts are almost entirely phantom.** See the substring rule
+   below - this is settled canon now, not a survey defect, but it means the
+   `aedra` rows in the keyword report are near-worthless as written.
 
-## Open decisions that block writing
+## Open decisions
 
-From Canon Part V. Q5 was called the critical path; WO1 has answered its
-mechanical half (the cast list). Which specific texts get rewritten is still
-a judgement call only the user can make.
+Canon Part 10 is the register. Most of what used to be here is now closed.
 
-- **Q1 `Aedra -> Zenad` is `PROPOSED`, not settled.** 338 INFO hits and 84
-  BOOK hits ride on it. Nothing in the rules table can be written until this
-  is confirmed or replaced.
-- Q2 What Corprus is, precisely. `OPEN`
-- Q3 Device tiering. `OPEN` - note that Architecture Part 8 records "no tiers"
-  as `SETTLED`, so this entry contradicts it and needs closing out.
-- Q5 Which specific texts are rewritten. `OPEN`
-- Q6 Hex motif density. `OPEN`
+- **Which specific texts are rewritten.** `OPEN` - blocked on the corrected
+  actor-ID pass (defect 3 above), not on a judgement call.
+- **Vivec's monologue, final wording.** `NEEDS REVISION` - Canon Part 4.
+- **The mitochondrial line, text and speaker.** `PROPOSED` - Canon Part 5.
 
-Settled and safe to build on: topic IDs are never renamed (Architecture
-Part 5); the naming table in Canon Part 9 with the `Zenaric` (made by them) /
-`Zetic` (of their cult) adjective split; magic gating by a Silence **ability**
-keyed to a whitelist of equipped item IDs (Architecture Part 8, Canon
-Part 13).
+Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
+(and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a
+weapon, not an accident - Zenar nanites running a payload authored by Dagoth
+Ur, which recasts the main quest from cure to shutdown; no device tiers; hex
+motif sparse and structural, dense reserved for Corprus.
+
+Safe to build on: topic IDs are never renamed (Architecture Part 5); the
+naming table in *Shared World Canon* Part 10, with the `Zenaric` (made by
+them) / `Zetic` (of their cult) adjective split; magic gating by a Silence
+**ability** keyed to a whitelist of equipped item IDs (Architecture Part 8,
+Canon Part 8); and the hard boundary in *Shared World Canon* Part 0 - the
+setting explains mechanisms, never the origin of the world, the nature of the
+soul, or what happens after death.
 
 ## Next action
 
-1. Second WO1 iteration: fix the cell report, make the survey reproducible,
-   settle the counting semantics, add the cross-check, re-run.
-2. Get Q1 answered.
-3. Decide one plugin or two (Architecture Part 3, end of *Result*).
-4. Then WO2 - one rules table with a `route` column feeding two emitters, so
-   the setting stays a single reviewable file while the load-context half and
-   the plugin half are generated separately.
+Canon Part 7 sets the first four; they are all one WO1 re-run.
+
+1. Regenerate the cell report.
+2. Re-run the cast list on actor-ID alone, no keyword filter. This is what
+   turns the lower bound into the real number.
+3. Add a unique-record-count column to the keyword report.
+4. Fix the `aedra` word boundary and the rule ordering in the rules table
+   **before any transform runs**.
+
+Then, and only then:
+
+5. Make the survey reproducible while it is being touched anyway - it
+   currently cannot re-run at all (defect 2).
+6. Pick a route from Architecture Part 12's three: load-context only, hybrid
+   with a plugin for ARMO/WEAP/CREA names, or the upstream request. The
+   upstream ticket is worth sending regardless, and worth splitting in two -
+   Part 12 explains why the weak half would sink the strong one.
+7. WO2 - the rules table.
 
 Raised by the user and not yet scoped: **will the mod be compatible with the
 MOMW `graphics-overhaul` list?** The Installation Guide already names that
@@ -234,8 +272,16 @@ the record IDs every plugin in the list edits. Not started.
 - Never modify DIAL topic IDs, general dialogue response text, greetings,
   or journal entries. Only uniquely-filtered INFO records may be rewritten.
 - When rewriting an INFO record, keep at least one literal instance of the
-  original topic keyword so the hyperlink still fires. Report before/after
-  keyword counts for every record touched.
+  original topic keyword so the topic hyperlink still fires. Report
+  before/after keyword counts for every record touched.
+- **Consult Architecture Part 12 before proposing any write path.** Armor,
+  weapon, clothing, creature and dialogue records are NOT writable from Lua in
+  0.51. Do not design around them being available.
+- **`aedra` must carry a left word boundary, and `daedra` must be applied
+  before it.** The string "daedra" contains the string "aedra"; without the
+  boundary the transform turns every "Daedra" into "DZenad", mechanically and
+  identically, across the whole game. Rule order is fixed and versioned.
+  *Shared World Canon* Part 10, `SETTLED`.
 - **Substitute inside a book's text field; never replace the field.** Book
   text is pseudo-HTML and the markup is load-bearing. The WO0 spike replaced
   one whole TEXT field with a bare sentinel and the page rendered blank in

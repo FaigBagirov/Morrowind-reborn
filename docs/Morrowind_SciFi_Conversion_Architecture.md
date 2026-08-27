@@ -36,18 +36,9 @@ All changes live either in a separate plugin or, preferably, outside the plugin 
 
 ---
 
-## Part 3. Two Architectures — Both, With a Measured Line Between Them
+## Part 3. Two Architectures — Pick the Second One
 
-> **Settled by Work Order 0, run 2026-08-21 and confirmed on screen.** This
-> part originally said "pick the second one". The spike established that the
-> second one cannot carry the rewrite on its own — item names, creature names
-> and dialogue have no writable surface in the load context at all. Both
-> architectures are now in use and the line between them is fixed by what 0.51
-> exposes. Read *Result* at the end of this part before designing anything;
-> the two option descriptions are kept because their trade-offs are still real.
-
-
-### Option A: `tes3conv` JSON round-trip — now carries the dialogue and the equipment
+### Option A: `tes3conv` JSON round-trip (the original plan)
 
 Convert plugin → JSON → edit → convert back.
 
@@ -55,7 +46,7 @@ Convert plugin → JSON → edit → convert back.
 * Produces a real plugin, so it can be shared.
 * **But:** conflicts with any other mod touching the same records, requires careful load-order and merge handling, bloats fast, and must be re-run every time a dependency updates.
 
-### Option B: OpenMW Lua **Load context** — now carries the books and the small records
+### Option B: OpenMW Lua **Load context** (recommended)
 
 Introduced in OpenMW 0.51. Scripts in this context run once, immediately after all content files are loaded, and receive the loaded records as mutable data. Records injected this way are not serialised into save games.
 
@@ -67,86 +58,11 @@ Why this is the right tool for a lore rewrite:
 * **Survives mod updates.** Rules reapply at every launch.
 * **Claude Code edits plain `.lua` text**, not multi-hundred-megabyte JSON.
 
+**Superseded in part by Part 12.** The above was written before Work Order 0 ran. Measured result: the context reaches books, GMST strings, spells, magic effects, ingredients and nine other record types, and does **not** reach armour, weapons, clothing, creatures or dialogue. Read Part 12 before designing anything on this section.
+
 Caveat: the context is marked work-in-progress upstream, so the API may shift between releases. Pin your OpenMW version during development.
 
-~~**Which fields are actually writable is unverified.**~~ It is now verified. See *Result* below.
-
----
-
-### Result: what Work Order 0 established `SETTLED`
-
-Measured on OpenMW 0.51.0 (commit `f4bec414`) from the load context, by
-independent readback from a GLOBAL script, and on screen. Full report:
-`tools/reports/wo0.md`. Raw output: `logs/wo0-spike.txt`.
-
-`openmw.content` exposes exactly 15 sub-packages with `.records`:
-
-```
-activators  books   doors    enchantments  gameSettings  globals
-ingredients lights  magicEffects  miscs   potions  probes
-sounds      spells  statics
-```
-
-| Writable from the load context | Not reachable at all |
-| --- | --- |
-| BOOK `text` — confirmed on screen | ARMO `name` — no `content.armors` |
-| GMST value | CREA `name` — no `content.creatures` |
-| SPEL `name` — confirmed on screen | INFO response `text` — `core.dialogue` is **nil** in this context |
-| INGR `name` — confirmed on screen | (also absent: weapons, clothing, NPCs) |
-| MGEF `name` | |
-
-Three doors were tried and all are shut:
-
-1. There is no content sub-package for armour, creatures or dialogue. The
-   string `armors` does not occur in the 0.51 binary at all, and the 0.52-dev
-   docs do not add it — this is not an oversight the next release closes.
-2. `types.Armor.records` and `types.Creature.records` are live in a GLOBAL
-   script and the docs call them read-only. That is enforced: assignment
-   fails with `sol: cannot write to a readonly property`.
-3. There is no display-time hook for names or tooltips. The UI is C++/MyGUI
-   and never routes those strings through Lua, so the string cannot be
-   intercepted at render time either. See `tools/reports/ui-hook.md`.
-
-**Part 12's fallback condition has fired.** INFO text is not writable, so
-Option A is not avoidable. The split is therefore:
-
-| Route | Carries | Keyword hits (WO1) |
-| --- | --- | --- |
-| **Option B**, load context, `mod/*.lua` | Book text (336), spell names (12), book names (10), ingredient names (6), misc-item names (5) | 369 |
-| **Option A**, plugin via `tes3conv` | **All INFO dialogue** (960), weapon names (23), armour names (14), creature names (6), class descriptions (1), clothing names (1) | 1005 |
-| Neither — frozen by policy | DIAL topic ids (37), cell names (6) | 43 |
-
-Counts from `tools/reports/wo1-keyword-occurrences.csv`, one hit per
-record-field. Book *names* are placed on the Option B side because they share
-a sub-package with book text; that specific field was never probed.
-
-So **Tier A** (equipment and species renaming, Part 5) and **all of Tier C**
-(hand-written dialogue) sit on the plugin side, with every load-order
-consequence Option A lists. The load context keeps the books, which is where
-the bulk of the *word count* lives even though it is a minority of the records.
-
-Consequences to design around, none of them optional now:
-
-* **Load order matters again.** The plugin conflicts with any other plugin
-  touching the same records, and a plugin conflict is resolved per record, not
-  per field — the last loaded wins the whole record. Use Delta Plugin for
-  record-level merges (Part 10) rather than hand-editing.
-* **The plugin is baked into saves.** Disabling it no longer cleanly reverts
-  the game, unlike the load context. Keep known-good saves (Part 10).
-* **The plugin does not cover mods you have not read.** Option B's "covers
-  mods automatically" property is lost for everything on the plugin side. A
-  mod adding new Daedric equipment ships it unrenamed.
-* **One rules table with a `route` column, feeding two emitters.** The setting
-  stays a single reviewable file (Part 6) and the route is a property of the
-  record type, which is mechanical.
-* **The plugin must be regenerated** when the masters or the mod list change;
-  the Lua half reapplies itself at every launch.
-
-Still open on the plugin side, worth settling before WO2: whether it is one
-plugin or two — a stable hand-authored plugin for new entities such as the
-nanite device, separate from a machine-generated text plugin that is safe to
-delete and rebuild. The generated half will be large and will churn; mixing
-hand-written records into it risks them on every regeneration.
+**Recommended split:** Load context for all text substitution. A small conventional plugin only for things that must be real records — new items, new spells, new magic effects.
 
 ---
 
@@ -292,7 +208,7 @@ Slot trade-offs:
 | Robe | Free slot for most builds, worn over armour, highly visible | Hides pauldrons and greaves visually |
 | Amulet | No armour conflict | Prime enchanting slot |
 
-**No tiers.** `SETTLED` The device is a switch, not a ladder: it grants access to techniques the character has already learned, nothing more. Progression stays in skills, where vanilla put it. See *Canon* Part 13 for why a tiered design was rejected.
+**No tiers.** `SETTLED` The device is a switch, not a ladder: it grants access to techniques the character has already learned, nothing more. Progression stays in skills, where vanilla put it. See *Canon* Part 8 for why a tiered design was rejected.
 
 ### Failure modes to plan for
 
@@ -362,89 +278,84 @@ Paste into project instructions:
 - Never modify DIAL topic IDs, general dialogue response text, greetings,
   or journal entries. Only uniquely-filtered INFO records may be rewritten.
 - When rewriting an INFO record, keep at least one literal instance of the
-  original topic keyword so the hyperlink still fires. Report before/after
-  keyword counts for every record touched.
+  original topic keyword so the topic hyperlink still fires.
+- Consult Part 12 before proposing any write path. Armor, weapon, clothing,
+  creature and dialogue records are NOT writable from Lua in 0.51. Do not
+  design around them being available.
 - Do not generate or edit NIF files.
 - One system per change set. Report the diff summary before applying.
 ```
 
 ---
 
-## Part 12. Work Order 0 — Load Context Spike `ANSWERED`
+## Part 12. Work Order 0 Results — Load Context Writability `SETTLED, MEASURED`
 
-**The first thing built. Half an hour of work; it decides which architecture the project uses.**
+**This ran. These are measurements from OpenMW 0.51.0, not predictions.** Everything in Part 3 is subordinate to this section.
 
-> **Done.** Log run 2026-08-21, on-screen check reported afterwards. Report:
-> `tools/reports/wo0.md`. Raw output: `logs/wo0-spike.txt`. The answer is in
-> Part 3 under *Result*.
->
-> The trigger condition below fired: **INFO text is not writable** — in fact
-> `core.dialogue` does not exist in the load context at all, so the failure is
-> harder than "read-only". Item and creature names are equally unreachable.
-> Five of the eight probed fields do work: BOOK text, GMST, SPEL name, INGR
-> name, MGEF name, each confirmed by two independent Lua contexts, and three
-> of them confirmed on screen as well.
->
-> **The on-screen check caught something the logs could not,** which is exactly
-> why this part demanded it. The book whose `text` was overwritten renders as
-> a *blank page* rather than showing the sentinel. The write landed — the
-> vanilla text is gone — but the vanilla pseudo-HTML markup went with it. The
-> rule that follows: book text is rewritten by substituting inside the
-> existing field, never by replacing the field. See section 7 of the report.
->
-> Everything from "The unverified assumption" down is kept as the record of
-> what was asked and why. It is history now, not instruction.
+### What the load context actually exposes
 
-### The unverified assumption
-
-Part 3 recommends the load context on the strength of the upstream release note: scripts in this context receive the loaded records *as mutable data*. What that note does not say is **which fields of which record types are actually writable**.
-
-The project needs three things to be mutable:
-
-| Need | Record type | Field |
-| --- | --- | --- |
-| `Zenaric Cuirass`, `Zenaroth` | ARMO, WEAP, CLOT, CREA | FNAM |
-| Dwemer records, rewritten books | BOOK | text |
-| Informed characters' lines | INFO | response text |
-
-**If INFO text turns out to be read-only, the architecture changes completely** and the project falls back to plugins via `tes3conv`, with every load-order conflict that implies. This must be known before anything is built on top of it.
-
-### The spike
-
-A load-context script that attempts to modify one field of each required type and logs the outcome — succeeded, failed, silently reverted. One item, one creature, one book, one INFO record. Nothing more.
-
-Then launch the game and confirm with your eyes: did the item name change in the inventory, the book text on the page, the line in the NPC's mouth? **A write that succeeds in the log but does not appear in game is the failure mode worth catching**, and only a visual check catches it.
-
-### Output
+Enumerated at runtime, not read from documentation. `openmw.content` holds 16 keys, 15 of which carry `.records`:
 
 ```
-record_type, field, writable, persists_in_game, notes
+activators  books   doors     enchantments  gameSettings  globals
+ingredients lights  magicEffects  miscs     potions       probes
+sounds      spells  statics
 ```
 
-That table determines the boundary: what goes through the context, and what has to be a real plugin record.
+There is no `armors`, no `weapons`, no `clothing`, no `creatures`, no `npcs`, no `dialogue`. `core.dialogue` is `nil` inside the load context entirely.
 
-### A hybrid is certain regardless of outcome
+### Results, ten probes
 
-Even in the best case, some things must be actual records in a plugin:
+| Record type | Field | Write | In-game | Notes |
+| --- | --- | --- | --- | --- |
+| BOOK | text | **OK** | confirmed | see the HTML caveat below |
+| GMST | value | **OK** | confirmed | strongest evidence; readback via `core.getGMST`, unavailable to load scripts |
+| SPEL | name | **OK** | confirmed | |
+| INGR | name | **OK** | confirmed | |
+| MGEF | name | **OK** | confirmed | survives `esmfallbacks.lua` overwriting effect names from GMST |
+| ARMO | name | fail | - | `NO_API_SURFACE` |
+| CREA | name | fail | - | `NO_API_SURFACE` |
+| INFO | text | fail | - | `core.dialogue` is nil in this context |
+| ARMO from GLOBAL | name | fail | - | `sol: cannot write to a readonly property` |
+| CREA from GLOBAL | name | fail | - | `sol: cannot write to a readonly property` |
 
-* The nanite device — a new item
-* Custom magic effects, if any are needed
+The last two rows matter as much as the rest. `types.Armor.records` and `types.Creature.records` are live and readable from a global script, and the engine **refuses the write explicitly** through its binding layer. There is no runtime path to those names in 0.51 from any context.
 
-So the shape is fixed in advance: **a small stable plugin for new entities, plus the load context for bulk text rewriting.** The spike only establishes where the line falls.
+**One field in the available column is assumed, not measured: BOOK `name`.** The spike wrote BOOK `text` and never touched `name`, so the book's title in the inventory was unchanged during the in-game check — correctly, since nothing had been written to it. `name` lives in `content.books.records` alongside `text` and should therefore be writable, but that has not been demonstrated. Ten keyword hits ride on it. Probe it before the rules table depends on it.
 
-### The risk this makes visible
+### There is no silent-failure trap
 
-The topic-ID policy (Part 5) was chosen for maximum mod compatibility and longevity. Sound reasoning — but the load context is marked work-in-progress upstream, and its API may change between engine releases. The risk did not disappear; it moved. **The mod will survive any mod list and may break on an OpenMW update.**
+Every failure is loud: a missing sub-package or a thrown error. Nothing was accepted and then discarded. This is the best available outcome for a negative result, because it means code either works or announces that it does not.
 
-Accept it, for one specific reason: **load-context breakage is loud.** The script throws on startup and you know within two seconds. Broken dialogue branches are silent — discovered twenty hours in, not reproducible. Trading a silent failure for a loud one is always the right trade.
+### Consequence for scope
 
-Practical consequence: **pin the engine version for the duration of development.** Update deliberately, with a test character run afterwards, never incidentally.
+Cross-referenced against the tiers in Part 5:
+
+* **Tier C is fully available.** Books, GMST strings, spell names, magic effect names, ingredient names. The whole informed-source layer, which *Canon* Part 6 identifies as the substance of the project, can be built today.
+* **Tier A is unavailable.** Armour, weapons and creature names, which Part 5 identifies as carrying the felt change, cannot be touched at runtime.
+* **Hand-written dialogue is unavailable.** *Canon* Part 5 grumble lines and Part 6 informed characters cannot be delivered through Lua.
+
+`Daedra's Heart` renames to `Zenar Heart`. `Daedric Cuirass` does not.
+
+### Practical finding: books carry HTML
+
+The vanilla target was 5403 characters beginning `<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards">`. Writing plain text succeeded at the data level and rendered as a **blank page**.
+
+**Any book rewrite must preserve the surrounding markup.** Add this to the rules table as a hard check.
+
+### Three routes forward
+
+1. **Load context only.** Zero conflicts, permanently. Tier A and dialogue never happen.
+2. **Hybrid: a plugin for ARMO, WEAP and CREA names.** Morrowind plugins override a record whole, not field by field, so a rename plugin clobbers mesh and icon changes made by other mods to the same records. Delta Plugin merges field-wise, but the merge must be regenerated whenever the mod list changes. "Works on top of anything" becomes "works on top of anything, regenerate after changes."
+3. **Upstream request.** Split into two, never one ticket. The strong half asks for `armors`, `weapons`, `clothing` and `creatures` in `openmw.content`: bindings for these record types already exist for record *creation* (MR !2944 for armor, clothing, misc, weapon; 0.51 for creatures and containers at runtime), so the ask is to expose an existing store through an existing pattern, not to build something new. The weak half asks for dialogue writes, and is weaker because read-only access there was a deliberate decision, not an oversight. Combining them lets the weak half sink the strong one.
+
+Timeline discipline: seven months separated 0.50 and 0.51. Send the ticket, then proceed as though it will not land.
 
 ---
 
 ## Part 13. Work Order 1 — Dialogue Survey
 
-**Runs after Work Order 0, before the rules table and before any text is written.**
+**The first job. Runs before the rules table, before any text is written, before anything is renamed.**
 
 Until this pass has run you do not know the size of the project. You cannot scope it, schedule it, or decide what is worth doing.
 
