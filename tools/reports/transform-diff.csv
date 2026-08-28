@@ -1,0 +1,372 @@
+route,record_type,record_id,field,rules,substitutions,length_delta
+lua,GMST,sEffectSummonDaedroth,value,R400,1,0
+plugin,CLAS,Sorcerer,description,R200,1,-2
+plugin,SKIL,HeavyArmor,description,R300,1,0
+plugin,SKIL,Conjuration,description,R300,1,0
+lua,MGEF,CalmHumanoid,description,R500,1,-1
+lua,MGEF,CalmCreature,description,R500,1,-1
+lua,MGEF,FrenzyHumanoid,description,R500,1,-1
+lua,MGEF,FrenzyCreature,description,R500,1,-1
+lua,MGEF,DemoralizeHumanoid,description,R500,1,-1
+lua,MGEF,DemoralizeCreature,description,R500,1,-1
+lua,MGEF,RallyHumanoid,description,R500,1,-1
+lua,MGEF,RallyCreature,description,R500,1,-1
+lua,MGEF,SummonDaedroth,description,R400,1,0
+lua,MGEF,BoundDagger,description,R300 R500,2,-1
+lua,MGEF,BoundLongsword,description,R300 R500,2,-1
+lua,MGEF,BoundMace,description,R300 R500,2,-1
+lua,MGEF,BoundBattleAxe,description,R300 R500,2,-1
+lua,MGEF,BoundSpear,description,R300 R500,2,-1
+lua,MGEF,BoundLongbow,description,R300 R500,2,-1
+lua,MGEF,BoundCuirass,description,R300 R500,2,-1
+lua,MGEF,BoundHelm,description,R300 R500,2,-1
+lua,MGEF,BoundBoots,description,R300 R500,2,-1
+lua,MGEF,BoundShield,description,R300 R500,2,-1
+lua,MGEF,BoundGloves,description,R300 R500,2,-1
+lua,SPEL,daedric agility,name,R300,1,0
+lua,SPEL,daedric bite,name,R300,1,0
+lua,SPEL,daedric endurance,name,R300,1,0
+lua,SPEL,daedric fatigue,name,R300,1,0
+lua,SPEL,daedric health,name,R300,1,0
+lua,SPEL,daedric intelligence,name,R300,1,0
+lua,SPEL,daedric luck,name,R300,1,0
+lua,SPEL,daedric personality,name,R300,1,0
+lua,SPEL,daedric speed,name,R300,1,0
+lua,SPEL,daedric strength,name,R300,1,0
+lua,SPEL,daedric willpower,name,R300,1,0
+lua,SPEL,summon daedroth,name,R400,1,0
+lua,MISC,key_Forge of Rolamus,name,R300,1,0
+lua,MISC,key_ashalmawia_prisoncell,name,R300,1,0
+lua,MISC,key_ashurninibi,name,R300,1,0
+lua,MISC,key_ashurninibi_lost,name,R300,1,0
+lua,MISC,key_ibardad_tomb,name,R300,1,0
+plugin,WEAP,daedric arrow,name,R300,1,0
+plugin,WEAP,daedric battle axe,name,R300,1,0
+plugin,WEAP,daedric claymore,name,R300,1,0
+plugin,WEAP,daedric club,name,R300,1,0
+plugin,WEAP,daedric dagger,name,R300,1,0
+plugin,WEAP,daedric dai-katana,name,R300,1,0
+plugin,WEAP,daedric dart,name,R300,1,0
+plugin,WEAP,daedric katana,name,R300,1,0
+plugin,WEAP,daedric long bow,name,R300,1,0
+plugin,WEAP,daedric longsword,name,R300,1,0
+plugin,WEAP,daedric mace,name,R300,1,0
+plugin,WEAP,daedric shortsword,name,R300,1,0
+plugin,WEAP,daedric spear,name,R300,1,0
+plugin,WEAP,daedric staff,name,R300,1,0
+plugin,WEAP,daedric tanto,name,R300,1,0
+plugin,WEAP,daedric wakizashi,name,R300,1,0
+plugin,WEAP,daedric wakizashi_hhst,name,R300,1,0
+plugin,WEAP,daedric war axe,name,R300,1,0
+plugin,WEAP,daedric warhammer,name,R300,1,0
+plugin,WEAP,daedric_crescent_unique,name,R300,1,0
+plugin,CREA,daedroth,name,R400,1,0
+plugin,CREA,daedroth_az,name,R400,1,0
+plugin,CREA,daedroth_baladas,name,R400,1,0
+plugin,CREA,daedroth_summon,name,R400,1,0
+plugin,ARMO,daedric_boots,name,R300,1,0
+plugin,ARMO,daedric_cuirass,name,R300,1,0
+plugin,ARMO,daedric_cuirass_htab,name,R300,1,0
+plugin,ARMO,daedric_fountain_helm,name,R300,1,0
+plugin,ARMO,daedric_gauntlet_left,name,R300,1,0
+plugin,ARMO,daedric_gauntlet_right,name,R300,1,0
+plugin,ARMO,daedric_god_helm,name,R300,1,0
+plugin,ARMO,daedric_greaves,name,R300,1,0
+plugin,ARMO,daedric_greaves_htab,name,R300,1,0
+plugin,ARMO,daedric_pauldron_left,name,R300,1,0
+plugin,ARMO,daedric_pauldron_right,name,R300,1,0
+plugin,ARMO,daedric_shield,name,R300,1,0
+plugin,ARMO,daedric_terrifying_helm,name,R300,1,0
+plugin,ARMO,daedric_towershield,name,R300,1,0
+plugin,CLOT,Daedric_special,name,R300,1,0
+lua,INGR,ingred_cursed_daedras_heart_01,name,R010,1,-3
+lua,INGR,ingred_daedra_skin_01,name,R500,1,-1
+lua,INGR,ingred_daedras_heart_01,name,R010,1,-3
+lua,BOOK,BookSkill_Alchemy4,text,R400,2,0
+lua,BOOK,BookSkill_Alteration3,text,R600,3,0
+lua,BOOK,BookSkill_Athletics3,text,R400 R500,2,-1
+lua,BOOK,BookSkill_Block1,text,R500,2,-2
+lua,BOOK,BookSkill_Block5,text,R500,2,-2
+lua,BOOK,BookSkill_Conjuration1,text,R500,5,-5
+lua,BOOK,BookSkill_Conjuration2,text,R500,1,-1
+lua,BOOK,BookSkill_Conjuration4,text,R400 R500,7,-4
+lua,BOOK,BookSkill_Enchant1,text,R300,1,0
+lua,BOOK,BookSkill_Enchant2,text,R500,1,-1
+lua,BOOK,BookSkill_Heavy Armor2,text,R300,1,0
+lua,BOOK,BookSkill_Long Blade1,text,R300,1,0
+lua,BOOK,BookSkill_Mercantile3,text,R500,1,-1
+lua,BOOK,BookSkill_Mysticism2,text,R500,1,-1
+lua,BOOK,BookSkill_Mysticism5,text,R500,3,-3
+lua,BOOK,BookSkill_Restoration4,text,R500,5,-5
+lua,BOOK,BookSkill_Short Blade2,text,R500,2,-2
+lua,BOOK,BookSkill_Sneak2,text,R500,2,-2
+lua,BOOK,BookSkill_Sneak3,text,R500 R600,5,-3
+lua,BOOK,BookSkill_Spear2,text,R500,1,-1
+lua,BOOK,BookSkill_Speechcraft1,text,R500,2,-2
+lua,BOOK,bk_AedraAndDaedra,name,R500 R600,2,-1
+lua,BOOK,bk_AedraAndDaedra,text,R500 R600,15,-8
+lua,BOOK,bk_Aedra_Tarer_Unique,name,R500 R600,2,-1
+lua,BOOK,bk_Aedra_Tarer_Unique,text,R500 R600,15,-8
+lua,BOOK,bk_AncestorsAndTheDunmer,text,R500 R600,2,-1
+lua,BOOK,bk_AnnotatedAnuad,text,R500 R600,3,-2
+lua,BOOK,bk_Anticipations,text,R500,10,-10
+lua,BOOK,bk_BlasphemousRevenants,text,R110,1,-2
+lua,BOOK,bk_Boethiah's Glory_unique,text,R500,1,-1
+lua,BOOK,bk_BookOfDaedra,name,R500,1,-1
+lua,BOOK,bk_BookOfDaedra,text,R250 R500,10,-11
+lua,BOOK,bk_BriefHistoryEmpire3,text,R500,1,-1
+lua,BOOK,bk_BriefHistoryEmpire3_oh,text,R500,1,-1
+lua,BOOK,bk_BrothersOfDarkness,text,R500,1,-1
+lua,BOOK,bk_ChangedOnes,text,R600,1,0
+lua,BOOK,bk_ChildrensAnuad,text,R500 R600,3,-2
+lua,BOOK,bk_Dagoth_Urs_Plans,text,R500,2,-2
+lua,BOOK,bk_HouseOfTroubles_c,text,R500,2,-2
+lua,BOOK,bk_HouseOfTroubles_o,text,R500,2,-2
+lua,BOOK,bk_Ibardad_Elante_notes,text,R300,1,0
+lua,BOOK,bk_InvocationOfAzura,text,R220 R400 R500,5,-6
+lua,BOOK,bk_LegendaryScourge,text,R210,1,-2
+lua,BOOK,bk_LivesOfTheSaints,text,R500,3,-3
+lua,BOOK,bk_Mysticism,text,R300,1,0
+lua,BOOK,bk_PigChildren,text,R500,1,-1
+lua,BOOK,bk_PilgrimsPath,text,R200 R500,2,-3
+lua,BOOK,bk_PostingOfTheHunt,text,R300 R500,2,-1
+lua,BOOK,bk_SpiritOfTheDaedra,name,R500,1,-1
+lua,BOOK,bk_TalMarogKersResearches,text,R500,3,-3
+lua,BOOK,bk_WatersOfOblivion,text,R500,1,-1
+lua,BOOK,bk_Yagrum's_Book,text,R210 R230 R300 R500,8,-5
+lua,BOOK,bk_auranefrernis2,text,R500,1,-1
+lua,BOOK,bk_bartendersguide,text,R500,1,-1
+lua,BOOK,bk_bartendersguide_01,text,R500,1,-1
+lua,BOOK,bk_clientlist,text,R500,1,-1
+lua,BOOK,bk_darkestdarkness,text,R100 R200 R300 R400 R500,27,-29
+lua,BOOK,bk_formygodsandemperor,text,R600,1,0
+lua,BOOK,bk_galur_rithari's_papers,text,R500,1,-1
+lua,BOOK,bk_guide_to_vivec,text,R200,1,-2
+lua,BOOK,bk_guide_to_vvardenfell,text,R100 R140 R270,3,-6
+lua,BOOK,bk_manyfacesmissinggod,text,R300 R500 R600,22,-11
+lua,BOOK,bk_oldways,text,R500,3,-3
+lua,BOOK,bk_onoblivion,text,R400 R500,15,-13
+lua,BOOK,bk_poisonsong6,text,R300,1,0
+lua,BOOK,bk_progressoftruth,text,R500,2,-2
+lua,BOOK,bk_thelostprophecy,text,R500,1,-1
+lua,BOOK,bk_truenatureoforcs,text,R400 R500,4,-2
+lua,BOOK,bk_truenoblescode,text,R500 R600,2,-1
+lua,BOOK,bk_vampiresofvvardenfell2,text,R500,1,-1
+lua,BOOK,bk_varietiesoffaithintheempire,text,R260 R300 R500,5,-6
+lua,BOOK,bk_vivec_murders,text,R500,1,-1
+lua,BOOK,bk_vivec_no_murder,text,R500,3,-3
+lua,BOOK,bk_vivecandmephala,text,R500,4,-4
+lua,BOOK,bk_wherewereyoudragonbroke,text,R600,1,0
+lua,BOOK,bookskill_acrobatics1,text,R500,1,-1
+lua,BOOK,bookskill_hand to hand1,text,R500,1,-1
+lua,BOOK,bookskill_hand to hand2,text,R500,1,-1
+lua,BOOK,bookskill_hand to hand3,text,R500,1,-1
+lua,BOOK,bookskill_hand to hand4,text,R300 R500,3,-2
+lua,BOOK,bookskill_heavy armor5,text,R400,1,0
+lua,BOOK,bookskill_illusion5,text,R400,1,0
+lua,BOOK,bookskill_light armor4,text,R600,2,0
+lua,BOOK,bookskill_light armor5,text,R400,1,0
+lua,BOOK,bookskill_marksman3,text,R500,12,-12
+lua,BOOK,bookskill_restoration1,text,R300,1,0
+lua,BOOK,bookskill_restoration2,text,R500,2,-2
+lua,BOOK,bookskill_security2,text,R300,2,0
+lua,BOOK,bookskill_security4,text,R500,1,-1
+lua,BOOK,bookskill_spear1,text,R500,1,-1
+lua,BOOK,bookskill_spear3,text,R500,1,-1
+lua,BOOK,bookskill_unarmored2,text,R500,1,-1
+plugin,INFO,165843760212649393,text,R500,1,-1
+plugin,INFO,25637956482522538,text,R100,1,-2
+plugin,INFO,210998413200821575,text,R300,1,0
+plugin,INFO,1092511116141117629,text,R100,1,-2
+plugin,INFO,3226014863257239147,text,R500,1,-1
+plugin,INFO,4567325263602459,text,R500,1,-1
+plugin,INFO,131915680210358034,text,R500,1,-1
+plugin,INFO,23663253802239623244,text,R500,1,-1
+plugin,INFO,13044239262985121522,text,R500,1,-1
+plugin,INFO,183628557173843732,text,R500,1,-1
+plugin,INFO,31044390636421846,text,R500,1,-1
+plugin,INFO,22938288651497710110,text,R500,1,-1
+plugin,INFO,20594172332804912531,text,R500,1,-1
+plugin,INFO,1637516755341926555,text,R300,1,0
+plugin,INFO,238932080655311548,text,R300,1,0
+plugin,INFO,14569272131398421066,text,R300,1,0
+plugin,INFO,31882766643491381,text,R300,1,0
+plugin,INFO,10599176632402013147,text,R300,1,0
+plugin,INFO,307422442440019203,text,R300,1,0
+plugin,INFO,1231318026306519354,text,R100,1,-2
+plugin,INFO,4866123242387511643,text,R400,1,0
+plugin,INFO,164810425806411822,text,R400,1,0
+plugin,INFO,92272523014119350,text,R300,2,0
+plugin,INFO,3011421638310527707,text,R300,2,0
+plugin,INFO,1796146812115820063,text,R300,2,0
+plugin,INFO,228559111152502468,text,R300,2,0
+plugin,INFO,10202180523024431080,text,R300,2,0
+plugin,INFO,39845081645223018,text,R300,2,0
+plugin,INFO,215132642762111537,text,R300,2,0
+plugin,INFO,269463199827123017,text,R300,1,0
+plugin,INFO,23296139855178278,text,R300,1,0
+plugin,INFO,13668241971705831167,text,R300,1,0
+plugin,INFO,27508144572074118082,text,R300,1,0
+plugin,INFO,26155226611790424302,text,R300,1,0
+plugin,INFO,17958291341163422651,text,R300,1,0
+plugin,INFO,226371357053325416,text,R300,1,0
+plugin,INFO,13261247872688832685,text,R300,1,0
+plugin,INFO,1647324345213796668,text,R300,1,0
+plugin,INFO,3204822843910829785,text,R270 R500,5,-6
+plugin,INFO,258186938151368051,text,R270 R500,5,-6
+plugin,INFO,177942089766420471,text,R500,1,-1
+plugin,INFO,238842330205516064,text,R500,1,-1
+plugin,INFO,19393229311603430580,text,R500,1,-1
+plugin,INFO,13125145792237029688,text,R500,1,-1
+plugin,INFO,2296424604965814421,text,R500,1,-1
+plugin,INFO,2837727123107723176,text,R500,1,-1
+plugin,INFO,1416722331880314880,text,R500,1,-1
+plugin,INFO,932425122266223858,text,R100,1,-2
+plugin,INFO,1053123401240582096,text,R500,1,-1
+plugin,INFO,18879125951316324172,text,R500,1,-1
+plugin,INFO,1825146562838218905,text,R500,1,-1
+plugin,INFO,840729737232129082,text,R400,1,0
+plugin,INFO,2782091362716810383,text,R400,1,0
+plugin,INFO,815710329405228975,text,R400,1,0
+plugin,INFO,3050776952842713146,text,R400,1,0
+plugin,INFO,9803214401253319157,text,R400,1,0
+plugin,INFO,3688255662191031689,text,R400,1,0
+plugin,INFO,1756623776980030532,text,R400,1,0
+plugin,INFO,7939321882060124566,text,R400,1,0
+plugin,INFO,1776920257330710884,text,R100,1,-2
+plugin,INFO,51358524162012703,text,R400,1,0
+plugin,INFO,3103727901690722640,text,R120 R500,2,-3
+plugin,INFO,567414595162866916,text,R240 R500,3,-4
+plugin,INFO,1599922720300213468,text,R240 R500,3,-4
+plugin,INFO,40275741867025900,text,R500,2,-2
+plugin,INFO,23430028821625820,text,R500,2,-2
+plugin,INFO,6963154371506714481,text,R100,1,-2
+plugin,INFO,22010612395371320,text,R270,1,-2
+plugin,INFO,352621530612704,text,R270,1,-2
+plugin,INFO,234952372639094666,text,R270,1,-2
+plugin,INFO,244639002936515910,text,R270,1,-2
+plugin,INFO,2522915002870332121,text,R270,1,-2
+plugin,INFO,41302208659118958,text,R270,1,-2
+plugin,INFO,23449314121640910844,text,R500,2,-2
+plugin,INFO,2718011837103625929,text,R500,2,-2
+plugin,INFO,32354297442887026523,text,R500,1,-1
+plugin,INFO,7027327552545817126,text,R500,1,-1
+plugin,INFO,28455296191979011517,text,R100,1,-2
+plugin,INFO,256153141124018972,text,R100,1,-2
+plugin,INFO,18724106871144813180,text,R100,1,-2
+plugin,INFO,81418063306221012,text,R500,2,-2
+plugin,INFO,2280215770695014012,text,R100 R400,2,-2
+plugin,INFO,1163613760290325210,text,R500,1,-1
+plugin,INFO,947826065722121726,text,R500,4,-4
+plugin,INFO,1780757646719404,text,R400,1,0
+plugin,INFO,26949321972009317085,text,R400,1,0
+plugin,INFO,17258938821019115,text,R400,1,0
+plugin,INFO,14406136233904608,text,R400,1,0
+plugin,INFO,1796152213109715098,text,R400,1,0
+plugin,INFO,17904321252405415910,text,R400,1,0
+plugin,INFO,2682512249265228814,text,R110 R400,3,-2
+plugin,INFO,22911232913039718394,text,R400,2,0
+plugin,INFO,92038942909521601,text,R400,3,0
+plugin,INFO,19139287163203512660,text,R500,1,-1
+plugin,INFO,673821472106711099,text,R110,1,-2
+plugin,INFO,785732822678819521,text,R110,1,-2
+plugin,INFO,124974922249611126,text,R100,1,-2
+plugin,INFO,25729225963140232687,text,R500,1,-1
+plugin,INFO,276633262352427495,text,R500,1,-1
+plugin,INFO,25621103999213660,text,R500,1,-1
+plugin,INFO,218051894382021198,text,R600,1,0
+plugin,INFO,31931137473110828419,text,R500,2,-2
+plugin,INFO,3220021953679228145,text,R500,1,-1
+plugin,INFO,24320163261010028218,text,R500 R600,3,-2
+plugin,INFO,221243748513011976,text,R100,1,-2
+plugin,INFO,1930678221600320481,text,R500,1,-1
+plugin,INFO,2280321719426622601,text,R100 R120,3,-6
+plugin,INFO,1270723012253289371,text,R500,1,-1
+plugin,INFO,31776119681834815685,text,R500,1,-1
+plugin,INFO,202484823143412349,text,R120 R400,2,-2
+plugin,INFO,19490137733140524327,text,R400,1,0
+plugin,INFO,877220269297527221,text,R400,2,0
+plugin,INFO,361921234262745713,text,R400,3,0
+plugin,INFO,85761739158131290,text,R100 R500,2,-3
+plugin,INFO,17387101471785030673,text,R300 R500,2,-1
+plugin,INFO,31736211981826415121,text,R500,1,-1
+plugin,INFO,19389260531509322592,text,R500,2,-2
+plugin,INFO,20648175702863015478,text,R100,2,-4
+plugin,INFO,9192286043218978,text,R500,1,-1
+plugin,INFO,626330163484113756,text,R500,2,-2
+plugin,INFO,3244528316501924147,text,R500,1,-1
+plugin,INFO,3214617742935313526,text,R500,1,-1
+plugin,INFO,854220814411418728,text,R500,1,-1
+plugin,INFO,23734223691465230169,text,R500,1,-1
+plugin,INFO,2803822364213596313,text,R500,1,-1
+plugin,INFO,2008411972330818414,text,R500,4,-4
+plugin,INFO,302182842587958280,text,R500,3,-3
+plugin,INFO,1552112570775215760,text,R500,3,-3
+plugin,INFO,2302128661764914469,text,R500,1,-1
+plugin,INFO,28401184352168431557,text,R500,1,-1
+plugin,INFO,7845286491425821777,text,R400,2,0
+plugin,INFO,1228113341154996662,text,R120 R400,3,-4
+plugin,INFO,1856323442151927010,text,R400,1,0
+plugin,INFO,2506946612893128418,text,R110 R400,4,-2
+plugin,INFO,292442930812206363,text,R400,1,0
+plugin,INFO,22949307441425724768,text,R500,1,-1
+plugin,INFO,24310115101398920473,text,R500,1,-1
+plugin,INFO,13349528327226309,text,R500,1,-1
+plugin,INFO,2189930746133321952,text,R400 R500,3,-2
+plugin,INFO,16033271019818693,text,R400 R500,3,-2
+plugin,INFO,13302538963722469,text,R500,1,-1
+plugin,INFO,9819186011414313638,text,R500,4,-4
+plugin,INFO,295819958194376852,text,R300,1,0
+plugin,INFO,1964015707149176183,text,R270 R500,2,-3
+plugin,INFO,3797170121523127866,text,R270 R500,2,-3
+plugin,INFO,7458153442470511531,text,R500,3,-3
+plugin,INFO,29198203683166230008,text,R500,3,-3
+plugin,INFO,21456167471394015241,text,R100 R270,2,-4
+plugin,INFO,16871106641445926629,text,R100 R270,2,-4
+plugin,INFO,17800272171933632584,text,R500,1,-1
+plugin,INFO,574580391613828057,text,R500,1,-1
+plugin,INFO,234754529126424634,text,R280 R400 R500,4,-4
+plugin,INFO,2672066491848416296,text,R280 R400 R500,4,-4
+plugin,INFO,2815193931564914555,text,R140,1,-2
+plugin,INFO,1131515014464226706,text,R110,1,-2
+plugin,INFO,19710277652701625257,text,R100,1,-2
+plugin,INFO,23066325801462131675,text,R300,2,0
+plugin,INFO,175141918339729660,text,R300 R500,3,-1
+plugin,INFO,26368164150011690,text,R300,1,0
+plugin,INFO,548311412319123281,text,R500,2,-2
+plugin,INFO,31534296631286115283,text,R500,2,-2
+plugin,INFO,212118874212127267,text,R300,1,0
+plugin,INFO,24775283151789129157,text,R100,1,-2
+plugin,INFO,95330752928320992,text,R500,1,-1
+plugin,INFO,15521218342647910935,text,R500,1,-1
+plugin,INFO,129027474885622520,text,R500,1,-1
+plugin,INFO,345773992093114460,text,R300,1,0
+plugin,INFO,19445557144421072,text,R500,2,-2
+plugin,INFO,1580515103409018566,text,R500,2,-2
+plugin,INFO,27026660941786938,text,R500,1,-1
+plugin,INFO,241713053353833325,text,R500,3,-3
+plugin,INFO,226336763353019227,text,R500,3,-3
+plugin,INFO,3269812507128722743,text,R100,1,-2
+plugin,INFO,27490147102083214873,text,R300,1,0
+plugin,INFO,1265690951491529886,text,R100,1,-2
+plugin,WEAP,daedric dagger_bar,name,R300,1,0
+lua,BOOK,bk_Artifacts_Tamriel,text,R210 R230 R300 R500,8,-5
+plugin,INFO,230879835320426665,text,R500,1,-1
+plugin,INFO,9670272931397023662,text,R500,2,-2
+plugin,INFO,777060658815161,text,R500,1,-1
+plugin,INFO,30678111231429010357,text,R200 R500,2,-3
+plugin,INFO,5495238071015227583,text,R500,1,-1
+plugin,INFO,279916338606412388,text,R300,1,0
+plugin,INFO,18487327421804021090,text,R500,1,-1
+plugin,INFO,2978479209707870,text,R100,1,-2
+plugin,INFO,2218610984558912743,text,R300 R500,2,-1
+plugin,INFO,1427024818124768213,text,R300,1,0
+plugin,INFO,1077923272908815004,text,R300,1,0
+plugin,INFO,26515240481753828440,text,R300,1,0
+lua,BOOK,sc_witchnote,text,R300,1,0
+plugin,INFO,14818108112663526616,text,R500,1,-1
+plugin,INFO,1484314981653727885,text,R500,1,-1
+plugin,INFO,3023911526304823908,text,R500,1,-1
+plugin,INFO,766932545279449832,text,R500,1,-1
+plugin,INFO,8532312101388421878,text,R500,1,-1
+plugin,INFO,1984363691010128667,text,R500,1,-1

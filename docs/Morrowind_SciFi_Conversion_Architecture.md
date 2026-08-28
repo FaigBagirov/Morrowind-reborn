@@ -442,9 +442,11 @@ You can answer, with a number: *how many words does this project require me to w
 
 ---
 
-## Part 14. Work Order 2 — The Rules Table and the Transform `SPEC`
+## Part 14. Work Order 2 — The Rules Table and the Transform `BUILT, GATE 3 PENDING`
 
 **Runs after WO1, which is closed. This is the first work order that changes what the player sees.**
+
+> **Status 2026-08-28.** The table is `tools/rules/naming.csv`, 23 rules. The transform is `tools/scripts/transform.py` and both artifacts emit: `mod/scripts/rewrite/rules.lua` with 135 targets, and a plugin of 236 records that `tes3conv` builds and `esmtool` reads back correctly. Gates 1 and 2 pass, and the Lua and Python engines were proved equivalent over 135 fields and half a megabyte of real game text under OpenMW's own `lua51.dll`. Gate 3, the game run, has not happened.
 
 Everything before this measured the ground. This one puts weight on it. The failure mode that matters is not a crash — it is a substitution landing somewhere it should not have, inside one of 227 book texts nobody will read again before release.
 

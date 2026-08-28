@@ -1,0 +1,4 @@
+# Sci-fi conversion, Lua half. Generated targets live in
+# scripts/rewrite/rules.lua; the code is scripts/rewrite/apply.lua.
+
+LOAD: scripts/rewrite/apply.lua

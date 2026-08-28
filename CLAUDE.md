@@ -32,7 +32,7 @@ stopped. **Every change set ends by updating this section.**
 | --- | --- | --- |
 | WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
 | WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
-| WO2 | Rules table + transform script | **Table built and validated, transform not written.** `tools/rules/naming.csv`, 23 rules, dry run touches 611 records. Spec is Architecture **Part 14** |
+| WO2 | Rules table + transform script | **Built, not yet seen in game.** 23 rules, 371 record-fields; both artifacts emit, the Lua and Python engines agree byte for byte, the plugin builds and passes `esmtool`. Gate 3 is the game run |
 
 ## WO0 - the answer, and why it is the constraint on everything
 
@@ -228,25 +228,28 @@ soul, or what happens after death.
 
 ## Next action
 
-**The transform, `tools/scripts/transform.py`.** Everything it needs is settled.
+**Gate 3: run the game.** Everything mechanical passes; nothing has been seen
+on screen yet.
 
-1. Two emitters from one table: a Lua data file into `mod/` for the 115
-   load-context record-fields, and plugin JSON into `tools/build/` for the 496
-   plugin ones. `--profile vanilla` reads the masters, `--profile momw` the
-   effective set.
-2. The gates are already written in `tools/scripts/check_rules.py` - order,
-   ASCII, length, static idempotence, unreachable rules, markup protection -
-   and the transform reuses them rather than reimplementing.
-3. Then a game run: one rewritten book renders, one renamed item reads right in
-   the inventory, one rewritten INFO still hyperlinks its topic.
+    python tools/scripts/transform.py --write
+    tools/bin/tes3conv.exe tools/build/scifi-rewrite.json tools/build/scifi-rewrite.esp
 
-Decided 2026-08-28, do not reopen: the beings sense of `Daedric` takes
-**Zenar**; `Daedric summoning` takes **Zenar summoning**; the route is the
-**hybrid**, Lua plus a plugin.
+What the run has to check, per Architecture Part 14, all reachable by console:
 
-Still open and not blocking the transform: Vivec's monologue wording (Canon
-Part 4, `NEEDS REVISION`), the mitochondrial line (Canon Part 5, `PROPOSED`),
-and the upstream ticket, which is worth sending and not worth waiting on.
+- a rewritten **book** still renders with its markup - `bk_darkestdarkness`
+  carries five rules at once;
+- a renamed **item** reads correctly in the inventory - any daedric weapon;
+- a rewritten **INFO** still hyperlinks its topic;
+- a **magic effect description** shows the change, which is the one Lua store
+  never seen on screen.
+
+The Lua half loads from `mod/scifi-rewrite.omwscripts`. The plugin half needs
+`scifi-rewrite.esp` in the load order, and on the MOMW list it must go through
+the Delta Plugin merge rather than straight in.
+
+After that: the `--profile momw` build needs a load-order file, and the
+hand-written text - Vivec's monologue (Canon Part 4, `NEEDS REVISION`) and the
+mitochondrial line (Canon Part 5, `PROPOSED`) - is a separate work order.
 
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 

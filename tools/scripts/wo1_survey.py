@@ -175,7 +175,13 @@ def record_key(rec, topic=None):
         return (rtype, rec.get("name", ""), tuple(grid) if grid else None)
     if rtype == "DialogueInfo":
         return (rtype, str(topic or "").lower(), str(rec.get("id", "")).lower())
-    return (rtype, str(rec.get("id", "")).lower())
+    # Not every record type keys on "id". Skill uses skill_id and MagicEffect
+    # uses effect_id, and keying those on a missing "id" collapsed all 27
+    # skills onto one entry and all 142 magic effects onto another. Found by
+    # the WO2 transform disagreeing with the compatibility check by one record.
+    ident = (rec.get("id") or rec.get("skill_id") or rec.get("effect_id")
+             or rec.get("name") or "")
+    return (rtype, str(ident).lower())
 
 
 def slim(rec, topic=None):
@@ -185,8 +191,9 @@ def slim(rec, topic=None):
     keep = {"type": rec["type"]}
     if rtype == "DialogueInfo":
         keep["topic"] = topic or ""
-    for key in ("id", "name", "text", "description", "value", "rank_names",
-                "speaker_id", "data", "dialogue_type", "region"):
+    for key in ("id", "skill_id", "effect_id", "name", "text", "description",
+                "value", "rank_names", "speaker_id", "data", "dialogue_type",
+                "region"):
         if key in rec:
             keep[key] = rec[key]
     if rtype == "Cell":
