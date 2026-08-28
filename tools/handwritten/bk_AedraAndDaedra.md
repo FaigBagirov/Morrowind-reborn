@@ -47,30 +47,43 @@ Holamayan Monastery — the Temple and the Dissident Priests both keep it.
 
 ## Draft text
 
-Vanilla is 1,077 characters. This is 1,4xx — longer, which the plugin route
-allows (the length rule binds replacements in the rules table, not authored
-records). If it has to fit the vanilla length, the third and fourth paragraphs
-are what to cut.
+The text itself is `bk_AedraAndDaedra.txt` beside this file, in the exact bytes
+the record will carry: ASCII, vanilla markup, CRLF line ends. 2,137 characters
+against vanilla's 1,077 - about a page and a half in game, three screens of
+reading.
 
-```
-<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards"><BR>
-Aedra and Daedra<BR><BR>
-<DIV ALIGN="LEFT"><BR><BR>
-The designations of Gods, Demons, Aedra, and Daedra, are universally confusing to the layman. They are often used interchangeably.<BR>
-<BR>
-"Aedra" and "Daedra" are not relative terms. They are Elvish and exact. Azura is a Daedra both in Skyrim and Morrowind. "Aedra" is usually translated as "ancestor," which is as close as Cyrodilic can come to this Elven concept. "Daedra" means, roughly, "not our ancestors."<BR>
-<BR>
-The careful reader will note what these words describe. Not the things themselves, but our standing toward them. They are words of kinship, and kinship is a claim made by the speaker, not a property of the thing spoken of.<BR>
-<BR>
-This distinction was crucial to the Dunmer, whose fundamental split in ideology is represented in their mythical genealogy. Aedra are associated with stasis. Daedra represent change. The Aedra are held to have made the mortal world and to be bound to the Earth Bones; the Daedra, who cannot create, have the power to change.<BR>
-<BR>
-As part of the divine contract of creation, the Aedra can be killed. Witness Lorkhan and the moons. The protean Daedra, for whom the rules do not apply, can only be banished.<BR>
-<BR>
-It should be recorded, finally, that the subjects of this treatise do not use either word. The few who have spoken with them at length and been believed report that they name themselves Zenar, and that those we call Aedra are Zenad, which differs by a single letter and is meant to. They hold themselves one people, divided by an old quarrel rather than by kind.<BR>
-<BR>
-The Temple has never adopted these names, and its reasons are not scholarly. Call a thing kin and you owe it something. Call it not-kin and you may do as you please with it. The word does work, and that is why it has outlived every scholar who complained of it.<BR>
-<BR>
-```
+It keeps the vanilla opening almost word for word, so a player who read this
+book twenty years ago recognises it, and then it turns.
+
+### The shape
+
+1. **The vanilla definitions**, intact. `Aedra` is ancestor, `Daedra` is not our
+   ancestors. Nothing to unlearn.
+2. **The hinge, three sentences long.** *Read the two again, and mark what they
+   measure. Not the thing. Us.* The reader is not told a secret; he is shown
+   what he has been saying all along.
+3. **The vanilla theology**, kept, because it is good and because the reveal
+   needs something solid to stand against. The world-making claim is reported as
+   belief - *are held to have made* - which is what keeps *Shared World Canon*
+   Part 0 intact without the reader noticing a change.
+4. **One line of turn.** *Elegant. And in all the centuries of it, no one
+   thought to ask them.*
+5. **The reveal, through witnesses nobody believed** - a hermit, an Ashlands
+   wise woman, a smuggler. That is *Canon* Part 6's informed-source layer,
+   named. Their independence is the argument: *They do not know one another.
+   They agree.*
+6. **`Zenar` and `Zenad`.** One letter, and they insist upon the letter. One
+   people parted by an old quarrel - the Schism, seen from outside by a man who
+   does not know he is describing it.
+7. **The Temple's answer**, given by the priests themselves and set down
+   *without improvement, for it is better than mine*. Call a thing kin and you
+   owe it something.
+8. **The last line.** *The word is not an error. It is a decision, and it is
+   repeated every morning in every chapel on this island.*
+
+The narrator never claims to have met one. He is a scholar who asked, was
+answered, and understood more than he wanted to - which is the only voice that
+can carry this without becoming a revelation scene.
 
 ## Notes on choices
 
@@ -92,9 +105,11 @@ The Temple has never adopted these names, and its reasons are not scholarly. Cal
 
 ## Open questions for Faig
 
-1. **Length.** Fine to run longer than vanilla, or cut back to 1,077?
-2. **Should the book name change?** It is currently `Aedra and Daedra`. Leaving
-   it is the conservative choice and keeps the shelf recognisable.
-3. **Tarer's copy** (`bk_Aedra_Tarer_Unique`) is the same text. Same replacement,
-   or should his personal copy carry a marginal note in his hand - a cheap way
-   to characterise one more informed reader?
+1. **Length.** 2,137 characters, roughly double vanilla. The plugin route has no
+   limit, and the pacing wants the room. Cut back if you would rather it fit on
+   one page.
+2. **Title.** Still `Aedra and Daedra`. Leaving it keeps the book recognisable
+   on the shelf and keeps both topic words in the title.
+3. **Tarer's copy** (`bk_Aedra_Tarer_Unique`) carries the same text today. Same
+   replacement, or a marginal note in his own hand - one line, and one more
+   reader who knew?
