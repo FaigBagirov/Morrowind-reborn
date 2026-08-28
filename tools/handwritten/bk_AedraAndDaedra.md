@@ -81,25 +81,37 @@ there is.
 
 ### The shape
 
-1. **The vanilla opening**, now word for word rather than paraphrased. Nothing
-   to unlearn, and nothing to be suspicious of.
-2. **The hinge, three sentences.** *Read them again, and mark what they measure.
-   Not the thing. Us.* The reader is shown what he has been saying all along.
-3. **The vanilla theology**, compressed. It is the wall the reveal pushes
-   against.
-4. **The turn**, and the page break under it.
-5. **The reveal, through witnesses nobody believed** - a hermit, an Ashlands
-   wise woman, a smuggler. *Canon* Part 6's informed-source layer, named. The
-   argument is their independence: *They do not know one another. They agree.*
-6. **`Zenar` and `Zenad`.** One letter, and they insist upon the letter. The
-   Schism described by a man who does not know he is describing it.
-7. **The Temple's reasoning**, in the priests' own words, *set down without
-   improvement, for it is better than mine*.
-8. **The last line**, which belongs to them and not to him.
+0. **The hook**, third sentence. The word, and a debt the book owes the reader:
+   *Where it comes from, and why it has never reached your ear, I will come to.*
+1. **The vanilla definitions**, stripped to the two lines that matter. Nothing
+   to unlearn.
+2. **The hinge.** *They do not measure the thing. They measure us. How near it
+   sits to our fire, our table, our dead.* Then the image the whole book turns
+   on: **kinship is no property of the creature. It is a hand held out, or held
+   back.**
+3. **The vanilla theology**, recast around that gesture and reported as belief -
+   *the Aedra, it is said, made the world* - which keeps *Shared World Canon*
+   Part 0 intact. *What is bound may be killed. The Daedra, bound to nothing,
+   can only be sent away.*
+4. **Three words and a page break.** *Elegant. Very old. And in all those
+   centuries nobody thought to ask them.*
+5. **The witnesses**, one clause each and each of them a person rather than a
+   category: a hermit who had not spoken to a man in nine years, a wise woman
+   who answered in the plural, a smuggler who would change his story about
+   anything except this. The argument is not their testimony but their
+   distance: *They have never met. Their accounts do not differ by a word.*
+6. **`Zenar` and `Zenad`.** One letter, and they are careful with the letter.
+   The Schism described by a man who does not know he is describing it.
+7. **The scholar's discomfort**, which is what makes it credible: *a sentence I
+   would rather not write.*
+8. **The Temple's reasoning**, in their words, ending on the syllable that
+   indicts them - *and you may do as you like with it, and sleep.*
+9. **The last line.** *A decision, taken once and renewed every morning, in
+   every chapel on this island, by men who know exactly what they are saying.*
 
 ## Three decisions, all made on one criterion: does the player get there
 
-1. **Length: 2,105 bytes**, and the shape matters more than the number. The
+1. **Length: 2,317 bytes**, and the shape matters more than the number. The
    first page names `Zenar` and promises to explain it; everything after that
    is paced rather than rationed.
 2. **Title stays `Aedra and Daedra`.** The surprise depends on the reader
