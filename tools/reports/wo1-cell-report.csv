@@ -1,2 +1,1424 @@
 cell_id,is_interior,contains_target_keyword,referenced_by_script_count
-,False,False,1231
+Abaelun Mine,True,False,0
+Abaesen-Pulu Egg Mine,True,False,2
+Abanabi,True,False,0
+"Abandoned Shipwreck, Cabin",True,False,0
+"Abandoned Shipwreck, Lower Level",True,False,0
+"Abandoned Shipwreck, Upper Level",True,False,0
+Abebaal Egg Mine,True,False,0
+Abernanit,True,False,1
+Abinabi,True,False,0
+Adanumuran,True,False,0
+"Addadshashanammu, Shrine",True,False,0
+Addamasartus,True,False,0
+Ahallaraddon Egg Mine,True,False,0
+Ahanibi-Malmus Egg Mine,True,False,2
+"Aharasaplit Camp, Zallay's Yurt",True,False,0
+Aharnabi,True,False,0
+Aharunartus,True,False,0
+Ahemmusa Camp,False,False,0
+"Ahemmusa Camp, Addammus's Yurt",True,False,0
+"Ahemmusa Camp, Ashkhan's Yurt",True,False,0
+"Ahemmusa Camp, Assamma-Idan's Yurt",True,False,0
+"Ahemmusa Camp, Dutadalk's Yurt",True,False,0
+"Ahemmusa Camp, Kausi's Yurt",True,False,0
+"Ahemmusa Camp, Lanabi's Yurt",True,False,0
+"Ahemmusa Camp, Mamaea's Yurt",True,False,0
+"Ahemmusa Camp, Nummu's Yurt",True,False,0
+"Ahemmusa Camp, Wise Woman's Yurt",True,False,1
+Ahinipalit,True,False,0
+"Aidanat Camp, Abassel's Yurt",True,False,0
+Ainab,True,False,0
+"Ainab, Shrine",True,False,0
+Ainat,True,False,0
+Akimaes Grotto,True,False,0
+Akimaes-Ilanipu Egg Mine,True,False,2
+Akulakhan's Chamber,True,False,1
+Alas Ancestral Tomb,True,False,0
+Ald Daedroth,False,True,0
+"Ald Daedroth, Antechamber",True,True,0
+"Ald Daedroth, Inner Shrine",True,True,1
+"Ald Daedroth, Left Wing",True,True,0
+"Ald Daedroth, Outer Shrine",True,True,0
+"Ald Daedroth, Right Wing",True,True,0
+Ald Redaynia,False,False,0
+"Ald Redaynia, Tower",True,False,0
+Ald Sotha,False,False,0
+"Ald Sotha, Lower Level",True,False,0
+"Ald Sotha, Shrine",True,False,0
+"Ald Sotha, Upper Level",True,False,0
+Ald Velothi,False,False,0
+"Ald Velothi, Fevila Bethrano's Shack",True,False,0
+"Ald Velothi, Ganus Lloryn's Shack",True,False,0
+"Ald Velothi, Ienas Arvel's Shack",True,False,0
+"Ald Velothi, Lledsea Relas's Shack",True,False,0
+"Ald Velothi, Llerar Vinden's Shack",True,False,0
+"Ald Velothi, Outpost",True,False,1
+"Ald Velothi, Sathas Rivul's Shack",True,False,0
+"Ald Velothi, Vireveri Darethran's Shack",True,False,0
+Ald-ruhn,False,False,8
+"Ald-ruhn, Ald Skar Inn",True,False,0
+"Ald-ruhn, Arobar Guard Quarters",True,False,0
+"Ald-ruhn, Arobar Manor Bedrooms",True,False,0
+"Ald-ruhn, Arobar Manor Entrance",True,False,0
+"Ald-ruhn, Arobar Private Quarters",True,False,0
+"Ald-ruhn, Aryni Orethi's House",True,False,0
+"Ald-ruhn, Bevene Releth: Clothier",True,False,0
+"Ald-ruhn, Bivale Teneran: Clothier",True,False,0
+"Ald-ruhn, Boldrisa Andrano's House",True,False,0
+"Ald-ruhn, Braynas Hlervu's House",True,False,0
+"Ald-ruhn, Cienne Sintieve: Alchemist",True,False,0
+"Ald-ruhn, Codus Callonus: Bookseller",True,False,0
+"Ald-ruhn, Council Club",True,False,0
+"Ald-ruhn, Council Hostel",True,False,0
+"Ald-ruhn, Dandera Selaro: Smith",True,False,0
+"Ald-ruhn, Daynes Redothril: Pawnbroker",True,False,0
+"Ald-ruhn, Dravasa Andrethi's House",True,False,0
+"Ald-ruhn, Drinar Varyon's House",True,False,0
+"Ald-ruhn, Galsa Gindu's House",True,False,0
+"Ald-ruhn, Galthragoth's House",True,False,0
+"Ald-ruhn, Gildan's House",True,False,0
+"Ald-ruhn, Gindrala Hleran's House",True,False,0
+"Ald-ruhn, Goras Andrelo's House",True,False,0
+"Ald-ruhn, Guard Tower 1",True,False,0
+"Ald-ruhn, Guard Tower 2",True,False,0
+"Ald-ruhn, Guild of Fighters",True,False,0
+"Ald-ruhn, Guild of Mages",True,False,0
+"Ald-ruhn, Guls Llervu's House",True,False,0
+"Ald-ruhn, Hanarai Assutlanipal's House",True,False,0
+"Ald-ruhn, Ienas Sarandas's House",True,False,0
+"Ald-ruhn, Ilmiril's House",True,False,0
+"Ald-ruhn, Llether Vari: Enchanter",True,False,0
+"Ald-ruhn, Llethri Guard Quarters",True,False,0
+"Ald-ruhn, Llethri Manor Bedrooms",True,False,0
+"Ald-ruhn, Llethri Manor Entrance",True,False,0
+"Ald-ruhn, Llethri Private Quarters",True,False,0
+"Ald-ruhn, Malpenix Blonia: Trader",True,False,0
+"Ald-ruhn, Manor District",True,False,0
+"Ald-ruhn, Morag Tong Guildhall",True,False,0
+"Ald-ruhn, Morvayn Quarters",True,False,0
+"Ald-ruhn, Pellecia Aurrus's House",True,False,0
+"Ald-ruhn, Practice Room",True,False,0
+"Ald-ruhn, Ramoran Manor",True,False,0
+"Ald-ruhn, Ramoran Private Quarters",True,False,0
+"Ald-ruhn, Redoran Council Entrance",True,False,1
+"Ald-ruhn, Redoran Council Hall",True,False,0
+"Ald-ruhn, Sarethi Guard Quarters",True,False,1
+"Ald-ruhn, Sarethi Manor",True,False,1
+"Ald-ruhn, Tauryon's House",True,False,0
+"Ald-ruhn, Temple",True,False,1
+"Ald-ruhn, The Rat In The Pot",True,False,0
+"Ald-ruhn, Tiras Sadus: General Merchandise",True,False,0
+"Ald-ruhn, Tuveso Beleth: Smith",True,False,0
+"Ald-ruhn, Venim Manor Bedrooms",True,False,0
+"Ald-ruhn, Venim Manor Entrance",True,False,0
+"Ald-ruhn, Venim Manor Guard Quarters",True,False,0
+"Ald-ruhn, Venim Manor Private Quarters",True,False,0
+"Ald-ruhn, Venim Manor Right Wing",True,False,0
+Aleft,True,False,0
+Alen Ancestral Tomb,True,False,0
+"Almurbalarammi, Shrine",True,False,0
+Alof's Farmhouse,True,False,0
+An Abandoned Shack,True,False,0
+"Ancient Shipwreck, Cabin",True,False,0
+"Ancient Shipwreck, Lower Level",True,False,0
+"Ancient Shipwreck, Upper Level",True,False,0
+Andalen Ancestral Tomb,True,False,0
+Andalor Ancestral Tomb,True,False,0
+Andas Ancestral Tomb,True,False,0
+Andasreth,False,False,1
+"Andasreth, Lower Level",True,False,0
+"Andasreth, Propylon Chamber",True,False,1
+"Andasreth, Upper Level",True,False,0
+Andavel Ancestral Tomb,True,False,0
+Andrano Ancestral Tomb,True,False,0
+Andrethi Ancestral Tomb,True,False,0
+Andules Ancestral Tomb,True,False,0
+Ansi,True,False,0
+Aralen Ancestral Tomb,True,False,0
+Aran Ancestral Tomb,True,False,0
+Arano Ancestral Tomb,True,False,0
+Arano Plantation,True,False,0
+Arenim Ancestral Tomb,True,False,0
+Arethan Ancestral Tomb,True,False,0
+"Arkngthand, Cells of Hollow Hand",True,False,0
+"Arkngthand, Deep Ore Passage",True,False,0
+"Arkngthand, Hall of Centrifuge",True,False,0
+"Arkngthand, Heaven's Gallery",True,False,0
+"Arkngthand, Land's Blood Gallery",True,False,0
+"Arkngthand, Weepingbell Hall",True,False,0
+Arkngthunch-Sturdumz,True,False,0
+"Arrow, Cabin",True,False,0
+"Arrow, Lower Level",True,False,0
+"Arrow, Upper Level",True,False,0
+Arvel Manor,True,False,0
+"Arvel Manor, Slave Shack",True,False,0
+"Arvel Manor, Slavemaster's Shack",True,False,0
+"Arvel Manor, Storage Shack",True,False,0
+Arvel Plantation,False,False,0
+Aryon Ancestral Tomb,True,False,0
+Arys Ancestral Tomb,True,False,0
+Asha-Ahhe Egg Mine,True,False,0
+Ashalmawia,False,False,0
+"Ashalmawia, Shrine",True,False,0
+"Ashalmawia, Shrine, Sunken Vaults",True,False,0
+"Ashalmimilkala, Shrine",True,False,0
+"Ashamanu Camp, Kausha's Yurt",True,False,0
+Ashanammu,True,False,0
+Ashimanu Egg Mine,True,False,0
+"Ashimanu Egg Mine, Queen's Lair",True,False,0
+Ashinabi,True,False,0
+"Ashinabi, Smuggler Den",True,False,0
+Ashir-Dan,True,False,0
+Ashirbadon,True,False,0
+Ashmelech,True,False,1
+"Ashunartes, Shrine",True,False,0
+Ashurnabitashpi,False,False,0
+Ashurnibibi,False,False,0
+"Ashurnibibi, Shrine",True,False,0
+"Assalkushalit, Shrine",True,False,0
+"Assarnatamat, Shrine",True,False,0
+Assarnud,True,False,0
+Assemanu,True,False,0
+"Assemanu, Shrine",True,False,0
+"Assernerairan, Shrine",True,False,0
+Assu,True,False,0
+Assumanu,True,False,0
+"Assurdirapal, Inner Shrine",True,False,0
+"Assurdirapal, Shrine",True,False,0
+Assurnabitashpi,True,False,0
+"Assurnabitashpi, Shrine",True,False,0
+Bal Fell,False,False,0
+"Bal Fell, East Wing",True,False,0
+"Bal Fell, Inner Shrine",True,False,0
+"Bal Fell, Outer Shrine",True,False,0
+"Bal Fell, West Wing",True,False,0
+Bal Isra,False,False,4
+Bal Ur,False,False,0
+"Bal Ur, Shrine",True,False,0
+"Bal Ur, Underground",True,False,0
+Balmora,False,False,6
+"Balmora, Astius Hanotepelus' House",True,False,0
+"Balmora, Balyn Omarel's House",True,False,0
+"Balmora, Caius Cosades' House",True,False,0
+"Balmora, Clagius Clanler: Outfitter",True,False,0
+"Balmora, Council Club",True,False,0
+"Balmora, Dorisa Darvel: Bookseller",True,False,0
+"Balmora, Dralasa Nithryon: Pawnbroker",True,False,0
+"Balmora, Dralcea Arethi's House",True,False,0
+"Balmora, Dralosa Athren's House",True,False,0
+"Balmora, Drarayne Thelas' House",True,False,0
+"Balmora, Drarayne Thelas' Storage",True,False,0
+"Balmora, Dura gra-Bol's House",True,False,0
+"Balmora, Eastern Guard Tower",True,False,0
+"Balmora, Eight Plates",True,False,0
+"Balmora, Fast Eddie's House",True,False,0
+"Balmora, Guild of Fighters",True,False,0
+"Balmora, Guild of Mages",True,False,0
+"Balmora, Hecerinde's House",True,False,0
+"Balmora, Hlaalo Manor",True,False,0
+"Balmora, Hlaalu Council Manor",True,False,0
+"Balmora, Itan's House",True,False,0
+"Balmora, Karlirah's House",True,False,0
+"Balmora, Lucky Lockup",True,False,0
+"Balmora, Meldor: Armorer",True,False,0
+"Balmora, Milie Hastien: Fine Clothier",True,False,0
+"Balmora, Morag Tong Guild",True,False,0
+"Balmora, Nalcarya of White Haven: Fine Alchemist",True,False,0
+"Balmora, Nerano Manor",True,False,0
+"Balmora, Nine Toes' House",True,False,0
+"Balmora, Ra'Virr: Trader",True,False,0
+"Balmora, Rarayn Radarys' House",True,False,0
+"Balmora, Rithleen's House",True,False,0
+"Balmora, South Wall Cornerclub",True,False,0
+"Balmora, Temple",True,False,0
+"Balmora, The Razor Hole",True,False,0
+"Balmora, Tsiya's House",True,False,0
+"Balmora, Tyermaillin's House",True,False,0
+"Balmora, Tyravel Manor",True,False,0
+"Balmora, Vorar Helas' House",True,False,0
+"Balmora, Vori's House",True,False,0
+"Balmora, Western Guard Tower North",True,False,0
+"Balmora, Western Guard Tower South",True,False,0
+Balur's Farmhouse,True,False,0
+"Bamz-Amschend, Hall of Wails",True,False,0
+"Bamz-Amschend, Hall of Winds",True,False,0
+"Bamz-Amschend, Hearthfire Hall",True,False,0
+"Bamz-Amschend, King's Walk",True,False,0
+"Bamz-Amschend, Passage of Whispers",True,False,0
+"Bamz-Amschend, Passage of the Walker",True,False,0
+"Bamz-Amschend, Radac's Forge",True,False,0
+"Bamz-Amschend, Skybreak Gallery",True,False,0
+Band Egg Mine,True,False,0
+Baram Ancestral Tomb,True,False,0
+Bensamsi,True,False,0
+"Bensiberib Camp, Odaishah's Yurt",True,False,0
+Beran Ancestral Tomb,True,False,0
+Berandas,False,False,1
+"Berandas, Keep, Bottom Level",True,False,0
+"Berandas, Keep, Top Level",True,False,0
+"Berandas, Propylon Chamber",True,False,1
+"Berandas, Underground",True,False,0
+Beshara,True,False,0
+Big Head's Shack,True,False,0
+Bthanchend,True,False,0
+Bthuand,True,False,0
+Bthungthumz,True,False,0
+Buckmoth Legion Fort,False,False,0
+"Buckmoth Legion Fort, Interior",True,False,0
+"Buckmoth Legion Fort, Prison",True,False,0
+"Buckmoth Legion Fort, Towers",True,False,0
+Caldera,False,False,3
+Caldera Mine,True,False,0
+"Caldera, Bashuk gra-Bat's House",True,False,0
+"Caldera, Canodia Felannus' House",True,False,0
+"Caldera, Dro'Shavir's House",True,False,0
+"Caldera, Elmussa Damori's House",True,False,0
+"Caldera, Falanaamo: Clothier",True,False,0
+"Caldera, Ghorak Manor",True,False,1
+"Caldera, Governor's Hall",True,False,0
+"Caldera, Guild of Mages",True,False,0
+"Caldera, Hodlismod: Armorer",True,False,0
+"Caldera, Irgola: Pawnbroker",True,False,0
+"Caldera, Keel-Raniur's House",True,False,0
+"Caldera, Mining Bunkhouse",True,False,0
+"Caldera, Mining Company Office",True,False,0
+"Caldera, Mining Guard Tower",True,False,0
+"Caldera, Nedhelas' House",True,False,0
+"Caldera, North Guard Towers",True,False,0
+"Caldera, Odairan Ashummi-Ammus' House",True,False,0
+"Caldera, Shenk's Shovel",True,False,0
+"Caldera, Slave Shack One",True,False,0
+"Caldera, Slave Shack Two",True,False,0
+"Caldera, South Guard Towers",True,False,0
+"Caldera, Surane Leoriane's House",True,False,0
+"Caldera, Valvius Mevureius' House",True,False,0
+"Caldera, Verick Gemain: Trader",True,False,0
+Cavern of the Incarnate,True,False,0
+Character Stuff Wonderland,True,False,0
+"Chun-Ook, Cabin",True,False,0
+"Chun-Ook, Lower Level",True,False,0
+"Chun-Ook, Upper Level",True,False,0
+Clutter Warehouse - Everything Must Go!,True,False,0
+Corprusarium,True,False,1
+Corprusarium Bowels,True,False,0
+Dagon Fel,False,False,0
+"Dagon Fel, Andre Maul's Tower",True,False,0
+"Dagon Fel, Anja Swift-Sailer's House",True,False,0
+"Dagon Fel, End of the World Renter Rooms",True,False,0
+"Dagon Fel, Fanar Fork-Beard's House",True,False,0
+"Dagon Fel, Fjorrod's House",True,False,0
+"Dagon Fel, Greidil Half-Troll's House",True,False,0
+"Dagon Fel, Heifnir: Trader",True,False,0
+"Dagon Fel, Hurg's House",True,False,0
+"Dagon Fel, Itar the Gentle's House",True,False,0
+"Dagon Fel, Mette's House",True,False,0
+"Dagon Fel, Onmi Hard-mouth's House",True,False,0
+"Dagon Fel, Sorkvild's Tower",True,False,0
+"Dagon Fel, The End of the World",True,False,0
+"Dagon Fel, Vacant Tower",True,False,0
+"Dagon Fel, Watch Tower",True,False,0
+Dagoth Ur,False,False,0
+"Dagoth Ur, Facility Cavern",True,False,0
+"Dagoth Ur, Inner Facility",True,False,0
+"Dagoth Ur, Inner Tower",True,False,0
+"Dagoth Ur, Lower Facility",True,False,0
+"Dagoth Ur, Outer Facility",True,False,0
+Dareleth Ancestral Tomb,True,False,0
+"Derelict Shipwreck, Cabin",True,False,0
+"Derelict Shipwreck, Lower Level",True,False,0
+"Derelict Shipwreck, Upper Level",True,False,0
+"Deserted Shipwreck, Cabin",True,False,0
+"Deserted Shipwreck, Lower Level",True,False,0
+"Deserted Shipwreck, Upper Level",True,False,0
+"Desolate Shipwreck, Cabin",True,False,0
+"Desolate Shipwreck, Lower Level",True,False,0
+"Desolate Shipwreck, Upper Level",True,False,0
+Dirara's Farmhouse,True,False,0
+Dissapla Mine,True,False,0
+Dralas Ancestral Tomb,True,False,0
+Drath Ancestral Tomb,True,False,0
+Draugr Test,True,False,0
+Dreloth Ancestral Tomb,True,False,0
+Dren Plantation,False,False,0
+"Dren Plantation, Doves' Shack",True,False,0
+"Dren Plantation, Dren's Villa",True,False,0
+"Dren Plantation, Guardhouse",True,False,0
+"Dren Plantation, Helvi's Shack",True,False,0
+"Dren Plantation, Hlevala's Shack",True,False,0
+"Dren Plantation, Rethan's Shack",True,False,0
+"Dren Plantation, Shipping House",True,False,0
+"Dren Plantation, Storage Shack",True,False,0
+"Dren Plantation, Tower Shack",True,False,0
+"Dren Plantation, Verethi and Dralor",True,False,0
+Drethan Ancestral Tomb,True,False,0
+Drinith Ancestral Tomb,True,False,0
+Drulene Falen's Hut,True,False,0
+"Druscashti, Lower Level",True,False,0
+"Druscashti, Upper Level",True,False,1
+Dubdilla,True,False,1
+"Dubdilla, Uncharted Caverns",True,False,0
+"Dubdilla, Uncharted Caverns, Lower",True,False,0
+Dulo Ancestral Tomb,True,False,0
+Dun-Ahhe,True,False,0
+Dunirai Caverns,True,False,0
+"Dushariran, Shrine",True,False,0
+"Ebernanit, Shrine",True,False,0
+Ebonheart,False,False,5
+"Ebonheart, Argonian Mission",True,False,1
+"Ebonheart, East Empire Company Hall",True,False,0
+"Ebonheart, East Empire North Warehouse",True,False,0
+"Ebonheart, East Empire South Warehouse",True,False,0
+"Ebonheart, Grand Council Chambers",True,False,1
+"Ebonheart, Grand Council Chambers Tower",True,False,0
+"Ebonheart, Hawkmoth Legion Garrison",True,False,1
+"Ebonheart, Hawkmoth Towers",True,False,0
+"Ebonheart, Imperial Chapels",True,False,0
+"Ebonheart, Imperial Commission",True,False,0
+"Ebonheart, Imperial Guard Garrison",True,False,0
+"Ebonheart, Six Fishes",True,False,0
+"Ebonheart, Skyrim Mission",True,False,0
+"Ebonheart, Underground Caves",True,False,0
+"Elanius Camp, Yapal's Yurt",True,False,0
+"Elf-Skerring, Cabin",True,False,0
+"Elf-Skerring, Lower Level",True,False,0
+"Elf-Skerring, Upper Level",True,False,0
+Elith-Pal Mine,True,False,0
+Eluba-Addon Egg Mine,True,False,2
+Eluba-Addon Grotto,True,False,0
+"Endusal, Kagrenac's study",True,False,0
+Erabenimsun Camp,False,False,0
+"Erabenimsun Camp, Addut-Lamanu's Yurt",True,False,0
+"Erabenimsun Camp, Ainab's Yurt",True,False,0
+"Erabenimsun Camp, Ashkhan's Yurt",True,False,0
+"Erabenimsun Camp, Ashu-Ahhe's Yurt",True,False,0
+"Erabenimsun Camp, Assemmus' Yurt",True,False,0
+"Erabenimsun Camp, Han-Ammu's Yurt",True,False,0
+"Erabenimsun Camp, Massarapal's Yurt",True,False,0
+"Erabenimsun Camp, Ranabi's Yurt",True,False,0
+"Erabenimsun Camp, Salattanat's Yurt",True,False,0
+"Erabenimsun Camp, Wise Woman's Yurt",True,False,0
+Eretammus-Sennammu Egg Mine,True,False,2
+"Esutanamus, Shrine",True,False,0
+Fadathram Ancestral Tomb,True,False,0
+"Fair Helas, Cabin",True,False,0
+"Fair Helas, Lower Level",True,False,0
+"Fair Helas, Upper Level",True,False,0
+Falas Ancestral Tomb,True,False,0
+Falasmaryon,False,False,1
+"Falasmaryon, Lower Level",True,False,0
+"Falasmaryon, Missun Akin's Hut",True,False,0
+"Falasmaryon, Propylon Chamber",True,False,1
+"Falasmaryon, Sewers",True,False,0
+"Falasmaryon, Upper Level",True,False,0
+Falensarano,False,False,1
+"Falensarano, Lower Level",True,False,0
+"Falensarano, Propylon Chamber",True,False,1
+"Falensarano, Upper Level",True,False,0
+"Falvillo's Endeavor, Cabin",True,False,0
+"Falvillo's Endeavor, Lower Level",True,False,0
+"Falvilo's Endeavor, Upper Level",True,False,0
+Favel Ancestral Tomb,True,False,0
+Fields of Kummu,False,False,1
+Forgotten Shipwreck,True,False,0
+"Forgotten Vaults of Anudnabia, Forge of Hilbongard",True,False,0
+Fort Frostmoth,False,False,1
+"Fort Frostmoth, Armory",True,False,0
+"Fort Frostmoth, Carius' Chambers",True,False,0
+"Fort Frostmoth, Curtain Wall",True,False,0
+"Fort Frostmoth, General Quarters",True,False,0
+"Fort Frostmoth, General Quarters, Upper Level",True,False,0
+"Fort Frostmoth, Imperial Cult Shrine",True,False,2
+"Fort Frostmoth, Prison",True,False,0
+"Fort Frostmoth, Supply Room",True,False,0
+"Galom Daeus, Entry",True,False,1
+"Galom Daeus, Observatory",True,False,0
+Ghostgate,False,False,6
+"Ghostgate, Temple",True,False,0
+"Ghostgate, Tower of Dawn",True,False,0
+"Ghostgate, Tower of Dawn Lower Level",True,False,0
+"Ghostgate, Tower of Dusk",True,False,0
+"Ghostgate, Tower of Dusk Lower Level",True,False,0
+Gimothran Ancestral Tomb,True,False,0
+Ginith Ancestral Tomb,True,False,0
+Gnaar Mok,False,False,1
+"Gnaar Mok, Anglalos's Shack",True,False,0
+"Gnaar Mok, Arenim Manor",True,False,0
+"Gnaar Mok, Caryarel's Shack",True,False,0
+"Gnaar Mok, Druegh-jigger's Rest",True,False,0
+"Gnaar Mok, Jerian Dolbanitte's Shack",True,False,0
+"Gnaar Mok, Mush-Mere's Shack",True,False,0
+"Gnaar Mok, Nadene Rotheran's Shack",True,False,0
+"Gnaar Mok, Rostlogi's Shack",True,False,0
+Gnisis,False,False,8
+"Gnisis, Abelmawia Hut",True,False,0
+"Gnisis, Almu Cave Dwelling",True,False,0
+"Gnisis, Arvs-Drelen",True,False,1
+"Gnisis, Barracks",True,False,0
+"Gnisis, Bethamez",True,False,0
+"Gnisis, Dinadad Hut",True,False,0
+"Gnisis, Eggmine",True,False,0
+"Gnisis, Fort Darius",True,False,0
+"Gnisis, Lasamsi Cave Dwelling",True,False,0
+"Gnisis, Lower Eggmine",True,False,0
+"Gnisis, Madach Tradehouse",True,False,0
+"Gnisis, Man-llu Hut",True,False,0
+"Gnisis, Mantiti Cave Dwelling",True,False,0
+"Gnisis, Shand Hut",True,False,0
+"Gnisis, Shishara Hut",True,False,0
+"Gnisis, Tansumiran Cave Dwelling",True,False,0
+"Gnisis, Temple",True,False,0
+"Gnisis, Underground Stream",True,False,0
+"Gnisis, Vabdas Hut",True,False,0
+"Gnisis, Yahaz Hut",True,False,0
+Gro-Bagrat Plantation,True,False,0
+"Grytewake, Cabin",True,False,0
+"Grytewake, Lower Level",True,False,0
+"Grytewake, Upper Level",True,False,0
+Habinbaes,True,False,0
+Hairat-Vassamsi Egg Mine,True,False,2
+"Hairat-Vassamsi Egg Mine, Queen's Lair",True,False,2
+Halit Mine,True,False,0
+Hanud,True,False,0
+"Hanud, Tower",True,False,0
+Hassour,True,False,0
+"Hassour, Shrine",True,False,0
+Hawia Egg Mine,True,False,0
+Helan Ancestral Tomb,True,False,0
+Helas Ancestral Tomb,True,False,0
+Heleran Ancestral Tomb,True,False,0
+Heran Ancestral Tomb,True,False,0
+Hinnabi,True,False,0
+Hla Oad,False,False,0
+"Hla Oad, Fadila Balvel's House",True,False,0
+"Hla Oad, Fatleg's Drop Off",True,False,0
+"Hla Oad, Murudius Flaeus's House",True,False,0
+"Hla Oad, Okur's House",True,False,0
+"Hla Oad, Relien Rirne's House",True,False,0
+"Hla Oad, Shurkul gro-Sharga's House",True,False,0
+Hlaalu Ancestral Tomb,True,False,0
+Hleran Ancestral Tomb,True,False,0
+Hlervi Ancestral Tomb,True,False,0
+Hlervu Ancestral Tomb,True,False,0
+Hlormaren,False,False,1
+"Hlormaren, Dome",True,False,0
+"Hlormaren, Keep, Bottom Level",True,False,0
+"Hlormaren, Keep, Top Level",True,False,0
+"Hlormaren, Propylon Chamber",True,False,1
+"Hlormaren, Sewers",True,False,0
+"Hlormaren, Underground",True,False,0
+Holamayan,False,False,1
+Holamayan Monastery,True,False,1
+Ibar-Dad,True,False,1
+"Ibishammus, Shrine",True,False,0
+Ienith Ancestral Tomb,True,False,0
+"Ihinipalit, Shrine",True,False,0
+Ilanipu Grotto,True,False,0
+"Ilunibi, Blackened Heart",True,False,0
+"Ilunibi, Carcass of the Saint",True,False,0
+"Ilunibi, Marowak's Spine",True,False,0
+"Ilunibi, Soul's Rattle",True,False,0
+"Ilunibi, Tainted Marrow",True,False,0
+Imperial Prison Ship,True,False,1
+Inanius Egg Mine,True,False,2
+Indalen Ancestral Tomb,True,False,0
+Indaren Ancestral Tomb,True,False,0
+Indarys Manor,True,False,0
+"Indarys Manor, Berendas' House",True,False,0
+"Indarys Manor, Manor Services",True,False,1
+"Indarys Manor, Raram's House",True,False,1
+Indoranyon,True,False,1
+"Indoranyon, Propylon Chamber",True,False,1
+"Kaushtababi Camp, Adibael's Yurt",True,False,0
+"Kaushtarari, Shrine",True,False,0
+Khartag Point,False,False,1
+Khuul,False,False,0
+"Khuul, Aldi's Shack",True,False,0
+"Khuul, Brurid's Shack",True,False,0
+"Khuul, Endris Dilmyn's Shack",True,False,0
+"Khuul, Helga's Shack",True,False,0
+"Khuul, Miron Garer's Shack",True,False,0
+"Khuul, Nelmyne Andules's Shack",True,False,0
+"Khuul, Rivame Samandas's Shack",True,False,0
+"Khuul, Svadstar's Shack",True,False,0
+"Khuul, Thongar's Tradehouse",True,False,0
+Koal Cave,True,False,1
+Koal Cave Entrance,False,False,2
+Kogoruhn,False,False,1
+"Kogoruhn, Bleeding Heart",True,False,0
+"Kogoruhn, Charma's Breath",True,False,0
+"Kogoruhn, Dome of Pollock's Eve",True,False,0
+"Kogoruhn, Dome of Urso",True,False,0
+"Kogoruhn, Hall of Maki",True,False,0
+"Kogoruhn, Hall of Phisto",True,False,0
+"Kogoruhn, Hall of the Watchful Touch",True,False,0
+"Kogoruhn, Nabith Waterway",True,False,0
+"Kogoruhn, Temple of Fey",True,False,0
+"Kogoruhn, Vault of Aerode",True,False,0
+Kora-Dur,True,False,1
+Kudanat,True,False,0
+Kumarahaz,True,False,0
+Kunirai,True,False,0
+"Kushtashpi, Shrine",True,False,0
+Llando Ancestral Tomb,True,False,0
+Lleran Ancestral Tomb,True,False,0
+Llervu Ancestral Tomb,True,False,0
+Llirala's Shack,True,False,0
+Llovyn's Farmhouse,True,False,0
+"Lonely Shipwreck, Cabin",True,False,0
+"Lonely Shipwreck, Lower Level",True,False,0
+"Lonely Shipwreck, Upper Level",True,False,0
+"Lonesome Shipwreck, Cabin",True,False,0
+"Lonesome Shipwreck, Lower Level",True,False,0
+"Lonesome Shipwreck, Upper Level",True,False,0
+"Lost Shipwreck, Cabin",True,False,0
+"Lost Shipwreck, Lower Level",True,False,0
+"Lost Shipwreck, Upper Level",True,False,0
+Maar Gan,False,False,0
+"Maar Gan, Andus Tradehouse",True,False,0
+"Maar Gan, Assi Serimilk's Hut",True,False,0
+"Maar Gan, Assirari Zama-Rasour's Hut",True,False,0
+"Maar Gan, Garry's Hut",True,False,0
+"Maar Gan, Guard Tower 1",True,False,0
+"Maar Gan, Guard Tower 2",True,False,0
+"Maar Gan, Guard Tower 3",True,False,0
+"Maar Gan, Huleen's Hut",True,False,0
+"Maar Gan, Kind Erushara's Hut",True,False,0
+"Maar Gan, Mabrelle Geles's Hut",True,False,0
+"Maar Gan, Outpost",True,False,0
+"Maar Gan, Shilipuran Zama-Rasour's Hut",True,False,0
+"Maar Gan, Shrine",True,False,1
+"Maar Gan, Tashpi Ashibael's Hut",True,False,0
+"Maar Gan, Ulisamsi Shaddarnuran's Hut",True,False,0
+"Maar Gan, Yeherradad's Hut",True,False,0
+Maba-Ilu,True,False,0
+Mababi,True,False,0
+Madas Grotto,True,False,0
+Madas-Zebba Egg Mine,True,False,2
+"Maelkashishi, Shrine",True,False,0
+"Maelkashishi, Shrine, Forgotten Galleries",True,False,0
+Maelu Egg Mine,True,False,0
+Maesa-Shammus Egg Mine,True,False,2
+Magas Volar,True,False,1
+Mallapi,True,False,0
+Malmus Grotto,True,False,0
+"Mamaea, Sanctum of Awakening",True,False,1
+"Mamaea, Sanctum of Black Hope",True,False,1
+"Mamaea, Shrine of Pitted Dreams",True,False,1
+"Mamshar-Disamus Camp, Maesat's Yurt",True,False,0
+Manat's Farmhouse,True,False,0
+Mannammu,True,False,0
+Maran-Adon,True,False,0
+Marandus,False,False,1
+"Marandus, Dome",True,False,0
+"Marandus, Lower Level",True,False,0
+"Marandus, Propylon Chamber",True,False,1
+"Marandus, Upper Level",True,False,0
+Maren Ancestral Tomb,True,False,0
+Mark's Script Testing Cell,True,False,0
+Mark's Vampire Test Cell,True,False,0
+Marvani Ancestral Tomb,True,False,0
+"Massahanud Camp, Sargon's Yurt",True,False,0
+Massama Cave,True,False,0
+Masseranit,True,False,0
+Mat,True,False,0
+Matus-Akin Egg Mine,True,False,2
+"Matus-Akin Egg Mine, Queen's Lair",True,False,2
+Mausur Caverns,True,False,0
+Mawia,True,False,0
+"Mila-Nipal, Manat's Yurt",True,False,0
+Milk,True,False,0
+Minabi,True,False,0
+"Minabi, Bandit Lair",True,False,0
+"Ministry of Truth, Hall of Processing",True,False,0
+"Ministry of Truth, Holding Cells",True,False,0
+"Ministry of Truth, Prison Keep",True,False,0
+Missamsi,True,False,0
+Missir-Dadalit Egg Mine,True,False,0
+Molag Mar,False,False,1
+"Molag Mar, Armigers Stronghold",True,False,0
+"Molag Mar, Canalworks",True,False,0
+"Molag Mar, Redoran Stronghold",True,False,0
+"Molag Mar, Saetring the Nord: Smith",True,False,0
+"Molag Mar, St. Veloth's Hostel",True,False,0
+"Molag Mar, Temple",True,False,0
+"Molag Mar, The Pilgrim's Rest",True,False,0
+"Molag Mar, Underworks",True,False,0
+"Molag Mar, Vasesius Viciulus: Trader",True,False,0
+"Molag Mar, Waistworks",True,False,0
+Moonmoth Legion Fort,False,False,0
+"Moonmoth Legion Fort, Interior",True,False,0
+"Moonmoth Legion Fort, Prison Towers",True,False,0
+Morvayn Manor,True,False,0
+Mount Assarnibibi,False,False,0
+Mount Kand,False,False,0
+"Mount Kand, Cavern",True,False,0
+Mournhold,True,False,22
+Mournhold Temple,True,False,0
+Mournhold Temple: Basement,True,False,0
+Mournhold Temple: Hall of Ministry,True,False,0
+Mournhold Temple: High Chapel,True,False,1
+Mournhold Temple: Infirmary,True,False,0
+Mournhold Temple: Office of the Lord Archcanon,True,False,0
+Mournhold Temple: Reception Area,True,False,0
+"Mournhold, Andoren Manor",True,False,0
+"Mournhold, Armory",True,False,0
+"Mournhold, Bookseller",True,False,0
+"Mournhold, Clothier",True,False,0
+"Mournhold, Craftsmen's Hall",True,False,0
+"Mournhold, Geon Auline's House",True,False,1
+"Mournhold, Godsreach",True,False,5
+"Mournhold, Great Bazaar",True,False,2
+"Mournhold, Ignatius Flaccus' House",True,False,0
+"Mournhold, Llethan Manor",True,False,0
+"Mournhold, Magic Shop",True,False,0
+"Mournhold, Museum of Artifacts",True,False,0
+"Mournhold, Pawnbroker",True,False,0
+"Mournhold, Plaza Brindisi Dorom",True,False,1
+"Mournhold, Royal Palace",True,False,0
+"Mournhold, Royal Palace Throne Room",True,False,2
+"Mournhold, Royal Palace: Barenziah's Chambers",True,False,0
+"Mournhold, Royal Palace: Basement",True,False,0
+"Mournhold, Royal Palace: Courtyard",True,False,0
+"Mournhold, Royal Palace: Guards' Quarters",True,False,0
+"Mournhold, Royal Palace: Helseth's Chambers",True,False,0
+"Mournhold, Royal Palace: Imperial Cult Services",True,False,0
+"Mournhold, Royal Palace: Jail",True,False,1
+"Mournhold, Royal Palace: Legion Depot",True,False,0
+"Mournhold, Royal Palace: Reception Area",True,False,1
+"Mournhold, Sadri Manor",True,False,1
+"Mournhold, Secret Office",True,False,0
+"Mournhold, Temple Courtyard",True,False,2
+"Mournhold, The Winged Guar",True,False,1
+"Mournhold, Thendas Manor",True,False,0
+"Mournhold, Trader",True,False,1
+"Mournhold, Vacant Manor",True,False,1
+"Mournhold, Velas Manor",True,False,0
+Mudan Grotto,True,False,0
+"Mudan, Central Vault",True,False,0
+"Mudan, Lost Dwemer Checkpoint",True,False,0
+"Mudan, Right Tower",True,False,0
+Mudan-Mul Egg Mine,True,False,2
+Mul Grotto,True,False,0
+Mzahnch,True,False,0
+Mzahnch Lower Level,True,False,0
+Mzahnch Ruin,False,False,0
+Mzanchend,True,False,0
+Mzuleft,True,False,0
+Mzuleft Ruin,False,False,0
+Nallit,True,False,0
+Nammu,True,False,0
+Nchardahrk,True,False,0
+Nchardumz,True,False,0
+Nchardumz Lower Level,True,False,0
+Nchuleft,True,False,0
+Nchuleft Ruin,False,False,0
+Nchuleftingth,False,False,0
+"Nchuleftingth, Lower Levels",True,False,0
+"Nchuleftingth, Test of Pattern",True,False,0
+"Nchuleftingth, Upper Levels",True,False,0
+Nchurdamz,False,False,1
+"Nchurdamz, Interior",True,False,0
+"Neglected Shipwreck, Cabin",True,False,0
+"Neglected Shipwreck, Lower Level",True,False,0
+"Neglected Shipwreck, Upper Level",True,False,0
+Nelas Ancestral Tomb,True,False,0
+Nerano Ancestral Tomb,True,False,0
+Nilera's Farmhouse,True,False,0
+Nimawia Grotto,True,False,0
+Nissintu,True,False,0
+Norenen-dur,True,False,0
+"Norenen-dur, Basilica of Divine Whispers",True,False,0
+"Norenen-dur, Citadel of Myn Dhrur",True,False,0
+"Norenen-dur, The Grand Stair",True,False,0
+"Norenen-dur, The Teeth that Gnash",True,False,0
+"Norenen-dur, The Wailingdelve",True,False,0
+Norvayn Ancestral Tomb,True,False,0
+Nund,True,False,0
+"Obscure Shipwreck, Cabin",True,False,0
+"Obscure Shipwreck, Lower Level",True,False,0
+"Obscure Shipwreck, Upper Level",True,False,0
+Odai Plateau,False,False,4
+Odaishah,True,False,0
+Odibaal,True,False,0
+Odirnamat,True,False,0
+Odirniran,True,False,0
+"Odirniran, Tower",True,False,0
+Odrosal,False,False,0
+"Odrosal, Dwemer Training Academy",True,False,0
+"Odrosal, Tower",True,False,0
+Old Mournhold: Abandoned Crypt,True,False,1
+Old Mournhold: Abandoned Passageway,True,False,0
+Old Mournhold: Armory Ruins,True,False,0
+Old Mournhold: Battlefield,True,False,0
+Old Mournhold: Bazaar Sewers,True,False,0
+Old Mournhold: City Gate,True,False,0
+Old Mournhold: Forgotten Sewer,True,False,0
+Old Mournhold: Gedna Relvel's Tomb,True,False,0
+Old Mournhold: Manor District,True,False,0
+"Old Mournhold: Moril Manor, Courtyard",True,False,0
+"Old Mournhold: Moril Manor, East Building",True,False,0
+"Old Mournhold: Moril Manor, North Building",True,False,0
+Old Mournhold: Palace Sewers,True,False,0
+Old Mournhold: Residential Ruins,True,False,0
+Old Mournhold: Residential Sewers,True,False,1
+Old Mournhold: Tears of Amun-Shae,True,False,0
+Old Mournhold: Temple Catacombs,True,False,0
+Old Mournhold: Temple Crypt,True,False,0
+Old Mournhold: Temple Gardens,True,False,1
+Old Mournhold: Temple Sewers,True,False,0
+Old Mournhold: Temple Sewers East,True,False,0
+Old Mournhold: Temple Sewers West,True,False,0
+Old Mournhold: Temple Shrine,True,False,0
+Old Mournhold: Teran Hall,True,False,0
+"Old Mournhold: Teran Hall, East Bldg",True,False,0
+Old Mournhold: West Sewers,True,False,0
+Omalen Ancestral Tomb,True,False,0
+Omani Manor,True,False,0
+Omaren Ancestral Tomb,True,False,0
+"Onnissiralis, Shrine",True,False,0
+Orethi Ancestral Tomb,True,False,0
+Othrelas Ancestral Tomb,True,False,0
+Palansour,True,False,0
+Panabanit-Nimawia Egg Mine,True,False,2
+Panat,True,False,0
+Panud Egg Mine,True,False,0
+Pelagiad,False,False,5
+"Pelagiad, Adanja's House",True,False,0
+"Pelagiad, Ahnassi's House",True,False,1
+"Pelagiad, Dralas Gilu's House",True,False,0
+"Pelagiad, Erval's House",True,False,0
+"Pelagiad, Farusea Salas' House",True,False,0
+"Pelagiad, Fort Pelagiad",True,False,0
+"Pelagiad, Guard Tower",True,False,0
+"Pelagiad, Halfway Tavern",True,False,3
+"Pelagiad, Ignatius Flaccus' House",True,False,0
+"Pelagiad, Junal-lei's House",True,False,0
+"Pelagiad, Madres Navur's House",True,False,0
+"Pelagiad, Mebestien Ence: Trader",True,False,0
+"Pelagiad, Murberius Harmevus' House",True,False,0
+"Pelagiad, North Wall",True,False,0
+"Pelagiad, South Wall",True,False,0
+"Pelagiad, Uulernil : Armorer",True,False,0
+Piernette's Farmhouse,True,False,0
+Pinsun,True,False,0
+Piran,True,False,0
+"Prelude Shipwreck, Cabin",True,False,0
+"Prelude Shipwreck, Lower Level",True,False,0
+"Prelude Shipwreck, Upper Level",True,False,0
+Pudai Egg Mine,True,False,0
+"Pudai Egg Mine, Queen's Lair",True,False,0
+Pulk,True,False,0
+Punabi,True,False,0
+Punammu,True,False,0
+Punsabanit,True,False,0
+"Ramimilk, Shrine",True,False,0
+Randas Ancestral Tomb,True,False,0
+Ravel Ancestral Tomb,True,False,0
+Raven Rock,False,False,5
+"Raven Rock, Abandoned Mine Shaft",True,False,0
+"Raven Rock, Afer Flaccus' House",True,False,0
+"Raven Rock, Bar",True,False,3
+"Raven Rock, Factor's Estate",True,False,0
+"Raven Rock, Garnas Uvalen's House",True,False,0
+"Raven Rock, Gidar Verothan's House",True,False,2
+"Raven Rock, Gratian Caerellius' House",True,False,0
+"Raven Rock, Mine",True,False,0
+"Raven Rock, Mine Entrance",True,False,2
+"Raven Rock, North Storehouse",True,False,0
+"Raven Rock, Sabinus Oranius' House",True,False,2
+"Raven Rock, Sados Relothan's House",True,False,0
+"Raven Rock, Seler Favelnim's House",True,False,0
+"Raven Rock, Smith",True,False,0
+"Raven Rock, South Storehouse",True,False,0
+"Raven Rock, SouthEast Storehouse",True,False,0
+"Raven Rock, Supply Ship",True,False,0
+"Raven Rock, Trader",True,False,0
+"Raven Rock, Uryn Maren's House",True,False,0
+"Raven Rock, Vacant House",True,False,0
+Raviro Ancestral Tomb,True,False,0
+Rayna Drolan's Shack,True,False,0
+Redas Ancestral Tomb,True,False,0
+Redoran interior,True,False,0
+Redoran interior2,True,False,0
+Releth Ancestral Tomb,True,False,0
+Reloth Ancestral Tomb,True,False,0
+"Remote Shipwreck, Cabin",True,False,0
+"Remote Shipwreck, Lower Level",True,False,0
+"Remote Shipwreck, Upper Level",True,False,0
+Rethan Manor,True,False,0
+"Rethan Manor, Berendas' House",True,False,0
+"Rethan Manor, Drelas' House",True,False,0
+"Rethan Manor, Gols' House",True,False,0
+"Rethan Manor, Tures' House",True,False,0
+Rethandus Ancestral Tomb,True,False,0
+Rissun,True,False,0
+Rothan Ancestral Tomb,True,False,0
+Rotheran,False,False,1
+"Rotheran, Arena",True,False,0
+"Rotheran, Communal Hut",True,False,0
+"Rotheran, Propylon Chamber",True,False,1
+Sadrith Mora,False,False,0
+"Sadrith Mora, Anis Seloth: Alchemist",True,False,0
+"Sadrith Mora, Balen Vendu: Monk",True,False,0
+"Sadrith Mora, Dirty Muriel's Cornerclub",True,False,0
+"Sadrith Mora, Fara's Hole in the Wall",True,False,1
+"Sadrith Mora, Gateway Inn",True,False,0
+"Sadrith Mora, Gateway Inn: North Wing",True,False,0
+"Sadrith Mora, Gateway Inn: South Wing",True,False,0
+"Sadrith Mora, Gateway Inn: West Wing",True,False,0
+"Sadrith Mora, Hleras Gidren's House",True,False,0
+"Sadrith Mora, Llaalam Madalas: Mage",True,False,0
+"Sadrith Mora, Madran Ulvel's House",True,False,0
+"Sadrith Mora, Meluria Seleth's House",True,False,0
+"Sadrith Mora, Milara Vedran's House",True,False,0
+"Sadrith Mora, Morag Tong Guild",True,False,0
+"Sadrith Mora, Nevrila Areloth's House",True,False,0
+"Sadrith Mora, Nirasa Aren's House",True,False,0
+"Sadrith Mora, Pierlette Rostorard: Apothecary",True,False,0
+"Sadrith Mora, Rolis Garvon's House",True,False,0
+"Sadrith Mora, Tel Naga General Quarters",True,False,0
+"Sadrith Mora, Tel Naga Great Hall",True,False,0
+"Sadrith Mora, Tel Naga Upper Hall",True,False,0
+"Sadrith Mora, Tel Naga Upper Tower",True,False,0
+"Sadrith Mora, Telvanni Council House",True,False,0
+"Sadrith Mora, Telvanni Council House, Chambers",True,False,0
+"Sadrith Mora, Telvanni Council House, Entry",True,False,0
+"Sadrith Mora, Telvanni Council House, Hermitage",True,False,0
+"Sadrith Mora, Thervul Serethi: Healer",True,False,0
+"Sadrith Mora, Trendrus Dral's House",True,False,0
+"Sadrith Mora, Urtisa Romayn's House",True,False,0
+"Sadrith Mora, Urtiso Faryon: Sorcerer",True,False,0
+"Sadrith Mora, Vaden Belas' House",True,False,0
+"Sadrith Mora, Volmyni Dral's House",True,False,0
+"Sadrith Mora, Wolverine Hall",True,False,0
+"Sadrith Mora, Wolverine Hall: Fighter's Guild",True,False,0
+"Sadrith Mora, Wolverine Hall: Imperial Shrine",True,False,0
+"Sadrith Mora, Wolverine Hall: Mage's Guild",True,False,0
+Sadryon Ancestral Tomb,True,False,0
+"Salit Camp, Zalit's Yurt",True,False,0
+"Salit Camp, Zelay's Yurt",True,False,0
+Salmantu,True,False,0
+"Salmantu, Shrine",True,False,0
+Salothan Ancestral Tomb,True,False,0
+Salothran Ancestral Tomb,True,False,0
+Salvel Ancestral Tomb,True,False,0
+Samarys Ancestral Tomb,True,False,0
+Sanabi,True,False,0
+Sanctus Shrine,False,False,0
+Sandas Ancestral Tomb,True,False,0
+Sandus Ancestral Tomb,True,False,0
+Sanit,True,False,0
+"Sanit, Shrine",True,False,0
+Sanni,True,False,0
+Sarano Ancestral Tomb,True,False,0
+Saren Ancestral Tomb,True,False,0
+Sarethi Ancestral Tomb,True,False,0
+Sargon,True,False,0
+Sarimisun-Assa Egg Mine,True,False,2
+"Sarimisun-Assa Egg Mine, Queen's Lair",True,False,2
+Sarys Ancestral Tomb,True,False,0
+Saturan,True,False,0
+Savel Ancestral Tomb,True,False,0
+Senim Ancestral Tomb,True,False,0
+Sennananit,True,False,0
+Seran Ancestral Tomb,True,False,0
+Serano Ancestral Tomb,True,False,0
+Sethan Ancestral Tomb,True,False,0
+Setus Egg Mine,True,False,0
+Seyda Neen,False,False,0
+"Seyda Neen, Arrille's Tradehouse",True,False,0
+"Seyda Neen, Census and Excise Office",True,False,2
+"Seyda Neen, Census and Excise Warehouse",True,False,0
+"Seyda Neen, Draren Thiralas' House",True,False,0
+"Seyda Neen, Eldafire's House",True,False,0
+"Seyda Neen, Erene Llenim's Shack",True,False,0
+"Seyda Neen, Fargoth's House",True,False,0
+"Seyda Neen, Fine-Mouth's Shack",True,False,0
+"Seyda Neen, Foryn Gilnith's Shack",True,False,0
+"Seyda Neen, Indrele Rathryon's Shack",True,False,0
+"Seyda Neen, Lighthouse",True,False,0
+"Seyda Neen, Terurise Girvayne's House",True,False,0
+"Seyda Neen, Vodunius Nuccius' House",True,False,0
+Sha-Adnius,True,False,0
+Shal,True,False,0
+Shallit,True,False,0
+Shara,True,False,0
+Sharapli,True,False,0
+"Shashmanu Camp, Anit's Yurt",True,False,0
+Shashpilamat,True,False,0
+"Shashpilamat, Shrine",True,False,0
+"Shashurari Camp, Zennammu's Yurt",True,False,0
+Shishara,True,False,0
+Shishi,True,False,0
+Shrine of Azura,True,False,0
+Shulk Egg Mine,True,False,0
+"Shulk Egg Mine, Mining Camp",True,False,0
+"Shulk Egg Mine, Queen's Lair",True,False,0
+"Shunned Shipwreck, Cabin",True,False,0
+"Shunned Shipwreck, Lower Level",True,False,0
+"Shunned Shipwreck, Upper Level",True,False,0
+Shurdan-Raplay Egg Mine,True,False,2
+Shurinbaal,True,False,0
+Shushan,True,False,0
+Shushishi,True,False,0
+Sinamusa Egg Mine,True,False,2
+Sinarralit Egg Mine,True,False,0
+Sinsibadon,True,False,0
+Sjorvar Horse-Mouth's House,True,False,0
+Skaal Village,False,False,1
+"Skaal Village, Bronrod the Roarer's House",True,False,0
+"Skaal Village, Erna the Quiet's House",True,False,0
+"Skaal Village, Ice-Mane's Hut",True,False,0
+"Skaal Village, Ingmar's House",True,False,1
+"Skaal Village, Lassnr's House",True,False,0
+"Skaal Village, Rigmor's Hut",True,False,0
+"Skaal Village, Shaman's Hut",True,False,0
+"Skaal Village, The Blodskaal's House",True,False,0
+"Skaal Village, The Greathall",True,False,1
+"Skaal village, Snedbrir the Smith",True,False,0
+Small Farmhouse,True,False,0
+"Sobitbael Camp, Mal's Yurt",True,False,0
+Solstheim,True,False,18
+"Solstheim, Aesliip's Lair",True,False,0
+"Solstheim, Aesliip's Lair, Caverns",True,False,0
+"Solstheim, Altar of Thrond",False,False,1
+"Solstheim, Benkongerike",True,False,0
+"Solstheim, Bjorn",True,False,0
+"Solstheim, Bloodskal Barrow",True,False,0
+"Solstheim, Brodir Grove",False,False,1
+"Solstheim, Castle Karstaag",False,False,0
+"Solstheim, Castle Karstaag, Banquet Hall",True,False,0
+"Solstheim, Castle Karstaag, Caverns of Karstaag",True,False,0
+"Solstheim, Castle Karstaag, Karstaag's Chambers",True,False,0
+"Solstheim, Castle Karstaag, Throne Room",True,False,0
+"Solstheim, Castle Karstaag, Tower",True,False,0
+"Solstheim, Cave of Hidden Music",True,False,0
+"Solstheim, Caves of Fjalding",True,False,0
+"Solstheim, Chamber of Song",True,False,0
+"Solstheim, Connorflenge Barrow",True,False,0
+"Solstheim, Domme",True,False,0
+"Solstheim, Eddard Barrow",True,False,0
+"Solstheim, Fjell",True,False,0
+"Solstheim, Frossel",True,False,0
+"Solstheim, Frosselmane Barrow",True,False,0
+"Solstheim, Frykte",True,False,0
+"Solstheim, Gandrung Caverns",True,False,0
+"Solstheim, Geilir the Mumbling's Dwelling",True,False,0
+"Solstheim, Glenschul's Tomb",True,False,0
+"Solstheim, Gloomy Cave",True,False,2
+"Solstheim, Graring's House",True,False,0
+"Solstheim, Gronn",True,False,0
+"Solstheim, Gyldenhul Barrow",True,False,0
+"Solstheim, Gyldenhul Barrow Entrance",False,False,0
+"Solstheim, Halls of Penumbra",True,False,0
+"Solstheim, Himmelhost Barrow",True,False,0
+"Solstheim, Hrothmund's Bane",False,False,0
+"Solstheim, Hrothmund's Barrow",True,False,0
+"Solstheim, Hvitkald Peak",False,False,0
+"Solstheim, Jolgeirr Barrow",True,False,0
+"Solstheim, Kelsedolk Barrow",True,False,0
+"Solstheim, Kjolver's Dwelling",True,False,0
+"Solstheim, Kolbjorn Barrow",True,False,0
+"Solstheim, Kolfinna's Dwelling",True,False,0
+"Solstheim, Lair of the Udyrfrykte",True,False,0
+"Solstheim, Lake Fjalding",False,False,0
+"Solstheim, Legge",True,False,0
+"Solstheim, Lukesturm Barrow",True,False,0
+"Solstheim, Mortrag Glacier",False,False,2
+"Solstheim, Mortrag Glacier: Entry",True,False,3
+"Solstheim, Mortrag Glacier: Huntsman's Hall",True,False,2
+"Solstheim, Mortrag Glacier: Inner Ring",True,False,2
+"Solstheim, Mortrag Glacier: Outer Ring",True,False,1
+"Solstheim, Rimhull",True,False,0
+"Solstheim, Sjobal",True,False,0
+"Solstheim, Skogsdrake Barrow",True,False,0
+"Solstheim, Skygge",True,False,0
+"Solstheim, Solvjord",True,False,1
+"Solstheim, Stahlman's Gorge",True,False,0
+"Solstheim, Stormpfund Barrow",True,False,0
+"Solstheim, Thirsk",True,False,3
+"Solstheim, Thormoor's Watch",False,False,1
+"Solstheim, Tombs of Skaalara",True,False,0
+"Solstheim, Ulfgar the Unending's Dwelling",True,False,0
+"Solstheim, Uncle Sweetshare's Workshop",True,False,0
+"Solstheim, Valbrandr Barrow",True,False,1
+"Solstheim, Varstaad Caves",True,False,0
+"Sotha Sil,",True,False,1
+"Sotha Sil, Central Gearworks",True,False,0
+"Sotha Sil, Chamber of Sohleh",True,False,0
+"Sotha Sil, Dome of Kasia",True,False,0
+"Sotha Sil, Dome of Serlyn",True,False,1
+"Sotha Sil, Dome of Sotha Sil",True,False,1
+"Sotha Sil, Dome of Udok",True,False,0
+"Sotha Sil, Dome of the Imperfect",True,False,0
+"Sotha Sil, Hall of Delirium",True,False,0
+"Sotha Sil, Hall of Mileitho",True,False,0
+"Sotha Sil, Hall of Sallaemu",True,False,0
+"Sotha Sil, Hall of Theuda",True,False,0
+"Sotha Sil, Inner Flooded Halls",True,False,0
+"Sotha Sil, Outer Flooded Halls",True,False,1
+Sterdecan's Farmhouse,True,False,1
+"Strange Shipwreck, Cabin",True,False,0
+"Strange Shipwreck, Lower Level",True,False,0
+"Strange Shipwreck, Upper Level",True,False,0
+Subdun,True,False,0
+"Subdun, Shrine",True,False,0
+Sud,True,False,0
+Sudanit Mine,True,False,0
+Sulipund,True,False,0
+Sur Egg Mine,True,False,0
+Suran,False,False,0
+"Suran, Desele's House of Earthly Delights",True,False,0
+"Suran, Garothmuk gro-Muzgub: Smith",True,False,0
+"Suran, Goldyn Belaram: Pawnbroker",True,False,0
+"Suran, Guard Tower",True,False,0
+"Suran, Ibarnadad Assirnarari: Apothecary",True,False,0
+"Suran, Oran Manor",True,False,0
+"Suran, Ralds Oril: Trader",True,False,0
+"Suran, Ranosa Gilvayn: Outfitter",True,False,0
+"Suran, Suran Slave Market",True,False,0
+"Suran, Suran Temple",True,False,0
+"Suran, Suran Tradehouse",True,False,0
+"Suran, Verara Rendo: Clothier",True,False,0
+Surirulk,True,False,0
+Tel Aruhn,False,False,0
+"Tel Aruhn, Aryne Telnim: Smith",True,False,0
+"Tel Aruhn, Bildren Areleth: Apothecary",True,False,0
+"Tel Aruhn, Ferele Athram: Trader",True,False,0
+"Tel Aruhn, Maren Uvaren: Enchanter",True,False,0
+"Tel Aruhn, Plot and Plaster",True,False,0
+"Tel Aruhn, Tower Entry",True,False,0
+"Tel Aruhn, Tower Living Quarters",True,False,0
+"Tel Aruhn, Underground",True,False,0
+"Tel Aruhn, Upper Tower",True,False,0
+Tel Branora,False,False,0
+"Tel Branora, Ervyna Hlervu's Shack",True,False,0
+"Tel Branora, Evos Goran's House",True,False,0
+"Tel Branora, Fadase Selvayn: Trader",True,False,0
+"Tel Branora, Fedar Davus's House",True,False,0
+"Tel Branora, Galen Berer: Armorer",True,False,0
+"Tel Branora, Giron Manas's Shack",True,False,0
+"Tel Branora, Lower Tower",True,False,0
+"Tel Branora, Manos Vavyn's House",True,False,0
+"Tel Branora, Seryne Relas's House",True,False,0
+"Tel Branora, Sethan's Tradehouse",True,False,0
+"Tel Branora, Tower Dungeon",True,False,0
+"Tel Branora, Tower Guardpost",True,False,0
+"Tel Branora, Upper Tower",True,False,0
+"Tel Branora, Upper Tower: Therana's Chamber",True,False,0
+Tel Fyr,False,False,1
+Tel Mora,False,False,0
+"Tel Mora, Berwen: Trader",True,False,0
+"Tel Mora, Elegnan: Clothier",True,False,0
+"Tel Mora, Jolda: Apothecary",True,False,0
+"Tel Mora, Kirsty's House",True,False,0
+"Tel Mora, Liette's House",True,False,0
+"Tel Mora, Lower Tower",True,False,0
+"Tel Mora, Nona's House",True,False,0
+"Tel Mora, Radras: Smith",True,False,0
+"Tel Mora, The Covenant",True,False,0
+"Tel Mora, Tower Services",True,False,0
+"Tel Mora, Upper Tower",True,False,0
+"Tel Uvirith, Arelas' House",True,False,0
+"Tel Uvirith, Menas' House",True,False,0
+"Tel Uvirith, Omavel's House",True,False,0
+"Tel Uvirith, Seleth's House",True,False,0
+"Tel Uvirith, Tower Dungeon",True,False,0
+"Tel Uvirith, Tower Lower",True,False,0
+"Tel Uvirith, Tower Upper",True,False,0
+Tel Vos,False,False,0
+"Tel Vos, Aryon's Chambers",True,False,0
+"Tel Vos, Barracks and Armory",True,False,0
+"Tel Vos, Central Tower",True,False,0
+"Tel Vos, Dungeon",True,False,0
+"Tel Vos, Jail",True,False,0
+"Tel Vos, Northeastern Tower",True,False,0
+"Tel Vos, Services Tower",True,False,0
+"Tel Vos, Southern Tower",True,False,0
+Telasero,False,False,2
+"Telasero, Lower Level",True,False,1
+"Telasero, Propylon Chamber",True,False,1
+"Telasero, Upper Level",True,False,1
+Telvayn Ancestral Tomb,True,False,0
+Thalas Ancestral Tomb,True,False,0
+Tharys Ancestral Tomb,True,False,0
+Thelas Ancestral Tomb,True,False,0
+Thiralas Ancestral Tomb,True,False,0
+Thirsk,False,False,7
+Tin-Ahhe,True,False,0
+ToddTest,True,False,0
+"Tower of Tel Fyr, Hall of Fyr",True,False,3
+"Tower of Tel Fyr, Onyx Hall",True,False,0
+Tukushapal,True,False,0
+"Tukushapal, Sepulcher",True,False,0
+Tureynulal,False,False,0
+"Tureynulal, Bladder of Clovis",True,False,0
+"Tureynulal, Eye of Duggan",True,False,0
+"Tureynulal, Eye of Thom Wye",True,False,0
+"Tureynulal, Kagrenac's Library",True,False,0
+"Tusenend, Shrine",True,False,0
+"Ularradallaku, Shrine",True,False,0
+Ules Manor,True,False,0
+"Ules Manor, Slave Shack",True,False,0
+"Ules Manor, Slavemaster's Shack",True,False,0
+Ulummusa,True,False,0
+"Uncharted Shipwreck, Lower Level",True,False,0
+"Unchartered Shipwreck, Cabin",True,False,0
+"Unchartered Shipwreck, Upper Level",True,False,0
+"Unexplored Shipwreck, Cabin",True,False,0
+"Unexplored Shipwreck, Lower Level",True,False,0
+"Unexplored Shipwreck, Upper Level",True,False,0
+"Unknown Shipwreck, Cabin",True,False,0
+"Unknown Shipwreck, Lower Level",True,False,0
+"Unknown Shipwreck, Upper Level",True,False,0
+"Unmarked Shipwreck, Lower Level",True,False,0
+"Unmarked Shipwreck, Upper Level",True,False,0
+Urshilaku Camp,False,False,0
+"Urshilaku Camp, Ahasour's Yurt",True,False,0
+"Urshilaku Camp, Ashkhan's Yurt",True,False,0
+"Urshilaku Camp, Kurapli's Yurt",True,False,0
+"Urshilaku Camp, Maeli's Yurt",True,False,0
+"Urshilaku Camp, Sakiran's Yurt",True,False,0
+"Urshilaku Camp, Shara's Yurt",True,False,0
+"Urshilaku Camp, Shimsun's Yurt",True,False,0
+"Urshilaku Camp, Wise Woman's Yurt",True,False,0
+"Urshilaku Camp, Zabamund's Yurt",True,False,0
+"Urshilaku Camp, Zanummu's Yurt",True,False,0
+"Urshilaku, Astral Burial",True,False,0
+"Urshilaku, Fragile Burial",True,False,0
+"Urshilaku, Juno Burial",True,False,0
+"Urshilaku, Kakuna Burial",True,False,0
+"Urshilaku, Karma Burial",True,False,0
+"Urshilaku, Kefka Burial",True,False,0
+"Urshilaku, Laterus Burial",True,False,0
+Uveran Ancestral Tomb,True,False,0
+Uvirith's Grave,False,False,4
+Valenvaryon,False,False,1
+"Valenvaryon, Durz's Hut",True,False,0
+"Valenvaryon, Gashna's Hut",True,False,0
+"Valenvaryon, Lambug's Hut",True,False,0
+"Valenvaryon, Lurog's Hut",True,False,0
+"Valenvaryon, Propylon Chamber",True,False,1
+"Valenvaryon, Umug's Hut",True,False,0
+Vandus Ancestral Tomb,True,False,0
+Vansunalit Egg Mine,True,False,0
+Vas,False,False,0
+"Vas, Entry Level",True,False,0
+"Vas, Tower",True,False,0
+Vassamsi Grotto,True,False,0
+Vassir-Didanat Cave,True,False,0
+Velas Ancestral Tomb,True,False,0
+Veloth Ancestral Tomb,True,False,0
+Vemynal,False,False,0
+"Vemynal, Hall of Torque",True,False,0
+"Vemynal, Outer Fortress",True,False,0
+Venim Ancestral Tomb,True,False,0
+Verelnim Ancestral Tomb,True,False,0
+Vivec,False,False,37
+"Vivec, Agrippina Herennia: Clothier",True,False,0
+"Vivec, Alusaron: Smith",True,False,0
+"Vivec, Andilu Drothan: Alchemist",True,False,0
+"Vivec, Arena",False,False,3
+"Vivec, Arena Canalworks",True,False,0
+"Vivec, Arena Fighters Quarters",True,False,0
+"Vivec, Arena Fighters Training",True,False,0
+"Vivec, Arena Hidden Area",True,False,0
+"Vivec, Arena Holding Cells",True,False,0
+"Vivec, Arena Pit",True,False,4
+"Vivec, Arena Storage",True,False,0
+"Vivec, Arena Underworks",True,False,0
+"Vivec, Arena Waistworks",True,False,0
+"Vivec, Aurane Frernis: Apothecary",True,False,0
+"Vivec, Black Shalk Cornerclub",True,False,0
+"Vivec, Canon Offices",True,False,0
+"Vivec, Canon Quarters",True,False,0
+"Vivec, Curio Manor",True,False,0
+"Vivec, Dralor Manor",True,False,0
+"Vivec, Elven Nations Cornerclub",True,False,1
+"Vivec, Foreign Quarter",False,False,0
+"Vivec, Foreign Quarter Canalworks",True,False,0
+"Vivec, Foreign Quarter Lower Waistworks",True,False,0
+"Vivec, Foreign Quarter Plaza",True,False,0
+"Vivec, Foreign Quarter Tomb",True,False,0
+"Vivec, Foreign Quarter Underworks",True,False,0
+"Vivec, Foreign Quarter Upper Waistworks",True,False,0
+"Vivec, Guild of Fighters",True,False,0
+"Vivec, Guild of Mages",True,False,0
+"Vivec, Hall Underworks",True,False,0
+"Vivec, Hall of Justice",True,False,0
+"Vivec, Hall of Justice Secret Library",True,False,0
+"Vivec, Hall of Wisdom",True,False,0
+"Vivec, High Fane",True,False,1
+"Vivec, Hlaalu",False,False,0
+"Vivec, Hlaalu Alchemist",True,False,0
+"Vivec, Hlaalu Ancestral Vaults",True,False,0
+"Vivec, Hlaalu Canalworks",True,False,0
+"Vivec, Hlaalu Edryno Arethi's House",True,False,0
+"Vivec, Hlaalu General Goods",True,False,2
+"Vivec, Hlaalu Pawnbroker",True,False,0
+"Vivec, Hlaalu Plaza",True,False,0
+"Vivec, Hlaalu Prison Cells",True,False,1
+"Vivec, Hlaalu Records",True,False,0
+"Vivec, Hlaalu Temple",True,False,0
+"Vivec, Hlaalu Treasury",True,False,0
+"Vivec, Hlaalu Underworks",True,False,0
+"Vivec, Hlaalu Vaults",True,False,0
+"Vivec, Hlaalu Waistworks",True,False,1
+"Vivec, Hlaalu Weaponsmith",True,False,0
+"Vivec, Hlaren Residence",True,False,0
+"Vivec, J'Rasha: Healer",True,False,0
+"Vivec, Jeanne: Trader",True,False,0
+"Vivec, Jobasha's Rare Books",True,False,1
+"Vivec, Justice Offices",True,False,0
+"Vivec, Library of Vivec",True,False,0
+"Vivec, Lucretinaus Olcinius: Trader",True,False,0
+"Vivec, Mevel Fererus: Trader",True,False,0
+"Vivec, Milo's Quarters",True,False,0
+"Vivec, Miun-Gei: Enchanter",True,False,0
+"Vivec, No Name Club",True,False,0
+"Vivec, Office of the Watch",True,False,0
+"Vivec, Ordinator Barracks",True,False,0
+"Vivec, Palace of Vivec",True,False,0
+"Vivec, Puzzle Canal, Center",True,False,0
+"Vivec, Puzzle Canal, Level 1",True,False,0
+"Vivec, Puzzle Canal, Level 2",True,False,0
+"Vivec, Puzzle Canal, Level 3",True,False,0
+"Vivec, Puzzle Canal, Level 4",True,False,0
+"Vivec, Puzzle Canal, Level 5",True,False,0
+"Vivec, Ralen Tilvur: Smith",True,False,1
+"Vivec, Redoran",False,False,0
+"Vivec, Redoran Ancestral Vaults",True,False,0
+"Vivec, Redoran Canalworks",True,False,0
+"Vivec, Redoran Plaza",True,False,0
+"Vivec, Redoran Prison Cells",True,False,0
+"Vivec, Redoran Records",True,False,0
+"Vivec, Redoran Scout & Drillmaster",True,False,0
+"Vivec, Redoran Smith",True,False,0
+"Vivec, Redoran Temple Shrine",True,False,0
+"Vivec, Redoran Trader",True,False,0
+"Vivec, Redoran Treasury",True,False,0
+"Vivec, Redoran Underworks",True,False,0
+"Vivec, Redoran Vaults",True,False,0
+"Vivec, Redoran Waistworks",True,False,0
+"Vivec, Saren Manor",True,False,0
+"Vivec, Simine Fralinie: Bookseller",True,False,0
+"Vivec, St. Delyn",False,False,0
+"Vivec, St. Delyn Canal North-One",True,False,0
+"Vivec, St. Delyn Canal North-Three",True,False,0
+"Vivec, St. Delyn Canal North-Two",True,False,0
+"Vivec, St. Delyn Canal South-One",True,False,0
+"Vivec, St. Delyn Canal South-Three",True,False,0
+"Vivec, St. Delyn Canal South-Two",True,False,0
+"Vivec, St. Delyn Canalworks",True,False,0
+"Vivec, St. Delyn Glassworker's Hall",True,False,0
+"Vivec, St. Delyn Plaza",True,False,0
+"Vivec, St. Delyn Potter's Hall",True,False,0
+"Vivec, St. Delyn Storage",True,False,0
+"Vivec, St. Delyn Underworks",True,False,0
+"Vivec, St. Delyn Waist North-One",True,False,0
+"Vivec, St. Delyn Waist North-Two",True,False,0
+"Vivec, St. Delyn Waist South-One",True,False,0
+"Vivec, St. Delyn Waist South-Two",True,False,0
+"Vivec, St. Delyn Waistworks",True,False,0
+"Vivec, St. Olms",False,False,0
+"Vivec, St. Olms Brewers and Fishmongers Hall",True,False,0
+"Vivec, St. Olms Canal North-One",True,False,0
+"Vivec, St. Olms Canal North-Three",True,False,0
+"Vivec, St. Olms Canal North-Two",True,False,0
+"Vivec, St. Olms Canal South-One",True,False,0
+"Vivec, St. Olms Canal South-Three",True,False,0
+"Vivec, St. Olms Canal South-Two",True,False,0
+"Vivec, St. Olms Canalworks",True,False,0
+"Vivec, St. Olms Farmers and Laborers Hall",True,False,0
+"Vivec, St. Olms Haunted Manor",True,False,1
+"Vivec, St. Olms Plaza",True,False,0
+"Vivec, St. Olms Storage",True,False,0
+"Vivec, St. Olms Tailors and Dyers Hall",True,False,0
+"Vivec, St. Olms Tanners and Miners Hall",True,False,0
+"Vivec, St. Olms Temple",True,False,0
+"Vivec, St. Olms Underworks",True,False,0
+"Vivec, St. Olms Upper North-One",True,False,0
+"Vivec, St. Olms Upper North-Two",True,False,0
+"Vivec, St. Olms Upper South-One",True,False,0
+"Vivec, St. Olms Waist North-One",True,False,0
+"Vivec, St. Olms Waist North-Two",True,False,0
+"Vivec, St. Olms Waist South-One",True,False,0
+"Vivec, St. Olms Waist South-Two",True,False,0
+"Vivec, St. Olms Waistworks",True,False,0
+"Vivec, St. Olms Yngling Manor",True,False,0
+"Vivec, St. Olms Yngling Manor Basement",True,False,0
+"Vivec, Telvanni",False,False,0
+"Vivec, Telvanni Alchemist",True,False,0
+"Vivec, Telvanni Apothecary",True,False,0
+"Vivec, Telvanni Canalworks",True,False,0
+"Vivec, Telvanni Enchanter",True,False,0
+"Vivec, Telvanni Mage",True,False,0
+"Vivec, Telvanni Monster Lab",True,False,0
+"Vivec, Telvanni Plaza",True,False,0
+"Vivec, Telvanni Prison Cells",True,False,0
+"Vivec, Telvanni Sorcerer",True,False,0
+"Vivec, Telvanni Temple",True,False,0
+"Vivec, Telvanni Tower",True,False,0
+"Vivec, Telvanni Underworks",True,False,0
+"Vivec, Telvanni Upper Storage",True,False,0
+"Vivec, Telvanni Vault",True,False,0
+"Vivec, Telvanni Waistworks",True,False,0
+"Vivec, Temple",False,False,0
+"Vivec, Temporary Telvanni Housing",True,False,0
+"Vivec, Tervur Braven: Trader",True,False,0
+"Vivec, The Abbey of St. Delyn the Wise",True,False,0
+"Vivec, The Flowers of Gold",True,False,0
+"Vivec, The Lizard's Head",True,False,0
+"Vor Lair, Chambers of Alta Vor",True,False,0
+"Vor Lair, Interior",True,False,0
+Vos,False,False,1
+"Vos, Dreynos Elvul's Farmhouse",True,False,0
+"Vos, Fanisea Irano's Farmhouse",True,False,0
+"Vos, Ienasa Radas's Farmhouse",True,False,0
+"Vos, Maela Kaushad's Farmhouse",True,False,0
+"Vos, Mandyn Ralas's Farmhouse",True,False,0
+"Vos, Menus Felas's Farmhouse",True,False,0
+"Vos, Runethyne Andas's Farmhouse",True,False,0
+"Vos, Thilse Aralas's Farmhouse",True,False,0
+"Vos, Trilam Drolnor's Farmhouse",True,False,0
+"Vos, Ulvil Llothas's Farmhouse",True,False,0
+"Vos, Varo Tradehouse",True,False,0
+"Vos, Varo Tradehouse Entrance",True,False,0
+"Vos, Varo Tradehouse Storage",True,False,0
+"Vos, Vos Chapel",True,False,0
+Wolverine Hall,False,False,0
+Yakanalit,True,False,0
+"Yakaridan Camp, Kitbael's Yurt",True,False,0
+Yakin,True,False,0
+"Yakin, Shrine",True,False,0
+Yanemus Mine,True,False,0
+Yansirramus,False,False,0
+"Yansirramus, Shrine",True,False,0
+"Yasammidan, Shrine",True,False,0
+Yasamsi,True,False,0
+Yassu Mine,True,False,0
+Yesamsi,True,False,0
+Zainab Camp,False,False,0
+"Zainab Camp, Ababael Timsar-Dadisun's Yurt",True,False,0
+"Zainab Camp, Ashibaal's Yurt",True,False,0
+"Zainab Camp, Ashkhan's Yurt",True,False,1
+"Zainab Camp, Ashur-Dan's Yurt",True,False,0
+"Zainab Camp, Kuda's Yurt",True,False,0
+"Zainab Camp, Kummu's Yurt",True,False,0
+"Zainab Camp, Minassour's Yurt",True,False,0
+"Zainab Camp, Patababi's Yurt",True,False,0
+"Zainab Camp, Tussi's Yurt",True,False,0
+"Zainab Camp, Wise Woman's Yurt",True,False,0
+Zainsipilu,True,False,0
+Zaintirari,True,False,0
+Zaintiraris,False,False,0
+"Zaintiraris, Shrine",True,False,0
+Zalkin Grotto,True,False,0
+Zalkin-Sul Egg Mine,True,False,2
+Zanabi,True,False,0
+Zebabi,True,False,0
+Zenarbael,True,False,0
+Zergonipal,False,False,0
+"Zergonipal, Shrine",True,False,0
+ken's test hole,True,False,0

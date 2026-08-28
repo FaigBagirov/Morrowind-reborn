@@ -1,83 +1,1112 @@
-actor_id,actor_name,unique_info_count,total_words
-sinnammu mirpal,Sinnammu Mirpal,25,1177
-lalatia varian,Lalatia Varian,9,601
-smokey morth,Smokey Morth,15,559
-garothmuk gro-muzgub,Garothmuk gro-Muzgub,8,428
-vala catraso,Vala Catraso,12,389
-arantamo,Crazy-Legs Arantamo,4,380
-artisa arelas,Artisa Arelas,7,360
-vivec_god,Vivec,4,328
-dagoth ulen,Dagoth Ulen,8,325
-kaye,Kaye,3,250
-tholer saryoni,Tholer Saryoni,3,228
-draugr_aesliip,Draugr Lord Aesliip,6,222
-llaalam dredil,Llaalam Dredil,3,219
-eno romari,Eno Romari,3,210
-caius cosades,Caius Cosades,3,195
-gaenor,Gaenor,3,186
-strillian macro,Strillian Macro,3,170
-melvure rindu,Melvure Rindu,3,170
-eraamion,Eraamion,3,170
-ygfa,Ygfa,3,170
-estirdalin,Estirdalin,3,170
-angoril,Angoril,2,147
-flaenia amiulusus,Flaenia Amiulusus,2,147
-ennbjof,Ennbjof,2,144
-tharer rotheloth,Tharer Rotheloth,3,139
-garisa llethri,Garisa Llethri,2,137
-hlireni indavel,Hlireni Indavel,2,126
-dram bero,Dram Bero,6,116
-raril giral,Raril Giral,2,116
-tuls valen,Tuls Valen,3,114
-sul-matuul,Sul-Matuul,2,113
-tendris vedran,Tendris Vedran,3,112
-anarenen,Anarenen,3,112
-dagoth uvil,Dagoth Uvil,4,101
-dwarven ghost_radac,Radac Stungnthumz,1,99
-galos mathendis,Galos Mathendis,5,97
-ra'virr,Ra'Virr,2,94
-larienna macrina,Larienna Macrina,1,91
-sjoring hard-heart,Sjoring Hard-Heart,1,89
-gilvas barelo,Gilvas Barelo,1,88
-aryon,Aryon,4,88
-mastrius,Mastrius,1,85
-galsa andrano,Galsa Andrano,1,85
-eno hlaalu,Eno Hlaalu,2,84
-almalexia,Almalexia,1,84
-athal nerano,Athal Nerano,1,79
-ian,Ian,1,79
-fenas madach,Fenas Madach,1,79
-ingokning,Ingokning,1,79
-mervs uvayn,Mervs Uvayn,1,79
-aurane frernis,Aurane Frernis,1,77
-punibi yahaz,Punibi Yahaz,1,77
-meralyn othan,Meralyn Othan,1,76
-derar hlervu,Derar Hlervu,1,75
-edryno arethi,Edryno Arethi,1,75
-milyn faram,Milyn Faram,1,69
-miles gloriosus,Miles Gloriosus,1,68
-albecius colollius,Albecius Colollius,1,68
-dumbuk gro-bolak,Dumbuk gro-Bolak,1,68
-snorri,Snorri,1,68
-listien bierles,Listien Bierles,1,66
-sirollus saccus,Sirollus Saccus,2,62
-umbra,Umbra,1,61
-frald the white,Frald the White,1,54
-alof the easterner,Alof the Easterner,1,53
-skinkintreesshade,Skink-in-Tree's-Shade,1,52
-volrina quarra,Volrina Quarra,1,49
-bethes sarothril,Bethes Sarothril,1,47
-drores arvel,Drores Arvel,1,47
-eydis fire-eye,Eydis Fire-Eye,2,43
-vivyne andrano,Vivyne Andrano,2,40
-tralas rendas,Tralas Rendas,1,38
-llunela hleran,Llunela Hleran,1,37
-jobasha,Jobasha,1,36
-atronach_flame_ttmk,Flame Atronach,1,34
-imsin the dreamer,Imsin the Dreamer,1,31
-taros dral,Taros Dral,1,29
-galyn arvel,Galyn Arvel,1,26
-theldyn virith,Theldyn Virith,1,22
-dremora_ttmg,Anhaedra,1,15
-atronach_frost_ttmk,Frost  Atronach,1,15
-yenammu,Yenammu,1,14
+actor_id,actor_name,unique_info_count,total_words,keyword_info_count,keyword_words
+artisa arelas,Artisa Arelas,217,11885,7,360
+caius cosades,Caius Cosades,172,8878,2,135
+falco galenus,Falco Galenus,309,8327,0,0
+carnius magius,Carnius Magius,303,7672,0,0
+torasa aram,Torasa Aram,306,6732,0,0
+nibani maesa,Nibani Maesa,132,6017,0,0
+tienius delitian,Tienius Delitian,149,5438,0,0
+eno hlaalu,Eno Hlaalu,229,4948,2,84
+korst wind-eye,Korst Wind-Eye,140,4883,0,0
+vivec_god,Vivec,75,4510,4,328
+crassius curio,Crassius Curio,149,4489,0,0
+stacey,Gentleman Jim Stacey,174,4483,0,0
+athyn sarethi,Athyn Sarethi,145,4402,0,0
+iulus truptor,Iulus Truptor,100,4146,0,0
+aryon,Aryon,146,3992,4,88
+lalatia varian,Lalatia Varian,87,3990,9,601
+bols indalen,Bols Indalen,146,3898,0,0
+synnolian tunifus,Synnolian Tunifus,87,3888,0,0
+ygfa,Ygfa,88,3869,3,170
+tendris vedran,Tendris Vedran,115,3646,3,112
+kaye,Kaye,89,3562,3,250
+brynjolfr,Brynjolfr,107,3527,0,0
+nileno dorvayn,Nileno Dorvayn,160,3348,0,0
+edwinna elbert,Edwinna Elbert,147,3258,0,0
+almalexia,Almalexia,87,3252,1,84
+king hlaalu helseth,King Hlaalu Helseth,96,3219,0,0
+persius mercius,Percius Mercius,114,3189,0,0
+sul-matuul,Sul-Matuul,64,3069,2,113
+garothmuk gro-muzgub,Garothmuk gro-Muzgub,56,2931,8,428
+yagrum bagarn,Yagrum Bagarn,70,2926,0,0
+ahnassi,Ahnassi,67,2897,0,0
+anarenen,Anarenen,95,2835,3,112
+barenziah,Barenziah,71,2495,0,0
+smokey morth,Smokey Morth,57,2449,15,559
+baladas demnevanni,Baladas Demnevanni,92,2434,0,0
+tholer saryoni,Tholer Saryoni,67,2423,3,228
+estirdalin,Estirdalin,50,2396,3,170
+hasphat antabolis,Hasphat Antabolis,54,2355,0,0
+fedris hler,Fedris Hler,74,2319,0,0
+sinnammu mirpal,Sinnammu Mirpal,59,2312,23,1103
+neminda,Neminda,112,2293,0,0
+tharsten heart-fang,Tharsten Heart-Fang,87,2292,0,0
+savile imayn,Savile Imayn,73,2282,0,0
+divayth fyr,Divayth Fyr,73,2261,0,0
+han-ammu,Han-Ammu,47,2259,0,0
+eydis fire-eye,Eydis Fire-Eye,98,2207,2,43
+hassour zainsubani,Hassour Zainsubani,45,2137,0,0
+huleeya,Huleeya,44,2066,0,0
+general darius,Darius,98,2030,0,0
+ranis athrys,Ranis Athrys,90,1988,0,0
+ajira,Ajira,90,1943,0,0
+falx carius,Captain Falx Carius,78,1941,0,0
+strillian macro,Strillian Macro,37,1894,3,170
+vala catraso,Vala Catraso,54,1850,12,389
+marena gilnith,Marena Gilnith,68,1841,0,0
+mehra milo,Mehra Milo,37,1826,0,0
+hrundi,Hrundi,85,1799,0,0
+plitinius mero,Plitinius Mero,42,1757,0,0
+manirai,Manirai,43,1756,0,0
+eraamion,Eraamion,35,1754,3,170
+nerile andaren,Nerile Andaren,50,1744,0,0
+addhiranirr,Addhiranirr,43,1735,0,0
+vedam dren,Duke Vedam Dren,52,1700,0,0
+melvure rindu,Melvure Rindu,34,1670,3,170
+gavas drin,Gavas Drin,49,1661,0,0
+louis beauchamp,Louis Beauchamp,31,1616,0,0
+edryno arethi,Edryno Arethi,79,1594,1,75
+ulfgar the unending,Ulfgar the Unending,23,1571,0,0
+calvus horatius,Calvus Horatius,39,1570,0,0
+svenja snow-song,Svenja Snow-Song,35,1566,0,0
+skinkintreesshade,Skink-in-Tree's-Shade,81,1539,1,52
+miner arobar,Miner Arobar,25,1512,0,0
+angaredhel,Angaredhel,34,1480,0,0
+aengoth,Aengoth the Jeweler,68,1478,0,0
+dagoth_ur_1,Dagoth Ur,38,1468,0,0
+kaushad,Kaushad,38,1460,0,0
+fons beren,Fons Beren,42,1433,0,0
+larrius varro,Larrius Varro,30,1430,0,0
+meryn othralas,Meryn Othralas,34,1390,0,0
+briring,Briring,33,1377,0,0
+flaenia amiulusus,Flaenia Amiulusus,24,1342,2,147
+galsa andrano,Galsa Andrano,22,1335,1,85
+ienas sarandas,Ienas Sarandas,33,1329,0,0
+gaenor,Gaenor,25,1302,3,186
+habasi,Sugar-Lips Habasi,69,1298,0,0
+elone,Elone,32,1297,0,0
+odral helvi,Odral Helvi,66,1288,0,0
+therana,Therana,39,1278,0,0
+angoril,Angoril,20,1268,2,147
+sharn gra-muzgob,Sharn gra-Muzgob,35,1262,0,0
+saenus lusius,Saenus Lusius,49,1243,0,0
+raven omayn,Raven Omayn,42,1240,0,0
+trebonius artorius,Trebonius Artorius,49,1234,0,0
+faral retheran,Faral Retheran,67,1217,0,0
+endryn llethan,Endryn Llethan,52,1213,0,0
+geon auline,Geon Auline,41,1213,0,0
+dovor oren,Dovor Oren,43,1199,0,0
+big helende,Big Helende,52,1174,0,0
+lloros sarano,Lloros Sarano,53,1173,0,0
+garisa llethri,Garisa Llethri,37,1172,2,137
+geilir the mumbling,Geilir the Mumbling,24,1172,0,0
+theldyn virith,Theldyn Virith,56,1170,1,22
+edras oril,Edras Oril,39,1132,0,0
+gaea artoria,Gaea Artoria,48,1114,0,0
+hlaren ramoran,Hlaren Ramoran,48,1105,0,0
+ten-tongues_weerhat,'Ten-Tongues' Weerhat,38,1098,0,0
+uvoo llaren,Uvoo Llaren,55,1096,0,0
+tuls valen,Tuls Valen,45,1079,2,84
+trels varis,Trels Varis,24,1076,0,0
+apronia alfena,Apronia Alfena,22,1057,0,0
+rerlas mon,Rerlas Mon,25,1056,0,0
+dratha,Dratha,41,1053,0,0
+uleni heleran,Uleni Heleran,14,1047,0,0
+dondos driler,Dondos Driler,40,1045,0,0
+tharer rotheloth,Tharer Rotheloth,39,1045,3,139
+brara morvayn,Mistress Brara Morvayn,30,1033,0,0
+dram bero,Dram Bero,39,1029,6,116
+zabamund,Zabamund,35,1017,0,0
+gilvas barelo,Gilvas Barelo,20,1003,1,88
+maela kaushad,Maela Kaushad,27,997,0,0
+lorbumol gro-aglakh,Lorbumol gro-Aglakh,57,992,0,0
+sjoring hard-heart,Sjoring Hard-Heart,32,970,1,89
+arnsa thendas,Arnsa Thendas,37,968,0,0
+canctunian ponius,Canctunian Ponius,43,920,0,0
+frald the white,Frald the White,46,907,1,54
+detritus caria,Detritus Caria,29,879,0,0
+jeleen,Jeleen,23,879,0,0
+gudling the rascal,Gudling the Rascal,19,874,0,0
+ghost_npc_peakstar,Peakstar,26,870,0,0
+sunel hlas,Sunel Hlas,32,863,0,0
+velanda omani,Velanda Omani,31,859,0,0
+aldam berendus,Aldam Berendus,36,858,0,0
+llunela hleran,Llunela Hleran,38,847,1,37
+miles gloriosus,Miles Gloriosus,14,837,1,68
+severia gratius,Severia Gratius,18,830,0,0
+constans atrius,Constans Atrius,42,827,0,0
+athellor,Athellor,19,817,0,0
+hlormar wine-sot,Hlormar Wine-Sot,29,814,0,0
+falura llervu,Falura Llervu,30,805,0,0
+ignatius_flaccus,Ignatius Flaccus,38,799,0,0
+nevena ules,Nevena Ules,24,774,0,0
+dhaunayne aundae,Dhaunayne Aundae,27,772,0,0
+dumbuk gro-bolak,Dumbuk gro-Bolak,12,765,1,68
+elam andas,Elam Andas,16,763,0,0
+imsin the dreamer,Imsin the Dreamer,45,763,1,31
+uncle sweetshare,Uncle Sweetshare,18,753,0,0
+danso indules,Danso Indules,25,752,0,0
+shunari eye-fly,Shunari Eye-Fly,26,752,0,0
+raesa pullia,Raesa Pullia,12,746,0,0
+galos mathendis,Galos Mathendis,30,744,5,97
+rolf long-tooth,Rolf Long-Tooth,34,733,0,0
+cunius pelelius,Cunius Pelelius,29,726,0,0
+ingmar,Ingmar,20,724,0,0
+ilmeni dren,Ilmeni Dren,44,719,0,0
+goval ralen,Goval Ralen,34,714,0,0
+effe_tei,Effe-Tei,13,697,0,0
+hlireni indavel,Hlireni Indavel,18,689,2,126
+sonummu zabamat,Sonummu Zabamat,16,685,0,0
+edd theman,"Edd ""Fast Eddie"" Theman",36,685,0,0
+snorri,Snorri,12,683,1,68
+teris raledran,Teris Raledran,21,682,0,0
+turedus talanian,Turedus Talanian,14,682,0,0
+orvas dren druglord,Orvas Dren,23,675,0,0
+drarayne girith,Drarayne Girith,19,673,0,0
+felisa ulessen,Felisa Ulessen,28,669,0,0
+volrina quarra,Volrina Quarra,23,666,1,49
+nalion,Nalion,16,655,0,0
+im_kilaya,Im-Kilaya,17,655,0,0
+hisin deep-raed,Hisin Deep-Raed,18,654,0,0
+draugr_aesliip,Draugr Lord Aesliip,20,654,6,222
+bivale teneran,Bivale Teneran,22,652,0,0
+maurrie aurmine,Maurrie Aurmine,15,649,0,0
+vistha_kai,Vistha-Kai,18,648,0,0
+chargen captain,Sellus Gravius,16,648,0,0
+ingwold,Inwold,16,647,0,0
+high_pockets,High-Pockets,23,645,0,0
+din,Din,23,641,0,0
+deldrise andoren,Deldrise Andoren,26,639,0,0
+relur faryon,Relur Faryon,18,637,0,0
+felvan ienith,Felvan Ienith,22,636,0,0
+narisa adus,Narisa Adus,15,635,0,0
+mastrius,Mastrius,29,631,1,85
+svenja_outside,Svenja Snow-Song,15,631,0,0
+unel lloran,Unel Lloran,28,626,0,0
+arara uvulas,Arara Uvulas,29,620,0,0
+radd hard-heart,Radd Hard-Heart,41,615,0,0
+dilborn,Dilborn,14,611,0,0
+galsa gindu,Galsa Gindu,29,607,0,0
+tul,Tul,22,606,0,0
+mallam ryon,Mallam Ryon,27,603,0,0
+varus vatinius,Varus Vantinius,33,602,0,0
+dagoth gares,Dagoth Gares,9,600,0,0
+aenar,Aenar,41,600,0,0
+sanvyn llethri,Sanvyn Llethri,16,594,0,0
+rararyn radarys,Rararyn Radarys,20,589,0,0
+sirilonwe,Sirilonwe,21,587,0,0
+yngling half-troll,Yngling Half-Troll,29,586,0,0
+gadayn andarys,Gadayn Andarys,24,585,0,0
+vivyne andrano,Vivyne Andrano,18,581,1,20
+drulene falen,Drulene Falen,27,579,0,0
+baro egnatius,Baro Egnatius,21,578,0,0
+daynasa telandas,Daynasa Telandas,18,570,0,0
+raxle berne,Raxle Berne,22,569,0,0
+chaplain ogrul,Chaplain Ogrul,14,568,0,0
+uupse fyr,Uupse Fyr,18,568,0,0
+thormoor gray-wave,Thormoor Gray-Wave,11,567,0,0
+dralas gilu,Dralas Gilu,17,561,0,0
+dravasa andrethi,Dravasa Andrethi's ,17,561,0,0
+llandras belaal,Llandras Belaal,17,561,0,0
+eralane hledas,Eralane Hledas,17,561,0,0
+nelmil hler,Nelmil Hler,17,561,0,0
+alvura othrenim,Alvura Othrenim,17,561,0,0
+neldris llervu,Neldris Llervu,17,561,0,0
+assi serimilk,Assi Serimilk,17,561,0,0
+vireveri darethran,Vireveri Darethran,17,561,0,0
+endris dilmyn,Endris Dilmyn,17,561,0,0
+mehra helas,Mehra Helas,14,561,0,0
+lassnr,Lassnr,14,558,0,0
+chargen class,Socucius Ergalla,15,555,0,0
+bm_riekling_krish_uniqu,Krish,20,546,0,0
+bm_reinhardt,Reinhardt Red-Spear,16,544,0,0
+rabinna,Rabinna,33,536,0,0
+salyn sarethi,Salyn Sarethi,25,530,0,0
+neloth,Neloth,23,524,0,0
+olvyne dobar,Olvyne Dobar,20,524,0,0
+varvur sarethi,Varvur Sarethi,26,521,0,0
+marsus tullius,Marsus Tullius,13,519,0,0
+mirisa,Mirisa,23,516,0,0
+bolrin,Bolrin,14,514,0,0
+mossanon,Mossanon,20,512,0,0
+athanden girith,Athanden Girith,15,511,0,0
+hession,Hession,17,510,0,0
+kolfinna,Kolfinna,12,509,0,0
+ama nin_disguisemara,Ama Nin,10,507,0,0
+daric bielle,Daric Bielle,12,506,0,0
+jobasha,Jobasha,21,498,1,36
+alvan llarys,Alvan Llarys,13,492,0,0
+fenas madach,Fenas Madach,8,489,1,79
+nels llendo,Nels Llendo,15,485,0,0
+bolvyn venim,Bolvyn Venim,21,480,0,0
+elbert nermarc,Elbert Nermarc,12,478,0,0
+yagak gro-gluk,Yagak gro-Gluk,16,476,0,0
+drathas nerus,Drathas Nerus,15,475,0,0
+dwarven ghost_radac,Radac Stungnthumz,13,471,1,99
+bereditte jastal,Bereditte Jastal,8,469,0,0
+uryn maren,Uryn Maren,23,468,0,0
+botrir,Botrir,16,467,0,0
+lucan ostorius,Lucan Ostorius,17,461,0,0
+arrille,Arrille,8,458,0,0
+tymvaul,Tymvaul,11,454,0,0
+antonius nuncius,Antonius Nuncius,21,449,0,0
+hrisskar flat-foot,Hrisskar Flat-Foot,11,446,0,0
+eno romari,Eno Romari,10,443,3,210
+urshamusa rapli,Urshamusa Rapli,13,441,0,0
+ales julalanie,Ales Julalanie,7,440,0,0
+cassius olcinius,Cassius Olcinius,13,438,0,0
+piernette beluelle,Piernette Beluelle,13,437,0,0
+falx carius2,Captain Falx Carius,14,437,0,0
+galms seles,Galms Seles,18,435,0,0
+m'aiq,M'Aiq the Liar,15,433,0,0
+wulf,Wulf,11,433,0,0
+denegor,Denegor,31,433,0,0
+bevene releth,Bevene Releth,12,432,0,0
+gidar verothan,Gidar Verothan,22,429,0,0
+senilias cadiusus,Senilias Cadiusus,16,418,0,0
+mervs uvayn,Mervs Uvayn,7,414,1,79
+daynes redothril,Daynes Redothril,11,414,0,0
+llether vari,Llether Vari,11,414,0,0
+thoronor,Thoronor,11,414,0,0
+nine_toes,Nine-Toes,13,413,0,0
+arethan mandas,Arethan Mandas,11,412,0,0
+glenmoril_witch_altar_2,Ettiene of Glenmoril Wyrd,10,412,0,0
+seler favelnim,Seler Favelnim,16,411,0,0
+pemenie,Pemenie,18,410,0,0
+ladia flarugrius,Ladia Flarugrius,11,407,0,0
+mevure hlen,Mevure Hlen,9,407,0,0
+rigmor halfhand,Rigmor Halfhand,18,407,0,0
+kurapli,Kurapli,13,404,0,0
+kjolver,Kjolver,14,404,0,0
+aurane frernis,Aurane Frernis,13,403,1,77
+erich the unworthy,Erich the Unworthy,20,403,0,0
+dralora favelnim,Dralora Favelnim,25,403,0,0
+thrud,Thrud,18,402,0,0
+assaba-bentus,Assaba-Bentus,21,401,0,0
+satyana,Satyana,21,393,0,0
+marcel maurard,Marcel Maurard,8,390,0,0
+vodunius nuccius,Vodunius Nuccius,9,389,0,0
+bm_riekling_dulk_unique,Dulk,12,388,0,0
+viatrix petilia,Viatrix Petilia,19,387,0,0
+gothren,Gothren,10,386,0,0
+kausi,Kausi,10,383,0,0
+tiras sadus,Tiras Sadus,11,383,0,0
+graring,Graring,12,382,0,0
+llaalam dredil,Llaalam Dredil,13,379,2,148
+salas valor,Salas Valor,16,372,0,0
+paur maston,Paur Maston,19,369,0,0
+dialog placeholder,dialog placeholder,34,366,0,0
+athal nerano,Athal Nerano,5,352,1,79
+apelles matius,Apelles Matius,9,347,0,0
+umbra,Umbra,8,346,1,61
+tharsten heart-fang2,Tharsten Heart-Fang,7,346,0,0
+ilnori_faustus,Ilnori Faustus,8,340,0,0
+skjoldr wolf-runner,Skjoldr Wolf-Runner,7,340,0,0
+delyna mandas,Delyna Mandas,17,338,0,0
+jon hawker,Jon Hawker,10,336,0,0
+okur,Okur,8,336,0,0
+drelasa ramothran,Drelasa Ramothran,11,336,0,0
+galyn arvel,Galyn Arvel,13,336,1,26
+hroldar the strange_b,Hroldar the Strange,11,336,0,0
+yenammu,Yenammu,12,332,1,14
+fonus rathryon,Fonus Rathryon,17,331,0,0
+tuveso beleth,Tuveso Beleth,21,330,0,0
+engar ice-mane,Engar Ice-Mane,12,329,0,0
+gildan,Gildan,9,328,0,0
+duma gro-lag,Duma gro-Lag,11,326,0,0
+drerel indaren,Drerel Indaren,9,325,0,0
+adusamsi assurnarairan,Adusamsi Assurnarairan,7,324,0,0
+bugrol gro-bagul,Bugrol gro-Bagul,14,322,0,0
+aeta wave-breaker,Aeta Wave-Breaker,13,320,0,0
+tinos drothan,Tinos Drothan,11,317,0,0
+j'dhannar,J'Dhannar,9,317,0,0
+yakum hairshashishi,Yakum Hairshashishi,10,316,0,0
+surane leoriane,Surane Leoriane,8,315,0,0
+hidar,Hidar,25,314,0,0
+bacola closcius,Bacola Closcius,9,312,0,0
+sosia caristiana,Sosia Caristiana,8,312,0,0
+albecius colollius,Albecius Colollius,5,310,1,68
+balen andrano,Balen Andrano,11,310,0,0
+thormoor_thirsk,Thormoor Gray-Wave,6,310,0,0
+holmar,Holmar,36,309,0,0
+hannat zainsubani,Hannat Zainsubani,11,308,0,0
+balur salvu,Balur Salvu,11,308,0,0
+glenmoril_witch_cave_3,Isobel of Glenmoril Wyrd,8,308,0,0
+tarvyn faren,Tarvyn Faren,15,307,0,0
+rovone arvel,Rovone Arvel,12,307,0,0
+baren alen,Baren Alen,17,307,0,0
+fargoth,Fargoth,11,306,0,0
+basks_in_the_sun,Basks-In-The-Sun,14,306,0,0
+alarvyne indalas,Alarvyne Indalas,10,304,0,0
+hides_his_foot,Hides-His-Foot,19,304,0,0
+eleedal_lei,Eleedal-Lei,13,304,0,0
+onlyhestandsthere,Only-He-Stands-There,15,299,0,0
+audenian valius,Audenian Valius,9,299,0,0
+novor drethan,Novor Drethan,13,298,0,0
+rasha,Rasha,11,298,0,0
+ra'tesh,Ra'Tesh,10,298,0,0
+miun_gei,Miun-Gei,12,295,0,0
+nevrasa dralor,Nevrasa Dralor,12,295,0,0
+dranas sarathram,Dranas Sarathram,8,294,0,0
+urvel dulni,Urvel Dulni,18,292,0,0
+risi ice-mane,Risi Ice-Mane,11,292,0,0
+tarer braryn,Tarer Braryn,11,290,0,0
+sjorvar horse-mouth,Sjorvar Horse-Mouth,8,289,0,0
+asciene rane,Asciene Rane,11,289,0,0
+sason,Sason,12,288,0,0
+alusaron,Alusaron,9,288,0,0
+arantamo,Crazy-Legs Arantamo,8,286,2,190
+gamin girith,Gamin Girith,16,286,0,0
+therdon,Therdon,6,285,0,0
+sigvatr the strong,Sigvatr the Strong,8,284,0,0
+dutadalk,Dutadalk,10,283,0,0
+dro'zhirr,Dro'Zhirr,10,283,0,0
+zeno faustus,Zeno Faustus,9,283,0,0
+glenmoril_witch_cave_2,Fallaise of Glenmoril Wyrd,7,283,0,0
+alvela saram,Alvela Saram,7,282,0,0
+meralyn othan,Meralyn Othan,8,282,1,76
+eraldil,Eraldil,6,281,0,0
+bereditte jastal_out,Bereditte Jastal,4,281,0,0
+vevrana aryon,Vevrana Aryon,10,280,0,0
+punibi yahaz,Punibi Yahaz,6,279,1,77
+nedhelas,Nedhelas,8,279,0,0
+berwen,Berwen,15,278,0,0
+milyn faram,Milyn Faram,8,278,1,69
+fathasa llethri,Fathasa Llethri,11,275,0,0
+ennbjof,Ennbjof,9,274,1,72
+hides_his_eyes,Hides His Eyes,9,273,0,0
+delte fyr,Delte Fyr,6,272,0,0
+drarayne thelas,Drarayne Thelas,9,272,0,0
+moroni uvelas,Moroni Uvelas,9,272,0,0
+elmussa damori,Elmussa Damori,8,271,0,0
+gualtierus spurius,Gualtierus Spurius,7,271,0,0
+dagoth odros,Dagoth Odros,5,270,0,0
+yak gro-skandar,Yak gro-Skandar,14,270,0,0
+ulfgar_ghost,Ghost of Ulfgar the Unending,4,270,0,0
+larienna macrina,Larienna Macrina,12,269,1,91
+rithleen,Rithleen,8,269,0,0
+avon oran,Serjo Avon Oran,13,268,0,0
+tyermaillin,Tyermaillin,10,267,0,0
+tongue_toad,Tongue-Toad,17,265,0,0
+fevyn ralen,Fevyn Ralen,9,265,0,0
+irarak,Irarak,19,264,0,0
+elvil vidron,Elvil Vidron,12,263,0,0
+big head,Big Head,8,262,0,0
+hroldar the strange,Hroldar the Strange,12,257,0,0
+galar rothan,Galar Rothan,6,255,0,0
+relam arinith,Relam Arinith,11,254,0,0
+duvianus platorius,Duvianus Platorius,13,254,0,0
+galbedir,Galbedir,7,254,0,0
+ghost_npc_conoon chodal,Conoon Chodala,16,253,0,0
+bethes sarothril,Bethes Sarothril,10,251,1,47
+drores arvel,Drores Arvel,10,251,1,47
+minabibi assardarainat,Minabibi Assardarainat,7,249,0,0
+ghost_npc_erur-dan,Erur-Dan,16,247,0,0
+mathis dalobar,Mathis Dalobar,16,247,0,0
+navam veran,Navam Veran,6,247,0,0
+ghost_npc_ane teria,Ane Teria,16,246,0,0
+ghost_npc_idrenie nerot,Idrenie Nerothan,16,245,0,0
+tashpi ashibael,Tashpi Ashibael,8,243,0,0
+ivulen irano,Ivulen Irano,7,243,0,0
+ashur-dan,Ashur-Dan,6,241,0,0
+ghost_npc_hort_ledd,Hort Ledd,16,236,0,0
+taros dral,Taros Dral,10,236,1,29
+sinyaramen,Sinyaramen,8,235,0,0
+marara,Marara,9,234,0,0
+olumba gro-boglar,Olumba gro-Boglar,5,234,0,0
+somutis vunnis,Somutis Vunnis,4,234,0,0
+synette jeline,Synette Jeline,8,234,0,0
+tsiya,Tsiya,9,230,0,0
+itermerel,Itermerel,15,230,0,0
+tanusea veloth,Tanusea Veloth,10,229,0,0
+helviane desele,Helviane Desele,10,227,0,0
+beyte fyr,Beyte Fyr,6,224,0,0
+glenmoril_witch_cave,Ettiene of Glenmoril Wyrd,7,224,0,0
+thavere vedrano,Thavere Vedrano,6,223,0,0
+venasa sarano,Venasa Sarano,5,223,0,0
+arielle phiencel,Arielle Phiencel,13,222,0,0
+benunius agrudilius,Benunius Agrudilius,8,222,0,0
+brallion,Brallion,10,221,0,0
+bm_bathmar,Bathmar Bold-Lute,5,221,0,0
+codus callonus,Codus Callonus,12,219,0,0
+ravani llethan,Ravani Llethan,9,217,0,0
+glenmoril_raven,Ettiene of Glenmoril Wyrd,6,216,0,0
+grand inquisitor,Grand Inquisitor,9,215,0,0
+adondasi sadalvel,Adondasi Sadalvel,7,215,0,0
+ondres nerano,Ondres Nerano,15,214,0,0
+daras aryon,Daras Aryon,5,214,0,0
+bakh gro-sham,Bakh gro-Sham,8,214,0,0
+ingokning,Ingokning,6,213,1,79
+valveli arelas,Valveli Arelas,5,213,0,0
+tinti,Tinti,6,212,0,0
+hairan,Hairan,6,212,0,0
+frelene acques,Frelene Acques,12,212,0,0
+aleri aren,Aleri Aren,7,211,0,0
+seldus nerendus,Seldus Nerendus,7,207,0,0
+sottilde,Sottilde,9,205,0,0
+tusamircil,Tusamircil,11,204,0,0
+widow vabdas,Widow Vabdas,10,202,0,0
+lucretinaus olcinius,Lucretinaus Olcinius,6,202,0,0
+bulfim_gra_shugarz,Bulfim gra-Shugarz,11,199,0,0
+stentus tullius,Stentus Tullius,5,198,0,0
+sevisa teran,Sevisa Teran,5,197,0,0
+falanu indaren,Falanu Indaren,7,197,0,0
+llerar mandas,Llerar Mandas,9,196,0,0
+braynas hlervu,Braynas Hlervu,10,196,0,0
+uryne nirith,Uryne Nirith,9,195,0,0
+listien bierles,Listien Bierles,9,195,1,66
+tralas rendas,Tralas Rendas,9,194,0,0
+haema farseer,Haema Farseer,5,193,0,0
+fathusa girethi,Fathusa Girethi,8,193,0,0
+karrod,Karrod,12,193,0,0
+niras farys,Niras Farys,5,192,0,0
+llovyn andus,Llovyn Andus,9,192,0,0
+beden giladren,Beden Giladren,9,191,0,0
+sedyni veran,Sedyni Veran,5,190,0,0
+dagoth uthol,Dagoth Uthol,7,189,0,0
+taren andoren,Taren Andoren,6,188,0,0
+drinar varyon,Drinar Varyon,14,185,0,0
+ra'gruzgob,Ra'Gruzgob,22,185,0,0
+urven davor,Urven Davor,12,184,0,0
+rothis nethan,Rothis Nethan,10,184,0,0
+ulfrun,Ulfrun,7,184,0,0
+derar hlervu,Derar Hlervu,6,182,1,75
+toralf,Toralf,7,181,0,0
+fjol,Fjol,6,180,0,0
+kummu,Kummu,6,180,0,0
+malexa,Malexa,13,179,0,0
+zebba,Zebba,6,179,0,0
+ethys savil,Ethys Savil,11,178,0,0
+sabinus oranius,Sabinus Oranius,13,178,0,0
+thormoor_out,Thormoor Gray-Wave,3,178,0,0
+dulnea ralaal,Dulnea Ralaal,5,177,0,0
+banor seran,Banor Seran,6,177,0,0
+dagoth ulen,Dagoth Ulen,6,177,4,167
+selvil sareloth,Selvil Sareloth,5,176,0,0
+drathas reyas,Drathas Reyas,4,176,0,0
+giras indaram,Giras Indaram,13,175,0,0
+ulyne henim,Ulyne Henim,13,173,0,0
+boderi farano,Boderi Farano,4,170,0,0
+segunivus mantedius,Segunivus Mantedius,10,168,0,0
+dagoth vemyn,Dagoth Vemyn,5,168,0,0
+nartise arobar,Nartise Arobar,10,168,0,0
+favel gobor,Favel Gobor,11,167,0,0
+foryn gilnith,Foryn Gilnith,3,165,0,0
+athelyn malas,Athelyn Malas,7,165,0,0
+viras guls,Hetman Guls,8,164,0,0
+lirielle stoine,Lirielle Stoine,9,164,0,0
+enar releth,Enar Releth,7,163,0,0
+gadela andus,Gadela Andus,9,163,0,0
+jeanne,Jeanne,6,162,0,0
+bashuk gra-bat,Bashuk gra-Bat,5,162,0,0
+indrele rathryon,Indrele Rathryon,9,162,0,0
+alven salas,Alven Salas,8,161,0,0
+baleni salavel,Baleni Salavel,5,160,0,0
+ancestor_ghost_vabdas,Mansilamat Vabdas,7,159,0,0
+manat shimmabadas,Manat Shimmabadas,11,159,0,0
+ragash gra-shuzgub,Ragash gra-Shuzgub,13,159,0,0
+remasa othril,Remasa Othril,7,159,0,0
+vanjirra,Vanjirra,9,155,0,0
+darvame hleran,Darvame Hleran,5,155,0,0
+gavis velas,Gavis Velas,3,155,0,0
+volmyni dral,Volmyni Dral,7,153,0,0
+ervis verano,Ervis Verano,6,153,0,0
+blatta hateria,Blatta Hateria,10,152,0,0
+domalen,Domalen,9,151,0,0
+ulath-pal,Ulath-Pal,9,151,0,0
+fara,Fara,6,150,0,0
+tirvel balen,Tirvel Balen,6,148,0,0
+manwe,Manwe,6,146,0,0
+dremora_ttpc,Krazzt,9,145,0,0
+gindrala hleran,Gindrala Hleran,6,145,0,0
+murudius flaeus,Murudius Flaeus,8,143,0,0
+ashibaal,Ashibaal,7,143,0,0
+massarapal,Massarapal,6,143,0,0
+evo othreloth,Evo Othreloth,6,143,0,0
+reeh_jah,Reeh-Jah,8,142,0,0
+zennammu,Zennammu,7,142,0,0
+shabinbael,Shabinbael,3,141,0,0
+shallath-piremus,Shallath-Piremus,3,141,0,0
+hainab,Hainab,3,141,0,0
+ancestor_ghost_variner,Variner's Ghost,6,140,0,0
+tenyeminwe,Tenyeminwe,10,139,0,0
+meril hlaano,Meril Hlaano,7,138,0,0
+ulibabi,Ulibabi,5,138,0,0
+yantus,Yantus,5,138,0,0
+addut-lamanu,Addut-Lamanu,5,138,0,0
+assemmus,Assemmus,5,138,0,0
+movis darys,Movis Darys,6,137,0,0
+frinnius posuceius,Frinnius Posuceius,5,137,0,0
+fevasa saryon,Fevasa Saryon,5,137,0,0
+irvama othrelas,Irvama Othrelas,5,137,0,0
+forstaag the sweltering,Forstaag the Sweltering,3,137,0,0
+teres arothan,Teres Arothan,12,136,0,0
+eldafire,Eldafire,4,135,0,0
+janand maulinie,Janand Maulinie,2,135,0,0
+vatollia apo,Vatollia Apo,6,135,0,0
+nelos onmar,Nelos Onmar,5,133,0,0
+findulain,Findulain,5,133,0,0
+dandsa,Dandsa,8,132,0,0
+hanarai assutlanipal,Hanarai Assutlanipal,5,132,0,0
+lette,Lette,10,131,0,0
+dilami androm,Dilami Androm,4,131,0,0
+sovor trandel,Sovor Trandel,9,130,0,0
+an_deesei,An-Deesei,2,130,0,0
+mudcrab_unique,Mudcrab,3,127,0,0
+dagoth endus,Dagoth Endus,6,127,0,0
+folsi thendas,Folsi Thendas,4,127,0,0
+senyndie,Senyndie,3,127,0,0
+syloria siruliulus,Syloria Siruliulus,2,126,0,0
+ruccia conician,Ruccia Conician,2,126,0,0
+atronach_storm_ttmk,Storm Atronach,7,126,0,0
+saprius entius,Saprius Entius,11,125,0,0
+vorar helas,Vorar Helas,6,124,0,0
+mollimo of cloudrest,Mollimo of Cloudrest,4,124,0,0
+ash_ghoul,Ash Ghoul,7,123,0,0
+caryarel,Caryarel,6,122,0,0
+alusannah,Alusannah,4,122,0,0
+raril giral,Raril Giral,2,121,1,58
+milie hastien,Milie Hastien,3,120,0,0
+thaeril,Thaeril,2,120,0,0
+ian,Ian,2,119,1,79
+tsrazami,Tsrazami,9,119,0,0
+madura seran,Madura Seran,13,117,0,0
+farvyn oreyn,Farvyn Oreyn,4,117,0,0
+alcedonia amnis,Alcedonia Amnis,6,117,0,0
+ilasour tansumiran,Ilasour Tansumiran,7,116,0,0
+deval beleth,Deval Beleth,9,116,0,0
+duma gro-lag2,Duma gro-Lag,6,114,0,0
+crulius pontanian,Crulius Pontanian,2,114,0,0
+ordinator_high fane,Ordinator,9,114,0,0
+dreamer_04,Dreamer,2,114,0,0
+toris saren,Toris Saren,7,113,0,0
+atronach_frost_ttmk,Frost  Atronach,7,113,1,15
+falanaamo,Falanaamo,3,112,0,0
+galuro belan,Galuro Belan,4,112,0,0
+adaves therayn,Adaves Therayn,5,111,0,0
+balver sarethan,Balver Sarethan,2,111,0,0
+therdon2,Therdon,2,111,0,0
+fjorgeir,Fjorgeir,7,110,0,0
+ash_slave,Ash Slave,6,110,0,0
+hyna dorn'ke,Hyna Dorn'ke,3,110,0,0
+golena sadri,Golena Sadri,6,110,0,0
+dagoth fervas,Dagoth Fervas,5,109,0,0
+dagoth ralas,Dagoth Ralas,5,109,0,0
+dagoth baler,Dagoth Baler,5,109,0,0
+dagoth delnus,Dagoth Delnus,5,109,0,0
+dagoth girer,Dagoth Girer,5,109,0,0
+dalse adren,Dalse Adren,2,109,0,0
+nalvilie saren,Nalvilie Saren,3,108,0,0
+delmene helas,Delmene Helas,2,108,0,0
+nevil malvayn,Nevil Malvayn,2,108,0,0
+adrusu rothrano,Adrusu Rothrano,2,108,0,0
+ra'virr,Ra'Virr,3,108,2,94
+nireli farys,Nireli Farys,4,108,0,0
+tonas telvani,Tonas Telvani,4,108,0,0
+sattir the bold,Sattir the Bold,6,108,0,0
+shadbak gra-burbug,Shadbak gra-Burbug,7,107,0,0
+hentus yansurnummu,Hentus Yansurnummu,8,107,0,0
+diradeni farano,Diradeni Farano,6,107,0,0
+ignatius_flaccus2,Ignatius Flaccus,6,106,0,0
+tidros indaram,Tidros Indaram,7,104,0,0
+vedelea othril,Vedelea Othril,8,104,0,0
+devas irano,Devas Irano,2,104,0,0
+oritius maro,Oritius Maro,5,104,0,0
+vobend dulfass,Vobend Dulfass,3,103,0,0
+flacassia fauseius,Flacassia Fauseius,3,102,0,0
+sondryn irathi,Sondryn Irathi,1,102,0,0
+varona nelas,Varona Nelas,5,101,0,0
+furius acilius,Furius Acilius,2,101,0,0
+forven berano,Forven Berano,5,101,0,0
+bedal alen,Bedal Alen,5,101,0,0
+gals arethi,Gals Arethi,4,100,0,0
+hrordis,Hrordis,5,99,0,0
+tadera andules,Tadera Andules,3,99,0,0
+brandr,Brandr,4,99,0,0
+grerid axe-wife,Grerid Axe-Wife,6,99,0,0
+ano vando,Ano Vando,2,97,0,0
+donus serethi,Donus Serethi,5,97,0,0
+anrel,Anrel,4,97,0,0
+alfe fyr,Alfe Fyr,5,96,0,0
+dahleena,Dahleena,4,95,0,0
+new_shoes bragor,New-Shoes Bragor,7,95,0,0
+tiram gadar,Tiram Gadar,7,95,0,0
+rindral dralor,Rindral Dralor,4,95,0,0
+gee-pop varis,Gee-Pop Varis,4,95,0,0
+milvela dralen,Milvela Dralen,6,94,0,0
+j'zhirr,J'Zhirr,3,93,0,0
+on_wan,On-Wan,6,93,0,0
+sondaale of shimmerene,Sondaale of Shimmerene,8,93,0,0
+drusus gratus,Drusus Gratus,6,93,0,0
+mirisa_shrine,Mirisa,3,93,0,0
+andil,Andil,6,92,0,0
+llarar bereloth,Llarar Bereloth,5,92,0,0
+j_saddha,J'Saddha,9,91,0,0
+tenisi lladri,Tenisi Lladri,6,90,0,0
+relms gilvilo,Relms Gilvilo,2,90,0,0
+aldyne arenim,Aldyne Arenim,4,90,0,0
+shenk,Shenk,2,90,0,0
+lustidrike,Lustidrike,7,90,0,0
+heidmir,Heidmir,4,89,0,0
+emul-ran,Emul-Ran,2,88,0,0
+hetman abelmawia,Hetman Abelmawia,5,88,0,0
+masalinie merian,Masalinie Merian,3,88,0,0
+keel_raniur,Keel-Raniur,1,88,0,0
+iniel,Iniel,4,88,0,0
+s'virr,S'virr,6,88,0,0
+dagoth reler,Dagoth Reler,5,87,0,0
+busheeus,Busheeus,1,87,0,0
+fasele viralaine,Fasele Viralaine,1,87,0,0
+baurin,Baurin,1,87,0,0
+idonea munia,Idonea Munia,1,87,0,0
+chalone,Chalone,1,87,0,0
+audmund,Audmund,6,87,0,0
+ethes evos,Ethes Evos,5,86,0,0
+manse andus,Manse Andus,2,86,0,0
+travellingnewwoman,Travelling-New-Woman,1,86,0,0
+faves andas,Faves Andas,3,86,0,0
+arvama rathri,Arvama Rathri,7,85,0,0
+ormvard,Ormvard,6,85,0,0
+dagoth uvil,Dagoth Uvil,5,84,2,61
+thirsk_build,Thirsk Worker,1,84,0,0
+thirsk_build_2,Thirsk Worker,1,84,0,0
+thirsk_build_3,Thirsk Worker,1,84,0,0
+pania cadiusus,Pania Cadiusus,5,83,0,0
+tussurradad,Tussurradad,5,83,0,0
+manos othreleth,Manos Othreleth,3,83,0,0
+gaenor_b,Gaenor,1,83,0,0
+granny varis,Granny Varis,4,82,0,0
+alof the easterner,Alof the Easterner,2,81,1,53
+rolasa oren,Rolasa Oren,7,81,0,0
+dinok,Dinok,5,81,0,0
+galtis guvron,Galtis Guvron,6,80,0,0
+nalvyna sarinith,Nalvyna Sarinith,3,80,0,0
+agning,Agning,2,80,0,0
+bm_bergljot,Bergljot,6,80,0,0
+berel sala,Berel Sala,3,79,0,0
+ascended_sleeper,Ascended Sleeper,5,79,0,0
+manat varnan-adda,Manat Varnan-Adda,5,79,0,0
+ilden mirel,Ilden Mirel,3,79,0,0
+llevana salaren,Llevana Salaren,2,78,0,0
+salattanat,Salattanat,8,77,0,0
+ainab,Ainab,8,77,0,0
+hirarend,Hirarend,8,77,0,0
+kushishi,Kushishi,8,77,0,0
+ranabi,Ranabi,8,77,0,0
+ashu-ahhe,Ashu-Ahhe,8,77,0,0
+ahaz,Ahaz,8,77,0,0
+hecerinde,Hecerinde,4,77,0,0
+shazgob gra-luzgan,Shazgob gra-Luzgan,2,77,0,0
+hloggar the bloody,Hloggar the Bloody,4,77,0,0
+gureryne selvilo,Gureryne Selvilo,8,77,0,0
+dinara othrelas,Dinara Othrelas,5,76,0,0
+saruse hloran,Saruse Hloran,1,76,0,0
+daroso sethri,Daroso Sethri,1,76,0,0
+aroa nethalen,Aroa Nethalen,1,76,0,0
+vilyn rervam,Vilyn Rervam,1,76,0,0
+dagoth_ur_2,Dagoth Ur,14,76,0,0
+valgeir,Valgeir,6,76,0,0
+mehra drora,Mehra Drora,3,75,0,0
+dremora_ttmg,Anhaedra,6,75,0,0
+nelacar,Nelacar,5,75,0,0
+alvis teri,Alvis Teri,6,74,0,0
+assantushansar,Assantus Hansar,10,74,0,0
+ovis velas,Ovis Velas,3,74,0,0
+alfbrand,Alfbrand,6,74,0,0
+ordinator wander,Ordinator,5,73,0,0
+duldrar saren,Duldrar Saren,7,73,0,0
+atronach_flame_ttmk,Flame Atronach,6,73,1,34
+aryni orethi,Aryni Orethi,5,73,0,0
+bryngrim,Bryngrim,6,73,0,0
+erranil,Erranil,4,72,0,0
+lich_barilzar,Barilzar,1,72,0,0
+abassel asserbassalit,Abassel Asserbassalit,7,71,0,0
+daglin selarar,Daglin Selarar,3,71,0,0
+dorisa darvel,Dorisa Darvel,3,70,0,0
+phane rielle,Phane Rielle,3,70,0,0
+rissinia,Rissinia,3,70,0,0
+hloris farano,Hloris Farano,3,70,0,0
+sorosi radobar,Sorosi Radobar,2,70,0,0
+ery,Ery,2,70,0,0
+fedris tharen,Fedris Tharen,8,69,0,0
+craeita jullalian,Craetia Jullalian,2,69,0,0
+gashnakh gra-mughol,Gashnakh gra-Mughol,4,69,0,0
+kashtes ilabael,Kashtes Ilabael,2,68,0,0
+erna the quiet,Erna the Quiet,4,68,0,0
+andrelheim,Andrelheim,3,68,0,0
+nalcarya of white haven,Nalcarya of White Haven,3,67,0,0
+llaals ores,Llaals Ores,3,67,0,0
+wayn,Wayn,2,66,0,0
+jocien ancois,Jocien Ancois,3,66,0,0
+olfeigr the fair,Olfeigr the Fair,3,66,0,0
+simine fralinie,Simine Fralinie,4,65,0,0
+sarnir the clerk,Sarnir the Clerk,2,65,0,0
+trerayna dalen,Trerayna Dalen,3,65,0,0
+afer flaccus,Afer Flaccus,3,65,0,0
+mebestian ence,Mebestian Ence,4,64,0,0
+dagoth araynys,Dagoth Araynys,3,64,0,0
+bugdul gro-kharbush,Bugdul gro-Kharbush,5,64,0,0
+brethas deras,Brethas Deras,5,64,0,0
+llorayna sethan,Llorayna Sethan,1,64,0,0
+velfred,Velfred the Outlaw,6,63,0,0
+rufinus alleius,Rufinus Alleius,3,63,0,0
+falena hlaren,Falena Hlaren,3,63,0,0
+tappius esdrecus,Tappius Esdrecus,1,63,0,0
+manara othan,Manara Othan,1,63,0,0
+aundae vampire 1,Vampire,12,63,0,0
+aundae vampire 2,Vampire,12,63,0,0
+aundae vampire 3,Vampire,12,63,0,0
+aundae vampire 4,Vampire,12,63,0,0
+aundae vampire 5,Vampire,12,63,0,0
+berne vampire 1,Vampire,12,63,0,0
+berne vampire 2,Vampire,12,63,0,0
+berne vampire 3,Vampire,12,63,0,0
+berne vampire 4,Vampire,12,63,0,0
+berne vampire 5,Vampire,12,63,0,0
+quarra vampire 1,Vampire,12,63,0,0
+quarra vampire 2,Vampire,12,63,0,0
+quarra vampire 3,Vampire,12,63,0,0
+quarra vampire 4,Vampire,12,63,0,0
+quarra vampire 5,Vampire,12,63,0,0
+irgola,Irgola,4,62,0,0
+agrippina herennia,Agrippina Herennia,2,62,0,0
+fryfnhild,Fryfnhild,1,62,0,0
+burcanius varo,Burcanius Varo,1,62,0,0
+garding,Garding the Bold,7,59,0,0
+sadal doren,Sadal Doren,3,59,0,0
+sovali uvayn,Sovali Uvayn,4,58,0,0
+durbul gro-rush,Durbul gro-Rush,4,58,0,0
+ash_zombie,Ash Zombie,6,58,0,0
+laurina maria,Laurina Maria,10,58,0,0
+sorkvild the raven,Sorkvild the Raven,4,57,0,0
+heifnir,Heifnir,2,57,0,0
+hjoldir,Hjoldir,2,57,0,0
+lugrub gro-ogdum,Lugrub gro-Ogdum,4,57,0,0
+dreamer_05,Dreamer,1,57,0,0
+verick gemain,Verick Gemain,1,56,0,0
+hjotra the peacock,Hjotra the Peacock,1,55,0,0
+galero andaram,Galero Andaram,2,55,0,0
+okan_shei,Okan-Shei,2,55,0,0
+gratian caerellius,Gratian Caerellius,3,55,0,0
+pierlette rostorard,Pierlette Rostorard,3,54,0,0
+ra'zhid,Ra'Zhid,4,53,0,0
+emusette bracques,Emusette Bracques,2,52,0,0
+barnand erelie,Barnand Erelie,2,52,0,0
+eiruki hearth-healer,Eiruki Hearth-Healer,4,52,0,0
+nalasa sarothren,Nalasa Sarothren,1,52,0,0
+glenmoril_witch_altar,Ettiene of Glenmoril Wyrd,2,52,0,0
+sathyn andrano,Sathyn Andrano,2,52,0,0
+temis romavel,Temis Romavel,2,50,0,0
+bashag gro-snagdu,Bashag gro-Snagdu,1,50,0,0
+ashumanu eraishah,Ashumanu Eraishah,1,50,0,0
+dangor,Dangor,6,50,0,0
+beldrose dralor,Beldrose Dralor,3,50,0,0
+ahnia,Ahnia,5,50,0,0
+garnas uvalen,Garnas Uvalen,4,50,0,0
+ralen tilvur,Ralen Tilvur,4,49,0,0
+scamp_creeper,Creeper,5,49,0,0
+sterdecan,Sterdecan,1,49,0,0
+daren adryn,Daren Adryn,4,49,0,0
+sendus sathis,Sendus Sathis,5,48,0,0
+thongar,Thongar,1,48,0,0
+tedril vandram,Tedril Vandram,1,48,0,0
+dilvene venim,Dilvene Venim,1,48,0,0
+merthierry laelippe,Merthierry Laelippe,4,47,0,0
+tuundir,Tuundir,4,47,0,0
+allding,Allding,2,47,0,0
+optio bologra,Optio Bologra,3,47,0,0
+hainab lasamsi,Hainab Lasamsi,3,47,0,0
+glathel,Glathel,3,45,0,0
+guar_rollie_unique,Rollie the Guar,5,45,0,0
+brerama selas,Brerama Selas,4,44,0,0
+irwaen,Irwaen,3,44,0,0
+velyna seran,Velyna Seran,2,44,0,0
+tremona maren,Tremona Maren,1,43,0,0
+anes hlaren,Anes Hlaren,3,43,0,0
+frizkav brutya,Frizkav Brutya,3,43,0,0
+arius rulician,Arius Rulician,2,43,0,0
+fothyna herothran,Fothyna Herothran,2,42,0,0
+sathasa nerothren,Sathasa Nerothren,2,42,0,0
+alynu aralen,Alynu Aralen,2,42,0,0
+alveleg,Alveleg,2,42,0,0
+tralayn vavas,Tralayn Vavas,1,42,0,0
+cun,Cun,3,42,0,0
+verara rendo,Verara Rendo,1,41,0,0
+redoran guard female,Redoran Guard,4,41,0,0
+suryn athones,Suryn Athones,1,41,0,0
+dandras vules,Dandras Vules,3,41,0,0
+sabrina vitellia,Sabrina Vitellia,2,41,0,0
+llirala sendas,Llirala Sendas,3,40,0,0
+wadarkhu,Wadarkhu,3,40,0,0
+elegnan,Elegnan,2,40,0,0
+garyn girith,Garyn Girith,3,40,0,0
+birer indaram,Birer Indaram,3,39,0,0
+natalinus flavonius,Natalinus Flavonius,2,39,0,0
+llathyno hlaalu,Llathyno Hlaalu,1,39,0,0
+ralyn othravel,Ralyn Othravel,1,39,0,0
+garnas uvalen_guard,Garnas Uvalen,2,39,0,0
+thanelen velas,Thanelen Velas,4,38,0,0
+galthragoth,Galthragoth,3,38,0,0
+tauryon,Tauryon,3,38,0,0
+estoril,Estoril,3,38,0,0
+dular gro-buzga,Dular gro-Buzga,3,38,0,0
+hoki,Hoki,3,38,0,0
+culumaire,Culumaire,2,38,0,0
+lich_relvel,Gedna Relvel,2,38,0,0
+gratian caerellius_guar,Gratian Caerellius,2,38,0,0
+baradras,Baradras,3,37,0,0
+malpenix blonia,Malpenix Blonia,3,37,0,0
+cienne sintieve,Cienne Sintieve,3,37,0,0
+elms llervu,Elms Llervu,1,36,0,0
+maranique jolvanne,Maranique Jolvanne,2,36,0,0
+frik,Frik,1,36,0,0
+malven romori,Malven Romori,1,36,0,0
+feranos hlando,Feranos Hlando,2,36,0,0
+duke's guard_tomb,Duke's Guard,1,35,0,0
+duke's guard_tomb2,Duke's Guard,1,35,0,0
+dreamer_f_01,Dreamer,2,35,0,0
+velms sadryon,Velms Sadryon,1,35,0,0
+alds baro,Alds Baro,2,34,0,0
+emelia duronia,Emelia Duronia,1,34,0,0
+galos farethi,Galos Farethi,2,34,0,0
+abishpulu shand,Abishpulu Shand,1,34,0,0
+nar gro-shagramph,Nar gro-Shagramph,3,33,0,0
+llevena sendas,Llevena Sendas,2,33,0,0
+imare,Imare,2,33,0,0
+dreamer,Dreamer,2,32,0,0
+dagoth tureynul,Dagoth Tureynul,2,32,0,0
+garyne uvenim,Garyne Uvenim,1,32,0,0
+traven marvos,Traven Marvos,2,31,0,0
+sirollus saccus,Sirollus Saccus,1,31,1,31
+ordinator stationary,Ordinator,3,30,0,0
+nachael,Nachael,1,30,0,0
+ervona barys,Ervona Barys,1,30,0,0
+talsi uvayn,Talsi Uvayn,1,30,0,0
+aren maren,Aren Maren,1,30,0,0
+draramu hloran,Draramu Hloran,1,30,0,0
+drals indobar,Hand Drals Indobar,2,30,0,0
+sadas mavandes,Hand Sadas Mavandes,2,30,0,0
+arnas therethi,Hand Arnas Therethi,2,30,0,0
+savor hlan,Hand Savor Hlan,2,30,0,0
+vonos veri,Hand Vonos Veri,2,30,0,0
+stlennius vibato,Stlennius Vibato,2,29,0,0
+celegorn,Celegorn,1,29,0,0
+chirranirr,Chirranirr,1,28,0,0
+endring,Endring,2,28,0,0
+selkirnemus,Selkirnemus,1,28,0,0
+fendryn drelvi,Fendryn Delvi,1,28,0,0
+rayna drolan,Rayna Drolan,3,28,0,0
+talmsa falas,Talmsa Falas,2,28,0,0
+nevama sarobar,Nevama Sarobar,5,28,0,0
+nalis gals,Nalis Gals,1,27,0,0
+foronir,Foronir,2,27,0,0
+thadar ertis,Thadar Ertis,1,27,0,0
+tolvise othralen,Tolvise Othralen,1,26,0,0
+fandus puruseius,Fandus Puruseius,1,26,0,0
+gols nilvon,Gols Nilvon,1,26,0,0
+drarel andus,Drarel Andus,2,26,0,0
+ra'zahr,Ra'Zahr,4,26,0,0
+nevosi hlan,Nevosi Hlan,1,26,0,0
+joncis dalomax,Joncis Dalomax,2,26,0,0
+kardryn,Kardryn,2,26,0,0
+ronerelie philulanie,Ronerelie Philulanie,1,25,0,0
+arns saren,Arns Saren,3,24,0,0
+fasile charascel,Fasile Charascel,1,24,0,0
+dreamer_02,Dreamer,2,24,0,0
+gah_julan,Gah Julan,2,24,0,0
+feldrelo sadri,Feldrelo Sadri,1,24,0,0
+golena sadri_a,Golena Sadri,1,24,0,0
+veresa alver,Veresa Alver,2,24,0,0
+drolora salen,Drolora Salen,1,23,0,0
+serer andrano,Serer Andrano,1,23,0,0
+chanil_lee,Chanil-Lee,1,23,0,0
+erirvase drinith,Erirvase Drinith,1,23,0,0
+daynas darys,Daynas Darys,1,23,0,0
+glonagoth,Glonagoth,1,23,0,0
+orrent geontene,Orrent Geontene,2,22,0,0
+estinan,Estinan,2,22,0,0
+redoran guard male,Redoran Guard,2,22,0,0
+haening,Haening,1,22,0,0
+eigma,Eigma,2,22,0,0
+afer flaccus_guard,Afer Flaccus,2,22,0,0
+marayn dren,Marayn Dren,1,21,0,0
+vinnus laecinnius,Vinnus Laecinnius,1,21,0,0
+joshur,Joshur,2,21,0,0
+melur savil,Melur Savil,2,21,0,0
+raig,Raig,1,20,0,0
+mevil molor,Mevil Molor,1,20,0,0
+talis drurel,Talis Drurel,1,20,0,0
+drelayn dredayn,Drelayn Dredayn,1,20,0,0
+olfin gro-logrob,Olfin gro-Logrob,1,20,0,0
+morusu varen,Morusu Varen,1,20,0,0
+dralosa athren,Dralosa Athren,1,20,0,0
+heddvild,Heddvild,1,20,0,0
+eldrar fathyron,Eldrar Fathyron,1,19,0,0
+orvona vadryon,Orvona Vadryon,1,19,0,0
+ano andaram,Ano Andaram,1,19,0,0
+imperial templar_ebon,Jonus Maximus,2,19,0,0
+suldreni salandas,Suldreni Salandas,2,19,0,0
+bedraflod,Bedraflod,3,18,0,0
+kunthar,Kunthar,1,18,0,0
+bugdurash gra-gashel,Bugdurash gra-Gashel,1,18,0,0
+chuna,Chuna,1,18,0,0
+telura ulver,Telura Ulver,1,18,0,0
+elegal,Elegal,1,18,0,0
+arangaer,Arangaer,1,18,0,0
+anruin,Anruin,1,18,0,0
+bels uvenim,Bels Uvenim,3,18,0,0
+veros nerethi,Veros Nerethi,2,18,0,0
+unjara,Unjara,1,17,0,0
+tsalani,Tsalani,1,17,0,0
+ri'zaadha,Ri'Zaadha,1,17,0,0
+dagoth gilvoth,Dagoth Gilvoth,2,17,0,0
+heniele milielle,Heniele Milielle,1,17,0,0
+alam merys,Alam Merys,2,17,0,0
+twice_bitten,Twice-Bitten,1,16,0,0
+grey_throat,Grey-Throat,1,16,0,0
+morning_clouds,Morning-Star-Steals-Away-Clouds,1,16,0,0
+sakin sanammasour,Sakin Sanammasour,1,16,0,0
+raflod the braggart,Raflod the Braggart,1,16,0,0
+maren uvaren,Maren Uvaren,1,16,0,0
+bato veranius,Bato Veranius,1,16,0,0
+ethal seloth,Ethal Seloth,2,16,0,0
+assimusa samsi,Assimusa Samsi,1,16,0,0
+kar alber,Kar Alber,2,16,0,0
+senise thindo,Senise Thindo,1,15,0,0
+baissa,Baissa,1,15,0,0
+eloroth,Eloroth,1,15,0,0
+anis seloth,Anis Seloth,1,15,0,0
+talmeni drethan,Talmeni Drethan,1,15,0,0
+tirer belvayn,Tirer Belvayn,2,15,0,0
+drofarahn,Dro'farahn,1,15,0,0
+jodhur,Jodhur,3,15,0,0
+soscean,Soscean,1,15,0,0
+eris telas,Eris Telas,1,14,0,0
+dralcea arethi,Dralsea Arethi,1,14,0,0
+fruscia abitius,Fruscia Abitius,1,14,0,0
+balyn omavel,Balyn Omavel,1,14,0,0
+gnaw tooth,Gnaw Tooth,2,14,0,0
+dagoth elam,Dagoth Elam,2,14,0,0
+dravil indrano,Dravil Indrano,2,14,0,0
+sendel tedas,Sendel Tedas,2,14,0,0
+skaal_guard2,Skaal Honor Guard,1,14,0,0
+lucan ostorius2,Lucan Ostorius,1,13,0,0
+merta,Merta,12,13,0,0
+galasa uvayn,Galasa Uvayn,2,13,0,0
+ordinator_mh_sadri,High Ordinator,1,13,0,0
+feruren oran,Feruren Oran,1,12,0,0
+carecalmo,Carecalmo,1,12,0,0
+fore paw,Fore Paw,2,12,0,0
+tirnur thirano,Tirnur Thirano,1,11,0,0
+surus velvus,Surus Velvus,1,11,0,0
+red livia,Red Livia,1,11,0,0
+brerayne raloran,Brerayne Raloran,1,11,0,0
+catia sosia,Catia Sosia,1,11,0,0
+snedbrir the smith,Snedbrir the Smith,1,11,0,0
+shargam gro-shagdulg,Shargam gro-Shagdulg,1,10,0,0
+rawia ashirbibi,Rawia Ashirbibi,1,10,0,0
+kund assarnibani,Kund Assarnibani,1,10,0,0
+allimir,Allimir,1,10,0,0
+manis virmaulese,Manis Virmaulese,1,10,0,0
+guril retheran,Guril Retheran,1,10,0,0
+imperial guard,Guard,2,10,0,0
+madrale thirith,Madrale Thirith,1,10,0,0
+marasa aren,Marasa Aren,1,10,0,0
+vadusa sathryon,Vadusa Sathryon,1,10,0,0
+bovkinna,Bovkinna,2,10,0,0
+sloomalah,Sloomalah,2,10,0,0
+domba,Domba,2,10,0,0
+elanande,Elanande,1,10,0,0
+llerusa hlaalu,Llerusa Hlaalu,1,9,0,0
+thelsa dral,Thelsa Dral,1,9,0,0
+brilnosu llarys,Brilnosu Llarys,1,9,0,0
+idroso vendu,Idroso Vendu,2,9,0,0
+sarayn sadus,Sarayn Sadus,1,9,0,0
+eldil bradyn,Eldil Bradyn,1,9,0,0
+norring,Norring,1,9,0,0
+agronian guy,Tarhiel,1,8,0,0
+omesu hlarys,Omesu Hlarys,1,8,0,0
+oisig,Oisig,2,8,0,0
+roner arano,Roner Arano,1,8,0,0
+bm_imperial guard_carn1,Guard,2,8,0,0
+bm_imperial guard_carn2,Guard,2,8,0,0
+bm_imperial guard_carn3,Guard,2,8,0,0
+dura gra-bol,Dura gra-Bol,1,7,0,0
+shatalg,Shatalg,1,7,0,0
+nurisea selarys,Nurisea Selarys,1,7,0,0
+broris fals,Broris Fals,1,7,0,0
+salora salobar,Salora Salobar,1,7,0,0
+dals sadri,Dals Sadri,1,7,0,0
+eindel,Eindel,1,6,0,0
+ergnir,Ergnir,1,6,0,0
+tralan,Tralan,1,6,0,0
+dro'tasarr,Dro'Tasarr,1,6,0,0
+tee_lan,Tee-Lan,1,6,0,0
+heem_la,Heem-La,1,6,0,0
+skeetul,Skeetul,1,6,0,0
+thengil,Thengil,1,6,0,0
+pellecia aurrus,Pellecia Aurrus,1,6,0,0
+ilmiril,Ilmiril,1,6,0,0
+erer darothril,Erer Darothril,1,6,0,0
+mimanu zeba-adad,Mimanu Zeba-Adad,1,6,0,0
+mamaea ashun-idantus,Mamaea Ashun-Idantus,1,6,0,0
+boss crito,Boss Crito,1,6,0,0
+thetrard phirrienele,Thetrard Phirrienele,1,6,0,0
+alodie jes,Alodie Jes,1,6,0,0
+imperial guard captain,Guard Captain,1,6,0,0
+calvario,Calvario,11,6,0,0
+je tee,Je Tee,2,6,0,0
+clendil,Clendil,2,6,0,0
+narissa adus,Narissa Adus,1,6,0,0
+khinjarsi,Khinjarsi,1,5,0,0
+ranes ienith,Ranes Ienith,1,5,0,0
+navil ienith,Navil Ienith,1,5,0,0
+hlaalu guard,Hlaalu Guard,1,5,0,0
+telvanni guard,Telvanni Guard,1,5,0,0
+telvanni sharpshooter,Telvanni Sharpshooter,1,5,0,0
+redoran guard shooter,Sharpshooter Redoran Guard,1,5,0,0
+hlaalu sharpshooter,Hlaalu Sharpshooter Guard,1,5,0,0
+lanabi,Lanabi,1,5,0,0
+nathien,Nathien,1,5,0,0
+vares reram,Vares Reram,1,5,0,0
+ordinator_mournhold,High Ordinator,1,5,0,0
+sanaso sarothran,Sanaso Sarothran,1,5,0,0
+mavon drenim,Mavon Drenim,1,4,0,0
+tavynu tedran,Tavynu Tedran,1,4,0,0
+rulfim gra-ogdub,Rulfim gra-Ogdub,1,4,0,0
+morbash gro-shagdub,Morbash gro-Shagdub,1,4,0,0
+dro'sakhar,Dro'Sakhar,1,4,0,0
+sadela areth,Sadela Areth,1,4,0,0
+fieryra,Fieryra,2,4,0,0
+berengeval,Berengeval,1,3,0,0
+muvis moran,Muvis Moran,1,3,0,0
+iroroon,Iroroon,3,3,0,0
+rat_pack_rerlas,Pack Rat,3,3,0,0
+rat_rerlas,Rat,3,3,0,0
+odaishah yasalmibaal,Odaishah Yasalmibaal,1,2,0,0
+tragrim,Tragrim,2,2,0,0
+jeanciele macile,Jeanciele Macile,2,2,0,0
+gladroon,Gladroon,2,2,0,0
+ticemius conciatius,Ticemius Conciatius,2,2,0,0
+iminda,Iminda,2,2,0,0
+odmi,Odmi,2,2,0,0
+mirkrand,Mirkrand,2,2,0,0
+lorurmend,Lorurmend,2,2,0,0
+tarerane,Tarerane,2,2,0,0
+moranarg,Moranarg,2,2,0,0
+igna,Igna,2,2,0,0
+areas,Areas,2,2,0,0
+siri,Siri,2,2,0,0
+knurguri,Knurguri,2,2,0,0
+pelf,Pelf,2,2,0,0
+kjeld,Kjeld,2,2,0,0
+ildogesto,Ildogesto,2,2,0,0
+eloe,Eloe,2,2,0,0
+germia,Germia,2,2,0,0
+leone,Leone,2,2,0,0
+gergio,Gergio,2,2,0,0
+reberio,Reberio,2,2,0,0
+fammana,Fammana,2,2,0,0
+clasomo,Clasomo,2,2,0,0
+arenara,Arenara,1,1,0,0
+toranu rothalnim,Toranu Rothalnim,1,1,0,0

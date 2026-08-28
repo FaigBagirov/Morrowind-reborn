@@ -197,42 +197,115 @@ Hermits, madmen, smugglers and tomb robbers: people who physically handled the a
 
 ---
 
-# Part 7 — Work Order 1 Results `SETTLED`
+# Part 7 — Work Order 1 Results `SETTLED, CROSS-CHECKED`
 
-The survey has run. Four reports exist. Headline numbers:
+The survey has run twice. The first pass carried five defects and its headline
+number was a lower bound; the second pass fixed them, cross-checked against
+`esmtool`, and is reproducible from `tools/input/` in about twenty seconds:
+
+```
+python tools/scripts/wo1_survey.py
+```
+
+Working detail, including every cross-check and the reconciliation with the
+first pass, is `tools/reports/wo1.md`. Machine-readable tables are
+`tools/reports/wo1-*.csv`; `wo1-summary.md` is regenerated with them.
+
+## Headline numbers
+
+Three selections, answering three different questions. The first pass reported
+only the third and called it the answer.
+
+| Selection | Actors | INFO | Words |
+| --- | --- | --- | --- |
+| Every actor-filtered line in the game | 1,111 | 16,225 | 473,221 |
+| **Every line of an actor who says a keyword at least once** | **80** | **3,099** | **113,613** |
+| Lines that actually carry a keyword | 80 | 208 | 10,645 |
+
+**Plan against the middle row.** The bottom row is the writing load — what the
+transform and the hand-written passes touch. The middle row is the reading
+load, because an actor whose one line changes still has fifty others that must
+not contradict it, and Part 6 defines Tier C as who *knows*, not who says
+"daedra". The top row is the ceiling, not a target.
+
+Other counts:
 
 | Metric | Value |
 | --- | --- |
-| Actors with keyword-bearing unique dialogue | 82 |
-| Unique INFO records | 227 |
-| **Total words of hand-written text** | **11,502** |
-| Topics containing a target keyword | 19, holding 77 INFO |
-| Name-field records needing rename (Tier A) | ~65 |
+| Name-field records needing rename (Tier A) | 64 |
+| Topics containing a target keyword | 19, holding 80 INFO |
+| Named cells | 1,423, of which 1,328 interior |
+| Named cells carrying a keyword | 6 — Ald Daedroth and its five interiors |
+| Script lines that display a keyword and cannot be touched | 8 |
 
-Distribution is lopsided as predicted: INFO 960 occurrences, BOOK 346, everything else together 111. Two record types carry 92% of the work.
+Distribution is lopsided as predicted. By route, counted per record-field:
+plugin 496 (INFO text 455 alone), Lua load context 253 (BOOK text 227 alone),
+frozen 57. Two record types carry the overwhelming majority of the work.
 
-Concentration is convenient: the top 10 actors hold 42% of the words, the top 30 hold 70%. Median is 86 words. Forty-one actors have exactly one line, totalling 2,463 words between them.
+Concentration is convenient and unchanged: within the keyword-bearing dialogue
+the top 10 actors hold 42% of the words, the top 30 hold 70%, the median actor
+has 84 words, and 43 of the 80 have exactly one keyword line, 2,591 words
+between them.
 
-## Three findings that change the plan
+The head of the list still lands where the fiction wanted it, arrived at
+mechanically: Sinnammu Mirpal (23 records / 1,103 words), Lalatia Varian
+(9/601), Smokey Morth (15/559), Garothmuk gro-Muzgub (8/428), Vala Catraso
+(12/389). The Ashlander wise women and the Temple figures rise to the top on
+their own. That agreement is the evidence the actor-ID selection rule works.
 
-**1. `aedra` is a phantom keyword.** Recorded in *Shared Canon* Part 10. The substring warning there is mandatory.
+## What the second pass changed
 
-**2. The cast list is filtered by keyword, not by actor ID.** Yagrum Bagarn and Divayth Fyr are absent, because neither says the target words. But Part 6 defines Tier C as "who knows", not "who says daedra". These are different sets with partial overlap.
+**1. `aedra` is a phantom keyword** — recorded in *Shared Canon* Part 10 and now
+measured. 62 real occurrences in 35 records game-wide, against the 430 the
+first pass claimed. In INFO text: 22, not 338. The rule survives unchanged and
+is mandatory.
 
-**Therefore 11,502 words is a lower bound.** A second pass over actor-ID filters with no keyword filter is required to get the true figure. Caius Cosades at 3 records and 195 words is implausibly low for a character of his role, so the difference may be a multiple rather than a margin.
+**2. The cast list is now filtered by actor ID**, which is what produced the
+table above.
 
-**3. The cell report is broken.** It contains one row with an empty `cell_id` and an aggregate `referenced_by_script_count` of 1231. The walker collapsed all cells into one instead of listing them. Meanwhile the keyword table honestly reports `daedroth, CELL, name, 6`, so keyword-bearing cells exist. This report must be regenerated.
+**3. The cell report was empty by bug** and is now populated. A `Cell` holds its
+name in `name`, not `id`, and the interior flag is in `data.flags`.
 
-## Gap in the WO1 specification
+**4. Unique record count** is a column in the keyword report, beside a
+corrected occurrence count. The two differ: 452 occurrences of `daedric` sit in
+402 records.
 
-Report 2 asks for `occurrence_count` only. For books that is insufficient: 163 occurrences of `daedric` in BOOK text could be one book or one hundred and sixty three. Add a column for **unique record count**.
+**5. Cross-checked against `esmtool`**, which caught a bug none of the above
+would have: **INFO ids are not globally unique** — Morrowind.esm reuses 211 of
+them — so an INFO must be identified by its parent topic together with its id.
+Merging on the id alone had cost Eno Hlaalu half his dialogue.
+
+Caius Cosades is no longer evidence of anything wrong. He genuinely says the
+keywords twice, for 135 words; his dialogue load is 172 records and 8,878
+words, which is the number his role predicted all along.
+
+## Two findings that change the plan
+
+**Player-visible text lives inside script bodies, and it is out of reach.**
+Eight `MessageBox` and `Say` lines carry a keyword in the string the player
+reads — the Vivec shrine plaques at Puzzle Canal and Mount Kand, the Mehrunes
+Dagon summoning prompt, the Dregas Volar reward message. Listed in
+`wo1-script-strings.csv`. Script bodies are frozen by the rules, and the ESM
+carries compiled bytecode beside the text, so lifting the rule would very
+likely not help. This residue is small but it is permanent, and it is the first
+known place where the conversion cannot reach a visible string. Whether the
+bytecode really governs is **not verified** and is a C++ question.
+
+**A writable string field can hold something that is not display text.** Of the
+two GMST hits, `sEffectSummonDaedroth` is the display string `"Summon
+Daedroth"` and is fair game; `sMagicDaedrothID` holds `"Daedroth_summon"`,
+which is a **record ID**. Renaming it breaks the summon. The rules table
+therefore needs per-record exclusions, not only per-type rules.
 
 ## Next actions
 
-1. Regenerate the cell report.
-2. Re-run the cast list on actor-ID alone, without the keyword filter.
-3. Add unique-record-count to the keyword report.
-4. Fix the `aedra` boundary and rule ordering in the rules table before any transform runs.
+WO1 is closed. The remaining items belong to WO2 and to Architecture Part 12.
+
+1. WO2 — the rules table, with the fixed rule order, the `aedra` boundary, and
+   an exclusion list that starts with `sMagicDaedrothID`.
+2. Probe BOOK `name` writability. Assumed, never measured; 4 keyword records
+   ride on it.
+3. Pick a route from Architecture Part 12's three.
 
 ---
 
@@ -370,5 +443,6 @@ Prior art worth reading: **Starwind**, a total conversion of Morrowind into a St
 
 ## Revision log
 
+* **Rev 4.** WO1 re-run. Part 7 rewritten against the corrected survey: cast list on the actor-ID filter, cell report repaired, unique-record counts added, `aedra` boundary applied, and the whole thing cross-checked against `esmtool` — which found that INFO ids are not globally unique. Two new findings: display strings inside script bodies are unreachable, and `sMagicDaedrothID` is a record ID living in a writable string field.
 * **Rev 3.** Split. Everything true of the world regardless of game moved to *Shared World Canon*: the Schism, the Heart, the Dwemer, the Sixteen, the Maker, the unreliable narrator, the Rename Test, the naming table, the interface principle. This file now holds Vvardenfell only. Vivec's monologue updated to the current text and marked `NEEDS REVISION`. WO1 results recorded as Part 7.
 * **Rev 2.** Zenad demoted to terraformers. Part 0 added as a hard boundary. Imperceptibility argument reworked.

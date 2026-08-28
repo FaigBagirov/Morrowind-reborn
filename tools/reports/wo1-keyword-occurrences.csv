@@ -1,27 +1,28 @@
-keyword,record_type,field,occurrence_count
-aedra,INFO,text,338
-daedra,INFO,text,315
-daedric,INFO,text,227
-daedric,BOOK,text,163
-aedra,BOOK,text,84
-daedroth,INFO,text,80
-daedra,BOOK,text,79
-daedric,WEAPON,name,23
-daedric,ARMOR,name,14
-daedra,DIAL,id,13
-aedra,DIAL,id,13
-daedric,SPELL,name,11
-daedroth,BOOK,text,10
-daedroth,CELL,name,6
-daedroth,DIAL,id,6
-daedric,MISCITEM,name,5
-daedroth,CREATURE,name,5
-daedra,BOOK,name,5
-aedra,BOOK,name,5
-daedric,DIAL,id,5
-daedra,INGREDIENT,name,3
-aedra,INGREDIENT,name,3
-daedric,CLASS,description,1
-daedroth,SPELL,name,1
-aedra,CREATURE,name,1
-daedric,CLOTHING,name,1
+keyword,record_type,field,occurrence_count,unique_record_count,route_hint
+daedra,DIALOGUEINFO,text,371,246,plugin via tes3conv
+daedric,DIALOGUEINFO,text,196,177,plugin via tes3conv
+daedra,BOOK,text,194,68,lua load context
+daedric,BOOK,text,182,160,lua load context
+daedroth,DIALOGUEINFO,text,87,65,plugin via tes3conv
+aedra,BOOK,text,38,13,lua load context
+daedra,SCRIPT,text,26,17,frozen: script bodies are never touched
+daedroth,SCRIPT,text,24,11,frozen: script bodies are never touched
+aedra,DIALOGUEINFO,text,22,22,plugin via tes3conv
+daedric,WEAPON,name,21,21,plugin via tes3conv
+daedric,SCRIPT,text,16,7,frozen: script bodies are never touched
+daedroth,BOOK,text,15,10,lua load context
+daedric,ARMOR,name,14,14,plugin via tes3conv
+daedra,DIALOGUE,id,11,11,frozen: topic IDs are never renamed
+daedric,SPELL,name,11,11,lua load context
+daedroth,CELL,name,6,6,frozen: cell names are never renamed
+daedric,DIALOGUE,id,5,5,frozen: topic IDs are never renamed
+daedric,MISCITEM,name,5,5,lua load context
+daedra,BOOK,name,4,4,lua load context
+daedroth,CREATURE,name,4,4,plugin via tes3conv
+daedra,INGREDIENT,name,3,3,lua load context
+daedroth,DIALOGUE,id,3,3,frozen: topic IDs are never renamed
+aedra,BOOK,name,2,2,lua load context
+daedroth,GAMESETTING,value.data,2,2,lua load context
+daedric,CLASS,description,1,1,plugin via tes3conv
+daedric,CLOTHING,name,1,1,plugin via tes3conv
+daedroth,SPELL,name,1,1,lua load context

@@ -31,7 +31,7 @@ stopped. **Every change set ends by updating this section.**
 | # | What | Status |
 | --- | --- | --- |
 | WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
-| WO1 | Dialogue survey (Architecture Part 13) | **First pass done**, results recorded in Canon Part 7. The headline number is a **lower bound** and three reports need regenerating - see below |
+| WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
 | WO2 | Rules table + transform script | Not started |
 
 ## WO0 - the answer, and why it is the constraint on everything
@@ -116,25 +116,30 @@ Part 3's "pick the second one" no longer holds - the load context cannot carry
 the rewrite, and a `tes3conv` plugin (Option A) is now mandatory, with every
 load-order and save-contamination consequence Option A lists.
 
-Where the line falls, counting keyword hits from
-`tools/reports/wo1-keyword-occurrences.csv` (one hit per record-field):
+Where the line falls, counting **records** that carry a keyword, from the
+corrected `tools/reports/wo1-keyword-occurrences.csv`. One row per
+record-field, so a book with a keyword in both title and text is in two rows:
 
-| Route | Hits | Contents |
+| Route | Records | Contents |
 | --- | --- | --- |
-| Load context, Lua, `mod/` | 369 | BOOK text 336, SPELL name 12, BOOK name 10, INGREDIENT name 6, MISCITEM name 5 |
-| Plugin via `tes3conv` | 1005 | INFO text 960, WEAPON name 23, ARMOR name 14, CREATURE name 6, CLASS description 1, CLOTHING name 1 |
-| Frozen by policy | 43 | DIAL id 37, CELL name 6 |
+| Load context, Lua, `mod/` | 253 | BOOK text 227, SPELL name 12, MISCITEM name 5, BOOK name 4, INGREDIENT name 3, GMST value 2 |
+| Plugin via `tes3conv` | 496 | INFO text 455, WEAPON name 21, ARMOR name 14, CREATURE name 4, CLASS description 1, CLOTHING name 1 |
+| Frozen by policy | 57 | SCRIPT text 32, DIAL id 19, CELL name 6 |
+
+These are records, not the inflated occurrence counts the first pass reported -
+the old table said 369 / 1005 / 43 and those numbers double-counted, mostly
+through the phantom `aedra`. The shape of the conclusion is unchanged.
 
 So Tier A (equipment and species renaming) and all of Tier C (hand-written
 dialogue) are on the plugin side. The load context keeps the books and the
 small records. One unmeasured assumption in that table: BOOK *name* sits on
 the load-context side because it shares a sub-package with BOOK text. It was
-never probed. 10 hits ride on it.
+never probed. 4 records ride on it.
 
 ### Outstanding on WO0 - small, none of it blocking
 
 - Whether BOOK `name` is writable. Assumed, never probed: the spike wrote
-  `text` only. 10 keyword hits ride on it, and Architecture Part 12 now
+  `text` only. 4 keyword records ride on it, and Architecture Part 12 now
   carries the same caveat.
 - Why a book with unmarked-up text renders blank. Not a gate - the transform
   never replaces a whole field - but it is unexplained.
@@ -142,74 +147,53 @@ never probed. 10 hits ride on it.
 `mod/` can be emptied whenever you like; deleting its contents removes the
 spike entirely.
 
-## WO1 - the number, and what is wrong with how it was got
+## WO1 - the number, `SETTLED, CROSS-CHECKED`
 
-`tools/scripts/wo1_survey.py` walking tes3conv JSON dumps of the three
-masters. Keywords `daedra` `daedric` `daedroth` `aedra`, case-insensitive
-substrings.
+`tools/scripts/wo1_survey.py`, re-run 2026-08-28. It is reproducible now: no
+arguments, converts `tools/input/*.esm` into `tools/cache/` with `tes3conv` and
+surveys the JSON, about twenty seconds end to end. `tools/cache/` is gitignored.
 
-**The number Part 13 asks for: 11,502 words**, across **227** INFO records
-filtered by a specific actor ID and spoken by **82** actors. Plus roughly
-**65 name-field records** for Tier A.
+Canonical write-up is Canon Part 7; working detail, every cross-check and the
+reconciliation with the first pass is `tools/reports/wo1.md`.
 
-**Treat 11,502 as a lower bound, not the answer.** Canon Part 7 records why:
-the cast list was filtered by *keyword* rather than by *actor ID*, so it lists
-who says "daedra", not who knows. Yagrum Bagarn and Divayth Fyr - the two
-primary sources the fiction is built on - are absent from it entirely. Caius
-Cosades appears with 3 records and 195 words, implausibly little for his role.
-The true figure needs a second pass and may be a multiple, not a margin.
+**The number Part 13 asks for, in three selections:**
 
-Concentration is convenient: the top 10 actors hold 42% of the words, the top
-30 hold 70%, the median actor has 86 words, and 41 actors have exactly one
-line. Two record types carry 92% of the work.
+| Selection | Actors | INFO | Words |
+| --- | --- | --- | --- |
+| Every actor-filtered line in the game | 1,111 | 16,225 | 473,221 |
+| **Every line of an actor who says a keyword at least once** | **80** | **3,099** | **113,613** |
+| Lines that actually carry a keyword | 80 | 208 | 10,645 |
 
-Top of the cast list: Sinnammu Mirpal (25 records / 1177 words), Lalatia
-Varian (9 / 601), Smokey Morth (15 / 559), Garothmuk gro-Muzgub (8 / 428),
-Vala Catraso (12 / 389). The Ashlander wise women and Temple figures rise to
-the top mechanically - the same set Canon Part 6 named from the fiction,
-arrived at without a judgement call. That agreement is the evidence that the
-actor-ID selection rule works.
+Plan against the middle row: it is the reading load, and Tier C is "who knows",
+not "who says daedra". The bottom row is the writing load. The old 11,502 was
+the bottom row measured with two bugs in it, and it was called the answer.
 
-2884 topics inventoried (2098 Topic, 758 Journal, 10 Persuasion, 10 Greeting,
-8 Voice); 19 carry a keyword in the id, holding 77 INFO between them. All
-frozen under the Architecture Part 5 policy.
+Plus 64 name-field records for Tier A, 19 keyword topics holding 80 INFO, and
+1,423 named cells of which 6 carry a keyword - all frozen.
 
-### Defects - do not build WO2 on these numbers until they are fixed
+All five defects listed in the previous handover are fixed, and the fix to the
+`aedra` boundary is in. Two things worth carrying forward:
 
-1. **The cell report is empty and wrong.** `wo1-cell-report.csv` has exactly
-   one row: blank `cell_id`, `is_interior=False`,
-   `referenced_by_script_count=1231`. The script reads `rec["id"]` for Cell
-   records, which does not hold the name, so every cell collapsed onto the key
-   `""` - and 1231 is just the number of scripts containing the empty string.
-   `is_interior` was never parsed either. Cells with keywords do exist: the
-   keyword table has `daedroth CELL name: 6`. This report is empty by bug.
-2. **It cannot be re-run.** The script hardcodes its inputs to
-   `C:\Users\faig3\.gemini\antigravity-ide\brain\...\scratch\*.json` - a
-   scratch directory from a different tool that no longer exists - and its
-   output to `d:\Work\Morrowind reborn\tools\reports`. The JSON dumps were
-   never kept. Reproducing the run currently means re-running tes3conv over
-   three masters first.
-3. **The cast list is filtered by keyword, not by actor ID.** It keeps an INFO
-   record only if it is actor-filtered *and* contains a keyword (`if speaker
-   and has_kw`). Part 13 asks for every actor with actor-filtered INFOs, and
-   Canon Part 6 defines Tier C as "who knows", not "who says daedra". Re-run on
-   the actor-ID filter alone. This is what makes 11,502 a lower bound.
-4. **`occurrence_count` is not occurrences,** and there is no unique-record
-   count at all. It counts one hit per record even when the word appears five
-   times, and the column name contradicts that. Worse for books: 163
-   occurrences of `daedric` in BOOK text could be one book or 163. **Add a
-   unique-record-count column** (Canon Part 7).
-5. **No cross-check.** Part 13 asks for an esmtool check on a sample of
-   records precisely because a walker with a field-traversal bug produces
-   confident wrong numbers. Defect 1 is that bug.
-6. **The field map only looks at `name`, `text` and `description`.** Any
-   record whose display string lives elsewhere is invisible to the survey.
-   Concretely: **the report contains zero GMST rows.** GMST strings are
-   writable from the load context and are explicitly in scope per the rules
-   below, so zero is a number to verify rather than trust.
-7. **`aedra` counts are almost entirely phantom.** See the substring rule
-   below - this is settled canon now, not a survey defect, but it means the
-   `aedra` rows in the keyword report are near-worthless as written.
+- **The cross-check earned its keep.** esmtool disagreed with the survey on
+  per-actor INFO counts, and the cause was that **INFO ids are not globally
+  unique** - Morrowind.esm reuses 211 of them. An INFO is identified by parent
+  topic *plus* id. Merging on id alone had silently eaten half of Eno Hlaalu.
+  Nothing else in the pipeline would have caught this.
+- **The old JSON dumps had survived** in the scratch directory the previous
+  handover said was gone. Moot now that the script converts its own inputs, but
+  the note was wrong.
+
+### Two findings that feed WO2
+
+- **Eight player-visible strings live inside script bodies** - `MessageBox` and
+  `Say` calls at the Vivec shrines and elsewhere, listed in
+  `tools/reports/wo1-script-strings.csv`. Script bodies are frozen by the rules
+  and the ESM carries compiled bytecode beside the text, so the transform can
+  never reach them. Small, permanent residue. Whether the bytecode really
+  governs is **unverified** and is a C++ question, not a Lua one.
+- **`sMagicDaedrothID` holds a record ID, not display text.** It is one of the
+  two GMST keyword hits and it is writable, and renaming it breaks the summon.
+  The rules table needs per-record exclusions, not only per-type rules.
 
 ## Open decisions
 
@@ -236,24 +220,21 @@ soul, or what happens after death.
 
 ## Next action
 
-Canon Part 7 sets the first four; they are all one WO1 re-run.
+WO1 is closed. Its four defect fixes are done and cross-checked; what is left
+is WO2 and one unprobed question.
 
-1. Regenerate the cell report.
-2. Re-run the cast list on actor-ID alone, no keyword filter. This is what
-   turns the lower bound into the real number.
-3. Add a unique-record-count column to the keyword report.
-4. Fix the `aedra` word boundary and the rule ordering in the rules table
-   **before any transform runs**.
-
-Then, and only then:
-
-5. Make the survey reproducible while it is being touched anyway - it
-   currently cannot re-run at all (defect 2).
-6. Pick a route from Architecture Part 12's three: load-context only, hybrid
-   with a plugin for ARMO/WEAP/CREA names, or the upstream request. The
-   upstream ticket is worth sending regardless, and worth splitting in two -
-   Part 12 explains why the weak half would sink the strong one.
-7. WO2 - the rules table.
+1. **WO2 - the rules table and the transform script.** It has to carry: the
+   fixed rule order with the `aedra` left word boundary; substring substitution
+   inside book text, never field replacement; a **per-record exclusion list**,
+   which starts with `sMagicDaedrothID` because that GMST holds a record ID and
+   not display text; and before/after keyword counts for every record touched.
+2. **Probe BOOK `name` writability.** One probe, needs a game run. 4 keyword
+   records and the routing table's only unmeasured assumption ride on it.
+3. **Pick a route from Architecture Part 12's three:** load-context only,
+   hybrid with a plugin for ARMO/WEAP/CREA names and INFO text, or the upstream
+   request. The upstream ticket is worth sending regardless, and worth
+   splitting in two - Part 12 explains why the weak half would sink the strong
+   one.
 
 Raised by the user and not yet scoped: **will the mod be compatible with the
 MOMW `graphics-overhaul` list?** The Installation Guide already names that
@@ -287,6 +268,12 @@ the record IDs every plugin in the list edits. Not started.
   boundary the transform turns every "Daedra" into "DZenad", mechanically and
   identically, across the whole game. Rule order is fixed and versioned.
   *Shared World Canon* Part 10, `SETTLED`.
+- **A writable string field may hold something that is not display text.**
+  `sMagicDaedrothID` is a GMST whose value is the record ID
+  `Daedroth_summon`; renaming it breaks the summon. The rules table therefore
+  carries a per-record exclusion list alongside its per-type rules, and every
+  new GMST or name rule is checked against the possibility that the string is
+  a reference. Found in the WO1 re-run, `tools/reports/wo1.md`.
 - **Substitute inside a book's text field; never replace the field.** Book
   text is pseudo-HTML and the markup is load-bearing. The WO0 spike replaced
   one whole TEXT field with a bare sentinel and the page rendered blank in
@@ -335,6 +322,8 @@ Learned the hard way in the WO0 session. These are not style preferences.
 - ESM masters: `tools/input/` - copies. The real game folder is off limits.
 - Mod output: `mod/` - registered as a data directory in the dev profile.
 - Reports: `tools/reports/`
+- `tools/cache/` - tes3conv JSON dumps of the masters, ~220 MB, gitignored.
+  `tools/scripts/wo1_survey.py` writes them on first run and reuses them after.
 - Game logs: `logs/` - the user copies `openmw.log` here after each run.
 - Transform scripts: `tools/scripts/`
 - `tools/bin/tes3conv.exe` - Windows binary, ESM <-> JSON.
