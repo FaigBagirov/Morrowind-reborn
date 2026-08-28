@@ -232,11 +232,10 @@ soul, or what happens after death.
 end to end: rules table to two artifacts to a running game, verified on screen.
 Nothing below is blocked on tooling.
 
-1. **The hand-written book.** `tools/handwritten/bk_AedraAndDaedra.md` is
-   drafted and waiting on three answers from the user - length, whether the
-   title changes, and whether Tarer's copy gets a marginal note. Then it needs
-   emitting as an authored record on the plugin side, which the transform does
-   not do yet.
+1. ~~The hand-written book.~~ **Done, confirmed on screen 2026-08-29.** Both
+   copies ship from `tools/handwritten/`, the transform emits authored records,
+   and `tools/rules/frozen-records.csv` keeps the rules off them. The pattern is
+   there for every hand-written record that follows.
 2. **Caius Cosades.** Hand-written lines that drop the word where the player
    cannot miss it. He is mandatory for the main quest and he is in Balmora,
    where the book is sold.

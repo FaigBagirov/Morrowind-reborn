@@ -38,33 +38,30 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   GATE 3, RUN 2 -- what to check
+echo   THE HAND-WRITTEN BOOK -- what to check
 echo   =====================================================================
 echo.
-echo   Run 1 passed everything except dialogue, which never loaded: the
-echo   plugin shipped 187 reply records with no topic records to own them
-echo   and OpenMW rejected all of them. Both that and the effect-name line
-echo   are fixed. Three things to look at.
+echo   The rules half is done and verified. This run is about one record the
+echo   rules never touch: the book that explains what the words mean, which
+echo   is written rather than substituted.
 echo.
 echo   LOAD YOUR SAVE, then console with ~:
 echo.
-echo   1. DIALOGUE. Give yourself the topic first - a level 1 character has
-echo      not learned it yet - then spawn the speaker and talk to her.
-echo        player-^>AddTopic "Daedric summonings"
-echo        player-^>PlaceAtPC "vala catraso" 1 1 1
-echo      The reply should keep the phrase "Daedric summonings" once, which
-echo      is what keeps the topic clickable, and then read
-echo      "Good Zenar are the Zenar associated with Boethiah, Azura, and
-echo      Mephala".
+echo        player-^>AddItem "bk_AedraAndDaedra" 1
 echo.
-echo   2. THE EFFECT LINE, the one you caught.
-echo        player-^>AddSpell "summon daedroth"
-echo      Magic menu: both the spell name AND the effect line under it
-echo      should now read Zenaroth. Last run the bottom line still said
-echo      Daedroth.
+echo   1. FIRST PAGE. Zenar should appear in the third sentence, before the
+echo      familiar definitions. If you have to hunt for it, the hook failed.
 echo.
-echo   3. Nothing else has to be re-checked - book, items, ingredient,
-echo      creature all passed.
+echo   2. THE PAGE ITSELF. Centered heading, Magic Cards face, the usual
+echo      layout. This record is replaced whole rather than substituted into,
+echo      so if anything renders wrong it will be here and nowhere else.
+echo.
+echo   3. READ IT. It is about a page and a half. The turn is "Elegant. And
+echo      in all those centuries no one thought to ask them." - it should sit
+echo      near the end of the first spread.
+echo.
+echo   4. OPTIONAL, Tarer's copy, which carries one extra line in his hand:
+echo        player-^>AddItem "bk_Aedra_Tarer_Unique" 1
 echo.
 echo   Do not save. Quit when done; this window collects the log by itself.
 echo   =====================================================================

@@ -1,8 +1,11 @@
-# `bk_AedraAndDaedra` — hand-written replacement, DRAFT
+# `bk_AedraAndDaedra` — hand-written replacement `DONE, CONFIRMED ON SCREEN`
 
-**Status: draft for review. Not wired into the build.** The record is on the
-frozen list (`tools/rules/frozen-records.csv`), so the transform leaves it
-alone; nothing ships until this text is approved and emitted through the plugin.
+**Status: approved and shipping.** Read in game on 2026-08-29 - the page renders
+with its markup, `Zenar` lands where it was meant to, and the text reads.
+
+The record is on the frozen list (`tools/rules/frozen-records.csv`) so the rules
+never touch it, and the transform emits it from `bk_AedraAndDaedra.txt` through
+the plugin, which overrides a book record whole.
 
 ## Why this record is hand-written and not substituted
 
