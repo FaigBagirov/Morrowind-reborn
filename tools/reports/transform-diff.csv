@@ -360,3 +360,5 @@ plugin,INFO,3023911526304823908,text,R500,1,-1,greater purpose,0,0
 plugin,INFO,766932545279449832,text,R500,1,-1,was cast out,1,1
 plugin,INFO,8532312101388421878,text,R500,1,-1,was cast out,0,0
 plugin,INFO,1984363691010128667,text,R500,1,-1,must act,0,0
+plugin,BOOK,bk_AedraAndDaedra,text,HAND-WRITTEN,0,931,,0,0
+plugin,BOOK,bk_Aedra_Tarer_Unique,text,HAND-WRITTEN,0,1149,,0,0

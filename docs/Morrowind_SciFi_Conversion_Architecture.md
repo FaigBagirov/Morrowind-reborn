@@ -513,6 +513,17 @@ Beside the table sits `tools/rules/frozen-records.csv`: whole records the transf
 6. **Topic keywords survive.** When an INFO record is rewritten, at least one literal instance of the original topic keyword must remain or the topic hyperlink stops firing. Before and after counts are reported for every record touched, and the transform **refuses to write** if any record lost its link. Measured 2026-08-28: without this, 21 of the 193 rewritten lines killed their own topic and 283 links across 15 topics went with them. The kept word is also correct in the fiction - *Shared World Canon* Part 9 renames the species but keeps `Daedra` as the mortal category, and topic IDs are never renamed.
 7. **Deterministic.** The same input and the same rules file produce the same bytes. The report records the rules file's hash.
 
+### Records written by hand
+
+Some text cannot be produced by substitution at all. The first case is the book that explains what the words mean: explaining a word and replacing it everywhere are opposite operations, so the rules turn it into a sentence that is false in the fiction. Such records are **written**, kept in `tools/handwritten/` with a manifest, and emitted through the plugin, which overrides a record whole.
+
+Two constraints hold them honest:
+
+* **An authored record must also be on the frozen list.** If it were not, the rules would rewrite the very text that was written to escape them, and the two would fight silently on every build. The transform refuses to run otherwise.
+* **They are exempt from the length rule only in `text` fields.** Book text paginates, so it may run longer than vanilla on purpose; a name or a description still has to fit, because that rule exists to stop UI overflow.
+
+They appear in the diff report with `HAND-WRITTEN` where the rule ids would be, so no report can quietly present them as derived.
+
 ### The transform script
 
 `tools/scripts/transform.py`. It applies rules and does nothing else. It has no opinions, contains no replacement strings of its own and holds no special cases — a special case belongs in the rules table, where it can be reviewed as a diff.

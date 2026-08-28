@@ -1,0 +1,3 @@
+record_id,record_type,field,file,reason
+bk_AedraAndDaedra,BOOK,text,bk_AedraAndDaedra.txt,"The game's own explanation of the words. Substitution makes it contradict itself, so it is written instead."
+bk_Aedra_Tarer_Unique,BOOK,text,bk_Aedra_Tarer_Unique.txt,"Tarer Braryn's copy of the same book, with one line in his own hand."

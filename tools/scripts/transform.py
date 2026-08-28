@@ -111,6 +111,43 @@ def emit_lua_rules(rules, targets, table_hash, path):
         f.write("\n".join(lines) + "\n")
 
 
+def load_authored(directory, frozen):
+    """Records written by hand rather than derived from the rules.
+
+    Some text cannot be produced by substitution at all - the book that explains
+    what the words mean is the first case, since explaining a word and replacing
+    it everywhere are opposite operations. Those records are written, kept beside
+    a manifest, and emitted through the plugin, which overrides a record whole.
+
+    An authored record must also be on the frozen list. If it were not, the
+    rules would rewrite the very text that was written to escape them, and the
+    two would fight silently on every build.
+    """
+    manifest = os.path.join(directory, "manifest.csv")
+    if not os.path.exists(manifest):
+        return []
+    out = []
+    with open(manifest, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            rid = row["record_id"].strip()
+            path = os.path.join(directory, row["file"].strip())
+            if not os.path.exists(path):
+                raise SystemExit(f"authored text missing: {path}")
+            with open(path, "r", encoding="ascii", newline="") as fh:
+                text = fh.read()
+            bad = [c for c in text if ord(c) > 127]
+            if bad:
+                raise SystemExit(f"{row['file']}: not ASCII: {bad[:5]!r}")
+            if rid.lower() not in frozen:
+                raise SystemExit(
+                    f"{rid} is written by hand but is not in "
+                    f"frozen-records.csv - the rules would rewrite it")
+            out.append({"id": rid, "type": row["record_type"].strip(),
+                        "field": row["field"].strip(), "text": text,
+                        "file": row["file"].strip()})
+    return out
+
+
 def full_records(json_paths, wanted):
     """Re-read the masters and keep the *complete* records the plugin needs.
 
@@ -159,6 +196,8 @@ def main():
                                                     "naming.csv"))
     ap.add_argument("--frozen", default=os.path.join(root, "tools", "rules",
                                                      "frozen-records.csv"))
+    ap.add_argument("--handwritten", default=os.path.join(root, "tools",
+                                                          "handwritten"))
     ap.add_argument("--cache-dir", default=os.path.join(root, "tools", "cache"))
     ap.add_argument("--esm-dir", default=os.path.join(root, "tools", "input"))
     ap.add_argument("--out-mod", default=os.path.join(root, "mod"))
@@ -202,6 +241,9 @@ def main():
     for p in paths:
         if not os.path.exists(p):
             raise SystemExit(f"missing {p} - run tools/scripts/wo1_survey.py")
+    authored = load_authored(args.handwritten, frozen)
+    print(f"Records written by hand: {len(authored)}")
+
     records = load_masters(paths)
 
     lua_targets = []
@@ -275,6 +317,24 @@ def main():
                 else:
                     plugin_records.setdefault(key, {})[spec] = new
 
+    # Authored records join the plugin side. They carry no rule ids, because no
+    # rule produced them.
+    type_name = {v: k for k, v in TYPE_CODE.items()}
+    for a in authored:
+        key = (type_name[a["type"]], a["id"].lower())
+        if key not in records:
+            raise SystemExit(f"authored record not in the masters: {a['id']}")
+        old = records[key].get(a["field"], "") or ""
+        plugin_records.setdefault(key, {})[a["field"]] = a["text"]
+        rows.append({
+            "route": "plugin", "record_type": a["type"], "record_id": a["id"],
+            "field": a["field"], "rules": "HAND-WRITTEN",
+            "substitutions": 0, "length_delta": len(a["text"]) - len(old),
+            "topic": "", "topic_keyword_before": 0, "topic_keyword_after": 0,
+        })
+        print(f"    {a['type']} {a['id']}: {len(old)} -> {len(a['text'])} bytes"
+              f"  ({a['file']})")
+
     print(f"Lua half   : {counts['lua_fields']} record-fields, "
           f"{len(lua_targets)} targets")
     print(f"Plugin half: {counts['plugin_fields']} record-fields, "
@@ -291,7 +351,13 @@ def main():
             print("  REFUSED: lost its topic link:", r["record_id"], r["topic"])
         raise SystemExit(f"{len(broken)} records lost their topic hyperlink")
 
-    grew = [r for r in rows if r["length_delta"] > 0]
+    # The length rule protects UI fields from overflow, and it binds every
+    # substitution. A hand-written book is a different animal: book text
+    # paginates, so it may run longer than vanilla on purpose. The exemption is
+    # narrow - authored NAME and DESCRIPTION fields still have to fit.
+    grew = [r for r in rows
+            if r["length_delta"] > 0
+            and not (r["rules"] == "HAND-WRITTEN" and r["field"] == "text")]
     if grew:
         for r in grew[:5]:
             print("  REFUSED: grew:", r)
