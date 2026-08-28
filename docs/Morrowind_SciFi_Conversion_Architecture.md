@@ -444,8 +444,10 @@ The routing measured in Part 12 splits the output, not the input:
 
 | | Records | Delivery |
 | --- | --- | --- |
-| Lua half | 253 record-fields — BOOK text 227, SPELL 12, MISCITEM 5, BOOK name 4, INGREDIENT 3, GMST 2 | a generated Lua data file, applied in the load context at every game start |
+| Lua half | **115** record-fields — BOOK text 90, SPELL 12, MISCITEM 5, BOOK name 4, INGREDIENT 3, GMST 1 | a generated Lua data file, applied in the load context at every game start |
 | Plugin half | 496 record-fields — INFO text 455, WEAP 21, ARMO 14, CREA 4, CLAS 1, CLOT 1 | a `tes3conv` plugin, merged into the list's Delta Plugin output |
+
+The Lua figure is what the rules table actually rewrites, measured by the dry run — not the 253 record-fields WO1 counts as carrying a keyword. The gap is 137 book texts whose only keyword is the `FACE="Daedric"` font attribute and one GMST that is a record ID. Both are protected, and both are counted in the survey.
 
 **Both are emitted from the same rules table by the same script.** Two emitters, one source of truth. If the halves can drift, they will, and the same word rendered `Zenar` in a book and `Zenaric` on a weapon is exactly the drift Part 6 exists to prevent — which no amount of reading either half alone will catch.
 
@@ -486,6 +488,8 @@ left_boundary, right_boundary, case_handling, exclude_records, notes
 2. **A replacement is never longer than its pattern.** Checked per rule when the table loads, not per substitution at runtime.
 3. **ASCII only, bytes 0x00–0x7F**, verified bytewise in Python. Never with `grep -P`.
 4. **Substitute inside a field, never replace a field.** Book text is pseudo-HTML and the markup is load-bearing. Measured 2026-08-28: substitution in place leaves the page rendering normally; whole-field replacement renders blank.
+
+4a. **Never substitute inside a markup tag.** Everything between `<` and `>` is a machine reference, not prose. `FACE="Daedric"` names a **font**, and it occurs 137 times across the masters; rewriting it points the page at a font that does not exist. This is the same trap as `sMagicDaedrothID` — a string that reads like display text and is not — and it is the reason the transform masks tag spans before matching rather than trusting the rules table to be careful. It also corrects the scope: of the 227 book texts WO1 counts as carrying a keyword, **137 carry it only in that font attribute**, and the real book workload is 90 records.
 5. **Idempotent.** Running the transform over its own output changes nothing. This is a test, not an aspiration: `transform(transform(x)) == transform(x)`.
 6. **Topic keywords survive.** When an INFO record is rewritten, at least one literal instance of the original topic keyword must remain or the topic hyperlink stops firing. Before and after counts are reported for every record touched.
 7. **Deterministic.** The same input and the same rules file produce the same bytes. The report records the rules file's hash.

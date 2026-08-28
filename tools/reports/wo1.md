@@ -198,6 +198,19 @@ It took two runs. Notes from the first, because both are worth keeping:
   `string.find` has one, as its fourth argument. WO2 inherits this hazard
   directly: its rules table will be full of prose. Now a rule in CLAUDE.md.
 
+## Correction from the WO2 dry run
+
+The survey counts a record as carrying a keyword if the string appears anywhere
+in a display field. For book text that overcounts, and by a lot: **137 of the
+227 book texts carry `daedric` only inside `FACE="Daedric"`**, which names the
+font the page is rendered in, not anything the player reads as a word. The real
+book workload is **90 records**.
+
+The survey is not wrong to count them - the string is there - but the number to
+plan against is the dry run's, and the two should be read together. Same for
+the two GMST hits: one is display text, one is a record ID, and only the first
+is work.
+
 ## Still open
 
 - Whether the script-body residue is truly unreachable, above.
