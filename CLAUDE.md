@@ -242,12 +242,45 @@ is WO2 and one unprobed question.
    splitting in two - Part 12 explains why the weak half would sink the strong
    one.
 
-Raised by the user and not yet scoped: **will the mod be compatible with the
-MOMW `graphics-overhaul` list?** The Installation Guide already names that
-list as the target. Short answer: the Lua half is compatible by construction;
-the plugin half needs a mechanical check that has to run where the mods are
-installed, because it means intersecting the record IDs our plugin edits with
-the record IDs every plugin in the list edits. Not started.
+## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
+
+Checked 2026-08-28 against version 8.5.0 of the list in
+`D:\Games\OpenMWMods\graphics-overhaul`, 694 plugin files, by
+`tools/scripts/momw_compat.py`. Write-up `tools/reports/momw-compat.md`,
+per-record detail `tools/reports/momw-compat.csv`.
+
+**The Lua half is clear.** Four plugins touch books we also touch, but all four
+change icons and meshes, not text - and load-context edits land after every
+content file, on one field, reading the value they substitute into. Not one Lua
+file in the whole list writes `openmw.content`, so there is nothing to collide
+with either.
+
+**The plugin half collides with two mods that matter**, out of ten:
+
+- `Patch for Purists.esm` - 83 records (80 INFO, 3 CREA), **27** after our own
+  dialogue policy. Core, always active, and it exists to fix typos in the
+  dialogue we are rewriting.
+- `DaedricArmor.esp` (Daedric Lord Armor) - 12 records, exactly the Tier A
+  renames: the daedric cuirass, boots, gauntlets, greaves, pauldrons, two
+  helms, two `_htab` variants and the dai-katana.
+
+Eight more are single records, several under `Optional/` or `Patches/`.
+
+A Morrowind plugin overrides a record **whole**, so a collision is not a
+warning, it is a silent loss: the later plugin wins the entire record and the
+other's work vanishes with no message.
+
+**The resolution is already installed.** `Tools/MOMWToolsPack/delta-merged.omwaddon`
+is Delta Plugin's output and the list already depends on it. So: generate our
+plugin from the **effective** record set rather than the bare masters, add it to
+the merge, regenerate. Regeneration after any mod-list change is the standing
+cost of the hybrid route, exactly as Architecture Part 12 records it.
+
+Not answered: which plugins are actually in the load order - there is no
+`openmw.cfg` in that directory, so every `.esp` present was analysed and the
+numbers are an upper bound. Landmass mods add records rather than override
+vanilla ones and none appear in the collision list; new content they add is a
+scope question, not a conflict.
 
 ---
 
