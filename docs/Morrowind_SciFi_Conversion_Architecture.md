@@ -455,6 +455,17 @@ The routing measured in Part 12 splits the output, not the input:
 * **Input is the *effective* record set, not the bare masters.** Masters plus the active plugins, as the game resolves them. `tools/reports/momw-compat.md` measured why: a plugin generated from vanilla text would silently revert Patch for Purists' corrections in 27 dialogue records and strip the Daedric Lord Armor meshes from 12 equipment records. Against a clean vanilla profile the effective set is just the three masters, and the transform must not care which it was handed.
 * Masters untouched, as always. The transform reads them and writes elsewhere.
 
+**Profiles, because the mod must run on a vanilla install and on the mod list.**
+`--profile vanilla` reads the three masters; `--profile momw` reads the
+effective set. Everything else is shared: one rules table, one script, and a
+**byte-identical Lua half**, which needs no variant because it substitutes into
+whatever text is loaded. On the plugin side the equipment and creature renames
+also need no variant - measured field by field, the graphics mods rewrite
+`MODL` and `ITEX` and leave `FNAM` alone, so a field-wise merge keeps both. The
+only records where the two builds genuinely differ are **thirteen dialogue
+records** whose text Patch for Purists has corrected. Supporting both
+configurations is a build flag, not a second mod.
+
 ### The rules table
 
 One versioned file, `tools/rules/naming.csv`, reviewed as a diff. Columns:

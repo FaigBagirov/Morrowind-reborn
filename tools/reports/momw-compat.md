@@ -74,6 +74,27 @@ The same is true of the 27 INFO records: our plugin generated from the bare
 masters would carry the masters' text, which means it would quietly undo Patch
 for Purists' corrections in those records.
 
+## Field-level detail: the two collisions are not the same kind
+
+Measured 2026-08-28, subrecord by subrecord.
+
+**Equipment and creatures collide on *different fields*.** `DaedricArmor.esp`
+rewrites `MODL`, `ITEX`, `BNAM` and adds `CNAM` on `daedric_cuirass` - the
+mesh, the icon, the body parts - and leaves `FNAM`, the display name, at its
+vanilla `Daedric Cuirass`. Our plugin edits `FNAM` and nothing else. A
+field-wise merge keeps both, and no per-configuration build is needed for these
+records at all.
+
+**Dialogue collides on the *same field*.** Of the 24 INFO records in the strict
+set that Patch for Purists also touches, **13 genuinely differ from the master
+text** and 9 are byte-identical to vanilla. Those 13 are the only records in the
+whole intersection where a plugin built from vanilla text would destroy work
+that the player would otherwise see.
+
+So the per-configuration cost of supporting both a vanilla install and this mod
+list is thirteen dialogue records - not the 496 the route carries, and not the
+100 that collide.
+
 ## The resolution, and it is already installed
 
 `Tools/MOMWToolsPack/delta-merged.omwaddon` is in the list — 510 records, and
@@ -97,6 +118,31 @@ describes, with the tooling requirement already satisfied:
 Twelve armour records and twenty-seven dialogue records are a small enough
 surface that step 1 could also be done by hand if the pipeline is not ready —
 but it must be done deliberately, because the failure mode is silent.
+
+## Supporting vanilla and the mod list at once
+
+One rules table, one transform, and a build profile:
+
+| Piece | Vanilla | This mod list | Maintenance |
+| --- | --- | --- | --- |
+| Rules table | same file | same file | one file, versioned |
+| Transform script | same | same | one script |
+| Lua half, 253 record-fields | **identical artifact** | **identical artifact** | none - it substitutes into whatever text is loaded |
+| Plugin half, equipment and creature names | same artifact, merged field-wise | same artifact, merged field-wise | none |
+| Plugin half, dialogue text | built from the masters | built from the effective text | rebuild when the list changes |
+
+The Lua half needs no variant at all, by construction. The plugin half needs
+one build per profile, and the only records where the two builds actually
+differ are the thirteen above.
+
+That makes "two versions" a build flag rather than a second codebase:
+
+    python tools/scripts/transform.py --profile vanilla
+    python tools/scripts/transform.py --profile momw
+
+The vanilla build is stable for as long as the three masters are - which is
+forever. The mod-list build is regenerated when the list changes, which is the
+standing cost the hybrid route already carries.
 
 ## What this does not answer
 
