@@ -53,29 +53,31 @@ vanilla markup, CRLF:
 * `bk_AedraAndDaedra.txt` - 1,987 bytes, 1,796 characters of prose.
 * `bk_Aedra_Tarer_Unique.txt` - the same, plus one line in Tarer's hand.
 
-### The measurement that set the length
+### The hook comes first, and the page measurement second
 
-A Morrowind book spread holds about **880 characters of prose**. Calibrated
-against `bk_darkestdarkness` in the Gate 3 screenshot: the last line visible on
-the first spread was "Likewise, lesser entities bound by", which sits at
-character 882.
+A Morrowind spread holds about **880 characters of prose** - calibrated against
+`bk_darkestdarkness` in the Gate 3 screenshot, where the last visible line of
+the first spread sits at character 882.
 
-The first draft put the turn at 902 and the reveal at 971 - **just past the
-page break**. Since the opening deliberately reads like the vanilla book, a
-reader who does not click Next would have seen nothing but the book he already
-knew, and closed it. The whole point would have been on a page most players
-never reach.
+The first draft put the turn past that break, which was the real danger: since
+the opening deliberately reads like the vanilla book, a reader who did not click
+Next would have seen only the book he already knew and closed it.
 
-Trimmed until the turn came back inside:
+Trimming fixed the symptom. Faig's instruction fixed the cause - **name the new
+word on the first page and promise the answer**, rather than hoping the reader
+turns a page for a payoff he does not know is there:
 
-| | First draft | Now |
-| --- | --- | --- |
-| `Elegant. And in all the centuries of it...` | 902 | **805** |
-| `I have asked.` | 971 | **874** |
+> A third word belongs on that list and is not on it. Zenar. Who bears it, and
+> why you have never heard it, I shall come to.
 
-The first spread now ends on the hook rather than on vanilla theology, and the
-page turn is something the reader wants rather than something he has to be
-lucky enough to do.
+That lands at character **200** - the third sentence, unmissable, before the
+familiar definitions begin. The book now announces on sight that it is not the
+one the reader remembers, and the rest is a countdown rather than a gamble.
+
+With the promise made, the page break costs nothing. The turn falls at 895 and
+the spread ends mid-theology, on Bethesda's own line about Lorkhan and the
+moons. The reader is not being asked to guess whether there is more; he was told
+there is.
 
 ### The shape
 
@@ -97,9 +99,9 @@ lucky enough to do.
 
 ## Three decisions, all made on one criterion: does the player get there
 
-1. **Length: 1,987 bytes, and the cut was not for taste.** Everything above the
-   page break had to shrink so the turn would land where a reader who does not
-   click Next can still see it.
+1. **Length: 2,105 bytes**, and the shape matters more than the number. The
+   first page names `Zenar` and promises to explain it; everything after that
+   is paced rather than rationed.
 2. **Title stays `Aedra and Daedra`.** The surprise depends on the reader
    believing he already knows this book - a new title throws that away, and
    costs the topic links in the title besides.

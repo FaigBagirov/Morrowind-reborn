@@ -1,157 +1,156 @@
-[21:38:20.497 *] Loading config file: D:\Program Files\OpenMW 0.51.0\openmw.cfg
-[21:38:20.503 *] Loading config file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\openmw.cfg
-[21:38:20.513 *] Logs dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev
-[21:38:20.515 *] User data dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev
-[21:38:20.515 *] Screenshots dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\screenshots
-[21:38:20.516 I] OpenMW version 0.51.0
-[21:38:20.516 I] Revision: f4bec41444
-[21:38:20.519 I] Loading settings file: D:\Program Files\OpenMW 0.51.0\defaults.bin
-[21:38:20.522 I] Loading settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\settings.cfg
-[21:38:20.524 I] Using default (English) font encoding.
-[21:38:20.526 W] No such dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/data
-[21:38:20.539 I] OSG version: 3.6.5
-[21:38:20.540 I] SDL version: 2.32.10
-[21:38:20.541 I] Loading shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\shaders.yaml
-[21:38:20.960 I] OpenGL Vendor: NVIDIA Corporation
-[21:38:20.961 I] OpenGL Renderer: NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2
-[21:38:20.965 I] OpenGL Version: 4.6.0 NVIDIA 610.74
-[21:38:20.965 I] Using reverse-z depth buffer
-[21:38:20.967 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Morrowind.bsa
-[21:38:20.976 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Tribunal.bsa
-[21:38:20.979 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Bloodmoon.bsa
-[21:38:20.984 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources\vfs
-[21:38:20.990 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources/vfs-mw
-[21:38:20.993 I] Adding data directory D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files
-[21:38:21.032 I] Adding data directory D:\Work\Morrowind reborn\mod
-[21:38:21.033 I] Adding data directory D:\Work\Morrowind reborn\tools\build
-[21:38:21.045 I] Preferred locales: gmst en
-[21:38:21.046 I] Initializing LuaUtil::LuaState without profiler
-[21:38:21.047 I] Lua version: Lua 5.1.4 (LuaJIT 2.1.1767980792)
-[21:38:21.048 I] Loading keybindings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\input_v3.xml
-[21:38:21.051 I] Loading bitmap font file fonts/magic_cards_regular.fnt
-[21:38:21.060 I] Loading bitmap font file fonts/daedric_font.fnt
-[21:38:21.069 I] Loading TrueType font file fonts/dejavulgcsansmono.omwfont
-[21:38:21.138 I] Detected game controller: Controller (XUSB Gamepad)
-[21:38:21.139 I] Initializing OpenAL...
-[21:38:21.159 I] Opened "OpenAL Soft on Speakers (High Definition Audio Device)"
-[21:38:21.160 I]   ALC Version: 1.1
-[21:38:21.160 I]   ALC Extensions: ALC_ENUMERATE_ALL_EXT ALC_ENUMERATION_EXT ALC_EXT_CAPTURE ALC_EXT_debug ALC_EXT_DEDICATED ALC_EXT_direct_context ALC_EXT_disconnect ALC_EXT_EFX ALC_EXT_thread_local_context ALC_SOFT_device_clock ALC_SOFT_HRTF ALC_SOFT_loopback ALC_SOFT_loopback_bformat ALC_SOFT_output_limiter ALC_SOFT_output_mode ALC_SOFT_pause_device ALC_SOFT_reopen_device ALC_SOFT_system_events
-[21:38:21.191 I]   Vendor: OpenAL Community
-[21:38:21.191 I]   Renderer: OpenAL Soft
-[21:38:21.191 I]   Version: 1.1 ALSOFT 
-[21:38:21.191 I]   Extensions: EAX EAX2.0 EAX3.0 EAX4.0 EAX5.0 EAX-RAM AL_EXT_ALAW AL_EXT_BFORMAT AL_EXT_debug AL_EXT_direct_context AL_EXT_DOUBLE AL_EXT_EXPONENT_DISTANCE AL_EXT_FLOAT32 AL_EXT_IMA4 AL_EXT_LINEAR_DISTANCE AL_EXT_MCFORMATS AL_EXT_MULAW AL_EXT_MULAW_BFORMAT AL_EXT_MULAW_MCFORMATS AL_EXT_OFFSET AL_EXT_source_distance_model AL_EXT_SOURCE_RADIUS AL_EXT_STATIC_BUFFER AL_EXT_STEREO_ANGLES AL_LOKI_quadriphonic AL_SOFT_bformat_ex AL_SOFT_bformat_hoa AL_SOFT_block_alignment AL_SOFT_buffer_length_query AL_SOFT_callback_buffer AL_SOFTX_convolution_effect AL_SOFT_deferred_updates AL_SOFT_direct_channels AL_SOFT_direct_channels_remix AL_SOFT_effect_target AL_SOFT_events AL_SOFT_gain_clamp_ex AL_SOFTX_hold_on_disconnect AL_SOFT_loop_points AL_SOFTX_map_buffer AL_SOFT_MSADPCM AL_SOFT_source_latency AL_SOFT_source_length AL_SOFTX_source_panning AL_SOFT_source_resampler AL_SOFT_source_spatialize AL_SOFT_source_start_delay AL_SOFT_UHJ AL_SOFT_UHJ_ex
-[21:38:21.194 I] HRTF disabled
-[21:38:21.196 V] Using idle priority for thread=13816
-[21:38:21.196 I] Allocated 256 sound sources
-[21:38:21.197 I] Low-pass filter supported
-[21:38:21.198 I] EAX Reverb supported
-[21:38:21.198 I] Enumerated output devices:
-[21:38:21.198 I]   OpenAL Soft on Speakers (High Definition Audio Device)  OpenAL Soft on Speakers (Steam Streaming Microphone)  OpenAL Soft on Speakers (Steam Streaming Speakers)
-[21:38:21.201 I] Enumerated HRTF names:
-[21:38:21.201 I]   Built-In HRTF
-[21:38:21.208 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\global_storage.bin" (140 bytes)
-[21:38:21.210 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\player_storage.bin" (817 bytes)
-[21:38:21.221 I] Loading content file builtin.omwscripts
-[21:38:21.224 I] Loading content file Morrowind.esm
-[21:38:21.235 I] Unhandled SDL event of type 0x607
-[21:38:21.763 I] Loading content file Tribunal.esm
-[21:38:21.830 I] Loading content file Bloodmoon.esm
-[21:38:21.919 I] Loading content file scifi-rewrite.esp
-[21:38:21.923 I] Loading content file scifi-rewrite.omwscripts
-[21:38:21.923 I] Loading groundcover:
-[21:38:21.924 I] Loading ESM data...
-[21:38:21.925 I] Loaded 0 cells, 0 statics,
-[21:38:21.926 I] Prepared 0 unique cells, 0 unique statics,
-[21:38:21.928 V] Lua scripts configuration (25 scripts):
-[21:38:21.930 V] #0 MENU PLAYER : scripts/omw/mwui/init.lua
-[21:38:21.930 V] #1 MENU : scripts/omw/settings/menu.lua
-[21:38:21.931 V] #2 PLAYER : scripts/omw/settings/player.lua
-[21:38:21.932 V] #3 GLOBAL : scripts/omw/settings/global.lua
-[21:38:21.933 V] #4 GLOBAL : scripts/omw/activationhandlers.lua
-[21:38:21.934 V] #5 GLOBAL : scripts/omw/usehandlers.lua
-[21:38:21.934 V] #6 GLOBAL : scripts/omw/worldeventhandlers.lua
-[21:38:21.935 V] #7 GLOBAL : scripts/omw/crimes.lua
-[21:38:21.936 V] #8 PLAYER CREATURE NPC : scripts/omw/mechanics/animationcontroller.lua
-[21:38:21.937 V] #9 PLAYER : scripts/omw/skillhandlers.lua
-[21:38:21.938 V] #a PLAYER : scripts/omw/mechanics/playercontroller.lua
-[21:38:21.938 V] #b MENU : scripts/omw/camera/settings.lua
-[21:38:21.939 V] #c MENU : scripts/omw/input/settings.lua
-[21:38:21.940 V] #d PLAYER : scripts/omw/input/playercontrols.lua
-[21:38:21.941 V] #e PLAYER : scripts/omw/camera/camera.lua
-[21:38:21.941 V] #f PLAYER : scripts/omw/input/actionbindings.lua
-[21:38:21.942 V] #10 PLAYER : scripts/omw/input/smoothmovement.lua
-[21:38:21.943 V] #11 PLAYER : scripts/omw/input/gamepadcontrols.lua
-[21:38:21.944 V] #12 NPC CREATURE : scripts/omw/ai.lua
-[21:38:21.944 V] #13 GLOBAL : scripts/omw/mechanics/globalcontroller.lua
-[21:38:21.946 V] #14 PLAYER CREATURE NPC : scripts/omw/mechanics/actorcontroller.lua
-[21:38:21.947 V] #15 PLAYER NPC CREATURE : scripts/omw/combat/interface.lua
-[21:38:21.947 V] #16 PLAYER : scripts/omw/ui.lua
-[21:38:21.948 V] #17 MENU : scripts/omw/console/menu.lua
-[21:38:21.949 V] #18 PLAYER : scripts/omw/console/player.lua
-[21:38:21.950 V] #19 GLOBAL : scripts/omw/console/global.lua
-[21:38:21.951 V] #1a CUSTOM : scripts/omw/console/local.lua
-[21:38:21.951 V] #1b NPC CREATURE : scripts/omw/music/actor.lua
-[21:38:21.952 V] #1c GLOBAL : scripts/omw/cellhandlers.lua
-[21:38:21.953 V] #1d GLOBAL : scripts/omw/combat/global.lua
-[21:38:21.954 V] #1e MENU : scripts/omw/combat/menu.lua
-[21:38:21.955 V] #1f PLAYER NPC CREATURE : scripts/omw/combat/local.lua
-[21:38:21.955 V] #20 PLAYER : scripts/omw/music/music.lua
-[21:38:21.956 V] #21 MENU : scripts/omw/music/settings.lua
-[21:38:21.957 V] #22 PLAYER : scripts/omw/playerskillhandlers.lua
-[21:38:21.958 V] #23 LOAD : scripts/omw/esmfallbacks.lua
-[21:38:21.958 V] #24 LOAD : scripts/rewrite/apply.lua
-[21:38:22.014 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] rules 23, targets 132, table 812a892ea58b
-[21:38:22.015 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] changed 132, skipped 0, failed 0
-[21:38:22.050 V] Enchantment "test magic axe": dropping unexpected skill argument of "FortifyMaximumMagicka" effect
-[21:38:37.194 I] Using 1 async physics threads
-[21:38:37.195 I] Using D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\navmesh.db to store navigation mesh cache
-[21:38:37.199 I] Reserving texture units for shadow maps: 1c..1f
-[21:38:37.200 V] Using idle priority for thread=16408
-[21:38:37.204 I] Reserving texture unit for opaque depth texture: 1b
-[21:38:37.206 V] Disabling Multiview (disabled by config)
-[21:38:37.230 I] Initialized compute shader pipeline for water ripples
-[21:38:37.240 V] Language file "l10n/Interface/gmst.yaml" is enabled
-[21:38:37.242 V] Language file "l10n/Interface/en.yaml" is enabled
-[21:38:37.299 V] Language file "l10n/OMWEngine/gmst.yaml" is enabled
-[21:38:37.302 V] Language file "l10n/OMWEngine/en.yaml" is enabled
-[21:38:37.374 V] Language file "l10n/OMWShaders/en.yaml" is enabled
-[21:38:37.407 V] Language file "l10n/OMWCamera/en.yaml" is enabled
-[21:38:37.411 V] Language file "l10n/OMWControls/en.yaml" is enabled
-[21:38:37.413 V] Language file "l10n/interface/gmst.yaml" is enabled
-[21:38:37.415 V] Language file "l10n/interface/en.yaml" is enabled
-[21:38:37.418 V] Language file "l10n/Calendar/gmst.yaml" is enabled
-[21:38:37.419 V] Language file "l10n/Calendar/en.yaml" is enabled
-[21:38:37.421 V] Language file "l10n/OMWCombat/en.yaml" is enabled
-[21:38:37.423 V] Language file "l10n/OMWMusic/en.yaml" is enabled
-[21:38:37.430 I] Playing "music/special/morrowind title.mp3"
-[21:38:37.437 E] Could not load technique, file does not exist 'shaders/ssao_hq.omwfx'
-[21:38:37.438 E] Could not load technique, file does not exist 'shaders/underwater_interior_effects.omwfx'
-[21:38:37.439 E] Could not load technique, file does not exist 'shaders/underwater_effects.omwfx'
-[21:38:37.440 E] Could not load technique, file does not exist 'shaders/clouds.omwfx'
-[21:38:37.440 E] Could not load technique, file does not exist 'shaders/godrays.omwfx'
-[21:38:37.442 E] Could not load technique, file does not exist 'shaders/hdr.omwfx'
-[21:38:37.443 E] Could not load technique, file does not exist 'shaders/followeraa.omwfx'
-[21:38:37.444 E] Could not load technique, file does not exist 'shaders/war_adjustments.omwfx'
-[21:40:31.741 I] Playing "music/special/morrowind title.mp3"
-[21:41:24.321 I] Reading save file SPIKE1.omwsave
-[21:41:24.333 I] Loading saved game 'SPIKE1' for character 'SPIKE'
-[21:41:24.381 I] Warning: lookoutScript[local variables] line 41, column 37 (=): invalid operator =, treating it as ==
-[21:41:24.445 V] Language file "l10n/Mechanics/gmst.yaml" is enabled
-[21:41:24.953 I] Loading cell Seyda Neen (-2, -9)
-[21:41:24.966 V] Controller R2_Claw02 present more than once in meshes/r/xsiltstrider.kf, ignoring later version
-[21:41:25.068 I] Loading cell Bitter Coast Region (-2, -8)
-[21:41:25.086 I] Loading cell Bitter Coast Region (-1, -9)
-[21:41:25.096 I] Loading cell Bitter Coast Region (-3, -9)
-[21:41:25.133 I] Loading cell Seyda Neen (-2, -10)
-[21:41:25.159 I] Loading cell Ascadian Isles Region (-1, -8)
-[21:41:25.187 I] Loading cell Bitter Coast Region (-3, -8)
-[21:41:25.193 I] Loading cell Bitter Coast Region (-1, -10)
-[21:41:25.197 I] Loading cell Bitter Coast Region (-3, -10)
-[21:41:25.283 I] Warning: lookoutScript line 41, column 37 (=): invalid operator =, treating it as ==
-[21:41:25.285 I] Warning: fallingScript line 46, column 6 (endif): endif without matching if/elseif
-[21:42:24.257 I] Playing "music/explore/mx_explore_7.mp3"
-[22:26:49.707 I] Saving shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\shaders.yaml
-[22:26:49.708 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\global_storage.bin" (8c bytes)
-[22:26:49.709 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\player_storage.bin" (331 bytes)
-[22:26:49.924 I] Saved input bindings: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\input_v3.xml
-[22:26:50.216 I] Quitting peacefully.
+[22:51:50.435 *] Loading config file: D:\Program Files\OpenMW 0.51.0\openmw.cfg
+[22:51:50.441 *] Loading config file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\openmw.cfg
+[22:51:50.454 *] Logs dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev
+[22:51:50.460 *] User data dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev
+[22:51:50.460 *] Screenshots dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\screenshots
+[22:51:50.462 I] OpenMW version 0.51.0
+[22:51:50.462 I] Revision: f4bec41444
+[22:51:50.467 I] Loading settings file: D:\Program Files\OpenMW 0.51.0\defaults.bin
+[22:51:50.471 I] Loading settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\settings.cfg
+[22:51:50.476 I] Using default (English) font encoding.
+[22:51:50.478 W] No such dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/data
+[22:51:50.496 I] OSG version: 3.6.5
+[22:51:50.501 I] SDL version: 2.32.10
+[22:51:50.502 I] Loading shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\shaders.yaml
+[22:51:50.902 I] OpenGL Vendor: NVIDIA Corporation
+[22:51:50.911 I] OpenGL Renderer: NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2
+[22:51:50.913 I] OpenGL Version: 4.6.0 NVIDIA 610.74
+[22:51:50.914 I] Using reverse-z depth buffer
+[22:51:50.918 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Morrowind.bsa
+[22:51:50.933 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Tribunal.bsa
+[22:51:50.946 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Bloodmoon.bsa
+[22:51:50.950 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources\vfs
+[22:51:50.979 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources/vfs-mw
+[22:51:50.986 I] Adding data directory D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files
+[22:51:51.287 I] Adding data directory D:\Work\Morrowind reborn\mod
+[22:51:51.288 I] Adding data directory D:\Work\Morrowind reborn\tools\build
+[22:51:51.299 I] Preferred locales: gmst en
+[22:51:51.300 I] Initializing LuaUtil::LuaState without profiler
+[22:51:51.301 I] Lua version: Lua 5.1.4 (LuaJIT 2.1.1767980792)
+[22:51:51.302 I] Loading keybindings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\input_v3.xml
+[22:51:51.306 I] Loading bitmap font file fonts/magic_cards_regular.fnt
+[22:51:51.315 I] Loading bitmap font file fonts/daedric_font.fnt
+[22:51:51.326 I] Loading TrueType font file fonts/dejavulgcsansmono.omwfont
+[22:51:51.394 I] Detected game controller: Controller (XUSB Gamepad)
+[22:51:51.395 I] Initializing OpenAL...
+[22:51:51.411 I] Opened "OpenAL Soft on Speakers (High Definition Audio Device)"
+[22:51:51.412 I]   ALC Version: 1.1
+[22:51:51.412 I]   ALC Extensions: ALC_ENUMERATE_ALL_EXT ALC_ENUMERATION_EXT ALC_EXT_CAPTURE ALC_EXT_debug ALC_EXT_DEDICATED ALC_EXT_direct_context ALC_EXT_disconnect ALC_EXT_EFX ALC_EXT_thread_local_context ALC_SOFT_device_clock ALC_SOFT_HRTF ALC_SOFT_loopback ALC_SOFT_loopback_bformat ALC_SOFT_output_limiter ALC_SOFT_output_mode ALC_SOFT_pause_device ALC_SOFT_reopen_device ALC_SOFT_system_events
+[22:51:51.490 I]   Vendor: OpenAL Community
+[22:51:51.490 I]   Renderer: OpenAL Soft
+[22:51:51.490 I]   Version: 1.1 ALSOFT 
+[22:51:51.490 I]   Extensions: EAX EAX2.0 EAX3.0 EAX4.0 EAX5.0 EAX-RAM AL_EXT_ALAW AL_EXT_BFORMAT AL_EXT_debug AL_EXT_direct_context AL_EXT_DOUBLE AL_EXT_EXPONENT_DISTANCE AL_EXT_FLOAT32 AL_EXT_IMA4 AL_EXT_LINEAR_DISTANCE AL_EXT_MCFORMATS AL_EXT_MULAW AL_EXT_MULAW_BFORMAT AL_EXT_MULAW_MCFORMATS AL_EXT_OFFSET AL_EXT_source_distance_model AL_EXT_SOURCE_RADIUS AL_EXT_STATIC_BUFFER AL_EXT_STEREO_ANGLES AL_LOKI_quadriphonic AL_SOFT_bformat_ex AL_SOFT_bformat_hoa AL_SOFT_block_alignment AL_SOFT_buffer_length_query AL_SOFT_callback_buffer AL_SOFTX_convolution_effect AL_SOFT_deferred_updates AL_SOFT_direct_channels AL_SOFT_direct_channels_remix AL_SOFT_effect_target AL_SOFT_events AL_SOFT_gain_clamp_ex AL_SOFTX_hold_on_disconnect AL_SOFT_loop_points AL_SOFTX_map_buffer AL_SOFT_MSADPCM AL_SOFT_source_latency AL_SOFT_source_length AL_SOFTX_source_panning AL_SOFT_source_resampler AL_SOFT_source_spatialize AL_SOFT_source_start_delay AL_SOFT_UHJ AL_SOFT_UHJ_ex
+[22:51:51.494 I] HRTF disabled
+[22:51:51.496 V] Using idle priority for thread=18788
+[22:51:51.498 I] Allocated 256 sound sources
+[22:51:51.499 I] Low-pass filter supported
+[22:51:51.500 I] EAX Reverb supported
+[22:51:51.500 I] Enumerated output devices:
+[22:51:51.500 I]   OpenAL Soft on Speakers (High Definition Audio Device)  OpenAL Soft on Speakers (Steam Streaming Microphone)  OpenAL Soft on Speakers (Steam Streaming Speakers)
+[22:51:51.504 I] Enumerated HRTF names:
+[22:51:51.504 I]   Built-In HRTF
+[22:51:51.511 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\global_storage.bin" (140 bytes)
+[22:51:51.513 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\player_storage.bin" (817 bytes)
+[22:51:51.526 I] Loading content file builtin.omwscripts
+[22:51:51.531 I] Loading content file Morrowind.esm
+[22:51:51.540 I] Unhandled SDL event of type 0x607
+[22:51:52.139 I] Loading content file Tribunal.esm
+[22:51:52.301 I] Loading content file Bloodmoon.esm
+[22:51:52.986 I] Loading content file scifi-rewrite.esp
+[22:51:53.035 I] Loading content file scifi-rewrite.omwscripts
+[22:51:53.052 I] Loading groundcover:
+[22:51:53.053 I] Loading ESM data...
+[22:51:53.055 I] Loaded 0 cells, 0 statics,
+[22:51:53.056 I] Prepared 0 unique cells, 0 unique statics,
+[22:51:53.083 V] Lua scripts configuration (25 scripts):
+[22:51:53.084 V] #0 MENU PLAYER : scripts/omw/mwui/init.lua
+[22:51:53.084 V] #1 MENU : scripts/omw/settings/menu.lua
+[22:51:53.085 V] #2 PLAYER : scripts/omw/settings/player.lua
+[22:51:53.086 V] #3 GLOBAL : scripts/omw/settings/global.lua
+[22:51:53.088 V] #4 GLOBAL : scripts/omw/activationhandlers.lua
+[22:51:53.089 V] #5 GLOBAL : scripts/omw/usehandlers.lua
+[22:51:53.091 V] #6 GLOBAL : scripts/omw/worldeventhandlers.lua
+[22:51:53.091 V] #7 GLOBAL : scripts/omw/crimes.lua
+[22:51:53.093 V] #8 PLAYER CREATURE NPC : scripts/omw/mechanics/animationcontroller.lua
+[22:51:53.095 V] #9 PLAYER : scripts/omw/skillhandlers.lua
+[22:51:53.095 V] #a PLAYER : scripts/omw/mechanics/playercontroller.lua
+[22:51:53.096 V] #b MENU : scripts/omw/camera/settings.lua
+[22:51:53.097 V] #c MENU : scripts/omw/input/settings.lua
+[22:51:53.097 V] #d PLAYER : scripts/omw/input/playercontrols.lua
+[22:51:53.098 V] #e PLAYER : scripts/omw/camera/camera.lua
+[22:51:53.099 V] #f PLAYER : scripts/omw/input/actionbindings.lua
+[22:51:53.099 V] #10 PLAYER : scripts/omw/input/smoothmovement.lua
+[22:51:53.100 V] #11 PLAYER : scripts/omw/input/gamepadcontrols.lua
+[22:51:53.101 V] #12 NPC CREATURE : scripts/omw/ai.lua
+[22:51:53.102 V] #13 GLOBAL : scripts/omw/mechanics/globalcontroller.lua
+[22:51:53.102 V] #14 PLAYER CREATURE NPC : scripts/omw/mechanics/actorcontroller.lua
+[22:51:53.103 V] #15 PLAYER NPC CREATURE : scripts/omw/combat/interface.lua
+[22:51:53.104 V] #16 PLAYER : scripts/omw/ui.lua
+[22:51:53.105 V] #17 MENU : scripts/omw/console/menu.lua
+[22:51:53.106 V] #18 PLAYER : scripts/omw/console/player.lua
+[22:51:53.106 V] #19 GLOBAL : scripts/omw/console/global.lua
+[22:51:53.107 V] #1a CUSTOM : scripts/omw/console/local.lua
+[22:51:53.108 V] #1b NPC CREATURE : scripts/omw/music/actor.lua
+[22:51:53.111 V] #1c GLOBAL : scripts/omw/cellhandlers.lua
+[22:51:53.112 V] #1d GLOBAL : scripts/omw/combat/global.lua
+[22:51:53.116 V] #1e MENU : scripts/omw/combat/menu.lua
+[22:51:53.117 V] #1f PLAYER NPC CREATURE : scripts/omw/combat/local.lua
+[22:51:53.118 V] #20 PLAYER : scripts/omw/music/music.lua
+[22:51:53.119 V] #21 MENU : scripts/omw/music/settings.lua
+[22:51:53.121 V] #22 PLAYER : scripts/omw/playerskillhandlers.lua
+[22:51:53.123 V] #23 LOAD : scripts/omw/esmfallbacks.lua
+[22:51:53.124 V] #24 LOAD : scripts/rewrite/apply.lua
+[22:51:53.341 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] rules 23, targets 132, table 812a892ea58b
+[22:51:53.342 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] changed 132, skipped 0, failed 0
+[22:51:53.396 V] Enchantment "test magic axe": dropping unexpected skill argument of "FortifyMaximumMagicka" effect
+[22:51:54.022 I] Using 1 async physics threads
+[22:51:54.029 I] Using D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\navmesh.db to store navigation mesh cache
+[22:51:54.170 V] Using idle priority for thread=5716
+[22:51:54.213 I] Reserving texture units for shadow maps: 1c..1f
+[22:51:54.347 I] Reserving texture unit for opaque depth texture: 1b
+[22:51:54.373 V] Disabling Multiview (disabled by config)
+[22:51:54.619 I] Initialized compute shader pipeline for water ripples
+[22:51:54.962 V] Language file "l10n/Interface/gmst.yaml" is enabled
+[22:51:55.210 V] Language file "l10n/Interface/en.yaml" is enabled
+[22:51:56.985 V] Language file "l10n/OMWEngine/gmst.yaml" is enabled
+[22:51:57.124 V] Language file "l10n/OMWEngine/en.yaml" is enabled
+[22:51:58.362 V] Language file "l10n/OMWShaders/en.yaml" is enabled
+[22:51:58.939 V] Language file "l10n/OMWCamera/en.yaml" is enabled
+[22:51:58.966 V] Language file "l10n/OMWControls/en.yaml" is enabled
+[22:51:58.968 V] Language file "l10n/interface/gmst.yaml" is enabled
+[22:51:58.969 V] Language file "l10n/interface/en.yaml" is enabled
+[22:51:58.999 V] Language file "l10n/Calendar/gmst.yaml" is enabled
+[22:51:59.012 V] Language file "l10n/Calendar/en.yaml" is enabled
+[22:51:59.030 V] Language file "l10n/OMWCombat/en.yaml" is enabled
+[22:51:59.032 V] Language file "l10n/OMWMusic/en.yaml" is enabled
+[22:51:59.145 I] Playing "music/special/morrowind title.mp3"
+[22:51:59.294 E] Could not load technique, file does not exist 'shaders/ssao_hq.omwfx'
+[22:51:59.294 E] Could not load technique, file does not exist 'shaders/underwater_interior_effects.omwfx'
+[22:51:59.295 E] Could not load technique, file does not exist 'shaders/underwater_effects.omwfx'
+[22:51:59.296 E] Could not load technique, file does not exist 'shaders/clouds.omwfx'
+[22:51:59.296 E] Could not load technique, file does not exist 'shaders/godrays.omwfx'
+[22:51:59.322 E] Could not load technique, file does not exist 'shaders/hdr.omwfx'
+[22:51:59.323 E] Could not load technique, file does not exist 'shaders/followeraa.omwfx'
+[22:51:59.323 E] Could not load technique, file does not exist 'shaders/war_adjustments.omwfx'
+[22:52:07.486 I] Reading save file SPIKE1.omwsave
+[22:52:07.556 I] Loading saved game 'SPIKE1' for character 'SPIKE'
+[22:52:07.823 I] Warning: lookoutScript[local variables] line 41, column 37 (=): invalid operator =, treating it as ==
+[22:52:08.272 V] Language file "l10n/Mechanics/gmst.yaml" is enabled
+[22:52:10.084 I] Loading cell Seyda Neen (-2, -9)
+[22:52:10.159 V] Controller R2_Claw02 present more than once in meshes/r/xsiltstrider.kf, ignoring later version
+[22:52:10.723 I] Loading cell Bitter Coast Region (-2, -8)
+[22:52:10.825 I] Loading cell Bitter Coast Region (-1, -9)
+[22:52:10.833 I] Loading cell Bitter Coast Region (-3, -9)
+[22:52:10.983 I] Loading cell Seyda Neen (-2, -10)
+[22:52:11.186 I] Loading cell Ascadian Isles Region (-1, -8)
+[22:52:11.242 I] Loading cell Bitter Coast Region (-3, -8)
+[22:52:11.259 I] Loading cell Bitter Coast Region (-1, -10)
+[22:52:11.263 I] Loading cell Bitter Coast Region (-3, -10)
+[22:52:11.501 I] Warning: lookoutScript line 41, column 37 (=): invalid operator =, treating it as ==
+[22:52:11.502 I] Warning: fallingScript line 46, column 6 (endif): endif without matching if/elseif
+[22:52:12.787 I] Playing "music/explore/mx_explore_2.mp3"
+[22:57:06.316 I] Saving shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\shaders.yaml
+[22:57:06.323 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\global_storage.bin" (8c bytes)
+[22:57:06.324 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\player_storage.bin" (331 bytes)
+[22:57:06.665 I] Saved input bindings: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev\input_v3.xml
+[22:57:06.910 I] Quitting peacefully.
