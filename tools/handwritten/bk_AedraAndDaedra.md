@@ -67,10 +67,17 @@ Trimming fixed the symptom. Faig's instruction fixed the cause - **name the new
 word on the first page and promise the answer**, rather than hoping the reader
 turns a page for a payoff he does not know is there:
 
-> A third word belongs on that list and is not on it. Zenar. Who bears it, and
-> why you have never heard it, I shall come to.
+> There is a third word. Zenar. You have not heard it, and that is no accident.
+> I will come to it.
 
-That lands at character **200** - the third sentence, unmissable, before the
+Four short sentences where there were two long ones. It states the word, makes
+the silence around it deliberate rather than accidental, and still promises the
+answer - and it lands at character **171** instead of 200, which buys back the
+first-page real estate the promise costs.
+
+The earlier phrasing explained the gap. This one implies someone made it.
+
+That lands at character **171** - the third sentence, unmissable, before the
 familiar definitions begin. The book now announces on sight that it is not the
 one the reader remembers, and the rest is a countdown rather than a gamble.
 
@@ -81,8 +88,8 @@ there is.
 
 ### The shape
 
-0. **The hook**, third sentence, at character 200. The word, and a debt:
-   *Where it comes from, and why it has not reached you, I will come to.*
+0. **The hook**, third sentence, at character 171: *There is a third word.
+   Zenar. You have not heard it, and that is no accident. I will come to it.*
 1. **The vanilla definitions**, cut to the two lines that carry meaning.
 2. **The hinge.** *They do not measure the thing. They measure us.* Then the
    image the book turns on: **kinship is no property of the creature. It is a
@@ -108,7 +115,7 @@ his own discomfort now belongs to an image or to silence.
 
 ## Three decisions, all made on one criterion: does the player get there
 
-1. **Length: 1,938 bytes**, and the shape matters more than the number. The
+1. **Length: 2,279 bytes**, and the shape matters more than the number. The
    first page names `Zenar` and promises to explain it; everything after that
    is paced rather than rationed.
 2. **Title stays `Aedra and Daedra`.** The surprise depends on the reader
