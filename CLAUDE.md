@@ -32,7 +32,7 @@ stopped. **Every change set ends by updating this section.**
 | --- | --- | --- |
 | WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
 | WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
-| WO2 | Rules table + transform script | **Specified, not built.** Spec is Architecture **Part 14** - written 2026-08-28, it did not exist before and its absence is why WO2 could not be found |
+| WO2 | Rules table + transform script | **Table built and validated, transform not written.** `tools/rules/naming.csv`, 23 rules, dry run touches 611 records. Spec is Architecture **Part 14** |
 
 ## WO0 - the answer, and why it is the constraint on everything
 
@@ -228,19 +228,25 @@ soul, or what happens after death.
 
 ## Next action
 
-WO1 is closed. Its four defect fixes are done and cross-checked; what is left
-is WO2 and one unprobed question.
+**The transform, `tools/scripts/transform.py`.** Everything it needs is settled.
 
-1. **WO2 - the rules table and the transform script.** It has to carry: the
-   fixed rule order with the `aedra` left word boundary; substring substitution
-   inside book text, never field replacement; a **per-record exclusion list**,
-   which starts with `sMagicDaedrothID` because that GMST holds a record ID and
-   not display text; and before/after keyword counts for every record touched.
-2. **Pick a route from Architecture Part 12's three:** load-context only,
-   hybrid with a plugin for ARMO/WEAP/CREA names and INFO text, or the upstream
-   request. The upstream ticket is worth sending regardless, and worth
-   splitting in two - Part 12 explains why the weak half would sink the strong
-   one.
+1. Two emitters from one table: a Lua data file into `mod/` for the 115
+   load-context record-fields, and plugin JSON into `tools/build/` for the 496
+   plugin ones. `--profile vanilla` reads the masters, `--profile momw` the
+   effective set.
+2. The gates are already written in `tools/scripts/check_rules.py` - order,
+   ASCII, length, static idempotence, unreachable rules, markup protection -
+   and the transform reuses them rather than reimplementing.
+3. Then a game run: one rewritten book renders, one renamed item reads right in
+   the inventory, one rewritten INFO still hyperlinks its topic.
+
+Decided 2026-08-28, do not reopen: the beings sense of `Daedric` takes
+**Zenar**; `Daedric summoning` takes **Zenar summoning**; the route is the
+**hybrid**, Lua plus a plugin.
+
+Still open and not blocking the transform: Vivec's monologue wording (Canon
+Part 4, `NEEDS REVISION`), the mitochondrial line (Canon Part 5, `PROPOSED`),
+and the upstream ticket, which is worth sending and not worth waiting on.
 
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 

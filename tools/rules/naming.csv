@@ -9,15 +9,15 @@ R150,150,Daedric stone,Zetic stone,*,*,yes,no,mirror,,"Cult sense - the standing
 R160,160,Daedric place,Zetic place,*,*,yes,no,mirror,,Cult sense. Measured: fires 1 times over the merged masters.
 R165,165,Daedric statue,Zetic statue,*,*,yes,no,mirror,,"Cult sense - the one at Khartag Point was carved by an orc, so it is a mortal object of the cult and not something they made. Measured: fires 1 times over the merged masters."
 R170,170,Daedric Zergonipal,Zetic Zergonipal,*,*,yes,no,mirror,,"Cult sense - a named ruin site. Other named sites in prose must be measured before they are added; the collocation Daedric plus a proper noun cannot be generalised, because equipment names are capitalised too. Measured: fires 2 times over the merged masters."
-R200,200,Daedric servant,Zenar servant,*,*,yes,no,mirror,,"PROPOSED. Beings sense - servants who are Zenar, not objects made by them. Measured: fires 13 times over the merged masters."
-R210,210,Daedric lord,Zenar lord,*,*,yes,no,mirror,,PROPOSED. Beings sense. Matches the settled Daedra Lord to Zenar Lord row in Canon Part 10. Measured: fires 3 times over the merged masters.
-R220,220,Daedric prince,Zenar prince,*,*,yes,no,mirror,,PROPOSED. Beings sense. Covers princes. Measured: fires 3 times over the merged masters.
-R230,230,Daedric force,Zenar force,*,*,yes,no,mirror,,PROPOSED. Beings sense. Covers forces. Measured: fires 2 times over the merged masters.
-R240,240,Daedric messenger,Zenar messenger,*,*,yes,no,mirror,,"PROPOSED. Beings sense - the winged twilight, messengers of Azura. Measured: fires 2 times over the merged masters."
-R250,250,Daedric hands,Zenar hands,*,*,yes,yes,mirror,,PROPOSED. Beings sense - to fall into Daedric hands. Measured: fires 1 times over the merged masters.
-R260,260,Daedric power,Zenar power,*,*,yes,no,mirror,,"PROPOSED. Beings sense - a Daedric power means one of them, not a force they emit. Measured: fires 2 times over the merged masters."
-R270,270,Daedric summoning,Zenar summoning,*,*,yes,no,mirror,,"PROPOSED, and the least certain. Reads either way: a summoning of a Zenar, or a rite of the cult. Zetic is the alternative. Measured: fires 20 times over the merged masters."
-R280,280,Daedric minion,Zenar minion,*,*,yes,no,mirror,,PROPOSED. Beings sense - the daedroth are the crocodile-headed minions of Molag Bal. Measured: fires 2 times over the merged masters.
+R200,200,Daedric servant,Zenar servant,*,*,yes,no,mirror,,"SETTLED 2026-08-28. Beings sense - servants who are Zenar, not objects made by them. Measured: fires 13 times over the merged masters."
+R210,210,Daedric lord,Zenar lord,*,*,yes,no,mirror,,SETTLED 2026-08-28. Beings sense. Matches the settled Daedra Lord to Zenar Lord row in Canon Part 10. Measured: fires 3 times over the merged masters.
+R220,220,Daedric prince,Zenar prince,*,*,yes,no,mirror,,SETTLED 2026-08-28. Beings sense. Covers princes. Measured: fires 3 times over the merged masters.
+R230,230,Daedric force,Zenar force,*,*,yes,no,mirror,,SETTLED 2026-08-28. Beings sense. Covers forces. Measured: fires 2 times over the merged masters.
+R240,240,Daedric messenger,Zenar messenger,*,*,yes,no,mirror,,"SETTLED 2026-08-28. Beings sense - the winged twilight, messengers of Azura. Measured: fires 2 times over the merged masters."
+R250,250,Daedric hands,Zenar hands,*,*,yes,yes,mirror,,SETTLED 2026-08-28. Beings sense - to fall into Daedric hands. Measured: fires 1 times over the merged masters.
+R260,260,Daedric power,Zenar power,*,*,yes,no,mirror,,"SETTLED 2026-08-28. Beings sense - a Daedric power means one of them, not a force they emit. Measured: fires 2 times over the merged masters."
+R270,270,Daedric summoning,Zenar summoning,*,*,yes,no,mirror,,"SETTLED 2026-08-28. Beings sense, and the one that could have gone either way: a summoning of a Zenar, or a rite of the cult. Zenar was chosen. Measured: fires 20 times over the merged masters."
+R280,280,Daedric minion,Zenar minion,*,*,yes,no,mirror,,SETTLED 2026-08-28. Beings sense - the daedroth are the crocodile-headed minions of Molag Bal. Measured: fires 2 times over the merged masters.
 R300,300,Daedric,Zenaric,*,*,yes,no,mirror,,"Default sense: made by them. Equipment, materials, artefacts, their script. Equal length, so no name can overflow. Every collocation not caught above lands here and the preview lists them. Measured: fires 128 times over the merged masters."
 R400,400,Daedroth,Zenaroth,*,*,yes,no,mirror,sMagicDaedrothID,Equal length. The exclusion is a GMST whose value is the record ID Daedroth_summon - renaming it breaks the summon. Measured: fires 108 times over the merged masters.
 R500,500,Daedra,Zenar,*,*,yes,no,mirror,,"Plain noun. No right boundary, so Daedra's becomes Zenar's and daedra-worshipper becomes Zenar-worshipper. Measured: fires 570 times over the merged masters."

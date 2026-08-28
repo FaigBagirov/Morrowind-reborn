@@ -357,7 +357,17 @@ The vanilla target was 5403 characters beginning `<DIV ALIGN="CENTER"><FONT COLO
 
 One hazard the probe surfaced on the way, and it belongs to the transform rather than to books: **Lua's `string.gsub` treats its needle as a pattern**, in which `- . % ( ) [ ] + * ? ^ $` are all special, and it offers no plain-match flag. `string.find` does, as its fourth argument. A rules table full of ordinary prose — apostrophes, hyphens, full stops — is exactly the input that turns this into silent corruption. Every match and every substitution in the transform goes through the plain path.
 
-### Three routes forward
+### Three routes forward — route 2 chosen `SETTLED 2026-08-28`
+
+**The hybrid is the route.** Lua carries 115 record-fields with no conflicts of
+any kind; the plugin carries 496, which is all of Tier A and all of the
+dialogue. The compatibility check measured what route 2 actually costs against
+the MOMW list, and it is smaller than this section assumed when it was written:
+the graphics mods rewrite `MODL` and `ITEX` and leave `FNAM` alone, so the
+equipment collision is field-wise and a merge keeps both. Only thirteen dialogue
+records genuinely need a per-configuration build. `tools/reports/momw-compat.md`.
+
+Route 3 stays worth sending and is not waited on.
 
 1. **Load context only.** Zero conflicts, permanently. Tier A and dialogue never happen.
 2. **Hybrid: a plugin for ARMO, WEAP and CREA names.** Morrowind plugins override a record whole, not field by field, so a rename plugin clobbers mesh and icon changes made by other mods to the same records. Delta Plugin merges field-wise, but the merge must be regenerated whenever the mod list changes. "Works on top of anything" becomes "works on top of anything, regenerate after changes."

@@ -425,7 +425,7 @@ OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with
 | --- | --- | --- |
 | 1 | ~~What is Corprus?~~ | `SETTLED` Part 3a |
 | 2 | ~~Does the device tier?~~ | `SETTLED` Part 8, no tiers |
-| 3 | Which specific texts are rewritten? Blocked on the corrected actor-ID pass, Part 7 | `OPEN` |
+| 3 | Which specific texts are rewritten? | `SETTLED` The rules table, `tools/rules/naming.csv`, 23 rules over 611 records |
 | 4 | Vivec's monologue, final wording | `NEEDS REVISION` |
 | 5 | Text of the mitochondrial line, and its speaker | `PROPOSED` |
 
@@ -435,6 +435,8 @@ OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with
 * **`Aedra` to `Zenad`.** Confirmed. WO1 shows roughly twenty real occurrences game-wide, so this was a cosmetic decision, not a structural one.
 * **Hex motif.** Sparse and structural. Dense reserved for Corprus.
 * **Corprus is a weapon, not an accident.** Zenar nanites running a payload authored by Dagoth Ur. Recasts the main quest from cure to shutdown. Part 3a.
+* **The three senses of `Daedric`.** Zenaric for what they made, Zetic for their cult, Zenar for the beings themselves. *Shared World Canon* Part 10.
+* **The hybrid route.** Lua for 115 record-fields, a plugin for 496. Architecture Part 12.
 * **No device tiers.** The device is a switch granting access to already-learned techniques. Progression stays in skills. Part 8.
 
 ---

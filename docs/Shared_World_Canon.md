@@ -229,6 +229,27 @@ All replacements are equal to or shorter than what they replace, per the length 
 | Daedric alphabet | Zenaric script | 16 to 14 |
 | Lesser / Greater Daedra | Lesser / Greater Zenar | shorter |
 
+## The three senses of "Daedric" `SETTLED`
+
+`Daedric` carries four unrelated meanings in the original. Measured against the
+masters on 2026-08-28, three of them are live in the text and each takes a
+different word:
+
+| Sense | Word | Where it fires |
+| --- | --- | --- |
+| Made by them | **Zenaric** | equipment, materials, artefacts, their script |
+| Of their cult | **Zetic** | ruins, shrines, sites, cults, worship, standing stones, statues |
+| The beings themselves | **Zenar** | servants, lords, princes, forces, messengers, minions, summonings |
+
+The third sense coins nothing: the beings are Zenar, so a Zenar servant is a
+servant who is one of them, exactly as in the settled `Daedra Lord` to
+`Zenar Lord` row above. Without it, `Daedric servants` becomes
+`Zenaric servants` — servants *manufactured* by them — which is a different
+claim about the world and a false one.
+
+Counted over the merged masters: Zenaric 128, Zetic 118, Zenar 48. The cult
+sense is the one people underestimate; `Daedric ruin` alone fires 80 times.
+
 ## The two adjectives are the point
 
 `Daedric` carries four unrelated meanings in the original, and one substitution rule for all four produces nonsense. Splitting it into **two** adjectives solves this lexically:
@@ -298,6 +319,7 @@ One mechanic, two games, no strain. When designing anything new in either game, 
 
 ## Revision log
 
+* **Rev 4.** Third sense of `Daedric` added to Part 10 and settled: the beings themselves take `Zenar`, alongside `Zenaric` for what they made and `Zetic` for their cult. Measured, not assumed - the collocations behind each are counted in `tools/rules/naming.csv`.
 * **Rev 3.** Substring warning re-stated against measured numbers: the WO1 re-run of 2026-08-28 puts real `aedra` at 62 occurrences in 35 records game-wide, against the 430 the first pass claimed. Adds the plain-matching consequence - a word boundary is worth nothing if the matcher reads the pattern as a regular expression, which Lua's `string.gsub` does.
 
 * **Rev 2.** Cross-reference to *Morrowind Canon* Parts 11 to 15 corrected to Part 8 after the Rev 3 split. Rename Test given an explicit carve-out for DIAL topic IDs, which the settled policy never renames; the `Daedra Worship` row re-scoped to prose. Naming table given a reachability caveat pointing at the Work Order 0 measurements.
