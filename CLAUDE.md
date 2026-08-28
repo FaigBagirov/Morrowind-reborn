@@ -32,7 +32,7 @@ stopped. **Every change set ends by updating this section.**
 | --- | --- | --- |
 | WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
 | WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
-| WO2 | Rules table + transform script | Not started |
+| WO2 | Rules table + transform script | **Specified, not built.** Spec is Architecture **Part 14** - written 2026-08-28, it did not exist before and its absence is why WO2 could not be found |
 
 ## WO0 - the answer, and why it is the constraint on everything
 
@@ -448,7 +448,15 @@ What follows for every probe from here on:
 
 # What is in `additional/`
 
-Transcripts of the earlier local Claude Code session.
+Transcripts of the earlier local Claude Code session, plus one failed export.
+
+- `chat2-web-partial.txt` is a Chrome MHTML save of the **web** conversation,
+  extracted to text. It is nearly empty of content: claude.ai virtualises the
+  message list, so the snapshot caught the first two exchanges, the last one,
+  and a "Load later messages" button where the middle should be. Zero hits for
+  `WO2`, `WO0` or `Zenad`. Kept only so the next session does not try the same
+  export and reach the same dead end. A real transcript needs either the
+  account-level data export or every message rendered before saving.
 
 - `chat1.txt` is the complete one, 5712 lines.
 - `claude_chat.log` is the same session saved earlier and cut short: it ends

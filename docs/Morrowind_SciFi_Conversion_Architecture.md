@@ -429,3 +429,93 @@ CSV or JSON. Four files, machine-readable. **Not a prose report** — these are 
 ### Definition of done
 
 You can answer, with a number: *how many words does this project require me to write?* If you cannot, the pass is not finished.
+
+---
+
+## Part 14. Work Order 2 — The Rules Table and the Transform `SPEC`
+
+**Runs after WO1, which is closed. This is the first work order that changes what the player sees.**
+
+Everything before this measured the ground. This one puts weight on it. The failure mode that matters is not a crash — it is a substitution landing somewhere it should not have, inside one of 227 book texts nobody will read again before release.
+
+### One rules table, two artifacts
+
+The routing measured in Part 12 splits the output, not the input:
+
+| | Records | Delivery |
+| --- | --- | --- |
+| Lua half | 253 record-fields — BOOK text 227, SPELL 12, MISCITEM 5, BOOK name 4, INGREDIENT 3, GMST 2 | a generated Lua data file, applied in the load context at every game start |
+| Plugin half | 496 record-fields — INFO text 455, WEAP 21, ARMO 14, CREA 4, CLAS 1, CLOT 1 | a `tes3conv` plugin, merged into the list's Delta Plugin output |
+
+**Both are emitted from the same rules table by the same script.** Two emitters, one source of truth. If the halves can drift, they will, and the same word rendered `Zenar` in a book and `Zenaric` on a weapon is exactly the drift Part 6 exists to prevent — which no amount of reading either half alone will catch.
+
+### Preconditions
+
+* WO1's reports regenerated and current. The transform's target list is derived from the same walker, never typed by hand.
+* **Input is the *effective* record set, not the bare masters.** Masters plus the active plugins, as the game resolves them. `tools/reports/momw-compat.md` measured why: a plugin generated from vanilla text would silently revert Patch for Purists' corrections in 27 dialogue records and strip the Daedric Lord Armor meshes from 12 equipment records. Against a clean vanilla profile the effective set is just the three masters, and the transform must not care which it was handed.
+* Masters untouched, as always. The transform reads them and writes elsewhere.
+
+### The rules table
+
+One versioned file, `tools/rules/naming.csv`, reviewed as a diff. Columns:
+
+```
+id, order, pattern, replacement, applies_to_types, applies_to_fields,
+left_boundary, right_boundary, case_handling, exclude_records, notes
+```
+
+* `order` — integer, ascending, **explicit and total**. Rules apply in this order, and the order is data rather than an accident of file layout. `daedroth`, `daedric` and `daedra` all precede `aedra`.
+* `left_boundary` / `right_boundary` — booleans. `aedra` carries a left boundary and that is settled canon (*Shared World Canon* Part 10). Without it every `Daedra` in the game becomes `DZenad`, mechanically and identically.
+* `case_handling` — `mirror` (the replacement takes the case shape of what it replaced: lower, Title, UPPER) or `literal` (written exactly as given). Anything the mirror cannot classify falls back to `literal` **and is reported**, never guessed at.
+* `exclude_records` — record IDs this rule must skip. It exists because `sMagicDaedrothID` is a writable GMST whose value is the record ID `Daedroth_summon`, and renaming it breaks the summon. Per-type rules are not enough; this column is the reason.
+
+### Rule semantics, all of them checkable
+
+1. **Plain text, never patterns.** Lua's `string.gsub` treats its needle as a pattern and has no plain-match flag; Python's `re` offers the same hazard through a different door. Both emitters match literally — `string.find(..., true)` in Lua, `str.find` / `str.replace` in Python. The WO1 probe's own marker counted as zero occurrences of itself before this was fixed.
+2. **A replacement is never longer than its pattern.** Checked per rule when the table loads, not per substitution at runtime.
+3. **ASCII only, bytes 0x00–0x7F**, verified bytewise in Python. Never with `grep -P`.
+4. **Substitute inside a field, never replace a field.** Book text is pseudo-HTML and the markup is load-bearing. Measured 2026-08-28: substitution in place leaves the page rendering normally; whole-field replacement renders blank.
+5. **Idempotent.** Running the transform over its own output changes nothing. This is a test, not an aspiration: `transform(transform(x)) == transform(x)`.
+6. **Topic keywords survive.** When an INFO record is rewritten, at least one literal instance of the original topic keyword must remain or the topic hyperlink stops firing. Before and after counts are reported for every record touched.
+7. **Deterministic.** The same input and the same rules file produce the same bytes. The report records the rules file's hash.
+
+### The transform script
+
+`tools/scripts/transform.py`. It applies rules and does nothing else. It has no opinions, contains no replacement strings of its own and holds no special cases — a special case belongs in the rules table, where it can be reviewed as a diff.
+
+It must **refuse to run**, loudly, when: a replacement is longer than its pattern; any string in the table is not ASCII; two rules share an `order`; a rule targets a record type Part 12 measured as unreachable; or the target list disagrees with WO1's current reports.
+
+The default is a **dry run**. Writing artifacts is an explicit flag.
+
+### Required outputs
+
+**1. Diff report**, one row per record touched:
+
+```
+record_type, record_id, field, rule_ids_applied, before, after,
+length_delta, topic_keyword_before, topic_keyword_after
+```
+
+**2. Summary**: records touched and skipped, per rule, per type, per route. **A rule that fires zero times is a defect** — the pattern is wrong or the record list is stale — and the summary says so rather than leaving a silent zero in a table.
+
+**3. Exclusion audit**: every record an `exclude_records` entry protected, and every record it would otherwise have hit. An exclusion that never fires is as suspicious as a rule that never fires.
+
+**4. The artifacts**: the Lua data file into `mod/`, the plugin JSON for `tes3conv` into `tools/build/`.
+
+### Verification, three gates, none of them optional
+
+* **Gate 1, mechanical.** Idempotence, ASCII, length, keyword retention, determinism. Runs on every invocation.
+* **Gate 2, review.** Claude reads a *sample of the diff* — the most-changed records plus a random draw — and refines the rules. Part 6 stands: the model writes rules and reviews output, and never performs a substitution.
+* **Gate 3, in game.** The user runs it. **The log is not evidence on its own** — WO0's book write was accepted at every layer and rendered blank on screen. The first run checks at least: one rewritten book renders with its markup intact, one renamed item reads correctly in the inventory, and one rewritten INFO still hyperlinks its topic.
+
+Testing convention: the user loads an existing save, so the check card hands its targets over by console command and never by location.
+
+### Definition of done
+
+The rewrite applies to a running game, the three gates pass, and the diff report accounts for every record WO1 says exists — each one either transformed, or excluded with a reason recorded in the table.
+
+### What WO2 does not cover
+
+* **The eight script-body strings.** `MessageBox` and `Say` calls at the Vivec shrines and elsewhere carry keywords the player reads. Script bodies are frozen, and the ESM carries compiled bytecode beside the text. Permanent residue, listed in `tools/reports/wo1-script-strings.csv`.
+* **Hand-written text.** Canon Part 4's monologue, Part 5's grumble lines, Part 6's informed characters. Those are written, not substituted, and they are a separate work order.
+* **Merging into the mod list.** Regenerating `delta-merged.omwaddon` is an install step, not a transform step. `tools/reports/momw-compat.md` carries the detail.
