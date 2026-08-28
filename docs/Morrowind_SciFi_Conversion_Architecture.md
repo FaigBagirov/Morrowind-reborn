@@ -309,6 +309,7 @@ There is no `armors`, no `weapons`, no `clothing`, no `creatures`, no `npcs`, no
 | Record type | Field | Write | In-game | Notes |
 | --- | --- | --- | --- | --- |
 | BOOK | text | **OK** | confirmed | see the HTML caveat below |
+| BOOK | name | **OK** | confirmed | probed separately in WO1, 2026-08-28 |
 | GMST | value | **OK** | changed* | strongest log evidence; readback via `core.getGMST`, unavailable to load scripts |
 | SPEL | name | **OK** | confirmed | |
 | INGR | name | **OK** | confirmed | |
@@ -330,7 +331,7 @@ other three rows, and the `confirmed` that stood here earlier was written by a
 Claude session, not observed. Both are two lines of one tooltip if ever
 re-checked.
 
-**One field in the available column is assumed, not measured: BOOK `name`.** The spike wrote BOOK `text` and never touched `name`, so the book's title in the inventory was unchanged during the in-game check — correctly, since nothing had been written to it. `name` lives in `content.books.records` alongside `text` and should therefore be writable, but that has not been demonstrated. Ten keyword hits ride on it. Probe it before the rules table depends on it.
+**BOOK `name` is now measured too.** The WO0 spike wrote BOOK `text` and never touched `name`, so the book's title in the inventory stayed vanilla during that in-game check — correctly, since nothing had been written to it. That left the field assumed rather than demonstrated. A separate probe closed it on 2026-08-28: written from the load context, read back from a GLOBAL script and from a PLAYER script in a live session, and seen renamed in the inventory. Nothing in the available column is an assumption any more.
 
 ### There is no silent-failure trap
 
@@ -346,11 +347,15 @@ Cross-referenced against the tiers in Part 5:
 
 `Daedra's Heart` renames to `Zenar Heart`. `Daedric Cuirass` does not.
 
-### Practical finding: books carry HTML
+### Practical finding: books carry HTML, and substring substitution survives it
 
-The vanilla target was 5403 characters beginning `<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards">`. Writing plain text succeeded at the data level and rendered as a **blank page**.
+The vanilla target was 5403 characters beginning `<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards">`. Writing plain text over the whole field succeeded at the data level and rendered as a **blank page**.
 
-**Any book rewrite must preserve the surrounding markup.** Add this to the rules table as a hard check.
+**Any book rewrite must preserve the surrounding markup.** This is a hard check in the rules table.
+
+**The substitution rule that follows from it is measured, not assumed.** The WO1 probe rewrote the page-one heading of the same book in place — same length, markup untouched — and the page rendered normally: centered heading, Magic Cards face, pagination unchanged, the rest of the text intact. Screenshot check, 2026-08-28. So the transform's chosen method is known to work end to end on a real book, which is what the blank page left open.
+
+One hazard the probe surfaced on the way, and it belongs to the transform rather than to books: **Lua's `string.gsub` treats its needle as a pattern**, in which `- . % ( ) [ ] + * ? ^ $` are all special, and it offers no plain-match flag. `string.find` does, as its fourth argument. A rules table full of ordinary prose — apostrophes, hyphens, full stops — is exactly the input that turns this into silent corruption. Every match and every substitution in the transform goes through the plain path.
 
 ### Three routes forward
 

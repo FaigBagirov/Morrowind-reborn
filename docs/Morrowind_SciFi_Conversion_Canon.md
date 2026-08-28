@@ -303,9 +303,13 @@ WO1 is closed. The remaining items belong to WO2 and to Architecture Part 12.
 
 1. WO2 — the rules table, with the fixed rule order, the `aedra` boundary, and
    an exclusion list that starts with `sMagicDaedrothID`.
-2. Probe BOOK `name` writability. Assumed, never measured; 4 keyword records
-   ride on it.
-3. Pick a route from Architecture Part 12's three.
+2. Pick a route from Architecture Part 12's three.
+
+BOOK `name` writability, which stood here as the second item, was probed on
+2026-08-28 and is confirmed writable and confirmed on screen. The same run
+confirmed that substring substitution inside a book's text leaves the page
+rendering normally, which is the method WO2 is built on. Architecture Part 12
+carries both.
 
 ---
 

@@ -165,10 +165,41 @@ the summon. The rules table needs a per-record exclusion for it, not just a
 per-type rule — the first case found where a writable string field holds
 something that is not display text.
 
+## The book probe, 2026-08-28 `SETTLED, MEASURED`
+
+Two questions, both closed in one run. Raw log kept as
+`tools/reports/wo1-bookname-probe.txt`; the probe itself is
+`mod/wo1-bookname.omwscripts`.
+
+**P1. BOOK `name` is writable.** Written from the load context, read back from
+a GLOBAL script and from a PLAYER script in a live session, and seen renamed
+in the inventory on screen. Four keyword records and the routing table's only
+unmeasured assumption rode on this.
+
+**P2. Substring substitution leaves a book rendering.** The probe rewrote the
+page-one heading in place - `A Brief History of the Empire` into
+`PROBE TEXT OK -- Domain Hist.`, same length - and the page came up normal:
+centered heading, Magic Cards face, pagination unchanged, the rest of the text
+untouched. This is what the WO0 blank page left open, and it is the method the
+WO2 transform is built on.
+
+It took two runs. Notes from the first, because both are worth keeping:
+
+- The first run was quit at the menu, so the GLOBAL layer registered as script
+  `#25` and never executed. **Two of the three layers produced nothing and the
+  log looked like a pass.** A probe that only reports from the context that
+  wrote the value cannot tell a working write from an unobserved one.
+- The first substitution was `Empire` -> `Domain`, which a reader can look
+  straight past - and did. The second run rewrote the first line of page one
+  into something no one could miss. Probe markers should be blatant.
+- The probe's own marker counted as **zero occurrences of itself** in the mock
+  run, because `countPlain` used `string.gsub`, whose needle is a Lua pattern
+  where `--` and `.` are syntax, and which has no plain-match flag.
+  `string.find` has one, as its fourth argument. WO2 inherits this hazard
+  directly: its rules table will be full of prose. Now a rule in CLAUDE.md.
+
 ## Still open
 
-- BOOK `name` writability is still assumed, not probed. It carries 4 of the
-  keyword records. Same caveat as in Architecture Part 12.
 - Whether the script-body residue is truly unreachable, above.
 - What Tribunal and Bloodmoon add on top of a Morrowind-only baseline is not
   broken out; the survey merges the three. Nothing currently depends on the

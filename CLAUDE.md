@@ -136,13 +136,21 @@ small records. One unmeasured assumption in that table: BOOK *name* sits on
 the load-context side because it shares a sub-package with BOOK text. It was
 never probed. 4 records ride on it.
 
-### Outstanding on WO0 - small, none of it blocking
+### Outstanding on WO0 - one item left, not blocking
 
-- Whether BOOK `name` is writable. Assumed, never probed: the spike wrote
-  `text` only. 4 keyword records ride on it, and Architecture Part 12 now
-  carries the same caveat.
-- Why a book with unmarked-up text renders blank. Not a gate - the transform
-  never replaces a whole field - but it is unexplained.
+- **BOOK `name`: closed 2026-08-28, writable, confirmed on screen.** Probed by
+  `mod/wo1-bookname.omwscripts`: written from the load context, read back from
+  a GLOBAL script and from a PLAYER script in a live session, and seen renamed
+  in the inventory. Nothing in Architecture Part 12's available column is an
+  assumption any more.
+- **Substring substitution in book text: closed the same run.** The probe
+  rewrote the page-one heading in place, same length, markup untouched, and
+  the page rendered normally - centered heading, Magic Cards face, pagination
+  unchanged, rest of the text intact. The transform's method is measured on a
+  real book.
+- Why a book whose whole text field is replaced with unmarked-up text renders
+  blank is still unexplained. Not a gate - the transform never replaces a
+  whole field, and the substitution path is now known to work.
 
 `mod/` can be emptied whenever you like; deleting its contents removes the
 spike entirely.
@@ -228,9 +236,7 @@ is WO2 and one unprobed question.
    inside book text, never field replacement; a **per-record exclusion list**,
    which starts with `sMagicDaedrothID` because that GMST holds a record ID and
    not display text; and before/after keyword counts for every record touched.
-2. **Probe BOOK `name` writability.** One probe, needs a game run. 4 keyword
-   records and the routing table's only unmeasured assumption ride on it.
-3. **Pick a route from Architecture Part 12's three:** load-context only,
+2. **Pick a route from Architecture Part 12's three:** load-context only,
    hybrid with a plugin for ARMO/WEAP/CREA names and INFO text, or the upstream
    request. The upstream ticket is worth sending regardless, and worth
    splitting in two - Part 12 explains why the weak half would sink the strong
@@ -268,6 +274,13 @@ the record IDs every plugin in the list edits. Not started.
   boundary the transform turns every "Daedra" into "DZenad", mechanically and
   identically, across the whole game. Rule order is fixed and versioned.
   *Shared World Canon* Part 10, `SETTLED`.
+- **Never match or substitute with `string.gsub` in Lua.** Its needle is a
+  Lua pattern, in which `- . % ( ) [ ] + * ? ^ $` are all special, and it has
+  no plain-match flag. `string.find` does, as its fourth argument. A rules
+  table of ordinary prose - apostrophes, hyphens, full stops - is exactly the
+  input that makes this silently wrong. The WO1 probe's own marker counted as
+  zero occurrences of itself before this was fixed, and it was a mock run that
+  caught it, not the game.
 - **A writable string field may hold something that is not display text.**
   `sMagicDaedrothID` is a GMST whose value is the record ID
   `Daedroth_summon`; renaming it breaks the summon. The rules table therefore
