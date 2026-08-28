@@ -180,8 +180,14 @@ def cast(replacement, matched, case_mode):
         return replacement.lower(), None
     if s == "upper":
         return replacement.upper(), None
-    if s in ("title", "sentence"):
-        # The replacement is authored in the same shape it is written back in.
+    if s == "title":
+        # "Daedric Princess" must not come back as "Zenar princess". The
+        # replacement is authored in sentence shape, so title case has to be
+        # applied rather than assumed. Caught by the Gate 2 diff review, not by
+        # any mechanical check - which is the point of Gate 2.
+        return " ".join(w[:1].upper() + w[1:] for w in replacement.split()), None
+    if s == "sentence":
+        # Authored in this shape already.
         return replacement, None
     return replacement, f"unclassified case {matched!r}"
 
