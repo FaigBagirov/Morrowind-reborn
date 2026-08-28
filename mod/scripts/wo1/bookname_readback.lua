@@ -22,6 +22,7 @@ local BOOK_ID = 'bk_BriefHistoryEmpire1'
 local NAME_SENTINEL = 'PROBE_BOOKNAME_OK'
 local FROM = 'Empire'
 local TO = 'Domain'
+local MARKER = 'PROBE TEXT OK -- Domain Hist.'
 local MARKUP_HEAD = '<DIV ALIGN="CENTER">'
 
 local function log(...)
@@ -46,9 +47,24 @@ local function try(fn)
     return false, res
 end
 
+-- Plain-text search and replace. NOT string.gsub: gsub treats its pattern as
+-- a Lua pattern, where - . % ( ) [ ] + * ? ^ $ are all special, and it has no
+-- plain-match flag. Only string.find takes one, as its fourth argument. The
+-- mock run of this probe caught it: the marker "PROBE TEXT OK -- Domain Hist."
+-- counted as zero occurrences of itself, because "--" and "." were read as
+-- pattern syntax.
+--
+-- The WO2 transform inherits this hazard directly. Its rules table will hold
+-- ordinary prose - apostrophes, hyphens, full stops - and every one of those
+-- is a pattern character.
 local function countPlain(haystack, needle)
-    local _, n = string.gsub(haystack, needle, needle)
-    return n
+    local n, pos = 0, 1
+    while true do
+        local s, e = string.find(haystack, needle, pos, true)
+        if s == nil then return n end
+        n = n + 1
+        pos = e + 1
+    end
 end
 
 local function readField(field)
@@ -90,9 +106,10 @@ local function run()
         local headOk = string.sub(text, 1, #MARKUP_HEAD) == MARKUP_HEAD
         log('  P2 length :', #text)
         log('  P2 head   :', brief(text, 60))
+        local nMarker = countPlain(text, MARKER)
         log('  "' .. FROM .. '":', nFrom, ' "' .. TO .. '":', nTo,
-            ' markup head intact:', tostring(headOk))
-        if nFrom == 0 and nTo > 0 and headOk then
+            ' marker:', nMarker, ' markup head intact:', tostring(headOk))
+        if nFrom == 0 and nTo > 0 and nMarker > 0 and headOk then
             log('  RESULT P2 : SUBSTITUTION_PRESENT_MARKUP_INTACT  readback_global=true')
         elseif nFrom > 0 and nTo == 0 then
             log('  RESULT P2 : ORIGINAL_VALUE  readback_global=false')

@@ -1,0 +1,27 @@
+[06:41:36.602 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:41:36.603 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] ###############################################
+[06:41:36.604 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] # WORK ORDER 1 -- book name and render probe  #
+[06:41:36.604 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] # Layer 1: writes from the LOAD context       #
+[06:41:36.604 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] ###############################################
+[06:41:36.605 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:41:36.606 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] target book: bk_BriefHistoryEmpire1
+[06:41:36.606 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:41:36.607 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === P1  BOOK name ===
+[06:41:36.608 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old name  : Brief History of the Empire v 1
+[06:41:36.608 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   sentinel  : PROBE_BOOKNAME_OK
+[06:41:36.609 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   RESULT P1 : WRITE_OK  write_ok=true readback_load=true
+[06:41:36.610 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:41:36.610 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === P2  BOOK text, substring substitution ===
+[06:41:36.611 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   rule      : substitute inside the field, never replace the field
+[06:41:36.612 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old length: 5403
+[06:41:36.612 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old head  : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magi ...(5403 chars)
+[06:41:36.613 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   "Empire" before: 2  "Domain" before: 0
+[06:41:36.614 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   new length: 5403 (delta 0)
+[06:41:36.614 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   "Empire" after : 0  "Domain" after : 2
+[06:41:36.615 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   head now  : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magi ...(5403 chars)
+[06:41:36.616 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   RESULT P2 : WRITE_OK  write_ok=true readback_load=true
+[06:41:36.616 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   NOTE      : the log cannot say whether the PAGE renders.
+[06:41:36.617 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               Open the book in game. A blank page here means
+[06:41:36.617 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               substring substitution is not enough either.
+[06:41:36.618 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:41:36.618 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === Layer 1 complete. Layer 2 readback runs when a game starts. ===

@@ -37,28 +37,32 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   WO1 BOOK PROBE -- what to check on screen
+echo   WO1 BOOK PROBE, run 2 -- what to check on screen
 echo   =====================================================================
 echo.
-echo   LOAD YOUR SAVE. No new game needed - the probe applies at load time,
-echo   wherever you are standing.
+echo   Run 1 answered P1: the book NAME is writable, confirmed on screen.
+echo   P2 is still open, and this run separates the two ways it can fail.
 echo.
-echo   Then open the console with ~ and paste:
+echo   LOAD YOUR SAVE. No new game needed. STAY IN GAME a few seconds -
+echo   run 1 was quit at the menu, so two of the three layers never ran.
+echo.
+echo   1. TWO MESSAGES appear at the bottom of the screen on load:
+echo        WO1 name: ...
+echo        WO1 text: ...
+echo      These are read from the LIVE session. If the text line starts with
+echo      PROBE TEXT OK, the running game holds the substitution and anything
+echo      the book window shows differently is a rendering matter. If it
+echo      starts with "A Brief History of the Empire", the write never
+echo      reached the session at all. Report which one you see.
+echo.
+echo   2. Console with ~, then paste:
 echo.
 echo       player-^>AddItem "bk_BriefHistoryEmpire1" 1
 echo.
-echo   The record ID never changes, so this works even after the rename.
-echo.
-echo   1. NAME. Look at the book in your inventory.
-echo      Expected: PROBE_BOOKNAME_OK
-echo      If it still says "Brief History of the Empire v 1", the name is
-echo      NOT writable and the routing table changes.
-echo.
-echo   2. PAGE. Open the book.
-echo      Expected: a normal page, centered heading, same layout as vanilla,
-echo      and the title line reading "A Brief History of the Domain".
-echo      A BLANK page is the important failure -- it would mean substring
-echo      substitution is not enough either, and WO2 needs rethinking.
+echo   3. Open the book. Page one should begin:
+echo        PROBE TEXT OK -- Domain Hist.
+echo      A BLANK page, the vanilla heading, or the marker - each means
+echo      something different, so report exactly what you see.
 echo.
 echo   Do not save afterwards. Quit the game when done.
 echo   =====================================================================
