@@ -239,10 +239,10 @@ Nothing below is blocked on tooling.
 2. **Caius Cosades.** Hand-written lines that drop the word where the player
    cannot miss it. He is mandatory for the main quest and he is in Balmora,
    where the book is sold.
-3. **The `Zenar` topic.** `types.Player.addTopic` exists in 0.51, so the topic
-   can be made known without touching a script body. A new DIAL plus INFO
-   records on the plugin side, answered only by the informed - which makes the
-   word explain itself wherever it appears.
+3. ~~The `Zenar` topic.~~ **Done, confirmed on screen 2026-08-29.** Six
+   informed voices answer it, nobody else does, and the topic is absent from
+   every passer-by's list. The transform can now invent records as well as
+   override them - `tools/handwritten/dialogue/`.
 4. **Vivec's monologue**, Canon Part 4, `NEEDS REVISION`, and the mitochondrial
    line, Canon Part 5, `PROPOSED`.
 5. **`--profile momw`** needs a load-order file, and the plugin needs to go

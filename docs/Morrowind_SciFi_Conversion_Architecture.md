@@ -524,6 +524,14 @@ Two constraints hold them honest:
 
 They appear in the diff report with `HAND-WRITTEN` where the rule ids would be, so no report can quietly present them as derived.
 
+### Records invented rather than overridden `DONE, CONFIRMED ON SCREEN`
+
+The second authored path adds records the masters do not contain: a DIAL topic and a chained list of INFO records under it. `tools/handwritten/dialogue/` holds one file per reply and a manifest naming the topic, the speaker and the order.
+
+The `Zenar` topic is the first, and it is the piece that makes the whole rename legible. The rules put the word into 187 replies, and Morrowind highlights a topic inside dialogue only if the player knows it, so without this the word sat there as plain text with nowhere to go. `mod/scripts/rewrite/topic.lua` adds it with `types.Player.addTopic` - which is why no script body is touched, since vanilla adds topics with `AddTopic` inside result scripts and the rules freeze those.
+
+Six informed characters answer it and nobody else does: Yagrum Bagarn, Divayth Fyr, Sinnammu Mirpal, Nibani Maesa, Gilvas Barelo, Vivec. Because a topic appears only for actors who have a reply, **the dialogue system does the characterisation**. Confirmed in game 2026-08-29: the topic is in Sinnammu Mirpal's list and absent from every passer-by's. Ask a guard about Zenar and there is nothing to ask - which says more about who knows than any line of prose could.
+
 ### The transform script
 
 `tools/scripts/transform.py`. It applies rules and does nothing else. It has no opinions, contains no replacement strings of its own and holds no special cases — a special case belongs in the rules table, where it can be reviewed as a diff.

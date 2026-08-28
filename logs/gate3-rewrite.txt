@@ -1,2 +1,3 @@
-[01:49:18.050 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] rules 23, targets 132, table 812a892ea58b
-[01:49:18.051 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] changed 132, skipped 0, failed 0
+[02:03:26.417 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] rules 23, targets 132, table 812a892ea58b
+[02:03:26.419 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] changed 132, skipped 0, failed 0
+[02:03:31.927 I] L@0x1[scripts/rewrite/topic.lua]:	[REWRITE] topic "Zenar" added to the player

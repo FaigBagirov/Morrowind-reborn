@@ -38,30 +38,34 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   THE HAND-WRITTEN BOOK -- what to check
+echo   THE ZENAR TOPIC -- what to check
 echo   =====================================================================
 echo.
-echo   The rules half is done and verified. This run is about one record the
-echo   rules never touch: the book that explains what the words mean, which
-echo   is written rather than substituted.
+echo   The plugin now carries a topic of its own with six answers under it.
+echo   Only people who know it have a reply, so it should appear for them
+echo   and for nobody else.
 echo.
-echo   LOAD YOUR SAVE, then console with ~:
+echo   LOAD YOUR SAVE, wait a moment, then console with ~:
 echo.
-echo        player-^>AddItem "bk_AedraAndDaedra" 1
+echo   1. SOMEONE WHO KNOWS.
+echo        player-^>PlaceAtPC "sinnammu mirpal" 1 1 1
+echo      Talk to her. "Zenar" should be in her topic list. Her answer is
+echo      about the Temple dividing them into good and bad because a divided
+echo      thing is easier to own.
 echo.
-echo   1. FIRST PAGE. Zenar should appear in the third sentence, before the
-echo      familiar definitions. If you have to hunt for it, the hook failed.
+echo   2. THE WORD ITSELF, clickable. Ask her about "Daedric summonings"
+echo      first - if the topic is missing, give it to yourself:
+echo        player-^>AddTopic "Daedric summonings"
+echo      In that reply the word Zenar should now be highlighted and
+echo      clickable, because the player knows the topic.
 echo.
-echo   2. THE PAGE ITSELF. Centered heading, Magic Cards face, the usual
-echo      layout. This record is replaced whole rather than substituted into,
-echo      so if anything renders wrong it will be here and nowhere else.
+echo   3. SOMEONE WHO DOES NOT KNOW. Talk to any guard or commoner nearby.
+echo      There should be no Zenar in their list at all. That silence is the
+echo      point: the word belongs to the few.
 echo.
-echo   3. READ IT. It is about a page and a half. The turn is "Elegant. And
-echo      in all those centuries no one thought to ask them." - it should sit
-echo      near the end of the first spread.
-echo.
-echo   4. OPTIONAL, Tarer's copy, which carries one extra line in his hand:
-echo        player-^>AddItem "bk_Aedra_Tarer_Unique" 1
+echo   4. OPTIONAL, other voices:
+echo        player-^>PlaceAtPC "divayth fyr" 1 1 1
+echo        player-^>PlaceAtPC "yagrum bagarn" 1 1 1
 echo.
 echo   Do not save. Quit when done; this window collects the log by itself.
 echo   =====================================================================
