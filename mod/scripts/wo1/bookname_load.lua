@@ -28,8 +28,11 @@ local content = require('openmw.content')
 
 local TAG = '[WO1]'
 
--- Target: sits in Seyda Neen, Census and Excise Office - the room a new game
--- starts in, so the on-screen check costs a minute.
+-- Target. Do not assume where the player is: tests run against an existing
+-- save, past character creation, and it can be anywhere. The book is handed
+-- over in the console instead -
+--   player->AddItem "bk_BriefHistoryEmpire1" 1
+-- which works after the rename because record IDs are never touched.
 local BOOK_ID = 'bk_BriefHistoryEmpire1'
 local NAME_SENTINEL = 'PROBE_BOOKNAME_OK'
 

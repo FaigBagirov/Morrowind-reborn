@@ -359,6 +359,32 @@ This repo is worked on from two places and they can do different things.
 **Claude Code never launches the game in either environment.** The user runs
 it and brings back `logs/openmw.log`.
 
+## How in-game tests actually run `SETTLED`
+
+**The user loads an existing save, past character creation.** Not a new game.
+They are not going to type a name and pick a class for every probe, and asking
+them to is how the WO1 book probe wasted a run: its on-screen card said "start
+a new game, the book is in the room you start in", and the save is nowhere
+near Seyda Neen.
+
+What follows for every probe from here on:
+
+- **Never place a target by location.** No "it sits on the shelf in the Census
+  and Excise Office". The save can be anywhere.
+- **Reach the target with a console command instead**, and put the exact line
+  in the probe's on-screen card so it can be copied:
+
+      player->AddItem "bk_BriefHistoryEmpire1" 1
+
+  Record IDs are never renamed, so the vanilla ID always works even after the
+  probe has rewritten the display name.
+- Items, spells and effects can all be handed over this way. If a probe needs
+  something that cannot be conjured into the inventory - a specific cell, an
+  NPC, a quest state - say so up front and let the user decide whether it is
+  worth the trip.
+- The probe must still be loaded by the launcher (`--content ...omwscripts`).
+  A save opened in a plain OpenMW run shows vanilla data and proves nothing.
+
 ---
 
 # What is in `additional/`

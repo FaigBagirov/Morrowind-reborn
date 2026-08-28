@@ -40,11 +40,16 @@ echo   =====================================================================
 echo   WO1 BOOK PROBE -- what to check on screen
 echo   =====================================================================
 echo.
-echo   Start a NEW GAME. You begin in the Census and Excise Office in
-echo   Seyda Neen. The book is in that room: vanilla name
-echo   "Brief History of the Empire v 1".
+echo   LOAD YOUR SAVE. No new game needed - the probe applies at load time,
+echo   wherever you are standing.
 echo.
-echo   1. NAME. Look at the book in your inventory or hover it on the shelf.
+echo   Then open the console with ~ and paste:
+echo.
+echo       player-^>AddItem "bk_BriefHistoryEmpire1" 1
+echo.
+echo   The record ID never changes, so this works even after the rename.
+echo.
+echo   1. NAME. Look at the book in your inventory.
 echo      Expected: PROBE_BOOKNAME_OK
 echo      If it still says "Brief History of the Empire v 1", the name is
 echo      NOT writable and the routing table changes.
@@ -55,7 +60,7 @@ echo      and the title line reading "A Brief History of the Domain".
 echo      A BLANK page is the important failure -- it would mean substring
 echo      substitution is not enough either, and WO2 needs rethinking.
 echo.
-echo   Do not save. Quit the game when done.
+echo   Do not save afterwards. Quit the game when done.
 echo   =====================================================================
 echo.
 pause
