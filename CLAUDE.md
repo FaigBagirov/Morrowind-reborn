@@ -32,7 +32,7 @@ stopped. **Every change set ends by updating this section.**
 | --- | --- | --- |
 | WO0 | Load context writability (Architecture Part 12) | **DONE, `SETTLED, MEASURED`.** Ten probes, two log layers, confirmed on screen. Canonical write-up is Architecture Part 12; working detail in `tools/reports/wo0.md` |
 | WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
-| WO2 | Rules table + transform script | **Built, not yet seen in game.** 23 rules, 371 record-fields; both artifacts emit, the Lua and Python engines agree byte for byte, the plugin builds and passes `esmtool`. Gate 3 is the game run |
+| WO2 | Rules table + transform script | **DONE, `SETTLED, MEASURED`.** All three gates pass, confirmed on screen 2026-08-28. Canonical write-up is Architecture Part 14; `run-mod.bat` re-runs the game check |
 
 ## WO0 - the answer, and why it is the constraint on everything
 
@@ -228,21 +228,28 @@ soul, or what happens after death.
 
 ## Next action
 
-**Gate 3: run the game.** Everything mechanical passes; nothing has been seen
-on screen yet. The build is current and `run-mod.bat` launches both halves and
-prints the check card - six checks, all reachable by console.
+**The engineering is done. What is left is writing.** The mechanism is proved
+end to end: rules table to two artifacts to a running game, verified on screen.
+Nothing below is blocked on tooling.
 
-To rebuild first:
-
-    python tools/scripts/transform.py --write
-    tools/bin/tes3conv.exe tools/build/scifi-rewrite.json tools/build/scifi-rewrite.esp
-
-On the MOMW list the plugin must go through the Delta Plugin merge rather than
-straight into the load order.
-
-After that: the `--profile momw` build needs a load-order file, and the
-hand-written text - Vivec's monologue (Canon Part 4, `NEEDS REVISION`) and the
-mitochondrial line (Canon Part 5, `PROPOSED`) - is a separate work order.
+1. **The hand-written book.** `tools/handwritten/bk_AedraAndDaedra.md` is
+   drafted and waiting on three answers from the user - length, whether the
+   title changes, and whether Tarer's copy gets a marginal note. Then it needs
+   emitting as an authored record on the plugin side, which the transform does
+   not do yet.
+2. **Caius Cosades.** Hand-written lines that drop the word where the player
+   cannot miss it. He is mandatory for the main quest and he is in Balmora,
+   where the book is sold.
+3. **The `Zenar` topic.** `types.Player.addTopic` exists in 0.51, so the topic
+   can be made known without touching a script body. A new DIAL plus INFO
+   records on the plugin side, answered only by the informed - which makes the
+   word explain itself wherever it appears.
+4. **Vivec's monologue**, Canon Part 4, `NEEDS REVISION`, and the mitochondrial
+   line, Canon Part 5, `PROPOSED`.
+5. **`--profile momw`** needs a load-order file, and the plugin needs to go
+   through the Delta Plugin merge on that list rather than straight in.
+6. The upstream ticket is written and on the user's Google Drive, for them to
+   file.
 
 Raised and scoped, not started: **AI voice acting** for the rewritten lines.
 Architecture Part 15 has the measurements - vanilla voices no topic dialogue at

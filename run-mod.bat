@@ -38,49 +38,37 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   GATE 3 -- what to check on screen
+echo   GATE 3, RUN 2 -- what to check
 echo   =====================================================================
 echo.
-echo   LOAD YOUR SAVE. Stay in game a few seconds. Then open the console
-echo   with ~ and paste these one at a time.
+echo   Run 1 passed everything except dialogue, which never loaded: the
+echo   plugin shipped 187 reply records with no topic records to own them
+echo   and OpenMW rejected all of them. Both that and the effect-name line
+echo   are fixed. Three things to look at.
 echo.
-echo   1. BOOK, five rules at once, and the markup has to survive.
-echo        player-^>AddItem "bk_darkestdarkness" 1
-echo      Open it. Expect normal formatting, and page one to read
-echo      "summon lesser Zenar and bound Zenar as servants".
-echo      A BLANK page is the failure that matters.
+echo   LOAD YOUR SAVE, then console with ~:
 echo.
-echo   2. ITEM NAME, and this one comes from the PLUGIN half.
-echo        player-^>AddItem "daedric_cuirass" 1
-echo      Inventory should read "Zenaric Cuirass".
-echo.
-echo   3. INGREDIENT, the one rule written by hand.
-echo        player-^>AddItem "ingred_daedras_heart_01" 1
-echo      Expect "Zenar Heart", not "Zenar's Heart".
-echo.
-echo   4. SPELL NAME and GAME SETTING in one hover.
-echo        player-^>AddSpell "summon daedroth"
-echo      Magic menu: the spell should read "Summon Zenaroth", and the
-echo      effect line under it should also say Zenaroth. The effect line
-echo      comes from a GMST, so this checks two stores at once.
-echo.
-echo   5. CREATURE NAME, plugin half. It is hostile - type tgm first if you
-echo      do not want the fight.
-echo        player-^>PlaceAtPC "daedroth" 1 1 1
-echo      The crosshair name should read "Zenaroth".
-echo.
-echo   6. DIALOGUE, plugin half, and the topic link. Spawns a copy of an
-echo      NPC next to you; do not save afterwards.
+echo   1. DIALOGUE. Give yourself the topic first - a level 1 character has
+echo      not learned it yet - then spawn the speaker and talk to her.
+echo        player-^>AddTopic "Daedric summonings"
 echo        player-^>PlaceAtPC "vala catraso" 1 1 1
-echo      Talk to her, click the topic "Daedric summonings". The reply
-echo      should keep that phrase once - that is what keeps the link
-echo      working - and say "Good Zenar are the Zenar associated with
-echo      Boethiah, Azura, and Mephala".
+echo      The reply should keep the phrase "Daedric summonings" once, which
+echo      is what keeps the topic clickable, and then read
+echo      "Good Zenar are the Zenar associated with Boethiah, Azura, and
+echo      Mephala".
 echo.
-echo   Do not save. Quit the game when done.
+echo   2. THE EFFECT LINE, the one you caught.
+echo        player-^>AddSpell "summon daedroth"
+echo      Magic menu: both the spell name AND the effect line under it
+echo      should now read Zenaroth. Last run the bottom line still said
+echo      Daedroth.
+echo.
+echo   3. Nothing else has to be re-checked - book, items, ingredient,
+echo      creature all passed.
+echo.
+echo   Do not save. Quit when done; this window collects the log by itself.
 echo   =====================================================================
 echo.
-pause
 
 echo [run-mod] Launching OpenMW...
 echo [run-mod]   config : %DEV_CFG%

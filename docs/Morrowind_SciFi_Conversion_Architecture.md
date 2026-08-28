@@ -442,13 +442,18 @@ You can answer, with a number: *how many words does this project require me to w
 
 ---
 
-## Part 14. Work Order 2 — The Rules Table and the Transform `BUILT, GATE 3 PENDING`
+## Part 14. Work Order 2 — The Rules Table and the Transform `DONE, SETTLED, MEASURED`
 
 **Runs after WO1, which is closed. This is the first work order that changes what the player sees.**
 
-> **Status 2026-08-28.** The table is `tools/rules/naming.csv`, 23 rules. The transform is `tools/scripts/transform.py` and both artifacts emit: `mod/scripts/rewrite/rules.lua` with 135 targets, and a plugin of 236 records that `tes3conv` builds and `esmtool` reads back correctly. Gates 1 and 2 pass, and the Lua and Python engines were proved equivalent over 135 fields and half a megabyte of real game text under OpenMW's own `lua51.dll`. Gate 3, the game run, has not happened.
-
-Everything before this measured the ground. This one puts weight on it. The failure mode that matters is not a crash — it is a substitution landing somewhere it should not have, inside one of 227 book texts nobody will read again before release.
+> **Status 2026-08-28. All three gates pass, confirmed on screen.** The table is `tools/rules/naming.csv`, 23 rules; the transform is `tools/scripts/transform.py`; the artifacts are `mod/scripts/rewrite/rules.lua` with 132 targets and a plugin of 100 topic records owning 187 dialogue records plus 43 others. The Lua and Python engines were proved equivalent over 131 fields and half a megabyte of real game text under OpenMW's own `lua51.dll`.
+>
+> Gate 3 took two runs, and both defects it found were invisible to every mechanical check:
+>
+> * **187 dialogue records were rejected by the engine.** An INFO belongs to the DIAL record preceding it in the file; the plugin emitted replies with no topics to own them, and the log said `info record without dialog` 187 times. The dialogue half simply did not exist in that session, while the table validated clean and both engines agreed.
+> * **A magic effect's name is not a record field.** The engine builds it from a GMST at load, in `esmfallbacks.lua`, which runs before our script — so rewriting the GMST is too late. The spell read `Summon Zenaroth` while its own effect line still read `Summon Daedroth`. The name is now written directly, on top of what the fallback copied.
+>
+> Both fixed and re-run: zero errors of any level in the log, `changed 132, skipped 0, failed 0`, and on screen a rewritten book renders with its markup, equipment and creature names read correctly, and a rewritten reply keeps its topic clickable while everything after it converts.
 
 ### One rules table, two artifacts
 
