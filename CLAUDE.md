@@ -391,6 +391,19 @@ On the user's Windows machine:
   so nothing outside the project is modified. Deleting the contents of `mod/`
   removes it entirely.
 
+## Git
+
+**Work on `master` directly. Branches only when there is a reason.** The user
+finds a branch-and-PR round trip for every change set more friction than it is
+worth on a solo repo, and said so on 2026-08-28. Commit to `master` and push.
+
+Reach for a branch when the change is genuinely risky or wants review before it
+lands - a transform that rewrites many records, a change to the masters
+pipeline, anything the user asks to look at first. Say why when you do.
+
+`gh` is installed and authenticated as `FaigBagirov`, so PRs, reviews and
+comments can all be driven from here when a branch is warranted.
+
 ## Two environments
 
 This repo is worked on from two places and they can do different things.
