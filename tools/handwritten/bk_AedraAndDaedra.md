@@ -45,45 +45,72 @@ Holamayan Monastery — the Temple and the Dissident Priests both keep it.
    a scholar**, and it stays phrased that way.
 7. ASCII only, and the markup preserved exactly.
 
-## Draft text
+## The text
 
-The text itself is `bk_AedraAndDaedra.txt` beside this file, in the exact bytes
-the record will carry: ASCII, vanilla markup, CRLF line ends. 2,137 characters
-against vanilla's 1,077 - about a page and a half in game, three screens of
-reading.
+Two files beside this one, in the exact bytes the records will carry - ASCII,
+vanilla markup, CRLF:
 
-It keeps the vanilla opening almost word for word, so a player who read this
-book twenty years ago recognises it, and then it turns.
+* `bk_AedraAndDaedra.txt` - 1,987 bytes, 1,796 characters of prose.
+* `bk_Aedra_Tarer_Unique.txt` - the same, plus one line in Tarer's hand.
+
+### The measurement that set the length
+
+A Morrowind book spread holds about **880 characters of prose**. Calibrated
+against `bk_darkestdarkness` in the Gate 3 screenshot: the last line visible on
+the first spread was "Likewise, lesser entities bound by", which sits at
+character 882.
+
+The first draft put the turn at 902 and the reveal at 971 - **just past the
+page break**. Since the opening deliberately reads like the vanilla book, a
+reader who does not click Next would have seen nothing but the book he already
+knew, and closed it. The whole point would have been on a page most players
+never reach.
+
+Trimmed until the turn came back inside:
+
+| | First draft | Now |
+| --- | --- | --- |
+| `Elegant. And in all the centuries of it...` | 902 | **805** |
+| `I have asked.` | 971 | **874** |
+
+The first spread now ends on the hook rather than on vanilla theology, and the
+page turn is something the reader wants rather than something he has to be
+lucky enough to do.
 
 ### The shape
 
-1. **The vanilla definitions**, intact. `Aedra` is ancestor, `Daedra` is not our
-   ancestors. Nothing to unlearn.
-2. **The hinge, three sentences long.** *Read the two again, and mark what they
-   measure. Not the thing. Us.* The reader is not told a secret; he is shown
-   what he has been saying all along.
-3. **The vanilla theology**, kept, because it is good and because the reveal
-   needs something solid to stand against. The world-making claim is reported as
-   belief - *are held to have made* - which is what keeps *Shared World Canon*
-   Part 0 intact without the reader noticing a change.
-4. **One line of turn.** *Elegant. And in all the centuries of it, no one
-   thought to ask them.*
+1. **The vanilla opening**, now word for word rather than paraphrased. Nothing
+   to unlearn, and nothing to be suspicious of.
+2. **The hinge, three sentences.** *Read them again, and mark what they measure.
+   Not the thing. Us.* The reader is shown what he has been saying all along.
+3. **The vanilla theology**, compressed. It is the wall the reveal pushes
+   against.
+4. **The turn**, and the page break under it.
 5. **The reveal, through witnesses nobody believed** - a hermit, an Ashlands
-   wise woman, a smuggler. That is *Canon* Part 6's informed-source layer,
-   named. Their independence is the argument: *They do not know one another.
-   They agree.*
-6. **`Zenar` and `Zenad`.** One letter, and they insist upon the letter. One
-   people parted by an old quarrel - the Schism, seen from outside by a man who
-   does not know he is describing it.
-7. **The Temple's answer**, given by the priests themselves and set down
-   *without improvement, for it is better than mine*. Call a thing kin and you
-   owe it something.
-8. **The last line.** *The word is not an error. It is a decision, and it is
-   repeated every morning in every chapel on this island.*
+   wise woman, a smuggler. *Canon* Part 6's informed-source layer, named. The
+   argument is their independence: *They do not know one another. They agree.*
+6. **`Zenar` and `Zenad`.** One letter, and they insist upon the letter. The
+   Schism described by a man who does not know he is describing it.
+7. **The Temple's reasoning**, in the priests' own words, *set down without
+   improvement, for it is better than mine*.
+8. **The last line**, which belongs to them and not to him.
 
-The narrator never claims to have met one. He is a scholar who asked, was
-answered, and understood more than he wanted to - which is the only voice that
-can carry this without becoming a revelation scene.
+## Three decisions, all made on one criterion: does the player get there
+
+1. **Length: 1,987 bytes, and the cut was not for taste.** Everything above the
+   page break had to shrink so the turn would land where a reader who does not
+   click Next can still see it.
+2. **Title stays `Aedra and Daedra`.** The surprise depends on the reader
+   believing he already knows this book - a new title throws that away, and
+   costs the topic links in the title besides.
+3. **Tarer's copy gets the marginal note.** One line, and it teaches the same
+   lesson from the other side:
+
+   > I have met one. He did not correct me when I said Daedra. He waited to see
+   > whether I would correct myself. -- T.B.
+
+   It costs nothing, it makes one more reader who knew, and a player who finds
+   both copies gets a small discovery for noticing.
 
 ## Notes on choices
 
@@ -103,13 +130,8 @@ can carry this without becoming a revelation scene.
   held to have made" - rather than asserted, which keeps Part 0 intact without
   the reader noticing a change.
 
-## Open questions for Faig
+## Still to do
 
-1. **Length.** 2,137 characters, roughly double vanilla. The plugin route has no
-   limit, and the pacing wants the room. Cut back if you would rather it fit on
-   one page.
-2. **Title.** Still `Aedra and Daedra`. Leaving it keeps the book recognisable
-   on the shelf and keeps both topic words in the title.
-3. **Tarer's copy** (`bk_Aedra_Tarer_Unique`) carries the same text today. Same
-   replacement, or a marginal note in his own hand - one line, and one more
-   reader who knew?
+The transform does not yet emit authored records. These two need a path onto
+the plugin side: read the .txt, override the BOOK record whole, keep everything
+else in it untouched.
