@@ -1,0 +1,3 @@
+record_id,record_type,reason
+bk_AedraAndDaedra,BOOK,"The game's own explanation of the words. Machine substitution turns it into a contradiction - ""Zenar means, roughly, 'not our ancestors'"" is false, since that is what mortals call them and not what they call themselves. Hand-written instead, and it is where the Daedra/Zenar distinction is taught. 81 copies in 45 places, including the Balmora bookseller."
+bk_Aedra_Tarer_Unique,BOOK,"Tarer Braryn's copy of the same book, same text, same reason. Excluding one and not the other would leave a copy that contradicts the other."

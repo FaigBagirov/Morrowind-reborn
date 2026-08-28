@@ -103,10 +103,6 @@ lua,BOOK,BookSkill_Sneak2,text,R500,2,-2,,0,0
 lua,BOOK,BookSkill_Sneak3,text,R500 R600,5,-3,,0,0
 lua,BOOK,BookSkill_Spear2,text,R500,1,-1,,0,0
 lua,BOOK,BookSkill_Speechcraft1,text,R500,2,-2,,0,0
-lua,BOOK,bk_AedraAndDaedra,name,R500 R600,2,-1,,0,0
-lua,BOOK,bk_AedraAndDaedra,text,R500 R600,15,-8,,0,0
-lua,BOOK,bk_Aedra_Tarer_Unique,name,R500 R600,2,-1,,0,0
-lua,BOOK,bk_Aedra_Tarer_Unique,text,R500 R600,15,-8,,0,0
 lua,BOOK,bk_AncestorsAndTheDunmer,text,R500 R600,2,-1,,0,0
 lua,BOOK,bk_AnnotatedAnuad,text,R500 R600,3,-2,,0,0
 lua,BOOK,bk_Anticipations,text,R500,10,-10,,0,0

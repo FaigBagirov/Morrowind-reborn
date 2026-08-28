@@ -38,7 +38,7 @@ from wo1_survey import (  # noqa: E402
 )
 from momw_compat import TYPE_CODE  # noqa: E402
 from check_rules import (  # noqa: E402
-    apply_rules, apply_rules_keeping, load_rules, validate,
+    apply_rules_keeping, load_frozen, load_rules, validate,
 )
 
 MASTERS = ("Morrowind.esm", "Tribunal.esm", "Bloodmoon.esm")
@@ -149,6 +149,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--rules", default=os.path.join(root, "tools", "rules",
                                                     "naming.csv"))
+    ap.add_argument("--frozen", default=os.path.join(root, "tools", "rules",
+                                                     "frozen-records.csv"))
     ap.add_argument("--cache-dir", default=os.path.join(root, "tools", "cache"))
     ap.add_argument("--esm-dir", default=os.path.join(root, "tools", "input"))
     ap.add_argument("--out-mod", default=os.path.join(root, "mod"))
@@ -181,7 +183,11 @@ def main():
         for e in errors:
             print("  REFUSED:", e)
         raise SystemExit(f"{len(errors)} rule violations - refusing to run")
+    frozen = load_frozen(args.frozen)
     print(f"Rules: {len(rules)}, table sha256 {table_hash[:12]}")
+    print(f"Frozen records, hand-written instead: {len(frozen)}")
+    for rid in sorted(frozen):
+        print(f"    {frozen[rid]['record_type']} {frozen[rid]['record_id']}")
 
     paths = [os.path.join(args.cache_dir, n.replace(".esm", ".json"))
              for n in MASTERS]
@@ -224,7 +230,7 @@ def main():
             keep = rec.get("topic", "") if code == "INFO" else ""
             for value in field_values(rec, spec):
                 new, applied, notes, protected, kept = apply_rules_keeping(
-                    value, rules, code, field, rid, keep)
+                    value, rules, code, field, rid, keep, frozen)
                 if kept:
                     counts["topic_keyword_kept"] += 1
                 counts["protected_in_markup"] += len(protected)

@@ -59,6 +59,22 @@ def _list(cell):
     return ["*"] if cell == "*" or not cell else cell.replace(",", " ").split()
 
 
+def load_frozen(path):
+    """Records the transform never touches, whatever the rules say.
+
+    Different from a rule's `exclude_records`, which excuses one record from
+    one rule. This is a whole record excused from every rule, because the right
+    text for it is written by hand rather than derived. The first entry is the
+    book that explains what the words mean: substituting inside it produces a
+    sentence that is false in the fiction, and that book is exactly where the
+    distinction has to be taught.
+    """
+    if not os.path.exists(path):
+        return {}
+    with open(path, newline="", encoding="utf-8") as f:
+        return {r["record_id"].strip().lower(): r for r in csv.DictReader(f)}
+
+
 def load_rules(path):
     with open(path, newline="", encoding="utf-8") as f:
         rules = [Rule(r) for r in csv.DictReader(f)]
@@ -236,7 +252,8 @@ def in_spans(i, j, spans):
 SENTINEL = ""
 
 
-def apply_rules_keeping(value, rules, code, field, record_id, keep):
+def apply_rules_keeping(value, rules, code, field, record_id, keep,
+                        frozen=None):
     """Substitute, but leave the first literal occurrence of `keep` intact.
 
     A dialogue response hyperlinks a topic only where the topic's word appears
@@ -248,7 +265,7 @@ def apply_rules_keeping(value, rules, code, field, record_id, keep):
 
     Returns the same tuple as apply_rules, plus whether the keep fired.
     """
-    plain = apply_rules(value, rules, code, field, record_id)
+    plain = apply_rules(value, rules, code, field, record_id, frozen)
     if not keep:
         return plain + (False,)
     low_keep = keep.lower()
@@ -258,12 +275,12 @@ def apply_rules_keeping(value, rules, code, field, record_id, keep):
     i = value.lower().find(low_keep)
     fenced = value[:i] + SENTINEL + value[i + len(keep):]
     new, applied, notes, protected = apply_rules(
-        fenced, rules, code, field, record_id)
+        fenced, rules, code, field, record_id, frozen)
     restored = new.replace(SENTINEL, value[i:i + len(keep)])
     return restored, applied, notes, protected, True
 
 
-def apply_rules(value, rules, code, field, record_id):
+def apply_rules(value, rules, code, field, record_id, frozen=None):
     """Return (new value, [(rule id, matched, written, next word)], [notes]).
 
     One left-to-right pass per rule. Replacements are validated never to
@@ -272,6 +289,8 @@ def apply_rules(value, rules, code, field, record_id):
     """
     applied, notes, protected_hits = [], [], []
     rid = record_id.lower()
+    if frozen and rid in frozen:
+        return value, [], [], []
     for r in rules:
         if not r.applies(code, field) or rid in r.exclude:
             continue
