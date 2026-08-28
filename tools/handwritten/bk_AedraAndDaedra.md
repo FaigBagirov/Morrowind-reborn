@@ -81,37 +81,34 @@ there is.
 
 ### The shape
 
-0. **The hook**, third sentence. The word, and a debt the book owes the reader:
-   *Where it comes from, and why it has never reached your ear, I will come to.*
-1. **The vanilla definitions**, stripped to the two lines that matter. Nothing
-   to unlearn.
-2. **The hinge.** *They do not measure the thing. They measure us. How near it
-   sits to our fire, our table, our dead.* Then the image the whole book turns
-   on: **kinship is no property of the creature. It is a hand held out, or held
-   back.**
-3. **The vanilla theology**, recast around that gesture and reported as belief -
-   *the Aedra, it is said, made the world* - which keeps *Shared World Canon*
-   Part 0 intact. *What is bound may be killed. The Daedra, bound to nothing,
-   can only be sent away.*
-4. **Three words and a page break.** *Elegant. Very old. And in all those
-   centuries nobody thought to ask them.*
-5. **The witnesses**, one clause each and each of them a person rather than a
-   category: a hermit who had not spoken to a man in nine years, a wise woman
-   who answered in the plural, a smuggler who would change his story about
-   anything except this. The argument is not their testimony but their
-   distance: *They have never met. Their accounts do not differ by a word.*
-6. **`Zenar` and `Zenad`.** One letter, and they are careful with the letter.
-   The Schism described by a man who does not know he is describing it.
-7. **The scholar's discomfort**, which is what makes it credible: *a sentence I
-   would rather not write.*
-8. **The Temple's reasoning**, in their words, ending on the syllable that
-   indicts them - *and you may do as you like with it, and sleep.*
-9. **The last line.** *A decision, taken once and renewed every morning, in
-   every chapel on this island, by men who know exactly what they are saying.*
+0. **The hook**, third sentence, at character 200. The word, and a debt:
+   *Where it comes from, and why it has not reached you, I will come to.*
+1. **The vanilla definitions**, cut to the two lines that carry meaning.
+2. **The hinge.** *They do not measure the thing. They measure us.* Then the
+   image the book turns on: **kinship is no property of the creature. It is a
+   hand held out, or held back.**
+3. **The theology as consequence of that gesture**, in four short sentences.
+   *What is bound to the world may be killed. What is bound to nothing can only
+   be sent away.* Bethesda's own Lorkhan line sits inside it, and the
+   world-making claim stays a Dunmer belief rather than an assertion, which is
+   what keeps *Shared World Canon* Part 0 intact.
+4. **Three words.** *Elegant. Very old. Nobody thought to ask them.*
+5. **The witnesses, as fragments.** *A hermit nine years silent. A wise woman
+   who answered in the plural. A smuggler who lied about everything else.* No
+   sentence explains why any of that matters. The argument is the distance
+   between them: *They have never met. Their accounts do not differ by a word.*
+6. **`Zenar` and `Zenad`.** One letter, and they are careful with it.
+7. **The Temple's reasoning**, ending on the word that indicts it: *and you may
+   do as you like with it, and sleep.*
+8. **The last two sentences, which belong to no one in the book.** *They have
+   not corrected us. I no longer think they mean to.*
+
+The scholar's self-commentary is gone. Every line he used to spend explaining
+his own discomfort now belongs to an image or to silence.
 
 ## Three decisions, all made on one criterion: does the player get there
 
-1. **Length: 2,317 bytes**, and the shape matters more than the number. The
+1. **Length: 1,938 bytes**, and the shape matters more than the number. The
    first page names `Zenar` and promises to explain it; everything after that
    is paced rather than rationed.
 2. **Title stays `Aedra and Daedra`.** The surprise depends on the reader
