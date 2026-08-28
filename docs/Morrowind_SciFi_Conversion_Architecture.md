@@ -160,7 +160,7 @@ Morrowind record fields are not unbounded. IDs in particular are fixed-width, an
 ## Part 7. What the Rewrite Does *Not* Cover
 
 * **Lua mod text.** Setting names, N'Garde's block-skill description, mod-added item names. Not in ESP records — needs separate handling.
-* **Voiced lines.** Mercy's combat barks are ElevenLabs audio. Unfixable by text substitution; either accept them or disable that feature.
+* **Voiced lines.** Audio is unfixable by text substitution. Measured 2026-08-28 and the news is good: of 31,822 INFO records, 6,075 carry a sound file and **every one of them is dialogue type `Voice`** — combat and idle barks. **Not one of those 6,075 contains a target keyword**, so there is no place in vanilla where the player hears "Daedra" while reading "Zenar". Mod-added audio such as Mercy's barks is still outside this. See Part 15 for voicing our own lines.
 * **Textures and meshes.** Signage, book covers, the Daedric alphabet. *Fortunate accident:* the Daedric script reads perfectly well as an alien writing system with zero changes.
 * **Sound effect names** referenced by scripts.
 
@@ -546,3 +546,41 @@ The rewrite applies to a running game, the three gates pass, and the diff report
 * **The eight script-body strings.** `MessageBox` and `Say` calls at the Vivec shrines and elsewhere carry keywords the player reads. Script bodies are frozen, and the ESM carries compiled bytecode beside the text. Permanent residue, listed in `tools/reports/wo1-script-strings.csv`.
 * **Hand-written text.** Canon Part 4's monologue, Part 5's grumble lines, Part 6's informed characters. Those are written, not substituted, and they are a separate work order.
 * **Merging into the mod list.** Regenerating `delta-merged.omwaddon` is an install step, not a transform step. `tools/reports/momw-compat.md` carries the detail.
+
+---
+
+## Part 15. Voice Acting, If It Ever Happens `SCOPED, NOT STARTED`
+
+Not a work order. A file of what was measured on 2026-08-28, so the question does not have to be researched twice.
+
+### The ground is unusually clean
+
+| | |
+| --- | --- |
+| INFO records in the masters | 31,822 |
+| With a sound file | 6,075, **all of them dialogue type `Voice`** — barks, not topic responses |
+| Of those, carrying a target keyword | **0** |
+| Our rewritten INFO records | 193 |
+| Of those, voiced in vanilla | **0** |
+
+Vanilla Morrowind does not voice its topic dialogue at all. Everything we rewrite is silent to begin with, so the rewrite destroys no audio and contradicts none.
+
+### What exists
+
+* **Kezyma's Voices of Vvardenfell** — the whole game voiced with ElevenAI, plus a separate **OpenMW patch** that plays the files including generic dialogue. The patch hooks an `onInfoGetText` event and needs an ESP patch and the OpenMW Lua helper.
+* **Morrowind Voice Generator** — the tool for authors: generates lines for a mod, locally on a GPU or through ElevenLabs, with a separate voice per race, gender or NPC. This is the one that fits our shape.
+* **AIVoices** — real-time synthesis, but MWSE, so not for OpenMW.
+
+### The conflict, and it is the one we already solved
+
+The OpenMW patch states plainly that **any mod altering dialogue entries blocks playback**. We alter 193. The published resolution is Delta Plugin — the same field-wise merge that resolves the Daedric armour collision, and the same tool already sitting in the MOMW list. So this is not a second problem; it is the same build step.
+
+### Three rules if it is ever done
+
+1. **Text first, audio last.** Generated audio freezes the wording. A line rewritten after it was voiced is a line where what the player hears and what they read disagree — the exact failure the whole project exists to avoid.
+2. **The input already exists.** `tools/reports/transform-diff.csv` carries every rewritten record with its final text. Generating audio is a mechanical pass over that file, not a new survey.
+3. **Cloned voices are real people's voices.** What makes these mods convincing is that the original actors' voices were cloned. That is a rights question rather than a technical one, and it only arises on public release.
+
+### What it does not reach
+
+The eight `MessageBox` and `Say` strings inside script bodies stay unreachable whatever happens with audio, and the 6,075 vanilla barks need nothing because none of them says a target word.

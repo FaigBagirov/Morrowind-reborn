@@ -251,6 +251,11 @@ After that: the `--profile momw` build needs a load-order file, and the
 hand-written text - Vivec's monologue (Canon Part 4, `NEEDS REVISION`) and the
 mitochondrial line (Canon Part 5, `PROPOSED`) - is a separate work order.
 
+Raised and scoped, not started: **AI voice acting** for the rewritten lines.
+Architecture Part 15 has the measurements - vanilla voices no topic dialogue at
+all, none of our 193 lines is voiced, and no vanilla bark says a target word.
+The tooling exists and the one conflict is the Delta merge we already do.
+
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 
 Checked 2026-08-28 against version 8.5.0 of the list in
