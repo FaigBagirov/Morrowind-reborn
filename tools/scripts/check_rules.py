@@ -231,6 +231,38 @@ def in_spans(i, j, spans):
     return any(a <= i and j <= b for a, b in spans)
 
 
+# A byte no rule can match and no game text contains, used to fence off the
+# one occurrence of a topic keyword that has to survive.
+SENTINEL = ""
+
+
+def apply_rules_keeping(value, rules, code, field, record_id, keep):
+    """Substitute, but leave the first literal occurrence of `keep` intact.
+
+    A dialogue response hyperlinks a topic only where the topic's word appears
+    literally in the text. Rewrite every occurrence and the link stops firing,
+    which is the rule in CLAUDE.md and semantic 6 of Architecture Part 14. Topic
+    IDs are never renamed, so the surviving word is also correct in the fiction:
+    Shared World Canon Part 9 keeps "Daedra" as the mortal category even where
+    Part 9's own test renames the species.
+
+    Returns the same tuple as apply_rules, plus whether the keep fired.
+    """
+    plain = apply_rules(value, rules, code, field, record_id)
+    if not keep:
+        return plain + (False,)
+    low_keep = keep.lower()
+    if low_keep not in value.lower() or low_keep in plain[0].lower():
+        return plain + (False,)
+
+    i = value.lower().find(low_keep)
+    fenced = value[:i] + SENTINEL + value[i + len(keep):]
+    new, applied, notes, protected = apply_rules(
+        fenced, rules, code, field, record_id)
+    restored = new.replace(SENTINEL, value[i:i + len(keep)])
+    return restored, applied, notes, protected, True
+
+
 def apply_rules(value, rules, code, field, record_id):
     """Return (new value, [(rule id, matched, written, next word)], [notes]).
 

@@ -229,23 +229,16 @@ soul, or what happens after death.
 ## Next action
 
 **Gate 3: run the game.** Everything mechanical passes; nothing has been seen
-on screen yet.
+on screen yet. The build is current and `run-mod.bat` launches both halves and
+prints the check card - six checks, all reachable by console.
+
+To rebuild first:
 
     python tools/scripts/transform.py --write
     tools/bin/tes3conv.exe tools/build/scifi-rewrite.json tools/build/scifi-rewrite.esp
 
-What the run has to check, per Architecture Part 14, all reachable by console:
-
-- a rewritten **book** still renders with its markup - `bk_darkestdarkness`
-  carries five rules at once;
-- a renamed **item** reads correctly in the inventory - any daedric weapon;
-- a rewritten **INFO** still hyperlinks its topic;
-- a **magic effect description** shows the change, which is the one Lua store
-  never seen on screen.
-
-The Lua half loads from `mod/scifi-rewrite.omwscripts`. The plugin half needs
-`scifi-rewrite.esp` in the load order, and on the MOMW list it must go through
-the Delta Plugin merge rather than straight in.
+On the MOMW list the plugin must go through the Delta Plugin merge rather than
+straight into the load order.
 
 After that: the `--profile momw` build needs a load-order file, and the
 hand-written text - Vivec's monologue (Canon Part 4, `NEEDS REVISION`) and the

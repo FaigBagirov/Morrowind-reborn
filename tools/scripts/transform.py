@@ -37,7 +37,9 @@ from wo1_survey import (  # noqa: E402
     stream_records,
 )
 from momw_compat import TYPE_CODE  # noqa: E402
-from check_rules import apply_rules, load_rules, validate  # noqa: E402
+from check_rules import (  # noqa: E402
+    apply_rules, apply_rules_keeping, load_rules, validate,
+)
 
 MASTERS = ("Morrowind.esm", "Tribunal.esm", "Bloodmoon.esm")
 
@@ -215,19 +217,32 @@ def main():
                 counts["info_frozen_by_policy"] += 1
                 continue
             field = spec.split(".")[0] if "." in spec else spec
+            # A dialogue response hyperlinks a topic only where the topic's
+            # word appears literally. Rewriting every occurrence silently kills
+            # the link, and 21 of the 193 rewritten lines did exactly that
+            # before this was measured.
+            keep = rec.get("topic", "") if code == "INFO" else ""
             for value in field_values(rec, spec):
-                new, applied, notes, protected = apply_rules(
-                    value, rules, code, field, rid)
+                new, applied, notes, protected, kept = apply_rules_keeping(
+                    value, rules, code, field, rid, keep)
+                if kept:
+                    counts["topic_keyword_kept"] += 1
                 counts["protected_in_markup"] += len(protected)
                 if not applied:
                     continue
                 counts[f"{route}_fields"] += 1
+                low_keep = (keep or "").lower()
                 rows.append({
                     "route": route, "record_type": code, "record_id": rid,
                     "field": field,
                     "rules": " ".join(sorted({a[0] for a in applied})),
                     "substitutions": len(applied),
                     "length_delta": len(new) - len(value),
+                    "topic": keep,
+                    "topic_keyword_before":
+                        value.lower().count(low_keep) if low_keep else 0,
+                    "topic_keyword_after":
+                        new.lower().count(low_keep) if low_keep else 0,
                 })
                 if route == "lua":
                     lua_targets.append((code, rid, field))
@@ -240,6 +255,15 @@ def main():
           f"{len(plugin_records)} records")
     print(f"INFO frozen by dialogue policy: {counts['info_frozen_by_policy']}")
     print(f"Matches protected inside markup: {counts['protected_in_markup']}")
+    print(f"Topic keywords kept so the hyperlink still fires: "
+          f"{counts['topic_keyword_kept']}")
+
+    broken = [r for r in rows if r["topic_keyword_before"] > 0
+              and r["topic_keyword_after"] == 0]
+    if broken:
+        for r in broken[:5]:
+            print("  REFUSED: lost its topic link:", r["record_id"], r["topic"])
+        raise SystemExit(f"{len(broken)} records lost their topic hyperlink")
 
     grew = [r for r in rows if r["length_delta"] > 0]
     if grew:
