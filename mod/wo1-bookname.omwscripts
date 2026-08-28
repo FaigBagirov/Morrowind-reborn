@@ -1,0 +1,13 @@
+# Work Order 1 - book name and book render probe.
+#
+# P1: is BOOK name writable from the load context?
+# P2: does a book still render after a substring substitution in its text?
+#
+# Three layers: the write, an independent readback, and an on-screen report
+# from the live session. Launch with run-probe.bat. This file is passed on the
+# command line, so the WO0 spike beside it does not load. Remove by deleting
+# mod/ contents.
+
+LOAD:   scripts/wo1/bookname_load.lua
+GLOBAL: scripts/wo1/bookname_readback.lua
+PLAYER: scripts/wo1/bookname_hud.lua

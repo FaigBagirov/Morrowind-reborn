@@ -1,0 +1,55 @@
+[06:46:40.809 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:46:40.810 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] ###############################################
+[06:46:40.810 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] # WORK ORDER 1 -- book name and render probe  #
+[06:46:40.811 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] # Layer 1: writes from the LOAD context       #
+[06:46:40.811 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] ###############################################
+[06:46:40.812 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:46:40.813 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] target book: bk_BriefHistoryEmpire1
+[06:46:40.813 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:46:40.814 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === P1  BOOK name ===
+[06:46:40.815 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old name  : Brief History of the Empire v 1
+[06:46:40.816 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   sentinel  : PROBE_BOOKNAME_OK
+[06:46:40.816 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   RESULT P1 : WRITE_OK  write_ok=true readback_load=true
+[06:46:40.817 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:46:40.818 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === P2  BOOK text, substring substitution ===
+[06:46:40.818 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   rule      : substitute inside the field, never replace the field
+[06:46:40.819 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old length: 5403
+[06:46:40.820 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   old head  : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magi ...(5403 chars)
+[06:46:40.821 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   "Empire" before: 2  "Domain" before: 0
+[06:46:40.821 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   heading found: 1 x  "A Brief History of the Empire"
+[06:46:40.822 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   new length: 5403 (delta 0)
+[06:46:40.823 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   "Empire" after : 0  "Domain" after : 2
+[06:46:40.823 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   marker now: 1 x  "PROBE TEXT OK -- Domain Hist."
+[06:46:40.824 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   head now  : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magi ...(5403 chars)
+[06:46:40.825 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   RESULT P2 : WRITE_OK  write_ok=true readback_load=true
+[06:46:40.825 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]   NOTE      : the log cannot say whether the PAGE renders.
+[06:46:40.827 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               Open the book in game. Page one should open with
+[06:46:40.827 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               "PROBE TEXT OK -- Domain Hist.".
+[06:46:40.828 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               A blank page means substring substitution is not
+[06:46:40.829 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               enough either; the vanilla heading means the write
+[06:46:40.829 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               never reached the running session - Layer 3 says
+[06:46:40.830 I] Load[scripts/wo1/bookname_load.lua]:	[WO1]               which of the two it is.
+[06:46:40.831 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] 
+[06:46:40.831 I] Load[scripts/wo1/bookname_load.lua]:	[WO1] === Layer 1 complete. Layer 2 readback runs when a game starts. ===
+[06:47:01.430 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] 
+[06:47:01.431 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] === LAYER 2: independent readback from a GLOBAL script ===
+[06:47:01.432 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   store     : types.Book.records
+[06:47:01.432 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   record id : bk_BriefHistoryEmpire1
+[06:47:01.434 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] 
+[06:47:01.434 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   P1 name   : PROBE_BOOKNAME_OK
+[06:47:01.434 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   RESULT P1 : SENTINEL_PRESENT  readback_global=true
+[06:47:01.435 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] 
+[06:47:01.435 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   P2 length : 5403
+[06:47:01.436 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   P2 head   : <DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magi ...(5403 chars)
+[06:47:01.437 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   "Empire": 0  "Domain": 2  marker: 1  markup head intact: true
+[06:47:01.437 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   RESULT P2 : SUBSTITUTION_PRESENT_MARKUP_INTACT  readback_global=true
+[06:47:01.438 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] 
+[06:47:01.438 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   Neither layer can see the screen. The page render and the item
+[06:47:01.439 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   name in the inventory are the on-screen checks, and they are the
+[06:47:01.440 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1]   ones that decide.
+[06:47:01.440 I] Global[scripts/wo1/bookname_readback.lua]:	[WO1] === Layer 2 complete ===
+[06:47:01.463 I] L@0x1[scripts/wo1/bookname_hud.lua]:	[WO1] 
+[06:47:01.463 I] L@0x1[scripts/wo1/bookname_hud.lua]:	[WO1] === LAYER 3: read from the PLAYER context of the live session ===
+[06:47:01.464 I] L@0x1[scripts/wo1/bookname_hud.lua]:	[WO1]   WO1 name: PROBE_BOOKNAME_OK
+[06:47:01.464 I] L@0x1[scripts/wo1/bookname_hud.lua]:	[WO1]   WO1 text: PROBE TEXT OK -- Domain Hist. Part One by Stronach k'Thojj I
+[06:47:01.465 I] L@0x1[scripts/wo1/bookname_hud.lua]:	[WO1]   text length: 5403

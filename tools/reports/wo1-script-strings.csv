@@ -1,0 +1,9 @@
+script_id,keywords,line
+BILL_FG_Nchurdamz02,daedroth,"""Larienna Macrina""->Say ""Vo\Misc\bill_fg_nchurdamz02.wav"", ""I can smell the stench of the Daedroth. It is here and I will find it!'"""
+BILL_TT_MountKand01,daedra,"MessageBox ""You receive visions: You watch in stunned silence as Vivec defeats three daedra in a contest of riddles. Vivec's Blessing be upon you!"""
+DaedraAzura,daedra,"Player->Say ""Vo\Misc\DA_AzuraComplete.wav"",""Well done, mortal. You have preserved the integrity of my wager with Sheogorath. Now it will end as fated, and not due to the meddling of the Daedra Prince. Take this, and use it wisely."""
+DaedraMehrunes,daedra,"MessageBox ""Would you like a chance to prove your worth to me?"" ""I wish to prove my worth."" ""I have no desire to deal with you, Daedra Prince."" ;choice to do quest"
+magasScript,daedric,"MessageBox ""You have defeated the Lord Dregas Volar. The Daedric amulet that brought you to this place disappears from your inventory, but is replaced by Volar's own weapon. You now wield the Crescent Blade."""
+shrineMountKand,daedra,"MessageBox ""Here Vivec won a contest of wits with three Daedra. After enraging them with his answers, he used their bones to build houses for his people."""
+shrinePuzzleCanal,daedra,"MessageBox ""Here Vivec gave a plain silver longsword to the Daedra Lord Mehrunes Dagon rather than dishonor himself by fighting an unarmed foe."""
+shrinePuzzleCanal,daedra,"MessageBox ""Here Vivec gave a plain silver longsword to the Daedra Lord Mehrunes Dagon rather than dishonor himself by fighting an unarmed foe."""
