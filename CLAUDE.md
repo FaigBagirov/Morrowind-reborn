@@ -448,26 +448,29 @@ What follows for every probe from here on:
 
 # What is in `additional/`
 
-Transcripts of the earlier local Claude Code session, plus one failed export.
+Transcripts of the two earlier sessions.
 
-- `chat2-web-partial.txt` is a Chrome MHTML save of the **web** conversation,
-  extracted to text. It is nearly empty of content: claude.ai virtualises the
-  message list, so the snapshot caught the first two exchanges, the last one,
-  and a "Load later messages" button where the middle should be. Zero hits for
-  `WO2`, `WO0` or `Zenad`. Kept only so the next session does not try the same
-  export and reach the same dead end. A real transcript needs either the
-  account-level data export or every message rendered before saving.
-
-- `chat1.txt` is the complete one, 5712 lines.
+- `chat1.txt` is the complete local Claude Code session, 5712 lines.
 - `claude_chat.log` is the same session saved earlier and cut short: it ends
   at what is line 4720 of `chat1.txt`, about a thousand lines short. It can be
   ignored - the only content that is not a prefix of `chat1.txt` is the
   OpenMW path in the opening brief, which the user corrected between the two
   saves.
+- `chat2-web.md` is the **web** conversation, 17 to 27 August, 44 exchanges -
+  where the fiction was designed and every document in `docs/` was written.
+  Exported from claude.ai as Markdown.
 
-They cover the **WO0 build only** and contain exactly two user turns: the
-opening brief, and a later instruction to add probes 5-8 so the run would
-report what survives and not only what is broken. The session ends with the
-scripts built and mock-verified, **before the game was ever run** - so the
-actual spike result is in `logs/wo0-spike.txt`, not in the transcripts.
-Everything in them worth keeping is summarised above.
+  A note for whoever needs it next: saving that page with Ctrl+S produces
+  almost nothing. claude.ai virtualises the message list, so an MHTML snapshot
+  catches the first two exchanges, the last one, and a "Load later messages"
+  button where the middle should be - zero hits for `WO0` or `Zenad`. Use the
+  Markdown export.
+
+`chat1.txt` covers the **WO0 build only** and contains exactly two user turns:
+the opening brief, and a later instruction to add probes 5-8 so the run would
+report what survives and not only what is broken. It ends with the scripts
+built and mock-verified, **before the game was ever run** - so the actual spike
+result is in `logs/wo0-spike.txt`, not in that transcript.
+
+Everything in all three worth keeping is in `docs/` and in this file. They were
+checked against the documents on 2026-08-28 and nothing was found missing.

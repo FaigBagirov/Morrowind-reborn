@@ -242,23 +242,26 @@ Because `Daedric` to `Zenaric` is length-preserving, **every equipment name is a
 
 > **Safe is not the same as reachable.** Work Order 0 measured that armour, weapon, clothing and creature names cannot be written from Lua in OpenMW 0.51, from any context. This table states what the words *should* become; *Conversion Architecture* Part 12 states which of them can currently be delivered. Do not read a row here as a solved problem.
 
-## Substring warning `SETTLED`
+## Substring warning `SETTLED, MEASURED`
 
-**The string "daedra" contains the string "aedra".** Work Order 1 matched substrings, and almost every reported hit for `aedra` was a false one:
+**The string "daedra" contains the string "aedra".** Work Order 1's first pass matched substrings, and almost every reported hit for `aedra` was a false one. The re-run of 2026-08-28 applied a left word boundary and measured what is really there:
 
-| Field | aedra reported | daedra reported | real Aedra |
+| Field | First pass claimed | Real occurrences | Real records |
 | --- | --- | --- | --- |
-| INFO text | 338 | 315 | ~23 |
-| BOOK text | 84 | 79 | 5 |
-| DIAL id | 13 | 13 | 0 |
-| INGREDIENT name | 3 | 3 | 0 |
+| INFO text | 338 | **22** | 22 |
+| BOOK text | 84 | **38** | 13 |
+| BOOK name | 5 | **2** | 2 |
+| DIAL id | 13 | **0** | 0 |
+| INGREDIENT name | 3 | **0** | 0 |
 
 Two consequences, both mandatory in any rules table, in either game:
 
 * `aedra` must carry a **left word boundary**. Without it the transform turns every "Daedra" into "DZenad", mechanically and identically across the whole game.
 * Rule order must be **fixed and versioned**: `daedra` before `aedra`, always.
 
-Consequence for scope: `Aedra` to `Zenad` touches roughly twenty lines in the whole of Morrowind. It is a cosmetic decision, not a structural one.
+Consequence for scope: `Aedra` to `Zenad` touches **35 records game-wide, 62 occurrences**. It is a cosmetic decision, not a structural one.
+
+A third consequence, learned the same day and about the tooling rather than the words: the boundary is worth nothing if the matcher treats the pattern as a regular expression. Lua's `string.gsub` does, and offers no plain-match flag; only `string.find` has one. Match literally, in both games.
 
 ## Free of charge, rename nothing
 
@@ -294,6 +297,8 @@ One mechanic, two games, no strain. When designing anything new in either game, 
 ---
 
 ## Revision log
+
+* **Rev 3.** Substring warning re-stated against measured numbers: the WO1 re-run of 2026-08-28 puts real `aedra` at 62 occurrences in 35 records game-wide, against the 430 the first pass claimed. Adds the plain-matching consequence - a word boundary is worth nothing if the matcher reads the pattern as a regular expression, which Lua's `string.gsub` does.
 
 * **Rev 2.** Cross-reference to *Morrowind Canon* Parts 11 to 15 corrected to Part 8 after the Rev 3 split. Rename Test given an explicit carve-out for DIAL topic IDs, which the settled policy never renames; the `Daedra Worship` row re-scoped to prose. Naming table given a reachability caveat pointing at the Work Order 0 measurements.
 * **Rev 1.** Extracted from *Morrowind Conversion Canon* Rev 2 as the shared layer for both projects. Content unchanged except: Part 0 rule 1 extended to forbid assigning greatness to the Zenad; Part 7 rewritten around the containment image (drawing and hand, line and page) replacing the resolution argument; Part 11 promoted from a Morrowind implementation detail to a shared principle after the Skyrim dragon-priest-mask finding.
