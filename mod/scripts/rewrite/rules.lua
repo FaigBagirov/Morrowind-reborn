@@ -31,6 +31,7 @@ return {
     },
     targets = {
         { [[GMST]], [[sEffectSummonDaedroth]], [[value]] },
+        { [[MGEF]], [[SummonDaedroth]], [[name]] },
         { [[MGEF]], [[CalmHumanoid]], [[description]] },
         { [[MGEF]], [[CalmCreature]], [[description]] },
         { [[MGEF]], [[FrenzyHumanoid]], [[description]] },
@@ -92,10 +93,6 @@ return {
         { [[BOOK]], [[BookSkill_Sneak3]], [[text]] },
         { [[BOOK]], [[BookSkill_Spear2]], [[text]] },
         { [[BOOK]], [[BookSkill_Speechcraft1]], [[text]] },
-        { [[BOOK]], [[bk_AedraAndDaedra]], [[name]] },
-        { [[BOOK]], [[bk_AedraAndDaedra]], [[text]] },
-        { [[BOOK]], [[bk_Aedra_Tarer_Unique]], [[name]] },
-        { [[BOOK]], [[bk_Aedra_Tarer_Unique]], [[text]] },
         { [[BOOK]], [[bk_AncestorsAndTheDunmer]], [[text]] },
         { [[BOOK]], [[bk_AnnotatedAnuad]], [[text]] },
         { [[BOOK]], [[bk_Anticipations]], [[text]] },

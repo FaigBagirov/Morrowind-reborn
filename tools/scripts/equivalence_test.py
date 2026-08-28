@@ -25,15 +25,19 @@ from wo1_survey import (  # noqa: E402
     DISPLAY_FIELDS, FROZEN, field_values, load_masters,
 )
 from momw_compat import TYPE_CODE  # noqa: E402
-from check_rules import apply_rules, load_rules  # noqa: E402
+from check_rules import apply_rules, load_frozen, load_rules  # noqa: E402
 from transform import LUA_STORE  # noqa: E402
 
 MASTERS = ("Morrowind.json", "Tribunal.json", "Bloodmoon.json")
 LUA_DLL = r"D:\Program Files\OpenMW 0.51.0\lua51.dll"
 
 
-def build_fixture(cache_dir, rules_path):
+def build_fixture(cache_dir, rules_path, frozen_path):
     rules = load_rules(rules_path)
+    # The fixture has to cover exactly what ships. Frozen records are
+    # hand-written and never reach the Lua half, so including them would test
+    # an engine path the game never takes.
+    frozen = load_frozen(frozen_path)
     paths = [os.path.join(cache_dir, n) for n in MASTERS]
     records = load_masters(paths)
     cases = []
@@ -53,7 +57,7 @@ def build_fixture(cache_dir, rules_path):
             field = spec.split(".")[0] if "." in spec else spec
             for value in field_values(rec, spec):
                 new, applied, _notes, _prot = apply_rules(
-                    value, rules, code, field, rid)
+                    value, rules, code, field, rid, frozen)
                 if applied:
                     cases.append({"code": code, "id": rid, "field": field,
                                   "before": value, "after": new})
@@ -89,12 +93,14 @@ def main():
     ap.add_argument("--cache-dir", default=os.path.join(root, "tools", "cache"))
     ap.add_argument("--rules", default=os.path.join(root, "tools", "rules",
                                                     "naming.csv"))
+    ap.add_argument("--frozen", default=os.path.join(root, "tools", "rules",
+                                                     "frozen-records.csv"))
     ap.add_argument("--lua-dll", default=LUA_DLL)
     ap.add_argument("--scratch", default=os.path.join(root, "tools", "build"))
     args = ap.parse_args()
 
     print("Building the fixture from the Python engine ...")
-    cases = build_fixture(args.cache_dir, args.rules)
+    cases = build_fixture(args.cache_dir, args.rules, args.frozen)
     print(f"  {len(cases)} fields, "
           f"{sum(len(c['before']) for c in cases)} characters")
 

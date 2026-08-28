@@ -119,17 +119,25 @@ def full_records(json_paths, wanted):
     record whole, so a slimmed record produces a plugin missing half of every
     entry. tes3conv catches the most obvious case - "missing field `flags`" -
     and would happily have written the rest.
+
+    Also collects the DIAL record for every topic we touch, and the order the
+    INFO records appear in. An INFO belongs to the DIAL that precedes it in the
+    file: emit the INFO without its DIAL and OpenMW refuses the record with
+    "info record without dialog". Measured in game on 2026-08-28 - all 187
+    dialogue records were rejected and the dialogue half simply did not exist.
     """
-    out = {}
+    out, dials, order = {}, {}, []
     for path in json_paths:
         topic = ""
         for rec in stream_records(path):
             if rec.get("type") == "Dialogue":
                 topic = rec.get("id", "")
+                dials[topic.lower()] = rec
             key = record_key(rec, topic)
             if key in wanted:
                 out[key] = rec
-    return out
+                order.append((topic, key))
+    return out, dials, order
 
 
 def master_sizes(esm_dir):
@@ -252,6 +260,18 @@ def main():
                 })
                 if route == "lua":
                     lua_targets.append((code, rid, field))
+                    # A magic effect's NAME is not a record field in the ESM -
+                    # the engine builds it from a GMST at load, in
+                    # esmfallbacks.lua, which runs before our script. Rewriting
+                    # the GMST is therefore too late for the name: measured in
+                    # game, the spell read "Summon Zenaroth" while its effect
+                    # line still read "Summon Daedroth". So the effect name is
+                    # written directly as well, on top of what the fallback
+                    # copied. The GMST rewrite stays - it is what the tooltip
+                    # header and the spellmaker use.
+                    if code == "GMST" and rid.startswith("sEffect"):
+                        lua_targets.append(("MGEF", rid[len("sEffect"):],
+                                            "name"))
                 else:
                     plugin_records.setdefault(key, {})[spec] = new
 
@@ -312,15 +332,14 @@ def main():
         "masters": master_sizes(args.esm_dir),
     }
     print("Re-reading the masters for complete plugin records ...")
-    full = full_records(paths, set(plugin_records))
+    full, dials, order = full_records(paths, set(plugin_records))
     missing = set(plugin_records) - set(full)
     if missing:
         raise SystemExit(f"{len(missing)} plugin records could not be re-read: "
                          f"{sorted(missing)[:3]}")
-    out = [header]
-    for key, edits in plugin_records.items():
+    def edited(key):
         rec = dict(full[key])
-        for spec, value in edits.items():
+        for spec, value in plugin_records[key].items():
             if "." in spec:
                 head, tail = spec.split(".", 1)
                 node = dict(rec.get(head) or {})
@@ -328,7 +347,35 @@ def main():
                 rec[head] = node
             else:
                 rec[spec] = value
-        out.append(rec)
+        return rec
+
+    out = [header]
+    # Everything that is not dialogue, in any order.
+    for key in plugin_records:
+        if key[0] != "DialogueInfo":
+            out.append(edited(key))
+
+    # Dialogue, grouped: each DIAL record followed by its own INFO records, in
+    # the order the masters have them. This is what the format requires and
+    # what the first game run proved by rejecting all 187 records.
+    grouped = collections.OrderedDict()
+    for topic, key in order:
+        if key[0] == "DialogueInfo":
+            grouped.setdefault(topic, [])
+            if key not in grouped[topic]:
+                grouped[topic].append(key)
+    emitted_dial = 0
+    for topic, keys in grouped.items():
+        dial = dials.get(topic.lower())
+        if dial is None:
+            raise SystemExit(f"no DIAL record found for topic {topic!r}")
+        out.append(dial)
+        emitted_dial += 1
+        for key in keys:
+            out.append(edited(key))
+    header["num_objects"] = len(out) - 1
+    print(f"  {emitted_dial} topic records emitted to own "
+          f"{sum(len(v) for v in grouped.values())} dialogue records")
     plugin_path = os.path.join(args.out_build, "scifi-rewrite.json")
     with open(plugin_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
