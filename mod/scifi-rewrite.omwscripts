@@ -1,4 +1,9 @@
 # Sci-fi conversion, Lua half. Generated targets live in
 # scripts/rewrite/rules.lua; the code is scripts/rewrite/apply.lua.
+#
+# topic.lua makes the word Zenar clickable by adding the topic to
+# the player. The topic and its answers come from the plugin, so
+# only actors who know it can answer.
 
-LOAD: scripts/rewrite/apply.lua
+LOAD:   scripts/rewrite/apply.lua
+PLAYER: scripts/rewrite/topic.lua

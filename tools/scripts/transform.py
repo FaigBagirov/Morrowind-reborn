@@ -148,6 +148,63 @@ def load_authored(directory, frozen):
     return out
 
 
+def load_authored_dialogue(directory):
+    """New topics and the replies under them, written by hand.
+
+    Different from an authored record override: these records do not exist in
+    the masters at all. A plugin may add them, and the format's one rule
+    applies as it did to the overrides - an INFO belongs to the DIAL that
+    precedes it, and the replies of one topic form a linked list through
+    prev_id and next_id.
+
+    Only actors who know answer. A topic with no matching INFO simply does not
+    appear for that NPC, so the word explains itself where someone can explain
+    it and stays silent everywhere else. That is characterisation done by the
+    dialogue system rather than by prose.
+    """
+    manifest = os.path.join(directory, "manifest.csv")
+    if not os.path.exists(manifest):
+        return {}
+    topics = collections.OrderedDict()
+    with open(manifest, newline="", encoding="utf-8") as f:
+        for row in sorted(csv.DictReader(f), key=lambda r: int(r["order"])):
+            path = os.path.join(directory, row["file"].strip())
+            if not os.path.exists(path):
+                raise SystemExit(f"authored reply missing: {path}")
+            with open(path, "r", encoding="ascii", newline="") as fh:
+                text = fh.read().strip()
+            bad = [c for c in text if ord(c) > 127]
+            if bad:
+                raise SystemExit(f"{row['file']}: not ASCII: {bad[:5]!r}")
+            topics.setdefault(row["topic"].strip(), []).append(
+                {"speaker": row["speaker_id"].strip(), "text": text,
+                 "file": row["file"].strip()})
+    return topics
+
+
+def emit_authored_dialogue(topics):
+    """DIAL record, then its replies, chained. Returns a flat record list."""
+    out = []
+    for topic, replies in topics.items():
+        out.append({"type": "Dialogue", "flags": "", "id": topic,
+                    "dialogue_type": "Topic"})
+        ids = [f"{topic}_{i}" for i in range(1, len(replies) + 1)]
+        for i, reply in enumerate(replies):
+            out.append({
+                "type": "DialogueInfo", "flags": "", "id": ids[i],
+                "prev_id": ids[i - 1] if i else "",
+                "next_id": ids[i + 1] if i + 1 < len(ids) else "",
+                "data": {"dialogue_type": "Topic", "disposition": 0,
+                         "speaker_rank": -1, "speaker_sex": "Any",
+                         "player_rank": -1},
+                "speaker_id": reply["speaker"], "speaker_race": "",
+                "speaker_class": "", "speaker_faction": "", "speaker_cell": "",
+                "player_faction": "", "sound_path": "", "text": reply["text"],
+                "filters": [], "script_text": "",
+            })
+    return out
+
+
 def full_records(json_paths, wanted):
     """Re-read the masters and keep the *complete* records the plugin needs.
 
@@ -243,6 +300,11 @@ def main():
             raise SystemExit(f"missing {p} - run tools/scripts/wo1_survey.py")
     authored = load_authored(args.handwritten, frozen)
     print(f"Records written by hand: {len(authored)}")
+    new_topics = load_authored_dialogue(os.path.join(args.handwritten,
+                                                     "dialogue"))
+    for topic, replies in new_topics.items():
+        print(f"New topic '{topic}': {len(replies)} replies from "
+              f"{', '.join(r['speaker'] for r in replies)}")
 
     records = load_masters(paths)
 
@@ -384,8 +446,14 @@ def main():
     omwscripts = os.path.join(args.out_mod, "scifi-rewrite.omwscripts")
     with open(omwscripts, "w", encoding="ascii", newline="\n") as f:
         f.write("# Sci-fi conversion, Lua half. Generated targets live in\n"
-                "# scripts/rewrite/rules.lua; the code is scripts/rewrite/apply.lua.\n\n"
-                "LOAD: scripts/rewrite/apply.lua\n")
+                "# scripts/rewrite/rules.lua; the code is scripts/rewrite/apply.lua.\n"
+                "#\n"
+                "# topic.lua makes the word Zenar clickable by adding the topic to\n"
+                "# the player. The topic and its answers come from the plugin, so\n"
+                "# only actors who know it can answer.\n"
+                "\n"
+                "LOAD:   scripts/rewrite/apply.lua\n"
+                "PLAYER: scripts/rewrite/topic.lua\n")
     print("Wrote", os.path.relpath(omwscripts, root))
 
     os.makedirs(args.out_build, exist_ok=True)
@@ -439,6 +507,11 @@ def main():
         emitted_dial += 1
         for key in keys:
             out.append(edited(key))
+    # Topics we invented, with their replies. Added last: they depend on
+    # nothing in the masters and nothing depends on them.
+    new_records = emit_authored_dialogue(new_topics)
+    out.extend(new_records)
+
     header["num_objects"] = len(out) - 1
     print(f"  {emitted_dial} topic records emitted to own "
           f"{sum(len(v) for v in grouped.values())} dialogue records")
