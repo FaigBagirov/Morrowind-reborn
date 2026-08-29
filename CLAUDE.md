@@ -257,7 +257,13 @@ Nothing below is blocked on tooling.
    `Voices of Vvardenfell.omwscripts`. 327 of our records are defined last by a
    mod, and the build now carries their version forward: the daedric cuirass
    comes out with our name and the armour mod's mesh. Left to do: put our
-   plugin through the Delta merge rather than straight into the load order.
+   **The Delta merge turns out not to be needed for us**, measured: Delta sees
+   our plugin and has nothing to reconcile, because a `--profile momw` build
+   already carries the other mods' versions of every record it touches. Install
+   is: build, put the plugin last, leave the pack's `delta-merged.omwaddon`
+   alone, rebuild after any mod-list change. Also learned: regenerating that
+   merge fails on the untouched config anyway - `deleted_groundcover.omwaddon`
+   has the merge output as its master, which is circular.
    **The user's `play` profile has not been touched.**
 6. **The voice mod question is answered, and the answer is worse than a break.**
    Voices of Vvardenfell finds its files by INFO record id, never by text, and

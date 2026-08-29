@@ -176,6 +176,44 @@ The rename and the Daedric Lord Armor mesh in the same record. Built from the
 masters instead, that model line would have read `a\A_Daedric_cuirass_GND.nif`
 and the armour mod would have been silently undone.
 
+## Delta Plugin: our plugin does not need the merge `MEASURED 2026-08-29`
+
+Run against a copy of the real config with our plugin appended:
+
+    delta_plugin -c <copy of play/openmw.cfg> merge         --ignore deleted_groundcover.omwaddon --ignore groundcover.omwaddon out.omwaddon
+
+Three findings.
+
+**The merge already fails on the untouched config**, before we add anything.
+`deleted_groundcover.omwaddon` declares `delta-merged.omwaddon` as a master,
+and `delta-merged.omwaddon` is the merge's own output, so regenerating it in
+place is circular. Ignoring the two groundcover plugins gets a clean run. This
+is a property of the installed setup, not of our mod, and it is worth knowing
+before anyone tries to regenerate the pack's merge for other reasons.
+
+**Delta loads our plugin and finds 77 records to reason about** - dialogue
+topics, `daedroth_summon`, the equipment. So it sees us.
+
+**And it emits none of them, which is the right answer.** Delta writes only what
+it has to fix. Our plugin is built from the effective record set and loads last,
+so it already carries everyone else's work in the records it touches - there is
+nothing left to reconcile. Proof, three versions of one line:
+
+| | text |
+| --- | --- |
+| Morrowind.esm | "...whom I have had **issues** in the past... **Daedroth**" |
+| Patch for Purists | "...whom I have had **problems** in the past... Daedroth" |
+| our plugin | "...whom I have had **problems** in the past... **Zenaroth**" |
+
+Fourteen records are like this. The typo fix survives and the rename lands on
+top of it.
+
+**So the install is simpler than this document assumed.** Build with
+`--profile momw`, put the plugin last in the load order, leave the pack's own
+`delta-merged.omwaddon` alone. The standing cost is unchanged and unavoidable:
+the build is a snapshot of the other mods' records, so **rebuild after any
+change to the mod list**.
+
 ## What this does not answer
 
 - **Which plugins are actually in the load order.** There is no `openmw.cfg`
