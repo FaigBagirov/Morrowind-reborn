@@ -100,24 +100,43 @@ def hex_field(size, cell, dense, seed):
                 # Wide size variation. A field of one-size plates reads as a
                 # pattern; nanites are a population, not a print.
                 scale = rng.choice([0.16, 0.24, 0.34], p=[0.45, 0.35, 0.20])
+                # Corprus is the same material, damaged. Half its plates lose a
+                # side or two, which healthy casting never shows - that is the
+                # distinction Part 9 wanted, made of shape rather than density.
+                broken = ()
+                if dense and rng.random() < 0.55:
+                    broken = tuple(rng.choice(6, size=rng.integers(1, 3),
+                                              replace=False))
                 centres.append((cx, cy, scale * cell * rng.uniform(0.85, 1.15),
-                                rng.uniform(0.0, np.pi / 3)))
+                                rng.uniform(0.0, np.pi / 3), broken))
 
     edge = max(size / 512.0, 1.0) * (1.1 if dense else 1.4)
-    for cx, cy, radius, angle in centres:
+    for cx, cy, radius, angle, broken in centres:
         d = _hex_distance(x, y, cx, cy, angle)
         rim = np.clip(1.0 - np.abs(d - radius) / edge, 0.0, 1.0)
         fill = np.clip((radius - d) / (radius * 0.9), 0.0, 1.0) ** 2
+        if broken:
+            # Which of the six sides a pixel belongs to, in the plate's own
+            # frame. Knock out the chosen ones and the plate reads as a piece
+            # of something rather than a shape.
+            theta = np.arctan2(y - cy, x - cx) - angle
+            sector = np.floor(((theta + np.pi) % (2 * np.pi))
+                              / (np.pi / 3)).astype(np.int8)
+            keep = np.ones_like(rim)
+            for side in broken:
+                keep[sector == side] = 0.0
+            rim = rim * keep
+            fill = fill * 0.35
         plates = np.maximum(plates, rim * rim * (3 - 2 * rim))
         plates = np.maximum(plates, fill * (0.30 if dense else 0.22))
 
     # Filaments: each plate reaches for one or two neighbours, never all of
     # them - a fully connected mesh reads as a net rather than as a swarm.
     width = max(size / 512.0, 0.6) * (1.3 if dense else 1.1)
-    for i, (cx, cy, radius, _a) in enumerate(centres):
+    for i, (cx, cy, radius, _a, _brk) in enumerate(centres):
         near = sorted(
             ((np.hypot(cx - ox, cy - oy), ox, oy)
-             for j, (ox, oy, _r, _b) in enumerate(centres) if j != i),
+             for j, (ox, oy, _r, _b, _k) in enumerate(centres) if j != i),
             key=lambda t: t[0])[:3]
         for dist, ox, oy in near[:rng.integers(1, 3)]:
             if dist > cell * 2.2:

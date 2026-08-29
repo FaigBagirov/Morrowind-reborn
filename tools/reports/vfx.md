@@ -115,7 +115,27 @@ between dust and a swarm.
 **Approved for the first iteration** at this point - shape settled, both builds
 generating, nothing shipped yet.
 
+## Corprus is torn
+
+The distinction Part 9 wanted is back, and made of shape rather than density.
+Half the Corprus plates lose one or two of their six sides, and what fill they
+have is dimmed. Healthy casting never shows a broken plate. Same material,
+damaged - which is what Canon Part 3a says Corprus is.
+
+## Written
+
+Both builds are on disk:
+
+    tools/build/vfx-vanilla/Textures/*.dds     six files, 1 MB each
+    tools/build/vfx-momw/Textures/*.dds
+
+Uncompressed 32-bit BGRA at 512x512. Add one `data=` line for the matching
+profile; remove the line to remove the change. Nothing was written into `mod/`,
+which stays shared.
+
 ## Still open
 
-Whether to ship at all, given that it overrides Vurt's. And the grain shader,
-which Part 9 puts in post-processing rather than in particles - not started.
+The grain shader, which Part 9 puts in post-processing rather than in particles.
+Not started. And the only judgement that matters: how a plate reads in motion,
+under additive blending, against sky and in a small room. A still image cannot
+answer that.
