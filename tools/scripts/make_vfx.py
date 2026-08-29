@@ -113,7 +113,7 @@ def hex_field(size, cell, dense, seed):
 
     # Filaments: each plate reaches for one or two neighbours, never all of
     # them - a fully connected mesh reads as a net rather than as a swarm.
-    width = max(size / 512.0, 0.6) * (1.1 if dense else 0.9)
+    width = max(size / 512.0, 0.6) * (1.3 if dense else 1.1)
     for i, (cx, cy, radius, _a) in enumerate(centres):
         near = sorted(
             ((np.hypot(cx - ox, cy - oy), ox, oy)
@@ -126,7 +126,7 @@ def hex_field(size, cell, dense, seed):
             line = np.clip(1.0 - d / width, 0.0, 1.0)
             along = np.clip(1.0 - _segment_distance(x, y, cx, cy, cx, cy)
                             / (dist + 1e-3), 0.0, 1.0)
-            threads = np.maximum(threads, line * (0.30 + 0.25 * along))
+            threads = np.maximum(threads, line * (0.44 + 0.26 * along))
 
     for _ in range(int(size * (3.0 if dense else 1.8))):
         mx, my = rng.uniform(0, size, 2)
@@ -135,7 +135,7 @@ def hex_field(size, cell, dense, seed):
         motes = np.maximum(motes, np.clip(1.0 - d / rad, 0.0, 1.0)
                            * rng.uniform(0.12, 0.34))
 
-    return np.clip(plates + threads * (1.0 - plates) * 0.85
+    return np.clip(plates + threads * (1.0 - plates) * 0.95
                    + motes * (1.0 - plates), 0.0, 1.0)
 
 

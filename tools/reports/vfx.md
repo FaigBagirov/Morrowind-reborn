@@ -102,6 +102,19 @@ If Corprus needs to stay unmistakable, the cheapest way is **broken plates**:
 half its hexagons missing a side or two, which healthy casting never shows. Same
 material, damaged. Not implemented; it is one branch in the generator.
 
+## Fourth pass: the threads read
+
+Filaments a touch stronger, on Faig's note and nothing else touched: width up a
+fifth, brightness 0.30 to 0.44, and their contribution to the combined alpha
+0.85 to 0.95. The plates are unchanged.
+
+They matter more than their size suggests. The plates alone are a scatter; the
+threads are what makes it one thing moving together, which is the difference
+between dust and a swarm.
+
+**Approved for the first iteration** at this point - shape settled, both builds
+generating, nothing shipped yet.
+
 ## Still open
 
 Whether to ship at all, given that it overrides Vurt's. And the grain shader,
