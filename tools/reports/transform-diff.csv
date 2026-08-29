@@ -263,7 +263,6 @@ plugin,INFO,17904321252405415910,text,R400,1,0,accompany you,1,1
 plugin,INFO,2682512249265228814,text,R110 R400,3,-2,accompany you,1,1
 plugin,INFO,22911232913039718394,text,R400,2,0,accompany you,1,1
 plugin,INFO,92038942909521601,text,R400,3,0,accompany you,1,1
-plugin,INFO,19139287163203512660,text,R500,1,-1,little advice,0,0
 plugin,INFO,673821472106711099,text,R110,1,-2,little secret,0,0
 plugin,INFO,785732822678819521,text,R110,1,-2,little secret,0,0
 plugin,INFO,124974922249611126,text,R100,1,-2,little secret,0,0
@@ -362,3 +361,5 @@ plugin,INFO,8532312101388421878,text,R500,1,-1,was cast out,0,0
 plugin,INFO,1984363691010128667,text,R500,1,-1,must act,0,0
 plugin,BOOK,bk_AedraAndDaedra,text,HAND-WRITTEN,0,1227,,0,0
 plugin,BOOK,bk_Aedra_Tarer_Unique,text,HAND-WRITTEN,0,1445,,0,0
+plugin,INFO,19139287163203512660,text,HAND-WRITTEN,0,157,,0,0
+plugin,INFO,21911249873129121827,text,HAND-WRITTEN,0,260,,0,0

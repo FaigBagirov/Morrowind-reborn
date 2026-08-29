@@ -236,9 +236,11 @@ Nothing below is blocked on tooling.
    copies ship from `tools/handwritten/`, the transform emits authored records,
    and `tools/rules/frozen-records.csv` keeps the rules off them. The pattern is
    there for every hand-written record that follows.
-2. **Caius Cosades.** Hand-written lines that drop the word where the player
-   cannot miss it. He is mandatory for the main quest and he is in Balmora,
-   where the book is sold.
+2. ~~Caius Cosades.~~ **Written, not yet seen on screen.** Two of his lines are
+   authored overrides: `little advice`, where the vanilla text already listed
+   Daedra among what to look out for, and `Blades`, where he explains why two
+   words exist for one thing. Both point the player at a wise woman and away
+   from a priest, which is where the `Zenar` topic has answers.
 3. ~~The `Zenar` topic.~~ **Done, confirmed on screen 2026-08-29.** Six
    informed voices answer it, nobody else does, and the topic is absent from
    every passer-by's list. The transform can now invent records as well as

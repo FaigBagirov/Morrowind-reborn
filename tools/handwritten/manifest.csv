@@ -1,3 +1,5 @@
-record_id,record_type,field,file,reason
-bk_AedraAndDaedra,BOOK,text,bk_AedraAndDaedra.txt,"The game's own explanation of the words. Substitution makes it contradict itself, so it is written instead."
-bk_Aedra_Tarer_Unique,BOOK,text,bk_Aedra_Tarer_Unique.txt,"Tarer Braryn's copy of the same book, with one line in his own hand."
+record_id,record_type,field,file,reason,topic
+bk_AedraAndDaedra,BOOK,text,bk_AedraAndDaedra.txt,"The game's own explanation of the words. Substitution makes it contradict itself, so it is written instead.",
+bk_Aedra_Tarer_Unique,BOOK,text,bk_Aedra_Tarer_Unique.txt,"Tarer Braryn's copy of the same book, with one line in his own hand.",
+19139287163203512660,INFO,text,info_caius_advice.txt,Caius points the player at the word and at who to ask about it.,little advice
+21911249873129121827,INFO,text,info_caius_blades.txt,Caius on why two words exist for one thing.,Blades

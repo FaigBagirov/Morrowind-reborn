@@ -1,3 +1,5 @@
 record_id,record_type,reason
 bk_AedraAndDaedra,BOOK,"The game's own explanation of the words. Machine substitution turns it into a contradiction - ""Zenar means, roughly, 'not our ancestors'"" is false, since that is what mortals call them and not what they call themselves. Hand-written instead, and it is where the Daedra/Zenar distinction is taught. 81 copies in 45 places, including the Balmora bookseller."
 bk_Aedra_Tarer_Unique,BOOK,"Tarer Braryn's copy of the same book, same text, same reason. Excluding one and not the other would leave a copy that contradicts the other."
+19139287163203512660,INFO,"Caius Cosades, topic 'little advice'. The vanilla line already lists Daedra among what to look out for; hand-written so he flags the word as worth asking about instead of merely using it."
+21911249873129121827,INFO,"Caius Cosades, topic 'Blades'. His account of the trade, extended with the spymaster's point: what a province calls a thing tells you who is doing the calling."

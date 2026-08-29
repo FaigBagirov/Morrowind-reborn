@@ -144,7 +144,10 @@ def load_authored(directory, frozen):
                     f"frozen-records.csv - the rules would rewrite it")
             out.append({"id": rid, "type": row["record_type"].strip(),
                         "field": row["field"].strip(), "text": text,
-                        "file": row["file"].strip()})
+                        "file": row["file"].strip(),
+                        # INFO records are identified by parent topic plus id,
+                        # so an authored reply has to name its topic too.
+                        "topic": (row.get("topic") or "").strip()})
     return out
 
 
@@ -383,7 +386,12 @@ def main():
     # rule produced them.
     type_name = {v: k for k, v in TYPE_CODE.items()}
     for a in authored:
-        key = (type_name[a["type"]], a["id"].lower())
+        if a["type"] == "INFO":
+            if not a["topic"]:
+                raise SystemExit(f"{a['id']}: an authored INFO needs a topic")
+            key = ("DialogueInfo", a["topic"].lower(), a["id"].lower())
+        else:
+            key = (type_name[a["type"]], a["id"].lower())
         if key not in records:
             raise SystemExit(f"authored record not in the masters: {a['id']}")
         old = records[key].get(a["field"], "") or ""
