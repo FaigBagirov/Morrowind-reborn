@@ -4,3 +4,4 @@ bk_Aedra_Tarer_Unique,BOOK,text,bk_Aedra_Tarer_Unique.txt,"Tarer Braryn's copy o
 19139287163203512660,INFO,text,info_caius_advice.txt,Caius points the player at the word and at who to ask about it.,little advice
 21911249873129121827,INFO,text,info_caius_blades.txt,Caius on why two words exist for one thing.,Blades
 190453052515814369,INFO,text,info_caius_advice2.txt,Second of three random advice lines; carries the same pointer so it fires two times in three.,little advice
+1715821388983222209,INFO,text,info_vivec_maker.txt,"Canon Part 4 delivered where Part 4 says: straight after the confession, spoken once, by Vivec.",Dwemer's sin

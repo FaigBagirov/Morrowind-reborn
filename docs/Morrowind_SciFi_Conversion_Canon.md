@@ -78,6 +78,8 @@ Delivery of *Shared Canon* Part 7. Spoken **once**, by **one** character: Vivec,
 
 **Status: working text, kept for now, to be revised later.** Recorded here so the current wording is not lost.
 
+**It is in the game as of 2026-08-29**, appended to Vivec's own confession under the topic `Dwemer's sin`, which ends "If we sinned, we have paid the price" and hands straight over to "I have told you what we did." Spoken once, by one character, at the moment Part 4 specifies. The record is `tools/handwritten/info_vivec_maker.txt`, built from this section rather than retyped - **when the wording changes here, it changes there by rebuilding**, and that is the whole point of putting it in now rather than waiting for the revision.
+
 ## English
 
 > I have told you what we did. Now the only thing worth knowing, and then I am done.
