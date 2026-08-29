@@ -64,6 +64,24 @@ artist already picked out in red.
    black web on a white plate. The tone is now split into large-scale form and
    fine grain, and the grain is dialled to 0.35.
 
+## Second pass: darker, with a kant and a sheen
+
+Faig's notes after seeing it in game: silver rather than bone white, then a step
+darker than the darkest of the four shown, an illusion of gloss, and darkening
+along the edges and piping.
+
+* **0.50 for the plate**, blue channel leading. Four options were rendered at
+  0.95 / 0.83 / 0.72 / 0.60 first; this is under all of them.
+* **The kant.** The obvious source is the normal map's own tilt, and it is the
+  wrong one: on this sculpt almost nothing is flat, so darkening by tilt darkens
+  everything evenly and reads as nothing. What reads as an edge is one plate
+  ending and the next beginning, so the line comes from the **gradient of the
+  plate mask**. That is what makes the abdominal ribs legible.
+* **The sheen** is baked from the mod's normal map, which until now we had not
+  used at all - one fixed light, two terms out of one dot product. A broad one
+  so a plate reads as curved rather than flat, and a tight one for the glint.
+  Kept low: the engine does the real lighting and this is only the material.
+
 ## The open question, and it is not mine to answer
 
 The large dark mottling on the helm and cuirass survives all of that, and it is

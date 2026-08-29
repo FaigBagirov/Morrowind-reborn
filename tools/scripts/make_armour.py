@@ -67,14 +67,13 @@ PIECES = ("daecuir", "daeboots", "daegaunt", "daegreaves",
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
 # mechanism lit and in shadow. Gold sits on top of whichever it lands on.
-# Silver-grey, slightly cool. The first pass was bone white; Faig's correction
-# was the grey of his reference render, "a bit more silvery" - so the plate sits
-# a shade under mid and the blue channel leads, which is what separates silver
-# from white paint. Rendered at 0.95 / 0.83 / 0.72 / 0.60 and this is the third,
-# chosen as the closest read of that brief; his own pick may move it a step
-# either way.
-CERAMIC = np.array([0.72, 0.745, 0.79])   # plate, lit
-CERAMIC_DARK = np.array([0.19, 0.205, 0.235])
+# Silver-grey, cool, and a step under the darkest of the four shown. The first
+# pass was bone white; Faig's correction was the grey of his reference render,
+# "a bit more silvery", then "a touch darker than the darkest one you offered" -
+# which was 0.60. The blue channel leads, and that is what separates silver from
+# grey paint.
+CERAMIC = np.array([0.50, 0.525, 0.565])   # plate, lit
+CERAMIC_DARK = np.array([0.12, 0.13, 0.155])
 MECH = np.array([0.16, 0.165, 0.185])     # what shows between the plates
 MECH_DARK = np.array([0.030, 0.032, 0.038])
 GOLD = np.array([1.00, 0.74, 0.32])
@@ -121,8 +120,37 @@ def _split(tone, radius):
     return form, tone - form
 
 
+def _kant(plate, blur=1.4, gain=7.0):
+    """The dark outline every plate should have.
+
+    Faig asked for the edges and piping to darken. The normal map's own tilt is
+    the obvious candidate and it is the wrong one: on this sculpt almost nothing
+    is flat, so darkening by tilt just darkens everything evenly. The plate
+    mask's *boundary* is what reads as an edge - one plate ending and the next
+    beginning - so the gradient of the mask is the line to draw on.
+    """
+    gy, gx = np.gradient(plate)
+    return _blur(np.clip(np.hypot(gx, gy) * gain, 0.0, 1.0), blur)
+
+
+def _relight(normal_map, tighten=18.0):
+    """A fake light baked into the diffuse, from the mod's own normal map.
+
+    Two terms out of one dot product: a broad one that makes a plate read as
+    curved rather than flat, and a tight one for the glint. It is not lighting -
+    the engine does that - it is the sheen of the material, so it is kept low
+    enough that the real light still leads.
+    """
+    n = normal_map[..., :3] * 2.0 - 1.0
+    light = np.array([-0.42, 0.46, 0.78])
+    light = light / np.linalg.norm(light)
+    ndl = np.clip((n * light).sum(axis=2), 0.0, 1.0)
+    return 0.55 + 0.45 * ndl, ndl ** tighten
+
+
 def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
-                    grain=0.35, detail=0.25):
+                    grain=0.35, detail=0.25, normal_path=None,
+                    kant=0.75, curve=1.0, gloss=0.45):
     dif = load(diffuse_path)
     size = (dif.shape[1], dif.shape[0])
     spec = load(spec_path, size) if spec_path else dif
@@ -140,6 +168,11 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
     form, fine = _split(tone, max(dif.shape[0], dif.shape[1]) / 90.0)
     tone = np.clip(form + fine * grain, 0.0, 1.0)
     tone = _smooth(np.clip((tone - 0.5) * contrast + 0.5, 0.0, 1.0))
+
+    if normal_path and os.path.exists(normal_path):
+        lit, hot = _relight(load(normal_path, size))
+        tone = np.clip(tone * lit ** curve * (1.0 - kant * _kant(plate))
+                       + gloss * hot * plate, 0.0, 1.0)
 
     ceramic = CERAMIC_DARK + (CERAMIC - CERAMIC_DARK) * tone[..., None]
     mech = MECH_DARK + (MECH - MECH_DARK) * tone[..., None]
@@ -217,6 +250,12 @@ def main():
                     help="how much of the original fine veining survives")
     ap.add_argument("--detail", type=float, default=0.25,
                     help="diffuse weight in the tone; the rest is specular")
+    ap.add_argument("--kant", type=float, default=0.75,
+                    help="how dark the outline around each plate goes")
+    ap.add_argument("--curve", type=float, default=1.0,
+                    help="broad baked light, so a plate reads as curved")
+    ap.add_argument("--gloss", type=float, default=0.45,
+                    help="the tight highlight; the sheen")
     ap.add_argument("--blur", type=float, default=1.6)
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
@@ -243,7 +282,9 @@ def main():
         spec = os.path.join(src, stem + "_s.dds")
         before, after, plate = convert_diffuse(
             diffuse, spec if os.path.exists(spec) else None,
-            args.contrast, args.blur, args.grain, args.detail)
+            args.contrast, args.blur, args.grain, args.detail,
+            os.path.join(src, stem + "_n.dds"),
+            args.kant, args.curve, args.gloss)
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""
