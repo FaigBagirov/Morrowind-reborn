@@ -97,10 +97,13 @@ def hex_field(size, cell, dense, seed):
             cy = r * dy + (dy * 0.5 if c % 2 else 0.0)
             cy += rng.uniform(-cell * 0.2, cell * 0.2)
             if -cell < cx < size + cell and -cell < cy < size + cell:
-                centres.append((cx, cy, rng.uniform(0.32, 0.46) * cell,
+                # Wide size variation. A field of one-size plates reads as a
+                # pattern; nanites are a population, not a print.
+                scale = rng.choice([0.16, 0.24, 0.34], p=[0.45, 0.35, 0.20])
+                centres.append((cx, cy, scale * cell * rng.uniform(0.85, 1.15),
                                 rng.uniform(0.0, np.pi / 3)))
 
-    edge = max(size / 256.0, 1.0) * (1.6 if dense else 2.2)
+    edge = max(size / 512.0, 1.0) * (1.1 if dense else 1.4)
     for cx, cy, radius, angle in centres:
         d = _hex_distance(x, y, cx, cy, angle)
         rim = np.clip(1.0 - np.abs(d - radius) / edge, 0.0, 1.0)
@@ -125,7 +128,7 @@ def hex_field(size, cell, dense, seed):
                             / (dist + 1e-3), 0.0, 1.0)
             threads = np.maximum(threads, line * (0.30 + 0.25 * along))
 
-    for _ in range(int(size * (1.6 if dense else 0.9))):
+    for _ in range(int(size * (3.0 if dense else 1.8))):
         mx, my = rng.uniform(0, size, 2)
         rad = rng.uniform(0.6, 1.8) * max(size / 512.0, 1.0)
         d = np.hypot(x - mx, y - my)
@@ -170,14 +173,19 @@ def build(src_path, dense, size=512):
     colour = src[..., :3][bright].mean(axis=0)
     colour = colour / max(colour.max(), 1.0) * 255.0
 
-    cell = size / 10.0 if dense else size / 5.5
+    # Small and many. The first pass put five plates across the texture, which
+    # at particle size is a handful of slabs - Faig's word was megaliths, and he
+    # was right. A swarm has to be a population: roughly twenty across for
+    # casting and thirty for Corprus, so a single plate lands on a few pixels of
+    # screen and the eye reads the cloud rather than the pieces.
+    cell = size / 30.0 if dense else size / 20.0
     field = hex_field(size, cell, dense, seed=7)
 
     # A faint core keeps the particle from disappearing at distance, where the
     # grid is below a pixel and would otherwise flicker out.
     yy, xx = np.mgrid[0:size, 0:size].astype(np.float32)
     r = np.sqrt((xx - size / 2) ** 2 + (yy - size / 2) ** 2) / (size / 2)
-    core = np.clip(1.0 - r, 0.0, 1.0) ** 3 * (0.35 if dense else 0.22)
+    core = np.clip(1.0 - r, 0.0, 1.0) ** 4 * (0.18 if dense else 0.10)
 
     alpha = np.clip(field * (1.0 - core) + core, 0.0, 1.0)
     # Vignette: a square-edged particle shows its own quad against the sky.

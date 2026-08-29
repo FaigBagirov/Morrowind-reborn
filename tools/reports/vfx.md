@@ -82,6 +82,26 @@ were blobs, and a blob does not look manufactured. Rebuilt around three ideas:
 * **Motes.** Sub-pixel specks in the gaps at low alpha, so the empty space does
   not look deliberate.
 
+## Third pass: scale
+
+The plates were five across the texture, which at particle size is a handful of
+slabs. Faig's word was megaliths and it was accurate. Now twenty across for
+casting and thirty for Corprus, with the size drawn from three buckets - 45% of
+plates small, 35% medium, 20% large - because a field of one-size plates reads
+as a print and a swarm has to look like a population.
+
+The rim is down to a pixel of falloff, the central core is nearly gone, and
+there are twice as many motes.
+
+**This narrows a distinction Part 9 makes deliberately.** Canon separates the
+Zenaric cast from Corprus by density: sparse structure for casting, dense swarm
+reserved for Corprus. With casting now fine-grained, the two differ by density
+alone - 20 across against 30 - and both read as a swarm.
+
+If Corprus needs to stay unmistakable, the cheapest way is **broken plates**:
+half its hexagons missing a side or two, which healthy casting never shows. Same
+material, damaged. Not implemented; it is one branch in the generator.
+
 ## Still open
 
 Whether to ship at all, given that it overrides Vurt's. And the grain shader,
