@@ -56,6 +56,7 @@ from PIL import Image, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dds import write_dxt  # noqa: E402
 from paint_helm import paint as paint_helm  # noqa: E402
+from uvmap import rasterise, read_mesh  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 
 PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
@@ -72,7 +73,7 @@ FOLDER = "jy_daedric"
 #   paint       "pragmata" draws a panel layout on top; see paint_helm.py
 DEFAULTS = {"folder": "", "spec": "_s", "normal": "_n", "glow": "_g",
             "plate_from": "spec", "trim": "red", "gold": True,
-            "paint": None}
+            "paint": None, "mesh": None}
 
 PIECES = (
     {"stem": "daecuir", "folder": "jy_daedric"},
@@ -95,12 +96,10 @@ PIECES = (
     # element he did not like, so the band and the studs go to steel.
     {"stem": "tx_a_ebony_helmet", "spec": "_spec",
      "plate_from": "diffuse", "trim": "warm", "gold": False,
-     # "paint": "pragmata" is written and works, and is off. The layout it
-     # draws is not good enough to wear yet: seams converging on the crown read
-     # as cracks, and the wide horizontal bands cross the sheet in steps. The
-     # machinery under it - an exact per-pixel map from texture to helmet - is
-     # the part that was hard, and it is done. The design on top wants rounds.
-     "paint": None},
+     # A few bold features, drawn on top. The mesh is named so its coverage can
+     # be rasterised: that is what keeps the drawing on the helmet rather than
+     # across the empty margins of the sheet.
+     "paint": "helm", "mesh": "meshes/a/a_ebony_helmet.nif"},
 )
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
@@ -386,8 +385,10 @@ def main():
             diffuse, specular, args.contrast, args.blur, args.grain,
             args.detail, normal, args.kant, args.curve, args.gloss,
             p["gold"], p["plate_from"], p["trim"])
-        if p["paint"] == "pragmata":
-            after = paint_helm(after)
+        if p["paint"] == "helm":
+            _pos, cover = rasterise(*read_mesh(p["mesh"], args.config),
+                                    after.shape[0])
+            after = paint_helm(after, _blur(cover, 1.0))
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""

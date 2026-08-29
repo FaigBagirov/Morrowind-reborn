@@ -1,64 +1,65 @@
 #!/usr/bin/env python3
-"""Paint a Pragmata-style panel layout onto the closed helm.
+"""Paint a few bold panel features onto the closed helm.
 
 Drawn on top of the converted texture, never instead of it, so the plate colour,
-the marbling, the kant and the baked sheen all come through and the helm belongs
-to the same set as the cuirass. Faig asked for that in as many words: it has to
-feel like a suit, not a hat from another game.
+the marbling, the kant and the baked sheen come through and the helm belongs to
+the same set as the cuirass. Faig asked for that in as many words.
 
-## Everything is placed on the helmet, not on the sheet
+## Similar, not identical
 
-The first version drew in sheet coordinates and assumed the horizontal axis ran
-evenly around the head. It does not. This helm's unwrap is closer to a side
-projection: a straight-line fit of u against azimuth leaves 0.10 turns of
-residual - 36 degrees - and the drawing landed across the empty margins as well
-as the helmet.
+His steer, and it is the right one: make it *like* the reference, not a copy of
+it. The helmet is about a hundred pixels tall on screen, so anything finer than
+a few texture pixels is mush at the only distance that matters. Few shapes, big,
+legible. A greeble field would be work spent on something nobody can see.
 
-So the layout is specified where it belongs, in **height and azimuth on the
-actual helmet**, and `uvmap.py` rasterises the mesh's own triangles to tell each
-pixel which point of the helmet it is. No fit, no residual.
+## How placement works, and what it costs
 
-Two numbers anchor it, and only one of them could not be computed:
+Two coordinate systems were tried.
 
-    FRONT_AZ = +0.0873   which way the helmet faces
-    EYE_H    = -0.30     the height of the eyes
+Rasterising the mesh gives an exact per-pixel map - `uvmap.py` still does, and
+its **coverage mask is used here**, which is what keeps the drawing on the
+helmet instead of across the empty margins. But this mesh's UV islands overlap
+heavily: different parts of the shell share the same pixels, and resolving that
+by "the surface furthest out wins" turns the azimuth map into a patchwork. The
+mesh simply does not carry a clean unwrap to paint on.
 
-Geometry cannot say which way a helmet faces, so that was measured on screen:
-`uv_calibrate.py` painted eight named colour bands and three rules, Faig wore it
-and looked, and reported violet at the front and the bottom rule on his eyes.
-Those two readings became these two numbers.
+What it does carry is enough for the *visible* surface, and the calibration
+screenshot proves it: the eight colour bands came out in order across the front
+of the helm. So placement is done in sheet coordinates, anchored on the two
+readings Faig took, and refined against screenshots rather than derived.
 
-Height landmarks on this helm, read off the rasterised map: crown +8.6, the wide
-band +4.0, the stud row +1.5, eyes -0.3, the neck flare below -1.7.
+    FRONT_U = 0.8125   the violet band, measured on screen
+    EYE_V   = 0.56     the bottom rule, measured on screen
+
+That is worth perhaps ten or twenty degrees of imprecision, which is why every
+feature here is wide enough not to care.
 
 ## Why the relief is faint
 
 No geometry is generated - the rules forbid it - so depth is faked with a dark
-groove and a lit lip. It stays subtle on purpose: the shading is baked from one
-fixed direction while the engine lights the helm from wherever the sun is, and a
-strong bake contradicts the real light the moment the player turns round. Soft
-edges survive that. Dramatic chiaroscuro does not.
+groove and a lit lip above it. It stays subtle on purpose: the shading is baked
+from one direction while the engine lights the helm from wherever the sun is, so
+a strong bake contradicts the real light the moment the player turns round.
 """
 
 import numpy as np
 
-FRONT_AZ = 0.0873       # measured on screen, 2026-08-30
-EYE_H = -0.30
+FRONT_U = 0.8125        # measured on screen, 2026-08-30
+EYE_V = 0.56
 
-VISOR_TOP = 1.15        # heights, in the mesh's own units
-VISOR_BOTTOM = -1.55
-BROW_H = 2.35
-CROWN_SEAM_H = 5.25
-FLARE_H = -1.95
+CROWN_SEAM_V = 0.300
+BROW_V = 0.487
+VISOR_TOP = 0.505
+VISOR_BOTTOM = 0.605
+FLARE_V = 0.638
 
 DARK = np.array([0.055, 0.060, 0.072], np.float32)    # a groove
-VISOR = np.array([0.048, 0.053, 0.066], np.float32)   # the face plate
+VISOR = np.array([0.050, 0.055, 0.068], np.float32)   # the face plate
 LIP = np.array([0.74, 0.77, 0.83], np.float32)        # the lit edge of a panel
-OPTIC = np.array([0.60, 0.78, 0.88], np.float32)      # the slit itself
+OPTIC = np.array([0.58, 0.76, 0.86], np.float32)      # the slit itself
 
 
 def _turns(a):
-    """Wrap a difference in turns to -0.5 .. 0.5."""
     return (a + 0.5) % 1.0 - 0.5
 
 
@@ -68,65 +69,56 @@ def _span(x, lo, hi, soft):
             * np.clip((hi - x) / soft + 1.0, 0.0, 1.0))
 
 
-def _line(x, at, half, soft):
+def _rule(x, at, half, soft):
     return _span(np.abs(x - at), -1.0, half, soft)
 
 
-def paint(rgba, height, azimuth, cover, strength=1.0):
-    """Return the texture with the panel layout drawn on it.
-
-    `height`, `azimuth` and `cover` come from `uvmap.rasterise` and
-    `uvmap.polar` - per pixel, where on the helmet this pixel lands and whether
-    it lands on it at all. Nothing is drawn off the helmet.
-    """
+def paint(rgba, cover=None, strength=1.0):
+    """Return the texture with the panel features drawn on it."""
+    h, w = rgba.shape[:2]
+    rows, cols = np.mgrid[0:h, 0:w].astype(np.float32)
+    v = rows / (h - 1)
+    u = cols / (w - 1)
+    du = _turns(u - FRONT_U)
     out = rgba.copy()
-    body = np.asarray(cover, np.float32)
-    da = _turns(azimuth - FRONT_AZ)      # 0 dead ahead
-    ahead = np.abs(da)
+    body = (np.ones((h, w), np.float32) if cover is None
+            else np.asarray(cover, np.float32))
 
     def lay(mask, colour, amount=1.0):
         m = np.clip(mask * body * strength * amount, 0.0, 1.0)[..., None]
         out[..., :3] = out[..., :3] * (1.0 - m) + colour * m
 
     def groove(mask, depth=1.0, lip=0.5):
-        """A dark line with a lit edge above it: the only depth cue available."""
         lay(mask, DARK, depth)
-        lifted = np.roll(mask, -2, axis=0)
+        lifted = np.roll(mask, -max(int(h * 0.003), 1), axis=0)
         lay(np.clip(lifted - mask, 0.0, 1.0), LIP, lip)
 
-    # --- the crown --------------------------------------------------------
-    # Panel seams running up the dome were tried and cut. Lines of constant
-    # azimuth converge at the pole, and a helmet with six lines meeting on the
-    # crown reads as a cracked eggshell rather than as panelling. Doing it
-    # properly means seams that stop short of the top and vary in width, which
-    # is art direction and wants its own round.
-    groove(_line(height, CROWN_SEAM_H, 0.10, 0.10), 0.55, 0.4)
-
-    # --- the brow ----------------------------------------------------------
-    groove(_line(height, BROW_H, 0.10, 0.09), 1.0, 0.65)
-
-    # --- the visor ---------------------------------------------------------
-    # A face plate, not a belt: it stops at the temples.
-    front = _span(ahead, -1.0, 0.150, 0.045)
-    face = _span(height, VISOR_BOTTOM, VISOR_TOP, 0.18) * front
-    lay(face, VISOR, 0.90)
-    groove(_line(height, VISOR_BOTTOM, 0.09, 0.09) * front, 1.0, 0.55)
-
-    # --- the eye slits -----------------------------------------------------
-    # Opaque, as asked: a dark recess with a bright inner line, which is what
-    # reads as a lens at this size rather than as a hole.
+    # Two seams down the crown, stopping well short of the top. Lines of
+    # constant azimuth all the way to the pole converge there and read as a
+    # cracked eggshell, which is what the first attempt looked like.
+    crown = _span(v, 0.115, BROW_V - 0.01, 0.045)
     for side in (1.0, -1.0):
-        centre = side * 0.052
-        slit = (_span(np.abs(da - centre), -1.0, 0.034, 0.006)
-                * _span(height, EYE_H - 0.62, EYE_H + 0.62, 0.10))
-        lay(slit, DARK, 1.0)
-        inner = (_span(np.abs(da - centre), -1.0, 0.028, 0.005)
-                 * _span(height, EYE_H - 0.30, EYE_H + 0.30, 0.07))
-        lay(inner, OPTIC, 0.85)
+        groove(_rule(du, side * 0.132, 0.0022, 0.0022) * crown, 0.75, 0.45)
+    groove(_rule(v, CROWN_SEAM_V, 0.0025, 0.0025), 0.5, 0.35)
 
-    # --- the neck flare ----------------------------------------------------
-    groove(_line(height, FLARE_H, 0.09, 0.09), 1.0, 0.5)
-    for ring in (-3.55, -5.05):
-        groove(_line(height, ring, 0.07, 0.07), 0.45, 0.3)
+    # The brow, and the face plate under it. The visor stops at the temples: it
+    # is a plate, not a belt.
+    groove(_rule(v, BROW_V, 0.0035, 0.003), 0.95, 0.6)
+    front = _span(np.abs(du), -1.0, 0.105, 0.028)
+    lay(_span(v, VISOR_TOP, VISOR_BOTTOM, 0.008) * front, VISOR, 0.88)
+    groove(_rule(v, VISOR_BOTTOM, 0.003, 0.003) * front, 0.9, 0.5)
 
+    # The slits. Opaque, as asked - a dark recess with a bright inner line,
+    # which is what reads as a lens at this size rather than as a hole.
+    for side in (1.0, -1.0):
+        at = side * 0.036
+        recess = (_span(np.abs(du - at), -1.0, 0.026, 0.005)
+                  * _span(v, EYE_V - 0.017, EYE_V + 0.017, 0.004))
+        lay(recess, DARK, 1.0)
+        lens = (_span(np.abs(du - at), -1.0, 0.021, 0.004)
+                * _span(v, EYE_V - 0.008, EYE_V + 0.008, 0.003))
+        lay(lens, OPTIC, 0.85)
+
+    # Where the shell ends and the neck flare begins.
+    groove(_rule(v, FLARE_V, 0.0035, 0.003), 0.9, 0.45)
     return np.clip(out, 0.0, 1.0)

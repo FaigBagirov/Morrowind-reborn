@@ -110,13 +110,20 @@ def parse_trishape(blob):
 def rasterise(verts, uv, tris, size):
     """Per-pixel 3D position over the UV sheet, and a coverage mask.
 
-    Nearest-triangle is not needed: the islands do not overlap, so a plain
-    scanline fill of each triangle is enough. Written straightforwardly rather
-    than cleverly - 230 triangles is nothing.
+    **The islands do overlap.** Assuming they did not left rectangular patches
+    across the height and azimuth maps where a small piece of the mesh - the
+    inside of the shell, a detail strip - had been rasterised over the main one,
+    and any pattern drawn on that map tore into steps exactly there.
+
+    So overlaps are resolved rather than ignored: the surface furthest from the
+    centre wins. That is the one the player can see, and it is the one a texture
+    is painted for.
     """
     h = w = size
     pos = np.zeros((h, w, 3), np.float32)
     cover = np.zeros((h, w), np.float32)
+    centre = verts.mean(axis=0)
+    best = np.full((h, w), -1.0, np.float32)
     px = uv[:, 0] * (w - 1)
     py = uv[:, 1] * (h - 1)
     for a, b, c in tris:
@@ -145,9 +152,14 @@ def rasterise(verts, uv, tris, size):
             continue
         p = (l0[..., None] * verts[a] + l1[..., None] * verts[b]
              + l2[..., None] * verts[c])
+        out = np.linalg.norm(p - centre, axis=-1).astype(np.float32)
         sl = (slice(y0, y1), slice(x0, x1))
-        pos[sl][inside] = p[inside]
-        cover[sl][inside] = 1.0
+        take = inside & (out > best[sl])
+        if not take.any():
+            continue
+        pos[sl][take] = p[take]
+        best[sl][take] = out[take]
+        cover[sl][take] = 1.0
     return pos, cover
 
 
