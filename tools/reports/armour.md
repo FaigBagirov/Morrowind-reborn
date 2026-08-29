@@ -82,6 +82,15 @@ along the edges and piping.
   so a plate reads as curved rather than flat, and a tight one for the glint.
   Kept low: the engine does the real lighting and this is only the material.
 
+### Gold is now per piece
+
+Faig on the Face of Terror: the colours are right, take the gold off. `NO_GOLD`
+holds the pieces that go without it, and the trim does not simply vanish for
+them - those lines are the design, and a helm with no piping reads as
+unfinished. It goes to a brighter cool steel instead, and the glow follows the
+same decision, since amber piping on a helm with no gold piping would
+contradict itself.
+
 ## The open question, and it is not mine to answer
 
 The large dark mottling on the helm and cuirass survives all of that, and it is

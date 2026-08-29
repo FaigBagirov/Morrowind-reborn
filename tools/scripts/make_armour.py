@@ -79,6 +79,14 @@ MECH_DARK = np.array([0.030, 0.032, 0.038])
 GOLD = np.array([1.00, 0.74, 0.32])
 GOLD_DARK = np.array([0.30, 0.20, 0.07])
 
+# Faig on the Face of Terror: the colours came out well, take the gold off. The
+# trim does not simply disappear when it does - those lines are the design, and
+# a helm with no piping reads as unfinished. It goes to a brighter, cooler metal
+# instead, so the piping still separates itself from the plate it sits on.
+NO_GOLD = {"daefacet"}
+STEEL = np.array([0.78, 0.80, 0.85])
+STEEL_DARK = np.array([0.17, 0.18, 0.21])
+
 
 def load(path, size=None):
     im = Image.open(path).convert("RGBA")
@@ -150,7 +158,7 @@ def _relight(normal_map, tighten=18.0):
 
 def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
                     grain=0.35, detail=0.25, normal_path=None,
-                    kant=0.75, curve=1.0, gloss=0.45):
+                    kant=0.75, curve=1.0, gloss=0.45, gold_on=True):
     dif = load(diffuse_path)
     size = (dif.shape[1], dif.shape[0])
     spec = load(spec_path, size) if spec_path else dif
@@ -186,14 +194,15 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
     # Weighting by the plate mask keeps the trim bright where it is inlaid into
     # armour and lets it fall back to a dull tint on everything soft.
     trim = trim * (0.22 + 0.78 * plate)
-    gold = GOLD_DARK + (GOLD - GOLD_DARK) * np.clip(tone * 1.35 + 0.15, 0, 1)[..., None]
+    hi, lo = (GOLD, GOLD_DARK) if gold_on else (STEEL, STEEL_DARK)
+    gold = lo + (hi - lo) * np.clip(tone * 1.35 + 0.15, 0, 1)[..., None]
 
     rgb = body * (1.0 - trim[..., None]) + gold * trim[..., None]
     out = np.concatenate([np.clip(rgb, 0, 1), dif[..., 3:]], axis=2)
     return dif, out, plate
 
 
-def convert_glow(glow_path):
+def convert_glow(glow_path, gold_on=True):
     """Red emissive to amber, intensity untouched.
 
     The artist decided where the armour glows and how brightly. That judgement
@@ -202,7 +211,8 @@ def convert_glow(glow_path):
     """
     g = load(glow_path)
     intensity = g[..., :3].max(axis=2)
-    rgb = np.clip(intensity[..., None] * GOLD * 1.2, 0, 1)
+    tint = GOLD if gold_on else np.array([0.72, 0.84, 1.00])
+    rgb = np.clip(intensity[..., None] * tint * 1.2, 0, 1)
     return g, np.concatenate([rgb, g[..., 3:]], axis=2)
 
 
@@ -284,13 +294,13 @@ def main():
             diffuse, spec if os.path.exists(spec) else None,
             args.contrast, args.blur, args.grain, args.detail,
             os.path.join(src, stem + "_n.dds"),
-            args.kant, args.curve, args.gloss)
+            args.kant, args.curve, args.gloss, stem not in NO_GOLD)
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""
         glow = os.path.join(src, stem + "_g.dds")
         if os.path.exists(glow):
-            g_before, g_after = convert_glow(glow)
+            g_before, g_after = convert_glow(glow, stem not in NO_GOLD)
             panels.append(("glow AFTER", g_after))
             note = " + glow"
         rows.append([stem] + panels)
