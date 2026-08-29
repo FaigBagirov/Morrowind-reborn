@@ -286,10 +286,12 @@ Nothing below is blocked on tooling.
    we keep the ids - so playback works and contradicts the screen. 181 of our
    190 rewritten replies have a voice file. Architecture Part 15 carries the
    three ways out; the cheapest is the mod's own `greetingsOnly` setting.
-7. **The particle textures are converted, all 36 of them.** Seen on screen
-   2026-08-29 and approved for the first iteration. See the section below - the
-   shape is settled, the coverage was the defect, and one spell (Light) rides on
-   an unproven write.
+7. ~~The particle textures.~~ **Done, all 36, confirmed in the `play` profile
+   2026-08-29.** Light, `self dispel` and `hearth heal` cast in the Vivec
+   exterior: every one a hexagon swarm in its own colour, plates at the finer
+   size, and the Light redirect took. Nothing in the visuals is unproven any
+   more. Only the grain shader is left, and Canon Part 9 puts that in
+   post-processing rather than in particles.
 8. The upstream ticket is written and on the user's Google Drive, for them to
    file.
 
@@ -298,7 +300,7 @@ Architecture Part 15 has the measurements - vanilla voices no topic dialogue at
 all, none of our 193 lines is voiced, and no vanilla bark says a target word.
 The tooling exists and the one conflict is the Delta merge we already do.
 
-## Particle visuals - `SHAPE APPROVED, COVERAGE FIXED, ONE WRITE UNPROVEN`
+## Particle visuals - `DONE, ALL 141 EFFECTS, CONFIRMED IN THE REAL PROFILE`
 
 Canon Part 9, report `tools/reports/vfx.md`, generator
 `tools/scripts/make_vfx.py`. Output is `tools/build/vfx-<profile>/Textures/`,
@@ -340,17 +342,22 @@ Three things worth carrying forward:
   seconds a profile instead of ten minutes, and one colour byte in 1,048,576
   differs from the old code, none in alpha.
 
-**The one open item: `Light`.** Its effect record names `tx_firealpha00a`, which
-is not a magic texture - it is the world flame sheet every torch and campfire
-wears, and overriding it would put hexagons on every fire in the game to convert
-one spell. So it is excluded by name, and instead `mod/scripts/rewrite/apply.lua`
-points the record at a private copy: `rec.particle = 'vfx_zen_light.dds'`.
+**`Light` is converted, and the write is proved.** Its effect record names
+`tx_firealpha00a`, which is not a magic texture - it is the world flame sheet
+every torch and campfire wears, and overriding it would put hexagons on every
+fire in the game to convert one spell. So it is excluded by name, and instead
+`mod/scripts/rewrite/apply.lua` points the record at a private copy.
 
-**That write has never been proved.** `particle` is documented as a field of
-`MagicEffect` and the record list as mutable, but it was not a WO0 probe and no
-readback exists. It is guarded - read, write, read back, log - so a refusal
-costs nothing but leaves Light vanilla. The answer is one line in
-`play/openmw.log`, tagged `[REWRITE] light:`.
+`MagicEffect.particle` **is writable from the load context in 0.51.** It was not
+a WO0 probe and nothing documented that it had a setter, so the write was
+guarded. It took, 2026-08-29:
+
+    [REWRITE] light: particle tx_firealpha00A.tga -> vfx_zen_light.dds
+
+Verified the two ways the working method asks for: the readback in the load
+context, and the engine's own use of the field on screen - Faig cast Light in
+the Vivec exterior and got the warm hexagon swarm, not the vanilla flame. Add
+`particle` to the short list of MGEF fields known to be writable, beside `name`.
 
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 

@@ -37,6 +37,26 @@ list into evidence.
 Read out of `defaults.bin` (base64, decodes to the commented default config),
 not recalled.
 
+## Result: Tier 1 was enough
+
+Applied 2026-08-29 and the same exterior loaded. From `logs/openmw-play.log`,
+nine exterior cells over a fifteen-minute session, walked rather than
+teleported:
+
+    Vivec (2, -10)   Vivec (3, -9)          Vivec, Foreign Quarter (3, -10)
+    Vivec, Redoran   Vivec, Hlaalu          Vivec, Foreign Quarter (4, -10)
+    Vivec, Arena     Ascadian Isles (2, -9) Ascadian Isles (4, -9)
+
+Spells cast, particles rendered, `Quitting peacefully.` Free RAM back to 8.5 GB
+afterwards. **Tiers 2 and 3 were not needed and have not been applied** - the
+three lines that cost nothing on screen were sufficient, so the visual settings
+stay where Faig had them.
+
+Which of the three did the work is still unmeasured. `preload exterior grid` is
+the likely one, since it is the only one that scales with how heavy the
+neighbouring exterior cells are, and Vivec's are the heaviest in the game - but
+that is reasoning, not evidence, and all three were changed at once.
+
 ## Tier 1 — no visual cost at all
 
 These change what is held in memory ahead of time, not what is drawn.

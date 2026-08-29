@@ -1,0 +1,1396 @@
+[22:52:31.219 *] Loading config file: D:\Program Files\OpenMW 0.51.0\openmw.cfg
+[22:52:31.261 *] Loading config file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.cfg
+[22:52:31.278 *] Logs dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play
+[22:52:31.279 *] User data dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/
+[22:52:31.282 *] Screenshots dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/screenshots
+[22:52:31.303 I] OpenMW version 0.51.0
+[22:52:31.303 I] Revision: f4bec41444
+[22:52:31.326 I] Loading settings file: D:\Program Files\OpenMW 0.51.0\defaults.bin
+[22:52:31.395 I] Loading settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\settings.cfg
+[22:52:31.398 I] Using default (English) font encoding.
+[22:52:31.726 W] No such dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/data
+[22:52:31.890 I] OSG version: 3.6.5
+[22:52:31.891 I] SDL version: 2.32.10
+[22:52:31.900 I] Loading shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\shaders.yaml
+[22:52:37.948 I] OpenGL Vendor: NVIDIA Corporation
+[22:52:37.948 I] OpenGL Renderer: NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2
+[22:52:37.950 I] OpenGL Version: 4.6.0 NVIDIA 610.74
+[22:52:37.951 I] Using reverse-z depth buffer
+[22:52:38.253 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Morrowind.bsa
+[22:52:38.545 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Tribunal.bsa
+[22:52:38.825 I] Adding BSA archive D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files\Bloodmoon.bsa
+[22:52:38.828 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources\vfs
+[22:52:41.532 I] Adding data directory D:\Program Files\OpenMW 0.51.0\./resources/vfs-mw
+[22:52:41.762 I] Adding data directory D:\ProgramFiles\Steam\steamapps\common\Morrowind\Data Files
+[22:52:49.461 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PatchforPurists
+[22:52:49.490 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\RoyalBarenziah\00 Core
+[22:52:49.529 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\RoyalBarenziah\01 Option 3
+[22:52:49.533 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\InterestingOutfitsSolstheim\1. Core
+[22:52:49.535 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\InterestingOutfitsSolstheim\2. TOTSP Compatibility
+[22:52:49.536 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\InterestingOutfitsTamrielRebuiltGuards
+[22:52:49.588 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\FacesofVelAshMire\Data Files
+[22:52:49.590 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\ConceptArtMolagAmurRegionTheGreatScathes\00 Core
+[22:52:49.627 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\SouthernAshlandsOverhaul
+[22:52:49.629 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\TamrielData\00 Data Files
+[22:52:53.220 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\TamrielDataTextureUpscale
+[22:52:53.822 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\07 Telvanni Cephalopod Armor TD Cuirass Upscale and Color Match
+[22:52:53.824 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\DistantEbonTowerforOpenMW
+[22:52:53.844 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\OAABData\00 Core
+[22:52:54.192 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MeshFixv12
+[22:52:54.273 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\CorrectMeshes\Data Files
+[22:52:54.481 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\MorrowindOptimizationPatch\00 Core
+[22:52:54.640 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\00 Core + Vanilla Meshes
+[22:52:54.764 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\MorrowindOptimizationPatch\05 Graphic Herbalism Patch
+[22:52:54.797 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\00 Correct UV Ore + README
+[22:52:54.820 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ProperlySmoothedMeshes\00 Core
+[22:52:54.883 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ProperlySmoothedMeshes\01 Optional Textures
+[22:52:54.885 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ProperlySmoothedMeshes\03 Higher Poly Glowing Candles
+[22:52:54.888 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ProperlySmoothedMeshes\05 Beaker, Flasks - clear glass
+[22:52:54.907 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ProperlySmoothedMeshes\06 Inkwell - cut glass
+[22:52:54.910 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\ProjectAtlas\00 Core
+[22:52:54.973 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\ProjectAtlas\01 Textures - MET
+[22:52:54.983 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\ProjectAtlas\07 Graphic Herbalism Patch
+[22:52:55.005 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesBetterMeshes\00 - Main Files
+[22:52:55.090 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesBetterMeshes\04 - Optional - Skooma Pipe 1
+[22:52:55.092 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesBetterMeshes\BetterCratesAndBarrels
+[22:52:55.094 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\JammingsOff\Jammings off(v1.1)\ver1.0(only_Xnif_files)\Data Files
+[22:52:55.109 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\TamrielRebuilt\00 Core
+[22:52:55.173 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\TR_PC_SHOTN Normal Mapped Ordenadored by Me
+[22:52:55.403 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\TamrielData\01 Data Files - Normal Maps
+[22:52:55.428 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\24 Mackom Style Heads for Tamriel Data Normal Mapped
+[22:52:55.498 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\OAABFullUpscale\main
+[22:52:55.558 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\OAABFullUpscale\normals
+[22:52:55.610 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\VurtsMorrowindVisualResurgence\OAAB
+[22:52:55.623 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\Vurt's OAAB Normal Mapped\00 Core
+[22:52:55.778 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\Vurt's OAAB Normal Mapped\01 Regular Shader Specs
+[22:52:55.799 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Water\OpenMWMoreDynamicWaterMeshes
+[22:52:55.852 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince
+[22:52:56.122 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\000 Core
+[22:52:56.131 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\010 Optional - Tamriel Data Integration
+[22:52:56.132 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\199 Patch - Forceful Travel NPC Override
+[22:52:56.133 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\200 Addon - Missing Snow Armor Pieces
+[22:52:56.136 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\201 Addon - Fierce Wolf Helms
+[22:52:56.138 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\MorrowindEnhancedTextures\MET 6-1 main
+[22:52:56.204 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\MorrowindEnhancedTextures\Interface
+[22:52:56.258 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\MorrowindEnhancedTextures\atlas
+[22:52:56.261 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\Morrowind Enhanced Textures Normal Mapped
+[22:52:56.272 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\VurtsMorrowindVisualResurgence\main\Data Files
+[22:52:56.283 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\MVR\00 Core
+[22:52:56.293 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\MVR\01 Regular Shader Specs
+[22:52:56.306 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\VurtsMorrowindVisualResurgence\vfx\Data Files
+[22:52:56.308 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\SMReplacerWickwheat\SM_wickwheat\Data files
+[22:52:56.340 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\EKMCorkbulbRetexture\01 Preset - Default - 2k
+[22:52:56.342 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\010 Solstheim - HD Worldspace Graphical Replacer
+[22:52:56.350 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\011 Skyrim-Like Trees
+[22:52:56.352 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\SolstheimTomboftheSnowPrinceGraphicalReplacers
+[22:52:56.393 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\UpscaledTotSPTextures\00 Core
+[22:52:56.395 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforMorrowind\01a Shacks docks and ships (Lysol compatible)
+[22:52:56.400 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforMorrowind\03 Telvanni
+[22:52:56.402 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\03 Sophie's Normal Maps for Morrowind Telvanni Patch Telvanni Housepod Heightmap Replacement
+[22:52:56.403 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforMorrowind\04 Daedric
+[22:52:56.405 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\Atlas Textures Normal Mapped\03 Morrowind Enhanced Textures Atlas Normal Maps
+[22:52:56.407 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\DwemerMeshImprovement
+[22:52:56.501 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\DwemerMeshImprovementsRevamped
+[22:52:56.507 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\DaedricRuinsArkitektoraofVvardenfell\HQ\Data Files
+[22:52:56.509 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\ImperialTownsNormalMappedforOpenMW
+[22:52:56.511 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\DragonStatueRevisited\00 Core
+[22:52:56.515 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\DragonStatueReRevistedDeGoofifiedEdition\Dragon Statue Re-Revisted (De-Goofified Edition)
+[22:52:56.518 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\ImperialFortsNormalMappedforOpenMW
+[22:52:56.519 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\ShacksDocksandShipsArkitektoraofVvardenfell\HQ\Data Files
+[22:52:56.521 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\KhajiitHasPatchesIfYouHaveCoin\02 Shacks Arkitektora
+[22:52:56.523 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\SewersArkitektoraofVvardenfell\Data Files
+[22:52:56.525 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\GhastlyGlowyfence
+[22:52:56.561 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\51 Ghastly Glowyfence patch
+[22:52:56.578 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesMorrowindStatuesReplacer\00 - Azura Stone
+[22:52:56.584 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesMorrowindStatuesReplacer\02 - Vivec Statues
+[22:52:56.605 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RRModSeriesMorrowindStatuesReplacer\03 - Optional - Vivec Statues Coda Fix English
+[22:52:56.606 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BaarDauMinistryofTruth\Data files
+[22:52:56.704 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\MinistryoftruthBumpmapped
+[22:52:56.706 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\OAABDwemerPavements\00 Core
+[22:52:56.707 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\OAABDwemerPavements\01 Trackless Grazelands Patch
+[22:52:56.708 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\AshlanderCampsTentsandYurtsArkitektoraofVvardenfell\HQ
+[22:52:56.709 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\AshlanderCampsTentsandYurtsArkitektoraofVvardenfell\Normals HQ
+[22:52:56.710 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\NODNPCOutfitDiversity\00 Core
+[22:52:56.991 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\NODNPCOutfitDiversity\MacKom
+[22:52:56.995 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NODNPCOutfitDiversityGigapixelUpscale\00 Core
+[22:52:57.256 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\01 Sophie's Buoyant Armiger Armor Glow Patch
+[22:52:57.265 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\MacKomsHumanoidHeads\Mackon's Humanoid Heads
+[22:52:57.498 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\NewHairsforMacKomsHeads\Data Files
+[22:52:57.562 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\ExpressiveEyesforMacKomsHeads
+[22:52:57.711 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\DandionsFamiliarLooksOpenMWTexturePathFix
+[22:52:57.715 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRheadsreplacerMacKomsheads
+[22:52:57.722 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\ExpressiveEyesforMacKomsHeads\05 TR Heads Replacer Patch
+[22:52:57.724 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRHeadsandHairreplacerMackomsHeadsandvariouspatches\00 TR and PT Mackom's Heads & Hair
+[22:52:57.808 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRHeadsandHairreplacerMackomsHeadsandvariouspatches\01 TR Hair Textures Upscaled
+[22:52:57.818 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRHeadsandHairreplacerMackomsHeadsandvariouspatches\02 TR Argonian Faces Upscaled
+[22:52:57.826 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRHeadsandHairreplacerMackomsHeadsandvariouspatches\04 OAAB Mackom's Heads & Hair
+[22:52:57.832 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\DandionsMackomStlyeFixedNormalsforopenmwandTES3MP
+[22:52:57.907 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\MackomsStyleTRPatch
+[22:52:58.044 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\25 Missing Hair Fixes Mackoms Project Cyrodil and Tamriel Rebuilt
+[22:52:58.087 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\KhajiitHeadPack
+[22:52:58.201 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\WhiskersPatchforMMHVersionAllNPCsandBaseReplace
+[22:52:58.204 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\30 Whiskers Patch for MMH Version All NPCs and Base Replace Fixed Meshes
+[22:52:58.221 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\EKMTextureEditsKhajiitHeadPack\2a Pluginless Khajiit Head Pack + Vampires GLOW
+[22:52:58.224 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\MackomsStyleTRPatch\Better Bodies TR and Vanilla
+[22:52:58.226 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\28 Plugin Better Bodies 3.0 Color Fix
+[22:52:58.228 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\IndorilHelmetRedoneforMackomsHeads
+[22:52:58.232 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\NewBeastBodiesCleanVersion\Data Files
+[22:52:58.238 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\VurtsArgoniansRetexture\liztail
+[22:52:58.240 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\VurtsArgoniansRetexture\TR\Data Files
+[22:52:58.243 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\SimplyWalkingRemastered\Simply Walking (WS Edition)
+[22:52:58.244 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\Justalittlebitbetteranimationsforthemagebuildfirstperson
+[22:52:58.246 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\ReAnimationv2Roguefirstpersonanimationpack
+[22:52:58.494 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\3rdPersonaltAttacks
+[22:52:58.536 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\12 Atlas - Smoothed BC Mushrooms
+[22:52:58.552 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\ApelsFireRetexture
+[22:52:58.588 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\SubtleSmoke
+[22:52:58.589 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Water\BetterWaterfalls\00 Core
+[22:52:58.592 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Water\BetterWaterfalls\02 Tamriel Rebuilt Water
+[22:52:58.611 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\ComberryBushandIngredientReplacer\Data Files
+[22:52:58.615 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\PherimComberryBushandIngredientReplacer
+[22:52:58.617 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\PherimsFireFernPlantandIngredient\00 Default Red
+[22:52:58.620 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\01 Pherim's Replacers
+[22:52:58.683 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\PherimsFireFernPlantandIngredient\GHfix
+[22:52:58.685 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\PherimFireFernandFirePetal
+[22:52:58.687 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\HackleloFixed\Data Files
+[22:52:58.706 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\ThickleLoTheSucculentHackleLoMod
+[22:52:58.707 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\MidMushroomOverhaul\OAAB Mid Mushroom Overhaul
+[22:52:58.708 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\TheGroveofBenAbi
+[22:52:58.738 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\TheGroveofBenAbiEnhanced
+[22:52:58.740 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\TheMountainofFear
+[22:52:58.745 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapesPathtoPelagiad
+[22:52:58.760 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\76 Little Landscape Path to Pelagiad Rock Fix
+[22:52:58.762 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapesBitterCoastWaterway
+[22:52:58.775 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\46 Bitter Coast Waterway Cliff Fix
+[22:52:58.776 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapesPathtoVivecLighthouse
+[22:52:58.777 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\CompatibleOdaiRiverUpperOverhaul\Compatible Odai River Upper Overhaul 1.2\Compatible Odai River Upper Overhaul
+[22:52:58.778 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\81 Odai River Overhaul Statue Remover Patch
+[22:52:58.779 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\23 Little Landscapes Seyda Neen Swamp Pools Patched
+[22:52:58.783 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapesNixHoundHuntingGrounds
+[22:52:58.784 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapePathtoBalmora
+[22:52:58.785 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\LittleLandscapeFoyadaofSharpTeeth
+[22:52:58.786 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\78 Little Landscape Foyada of Sharp Teeth Rock Fix
+[22:52:58.788 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\VivecLighthouse\00 Core
+[22:52:58.792 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\VivecLighthouse\01 Patch - Logs on Fire
+[22:52:58.794 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\WitnessStructureTheSeawallofVivec\00 Core
+[22:52:58.851 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\WitnessStructureTheSeawallofVivec\03 Little Landscapes Vivec Islands Patch
+[22:52:58.853 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\GatesofAscadia
+[22:52:58.856 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\MelchiorsExcellentGrazelandsAcacia\00 Core
+[22:52:58.868 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\VanillaFriendlierGrazelandsAcacia
+[22:52:58.869 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\00 Core
+[22:52:58.870 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\01 BCOM patch
+[22:52:58.872 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\03 Concept Arts plantations patch
+[22:52:58.873 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\04 Great Seawall of Vivec patch
+[22:52:58.874 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\06 Minor Plantations Redone patch
+[22:52:58.875 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\10 Openmw Groundcover Patch
+[22:52:58.888 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\11 Melchior's Excellent Grazelands Acacia patch (OpenMW)
+[22:52:58.889 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\ExcellentGrazalandsAcacia
+[22:52:58.891 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\VanillafriendlyWestGashTreeReplacer\00 Core
+[22:52:58.908 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\VanillafriendlyWestGashTreeReplacer\01 HD Textures
+[22:52:58.910 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\VanillafriendlyWestGashTreeReplacer\02 Leafy texture
+[22:52:58.912 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\13 Vanilla Friendly West Gash Trees Normal Mapped
+[22:52:58.914 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\RemirosAscadianIslesTrees2
+[22:52:58.925 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Trees\VanillaFriendlierAscadianIslesTrees
+[22:52:58.927 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\RemirosAscadianIslesTrees2
+[22:52:58.928 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\06 Sophie's Tx_MA_lava05A Normal Map (Heightmap Replacement)
+[22:52:58.934 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\PimpmyLava\Pimp my Lava\00 Core
+[22:52:58.983 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\PimpmyLava\Pimp my Lava\01 Tamriel_Data Patch
+[22:52:58.992 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\PimpmyLava\Pimp my Lava\02 AB_lava replacer
+[22:52:59.087 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\ApelsAsuraCoastandSheogorathRegionRetexture
+[22:52:59.090 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\SaintJsLandscapeReplacerParallaxTexturesforOpenMW\SaintJ Landscape Replacer Parallax (Half Res)
+[22:52:59.124 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\15 Apel's Azura's Coast
+[22:52:59.161 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\CorrectUVRocks\Data Files
+[22:52:59.199 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\AscadianFarmyardOverhaul\Ascadian Farmyard Overhaul\05 Minor Plantations Compatch
+[22:52:59.203 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\MinorPlantationsRedone\MinorPlantationsRedone
+[22:52:59.205 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\AranoPlantationWindmill
+[22:52:59.206 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\HawiaInfrastructure
+[22:52:59.208 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\ScumRetexture
+[22:52:59.210 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\ScummyScum\Scummy Scum\Data Files
+[22:52:59.212 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\PerfectScum
+[22:52:59.212 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\LilyPadReplacer
+[22:52:59.223 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\DagothUrWelcomesYou
+[22:52:59.224 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\LibraryofVivecEnhanced\00 Core
+[22:52:59.270 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\LibraryofVivecEnhanced
+[22:52:59.296 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\40 NOD+Library of Vivec Enhanced Patch
+[22:52:59.299 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\Akulakhansbestchamber\00 - Core files
+[22:52:59.362 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\21 Akulukhan's Best Chamber OpenMW
+[22:52:59.401 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtsplantations\00 Core
+[22:52:59.458 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\ConceptArtPlantations\00 Core
+[22:52:59.473 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CavesandDungeons\SanctusShrine\Data files
+[22:52:59.474 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\OAABFoyadaMamaea
+[22:52:59.475 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VariousModsandPatches\OAABFoyadaMamaeaILavaGoodPatch\00 I Lava Good
+[22:52:59.476 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AldRuhnManorBanners\Data Files
+[22:52:59.493 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AldRuhnManorBannersUpscaledandNormalMapped\00 Core
+[22:52:59.504 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AldRuhnManorBannersUpscaledandNormalMapped\01 Normal Maps
+[22:52:59.508 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\IngredientsMeshReplacer
+[22:52:59.521 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BetterKegstands
+[22:52:59.523 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ImprovedKwamaEggsandEggSacs\00-Data Files
+[22:52:59.545 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\OAABData\07 Improved Kwama Eggs
+[22:52:59.549 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\03 Pherim Pulsing Kwama
+[22:52:59.551 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OneTrueFaithSaintsandFrescoesRetexture\UHQ
+[22:52:59.552 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmeriUrnsAestetikaofVvardenfell\HQ
+[22:52:59.553 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmeriUrnsAestetikaofVvardenfell\Normals HQ
+[22:52:59.554 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmeriUrnsAestetikaofVvardenfell\Atlas HQ
+[22:52:59.557 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmeriUrnsAestetikaofVvardenfell\Normals HQ ATLAS
+[22:52:59.560 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LongLiveTheGlasswareRetexture\Long Live The Glassware - Retexture\Data Files
+[22:52:59.583 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LongLiveThePlatesRetexture\Long Live The Plates\Data Files
+[22:52:59.596 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\RedwareAestetikaofVvardenfellClutter\HQ
+[22:52:59.599 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\RedwareAestetikaofVvardenfellClutter\Atlas HQ
+[22:52:59.601 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ImprovedBetterSkulls\Data Files
+[22:52:59.619 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ImprovedBetterSkulls\Vanilla Textures
+[22:52:59.639 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ImprovedBetterSkulls\01 Improved Better Skulls Textures (Connary)
+[22:52:59.641 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\PherimsSmallandWIPMods\Data Files
+[22:52:59.643 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\PherimsSmallandWIPMods\Normal Map for OpenMW
+[22:52:59.644 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\RZerosRandomRetexturesandReplacers\Quill
+[22:52:59.645 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\EKMVanillaBasedPaperLanterns
+[22:52:59.679 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\EKMVanillaBasedPaperLanterns\TD
+[22:52:59.684 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\EKMVanillaBasedPaperLanterns\OAAB
+[22:52:59.685 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWContainersAnimated\Containers Animated
+[22:52:59.804 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWContainersAnimated\Optional\kollops
+[22:52:59.806 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWVanillaFriendlyAnimatedBasketEdit\00 Core
+[22:52:59.809 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWVanillaFriendlyAnimatedBasketEdit\01 HD Textures
+[22:52:59.810 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWVanillaFriendlyAnimatedBasketEdit\02 HD Normal Map
+[22:52:59.811 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ApelsVariousThingsSacks
+[22:52:59.815 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SeptimGoldandDwemerDumacs\00 Core
+[22:52:59.817 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SeptimGoldandDwemerDumacs\01 OpenMW
+[22:52:59.819 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SoulgemReplacer\Data Files
+[22:52:59.877 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SoulgemReplacer\Data Files\Normals
+[22:52:59.879 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\FMUniqueItemsCompilation\Data Files
+[22:52:59.950 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MajesticMuffin\00 Core FMI Unique Items Patch
+[22:52:59.952 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MajesticMuffin\01 4k Base Texture
+[22:52:59.953 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MajesticMuffin\02 4k Normals
+[22:52:59.954 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MajesticMuffin\03 4k Regular Shader Spec
+[22:52:59.955 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\42 FMGS Unique Items Compilation Mesh Fix
+[22:52:59.974 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SWJsWeaponSheathingPatches\Unique Items Compilation
+[22:52:59.976 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\SWJsminorcompabilitypatches\DaedricAmulet
+[22:52:59.979 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\KnowThyAncestors
+[22:52:59.986 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PublicolasMiscModEmporium\Know Thy Ancestors - Serano Tomb Fix (Main)
+[22:52:59.987 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\Know Thy Ancestors Normal Mapped
+[22:52:59.988 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\FMGS - Unique Items Compilation Normal Mapped
+[22:53:00.025 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\Dunmersashpits\Data files
+[22:53:00.037 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\UniqueJewelryRedone
+[22:53:00.115 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\Salts\main\Data files
+[22:53:00.133 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\Salts\hi-res-glowmaps\Data files
+[22:53:00.136 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\Salts
+[22:53:00.138 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\StoreEntranceChimes
+[22:53:00.199 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\StoreEntranceChimesforCyrodiilandTRMainland
+[22:53:00.206 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\73 Store Entrance Chimes
+[22:53:00.208 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\31 Flies Patched
+[22:53:00.273 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\Fireflies
+[22:53:00.276 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForge\Data Files
+[22:53:00.281 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForge\Optional Animated Bellows with Sound [English Version]
+[22:53:00.307 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForge\Optional Texture for Glowing Ash
+[22:53:00.310 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForge\Improved Meshes only
+[22:53:00.316 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForge\Optional HD Bloodmoon Coals Texture
+[22:53:00.318 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\HDForgeforOpenMWLua
+[22:53:00.320 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\HDForge
+[22:53:00.322 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\02 Sophie's Hircine's Artifacts Hircine Spear Upscaled Fixed and Retextured
+[22:53:00.324 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\RealisticSpiderWebs
+[22:53:00.345 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\RemirosAlcoholHD
+[22:53:00.376 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BannersandFlagsRetextureAestetikaofVvardenfell\00 Core - HQ
+[22:53:00.378 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BannersandFlagsRetextureAestetikaofVvardenfell\05 TR Ashlanders - HQ
+[22:53:00.382 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BannersandFlagsRetextureAestetikaofVvardenfell\10 Worn Letters - HQ
+[22:53:00.384 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BannersandFlagsRetextureAestetikaofVvardenfell\40 Purist Smith - HQ
+[22:53:00.385 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BannersandFlags\00 Core - HQ
+[22:53:00.387 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BannersandFlags\05 TR Ashlanders - HQ
+[22:53:00.405 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BannersandFlags\10 Worn Letters - HQ
+[22:53:00.407 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BannersandFlags\40 Purist Smith - HQ
+[22:53:00.409 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BetterTapestriesandRugsv10\Better Tapestries and Rugs v1.0
+[22:53:00.410 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BetterTapestriesandRugs\00 Core
+[22:53:00.412 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BetterTapestriesandRugs\01 Regular Shader Specs
+[22:53:00.415 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BetterVivecBanners10\Better Vivec Banners 1.0
+[22:53:00.417 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\BetterVivecBanners
+[22:53:00.419 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\WelcomeRoadMarkerRetextureAestetikaofVvardenfell\HQ
+[22:53:00.421 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\WelcomeRoadMarkerRetextureAoVNormalMaps
+[22:53:00.423 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\SignpostsReplacerforTamrielRebuiltandVvardenfell\JASPR-V\Data Files
+[22:53:00.458 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\SignpostsReplacerforTamrielRebuiltandVvardenfell\JASPR-TR\Data Files
+[22:53:00.467 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ApelsVariousThingsSigns
+[22:53:00.486 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\UniqueBannersandSignsReplacer
+[22:53:00.549 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\UniqueTavernSignsforTamrielRebuilt
+[22:53:00.581 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\BalmoraRoadNormalMaps
+[22:53:00.605 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\FullDwemerRetexture\FULL DWM RTX
+[22:53:00.613 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\FullDwemerRTXAllinOneNormalMapped
+[22:53:00.622 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\Swayland
+[22:53:00.631 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BetterTelvanniCrystal\Better Telvanni Crystal 4k
+[22:53:00.638 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\OAABData\04 Better Telvanni Crystal Patch
+[22:53:00.672 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\NormalandSpecularmapsforBetterTelvanniCrystal
+[22:53:00.687 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\VibrantIvyandTrellisAdditions\00 Core
+[22:53:00.715 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\VibrantIvyandTrellisAdditions\01 BCoM Addon
+[22:53:00.718 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\VibrantIvyandTrellisAdditions\02 Trellis addon - BCoM
+[22:53:00.720 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\OAABTheAshenDivide
+[22:53:00.732 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\MarbledZafirbelBay
+[22:53:00.774 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\TempleShrinesGlow\Temple Shrines Glow\Data Files
+[22:53:00.805 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABGrazelands\00 Core
+[22:53:00.858 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABGrazelands\03 HD Textures
+[22:53:00.870 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\OAAB Grazelands Normal Mapped
+[22:53:00.888 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\08 Trackless Grazeland For OpenMW
+[22:53:00.889 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AzurasShrineOverhaul\00 - Core files
+[22:53:00.899 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\CavernOfTheIncarnateOverhaul\1CavernOfIncarnateOverhaul
+[22:53:00.934 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\CavernOfTheIncarnateOverhaulOpenMWpatch
+[22:53:00.946 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\BallakuTheLonelyTowers
+[22:53:01.001 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\JusticeforKhartagJFK
+[22:53:01.015 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\ImmersiveGrottoEntrances
+[22:53:01.021 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\20 Immersive Grotto Entrances Patched
+[22:53:01.023 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DivineDagoths\00 - Core Files
+[22:53:01.085 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DivineDagoths\01 - No Reflection Maps
+[22:53:01.158 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DivineDagoths\01 - OpenMW Model Fix
+[22:53:01.167 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DivineDagoths\01 - Uthol's Greeting
+[22:53:01.170 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AmazingAtronachsCreatureMeshReplacer\04 Creatures VFX Restoration
+[22:53:01.186 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AmazingAtronachsCreatureMeshReplacer\04a Shiny Ice Creatures VFX Restoration
+[22:53:01.188 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AmazingAtronachsCreatureMeshReplacer\05 HD Particle Textures
+[22:53:01.189 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\FlameAtronachsRekindledReplacer\Amazing (Flame) Atronach Rekindled OpenMW\Data Files
+[22:53:01.192 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SiltStrider\No bump\Data files
+[22:53:01.205 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SiltStriderAnimationRestored\Data Files
+[22:53:01.207 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\VurtsSiltStriderRetexture\Data Files
+[22:53:01.208 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\NwahStriderVurtPatchwithNormals\00 Core
+[22:53:01.211 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\NwahStriderVurtPatchwithNormals\01 Normal Maps
+[22:53:01.213 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\NwahStriderVurtPatchwithNormals\02 Regular Shader Specs
+[22:53:01.216 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\CliffRacerReplacer20\Data Files
+[22:53:01.219 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\MudcrabReplacer\Data Files
+[22:53:01.221 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\4thUnknownsCreaturesMorrowindEdition
+[22:53:01.251 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\GoblinsRemastered4thUnknowncreatures
+[22:53:01.257 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\GoblinsRemastered4thUnknowncreatures\Vanilla Reskin
+[22:53:01.259 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\KwamaQueenReplacer
+[22:53:01.262 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\KwamaWarriorRemastered4thunknowncreatures
+[22:53:01.267 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\KwamaWarriorRemastered4thunknowncreatures\Vanilla Reskin
+[22:53:01.270 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\KwamaWorkerRemastered4thunknowncreatures
+[22:53:01.274 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\KwamaWorkerRemastered4thunknowncreatures\Vanilla Reskin
+[22:53:01.277 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\ScribRemastered4thUnknownCreatures
+[22:53:01.283 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\ScribRemastered4thUnknownCreatures\Vanilla Reskin
+[22:53:01.285 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AlitRemasteredSkinwalker21creatures\main
+[22:53:01.288 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AlitRemasteredSkinwalker21creatures\Vanilla Reskin
+[22:53:01.291 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\OntheBlink\Data Files
+[22:53:01.348 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DreughRemasteredMihailCreatures
+[22:53:01.353 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\DreughRemasteredMihailCreatures\Vanilla Reskin
+[22:53:01.355 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\BlightedAnimalsRetextured
+[22:53:01.438 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\Varioustweaksandfixes\BlightedAnimalsRetexturedMET
+[22:53:01.469 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\BlightedAnimalsRetextured
+[22:53:01.526 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\AlternateSpriggans
+[22:53:01.531 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\ScampReplacer
+[22:53:01.535 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\HungerReplacer\Data Files
+[22:53:01.537 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\OldBlueFin\Old Blue fin
+[22:53:01.539 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMBonewalkerReplacer\SM Bonewalker OpenMW\Data files
+[22:53:01.541 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMGreaterBonewalkerReplacerOverhaul\sm_GreaterBoneWalker\Data Files
+[22:53:01.545 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMWerewolfReplacer\open_mw\SM_Werewolf_Replacer\Data Files
+[22:53:01.571 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMWerewolfReplacer\missing meshes fix\data files
+[22:53:01.574 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMWerewolfReplacer\black_fur
+[22:53:01.578 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\Blighted4thUnknownsBeastsRetextured\Blighted Creatures Retexture
+[22:53:01.583 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\18 4thUnknowns Blighted Kwamas and Shalks
+[22:53:01.586 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\OldBlueFinUpscaled\00 Core
+[22:53:01.588 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\OldBlueFinUpscaled\01 Normal Map
+[22:53:01.590 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\WestlyPresentsUniqueWingedTwilights\Data Files
+[22:53:01.604 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\WestlyPresentsUniqueWingedTwilightsNormalMapped
+[22:53:01.606 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\SMBoneLordReplacerOverhaul\Vanilla_Animations_ver\Data Files
+[22:53:01.610 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\BetterDwarvenSpectresMerandMaidensEdition\00 Core
+[22:53:01.617 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\BetterDwarvenSpectresMerandMaidensEdition\01 Dwarven Spectres
+[22:53:01.618 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\NewWolfReplacer\Data Files
+[22:53:01.679 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\ReturnoftheKingKarstaagOverhaul
+[22:53:01.682 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\RotatsCorprusNativesReplacer
+[22:53:01.702 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\RotatsCorprusNativesReplacer\512px
+[22:53:01.704 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\EKMDunmerCorprusVariants\01 Core - Westly Replacer
+[22:53:01.728 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\EKMDunmerCorprusVariants\03 Plugin - Vanilla Variants All
+[22:53:01.729 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\BetterAlmalexia
+[22:53:01.770 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\YetAnotherGuardDiversity
+[22:53:01.781 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\29 Yet Another Guard Diversity - Cephalopod Armor - Waterworks
+[22:53:01.783 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\VEHKConceptartVivecreplacer\Data files
+[22:53:01.786 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\Danae's Mods AIO Normal Mapped
+[22:53:02.440 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NODNPCOutfitDiversityGigapixelUpscale\00 Core Maps
+[22:53:03.104 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\ByAzura\00 Core
+[22:53:03.131 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\ByAzura\01 High Res Textures
+[22:53:03.146 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\StaticSwitchingSystem\static_switching_system
+[22:53:03.149 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\36 WhiteSuran OpenMW Lua
+[22:53:03.151 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ImmersiveMournhold
+[22:53:03.199 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\82 Immersive Mournhold Corner Tower Remover Patch
+[22:53:03.200 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\38 BCOM+Marbled Zafirbel Bay+WHO Patch
+[22:53:03.201 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\67 MOMW Sadrith Mora Pathgrid Reset
+[22:53:03.202 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\GuarStablesofVivec\00 Core
+[22:53:03.221 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\GuarStablesofVivec\01 Guar Stables
+[22:53:03.225 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\00 Core
+[22:53:03.749 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\01 Waterworks Core
+[22:53:03.750 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\03 Weather Mechanics for (OpenMW) - Required
+[22:53:03.751 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\04 Suran dock expansion
+[22:53:03.752 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\07 Taller Seyda Neen Lighthouse
+[22:53:03.753 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\08 Expanded Sadrith Mora Dock
+[22:53:03.754 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\09 Concept Art Ghostfence Pillars
+[22:53:03.756 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\10 Open Arena
+[22:53:03.758 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\11 Vivec Customization Options
+[22:53:03.759 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\12 Ghostgate - Animated Statues
+[22:53:03.760 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\13 Vanilla Skar
+[22:53:03.761 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\14 More Tribal Erabenimsun
+[22:53:03.777 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\15 Molag Mar Broken Dome
+[22:53:03.778 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\17 Caldera Mages Guild Basement
+[22:53:03.780 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\18 Urshilaku Camp Concept Art Husk
+[22:53:03.782 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\19 Ald'Ruhn Outdoor Merchants
+[22:53:03.783 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\20 Imperial Gatehouses Addon
+[22:53:03.784 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\24 Khuul Lighthouse
+[22:53:03.785 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\02 Options\25 Sadrith Mora South Gates
+[22:53:03.786 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\03 Waterworks Options\01 Optional Merchants
+[22:53:03.787 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\03 Waterworks Options\02 Cluttered Canal
+[22:53:03.788 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\04 Project Atlas and GiTD Patches\01 Project Atlas Patch
+[22:53:04.443 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\04 Project Atlas and GiTD Patches\05 RR Statues patch
+[22:53:04.448 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\06 HD Textures
+[22:53:04.604 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\MaarGanTownofPilgrimage\00 Core
+[22:53:04.626 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\MaarGanTownofPilgrimage\01 Ashlander Addon
+[22:53:04.628 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\MaarGanTownofPilgrimage\02 Magic Rock of Maar Gan
+[22:53:04.640 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\12 Sophie's Concept Art Ald Skaar 8k Upscale
+[22:53:04.642 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\BCOM
+[22:53:04.868 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\TheAshlanders
+[22:53:04.878 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\UrshilakuSpiritual
+[22:53:04.879 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\WeWillGoToMountAssarnibibi
+[22:53:04.882 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\TelAruhnChronichles
+[22:53:04.925 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\TRHeadsandHairreplacerMackomsHeadsandvariouspatches\07 The Seedy Plates Mackom's Heads & Hair
+[22:53:04.927 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\01 Patch for Purists
+[22:53:04.928 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\03 OAAB Foyada Mamaea
+[22:53:04.931 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\10 Concept Art Plantations
+[22:53:04.932 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\22 Tamriel Rebuilt patch
+[22:53:04.933 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\VivecandVelothiArkitektoraVol2\Data Files
+[22:53:04.934 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\VivecandVelothiArkitektoraVol2NormalMaps\Vivec and Velothi Arkitektora  - HQ Normals\Data Files
+[22:53:04.936 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\17 Missing Vivec and Velothi Arkitektora Vol 2 Normals
+[22:53:04.937 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\KhajiitHasPatchesIfYouHaveCoin\04 Vivec Arkitektora
+[22:53:04.938 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\HlaaluArkitektoraVol2\HQ
+[22:53:04.939 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\HlaaluArkitektoraVol2\HQ-Atlas
+[22:53:04.940 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\HlaaluArkitektoraVol2NormalMaps\Hlaalu - Arkitektora Vol.2 Normal Maps\Data Files
+[22:53:04.942 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\HlaaluArkitektoraVol2NormalMaps\Hlaalu Arkitektora - ATLAS Normals HQ
+[22:53:04.943 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RedoranArkitektoraVol2\HQ
+[22:53:04.944 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\KhajiitHasPatchesIfYouHaveCoin\01 Redoran Arkitektora
+[22:53:04.945 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RedoranArkitektoraVol2\TR-HQ\TR Replacer - Structures - Redoran
+[22:53:04.981 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AldruhnunderSkar\Data files
+[22:53:04.984 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\TamrielRebuiltHallofJusticeOverhaul\00 Core
+[22:53:05.050 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\TamrielRebuiltHallofJusticeOverhaulNormalMapped
+[22:53:05.064 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\TelvanniMeshImprovement
+[22:53:05.151 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\TelvanniArkitektoraofVvardenfell\HQ\Data Files
+[22:53:05.152 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\TelvanniMeshImprovementArkitektoraPatch
+[22:53:05.160 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\23 Telvanni Mushroomtop Housepod UV Fix
+[22:53:05.162 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\29 Tyddys Arkitektora Atlas and Normal Mapped
+[22:53:05.165 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NecromArkitektoraofMorrowind\HQ
+[22:53:05.741 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NecromArkitektoraofMorrowind\NecromMinorMeshesFixes
+[22:53:05.744 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\NecromArkitektoraHQ
+[22:53:05.756 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RedoranArkitektoraVol2NormalMaps\Redoran Arkitektora - Buildings HQ Normal Maps Atlas
+[22:53:05.758 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RedoranArkitektoraVol2NormalMaps\Redoran Arkitektora - HQ Normals\Data
+[22:53:05.759 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\RedoranArkitektoraVol2\UHDAldSkar
+[22:53:05.761 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\AldSkarUHDNormalMapped\00 Core
+[22:53:05.762 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\AldSkarUHDNormalMapped\01 Regular Shader Specs
+[22:53:05.765 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\SaintJsTamrielRebuiltLandscapeReTextureParallax\TR Landscape Replacer
+[22:53:05.804 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\VelothiWallArt\Velothi Wall Art\Data Files
+[22:53:05.825 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\48 Velothi Wall Art
+[22:53:05.827 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\00 Core
+[22:53:05.886 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\01 Symmetrical Palace
+[22:53:05.888 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\02 Interior Cluttering
+[22:53:05.889 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\03 Flame - Option 1
+[22:53:05.892 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\04 Rotating Planets
+[22:53:05.893 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\06 Columns - Concept Art Scribbles - Symmetric Palace
+[22:53:05.895 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\07 Decorated Bridge
+[22:53:05.896 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\08 Cluttered Staircase
+[22:53:05.899 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\09 Unique Door
+[22:53:05.900 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\10 TR Water - Symmetric - Original Colour
+[22:53:05.902 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\ConceptArtPalaceVivecCity\Concept Art Palace distant flames
+[22:53:05.903 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\BetterFlamesforConceptArtPalaceVivecCityOpenMWVersion\00 Green-Yellow
+[22:53:05.912 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\ConceptArtPalace
+[22:53:05.916 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\HolamayanIsland\Data files
+[22:53:05.917 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RRModSeriesTelvanniLighthouseTelBranora\01 - Main ESP - English
+[22:53:05.918 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RRModSeriesTelvanniLighthouseTelVos\00 - Main Files
+[22:53:05.929 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RRModSeriesTelvanniLighthouseTelVos\00 - Main patch files
+[22:53:05.932 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RRModSeriesTelvanniLighthouseTelVos\01 - Main Files GITD Patch
+[22:53:05.935 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RRModSeriesTelvanniLighthouseTelVos\02 - Main ESP - English
+[22:53:05.936 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABTelMora\00 Core
+[22:53:05.991 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABTelMora\01 Female Guards
+[22:53:05.992 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABTelMora\02 HD Textures
+[22:53:06.002 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\OAAB Tel Mora Normal Mapped
+[22:53:06.034 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\04 Sophie's Normal Maps for Morrowind OAAB Tel Mora Normal Heightmap Replacement and Mesh Edit
+[22:53:06.037 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AlmalexiasChamberOverhaul\00 Core
+[22:53:06.055 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\AlmalexiasChamberOverhaul\04 OpenMW NormalMaps
+[22:53:06.061 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\NordicDagonFel\00 Core
+[22:53:06.091 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\NordicDagonFel\01 More Nordic Dagon Fel
+[22:53:06.092 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\DagonFelMillRedux
+[22:53:06.093 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\NPCs\NordicDagonFelNPCs
+[22:53:06.094 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\AldruhnArchitectureVariety\00 Core
+[22:53:06.100 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\RatinthePotOAABifiedandTRd
+[22:53:06.101 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\TempleBalmoraOAABifiedandTRd
+[22:53:06.102 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\RavenRockEnhanced
+[22:53:06.104 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\NordicSolstheimSolstheimInteriorsOverhaul\00 Core
+[22:53:06.105 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Interiors\NordicSolstheimSolstheimInteriorsOverhaul\01 Cliff Racer Restored
+[22:53:06.106 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\TelvanniSeaBeacons
+[22:53:06.118 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\OAABtoRRTelvanniConsistency
+[22:53:06.154 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\PlantersforAjira\Planters for Ajira
+[22:53:06.165 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PlantersforAjiraBeautifulCitiesofMorrowind\Planters for Ajira - BCoM
+[22:53:06.166 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\DagonFelLighthouse\00 Core
+[22:53:06.168 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\DagonFelLighthouse\02b Patch - Logs on Fire with Nordic interior Detailing
+[22:53:06.169 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\SadrithMoraBCOMPlusModule\06 OAAB Market
+[22:53:06.172 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\SadrithMoraBCOMPlusModule\08 Shipyards of Vvardenfell
+[22:53:06.174 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VIPVegettosImportantPatches\TheMagicRockofMaarGan\00 - Core
+[22:53:06.187 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\CalderaGovernorsManorRedone
+[22:53:06.200 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\67 Caldera Governor Manor
+[22:53:06.201 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\HangingGardensofSuran\00 Core
+[22:53:06.219 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\HangingGardensofSuran\02 Patch - BCOM (Full)
+[22:53:06.220 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\ExpansionResourceConflicts
+[22:53:06.250 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\09 Expansions Resource Conflicts MET'D
+[22:53:06.252 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BellTowersofVvardenfell
+[22:53:06.255 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BellTowersofVvardenfellDirectionalSoundforOpenMW\Data Files
+[22:53:06.256 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\HumblePrayerHall\HumblePrayerHall
+[22:53:06.258 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PrayerWheelOpenMWNormalmapMeshFix\00 Core
+[22:53:06.259 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PrayerWheelOpenMWNormalmapMeshFix\01 Tyddys Vivec and Velothi Arkitektora V2
+[22:53:06.260 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\RZerosThrobbingMeataCorprusMeatReplacer\Data Files
+[22:53:06.307 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\R-Zero's Throbbing Meat Normal Mapped
+[22:53:06.308 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\AlvazirsVariousPatches
+[22:53:06.310 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\BetterClothesDefinitiveEdition\Better Clothes Definitive Edition
+[22:53:06.380 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\BetterRobes\Data Files
+[22:53:06.383 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\BetterRobesUpdatedTamrielRebuiltPatch\Better Robes Updated TR Patch
+[22:53:06.403 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\VurtsBetterClothesRetexture\main
+[22:53:06.434 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforPremium\VurtsBetterClothesRetexturedNormalMapped
+[22:53:06.478 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\NewGondolierHelmFixedforOpenMW\NewGondolierHelm
+[22:53:06.480 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\CommonShoePack\Data Files
+[22:53:06.493 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Clothing\DimsClothingGroundObjectReplacer\DIm's Clothing Ground Object Replacer
+[22:53:06.497 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MageRobes\00 Core
+[22:53:07.348 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MageRobes\03 Normal and Specular Maps for OpenMW
+[22:53:07.352 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MageRobes\04 HD Textures
+[22:53:07.354 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MageRobesforOpenMWLua
+[22:53:07.356 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMTelvanniCeremonialRobe\Telvanni_Robe\Data files
+[22:53:07.387 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMTelvanniCeremonialRobe\Telvanni_Robe\Icons HD 512 for OpenMW
+[22:53:07.389 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\71 Molomo SM Ceremonial Robe Patch
+[22:53:07.391 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\TelvanniMagisterRobes\Telvanni Magister Robes-52278-1-25-1683240241\Telvanni Magister robes\Data Files
+[22:53:07.406 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\52 Telvanni Magister Robes Anticheese
+[22:53:07.407 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\TelvanniMagisterRobes
+[22:53:07.426 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\AesthesiaStrongholdtextures
+[22:53:07.428 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\AesthesiaStrongholdNormalMaps\Aesthesia Strongholds Normal Maps
+[22:53:07.429 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\Varioustweaksandfixes\BetterColovianFurHelms\00 Core
+[22:53:07.431 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\Varioustweaksandfixes\BetterColovianFurHelms\01 TD Meshes
+[22:53:07.448 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\Varioustweaksandfixes\BetterColovianFurHelms\02 TD HiRes Textures
+[22:53:07.451 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\DaedricLordArmorMorrowindEdition
+[22:53:07.525 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\NewFistsofRandagulf\Data files
+[22:53:07.527 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\TheForgottenShieldsArtifacts\TheForgottenShields-Artifacts1.3
+[22:53:07.565 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\35 The Forgotten Shields - Artifacts Patched
+[22:53:07.566 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\14 Forgotten Shields Artifacts Upscaled Textures, Mesh fixes, and Normals
+[22:53:07.593 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\EbonyMailReplacer
+[22:53:07.596 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMMaskofDagothUr\sm_mask_eng
+[22:53:07.599 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMMaskofDagothUr\update_and_normal_map
+[22:53:07.601 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\GlassGlowset
+[22:53:07.631 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\GraphicHerbalismMWSEandOpenMWEdition\19 Glass Glowset ores
+[22:53:07.654 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\OAABData\05 Glass Glowset Patch
+[22:53:07.690 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\GraspingFortuneArchitectureGlow
+[22:53:07.694 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\GraspingFortuneArmourGlow
+[22:53:07.697 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\GraspingFortuneClothGlow
+[22:53:07.712 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\OAABGlassGlow
+[22:53:07.720 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\SummersetGlassGlow
+[22:53:07.722 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\MoreGlowingMods\TamrielRebuiltGlassGlow
+[22:53:07.741 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\SWJsminorcompabilitypatches\METGlassGlowset
+[22:53:07.742 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\BearArmorReplacer\BearArmorReplacer_en-44992-1-01
+[22:53:07.765 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMBoiledNetchLeatherArmorReplacer\SM_Boiled_Armor_Set_Vanila Style\Data Files
+[22:53:07.792 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMMasqueClavicusVileReplacer\sm_CV_mask\WithOut_Violet_Effect\Data files
+[22:53:07.809 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Armor\SMHelmofOreynBearclawReplacerOverhaul\Helm_of_Oreyn Bearclaw\data files
+[22:53:07.811 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\IceBladeoftheMonarchReplacerOpenMW
+[22:53:07.812 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\MehrunesRazorReplacerOpenMW
+[22:53:07.815 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\ChrysamereRepalcer
+[22:53:07.816 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\Swordandringofnerevar\Trueflame
+[22:53:07.833 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\Swordandringofnerevar\Trueflame2K
+[22:53:07.835 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\Swordandringofnerevar\MoonAndStar
+[22:53:07.837 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\Swordandringofnerevar\MoonAndStar2K
+[22:53:07.839 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SMMaceofAevarStoneSingerReplacer\sm_aevar_mace\Data files
+[22:53:07.858 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SMTheToolsofKagrenac\sm_kagrenak_tools\Data files
+[22:53:07.901 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\00 Core
+[22:53:08.530 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\02 Hires textures
+[22:53:08.532 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\SWJsminorcompabilitypatches\SmoothOrcishWeapons
+[22:53:08.533 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\07 Longsword-based Broadsword
+[22:53:08.535 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\RealReflectiveWeaponsIron\00 Data Files
+[22:53:08.570 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\RealReflectiveWeaponsIron\Bonus
+[22:53:08.593 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedShieldMeshes\00 Data Files
+[22:53:08.613 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedShieldMeshes\02 Patch for Glass Glowset
+[22:53:08.615 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\OrientalMeshImprovements
+[22:53:08.634 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\00 Core
+[22:53:08.637 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\01 Tamriel Data patch
+[22:53:08.653 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\05 HD 2k textures
+[22:53:08.655 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\07 2k Normals and Speculars maps OpenMW
+[22:53:08.661 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\08 High resolution icons OpenMW
+[22:53:08.665 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\WeaponSheathing\Data Files
+[22:53:08.669 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\WeaponSheathingAdditions
+[22:53:08.672 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\MorrowindOptimizationPatch\02 Weapon Sheathing Patch
+[22:53:08.703 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\01 Weapon Sheathing Patch
+[22:53:08.705 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\RealReflectiveWeaponsIron\Weapon Sheathing (OpenMW)
+[22:53:08.720 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SMTheToolsofKagrenac\update_kg_tools\sheath and glow\Data files
+[22:53:08.726 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SWJsWeaponSheathingPatches\Oriental Mesh Improvements
+[22:53:08.739 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DallaraAdamantiumWeaponry\02 Weapon Sheating patch
+[22:53:08.741 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\GlassGlowsetandWeaponSheathingPatch\Data Files
+[22:53:08.772 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\03 Glass Glowset Patch
+[22:53:08.782 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\ImprovedWeaponMeshCompilation\04 Correct Iron Warhammer
+[22:53:08.784 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\RemirosUniques
+[22:53:08.806 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SWJsWeaponSheathingPatches\Remiros Uniques
+[22:53:08.807 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\RubbersWeaponsPack\Data Files
+[22:53:08.815 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\EltonbrandReplacer
+[22:53:08.818 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SWJsWeaponSheathingPatches\Eltonbrand Replacer
+[22:53:08.820 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\NewWidowmaker\Data Files
+[22:53:08.822 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\NewBowofShadows\Data files
+[22:53:08.824 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\PikachunoTMsArtifactMeshImprovements\01 Animated Staff of Magnus
+[22:53:08.826 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\GlowingHasedokiStaff
+[22:53:08.828 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Creatures\RemirosModGraveyard\VolendrungHD
+[22:53:08.831 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\RemirosVolendrungHD
+[22:53:08.832 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SkullcrusherRedone\modern
+[22:53:08.834 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\SkullcrusherRedone\diff-spec-normal
+[22:53:08.835 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Weapons\DaedricCrescentReplacer\Data Files
+[22:53:08.841 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\SameLowPriceFix
+[22:53:08.843 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\MAOSpellSounds
+[22:53:08.846 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\OpenMWImpactEffects
+[22:53:08.933 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VariousModsandPatches\openmwimpacteffectspatch
+[22:53:08.935 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\CharacterSoundOverhaul
+[22:53:09.180 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\CharacterSoundOverhaul\Higher Bitrate Sounds
+[22:53:09.213 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Audio\openmwfootsteps
+[22:53:09.274 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Animation\openmwanimatedlevitation
+[22:53:09.277 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\S3maphoreOpenMWMusicManagementfromtheFuture\00 Core
+[22:53:09.507 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\S3maphoreOpenMWMusicManagementfromtheFuture\01 Tamriel Rebuilt Playlists
+[22:53:09.516 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\S3maphoreOpenMWMusicManagementfromtheFuture\03 Muse Expansion Playlists
+[22:53:09.534 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\S3maphoreOpenMWMusicManagementfromtheFuture\04 Vindsvept Solstheim
+[22:53:09.536 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\S3maphoreOpenMWMusicManagementfromtheFuture\06 Songbook of the North
+[22:53:09.539 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionHlaalu\MUSE Expansion - Hlaalu
+[22:53:09.542 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionAshlander\MUSE Expansion - Ashlander
+[22:53:09.548 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionRedoran\MUSE Expansion - Redoran
+[22:53:09.551 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\TamrielRebuiltOriginalSoundtrack\00 core
+[22:53:10.789 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionSixthHouse\MUSEEXPANSIONsixthhouse
+[22:53:10.793 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionDaedric\MUSE Expansion - Daedric
+[22:53:10.797 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionDwemer\MUSE Expansion - Dwemer (Vanilla - Tribunal)
+[22:53:10.801 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\MUSEMusicExpansionTomb\MUSE Expansion - Tomb (GOTY)
+[22:53:10.806 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Music\VindsveptSolstheimforDynamicMusicOpenMW\Vindsvept Solstheim for Dynamic Music (OpenMW)
+[22:53:10.810 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CavesandDungeons\CrownofUrshilaku
+[22:53:11.051 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\ARiverofFire
+[22:53:11.052 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\SuranAshlandsBarrier
+[22:53:11.326 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\26 Missing Mackom Files from history
+[22:53:12.754 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\WhiteSuran2MDEdition\00 Core
+[22:53:15.173 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\WhiteSuran2MDEdition\02 Glow in the Dahrk
+[22:53:15.175 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\WhiteSuran2MDEdition\03 HD Textures
+[22:53:17.710 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\19 White Suran Normal and Specular Mapped
+[22:53:18.121 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PlayerHomes\RatherNiceFactorsEstate\00 Core
+[22:53:18.291 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PlayerHomes\RatherNiceFactorsEstate\01 Core - Glow in the Dahrk
+[22:53:18.292 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PlayerHomes\RatherNiceFactorsEstate\02 Patch - Patch for Purists 4.0.X
+[22:53:18.293 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landscape\Mistify\00 Core
+[22:53:18.502 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\RemirosMinorRetexturesMistRetexture
+[22:53:18.504 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\TheDreamistheDoor
+[22:53:18.506 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Flora\ParasolParticles\01 OAAB_Data Patch
+[22:53:18.586 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\15 Perfectly Proficient Parasol Particles Performance Patch\00 Project Atlas
+[22:53:18.587 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\SpellsReforged\SR_1
+[22:53:20.109 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\SpellsReforged\SR_3
+[22:53:20.238 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\NoShieldSparkle
+[22:53:20.240 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\PluginlessNoGlow
+[22:53:20.249 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\DiverseBloodOpenMWLua
+[22:53:20.252 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\ImprovedPropylonParticles
+[22:53:20.254 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\DistantFixesLuaEdition
+[22:53:20.267 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis
+[22:53:20.391 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis\LUSH_TR\MERGED
+[22:53:20.392 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis\LUSH_UNDERWATER
+[22:53:20.393 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\RemirosGroundcover\00 Core OpenMW
+[22:53:20.429 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\RemirosGroundcover\01b Thicker Grass OpenMW
+[22:53:20.431 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Groundcover\RemirosGroundcoverTexturesImprovement
+[22:53:20.553 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\012 Remiros' Groundcover for TOTSP
+[22:53:20.554 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\05 Grass Patches\01 Remiros Groundcover
+[22:53:20.556 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\24 BCOM+Dagon Fel Lighthouse+Remiros' Groundcover Patch
+[22:53:20.557 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\51 Remiros AI MOMW Patch
+[22:53:20.558 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\61 Remiros BC MOMW Patch
+[22:53:20.559 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABGrazelands\01 Remiros Groundcover GL Patch for Trackless Grazelands
+[22:53:20.560 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Water\DistantSeafloorforOpenMW\00 Core
+[22:53:20.560 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Water\DistantSeafloorforOpenMW\01 Patch for TOTSP 2.3.0 Solstheim location
+[22:53:20.561 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\SkiesandWeather\SkiesIV\Skies - .IV
+[22:53:20.575 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\SkiesandWeather\SkiesIV\Particles
+[22:53:20.576 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\OhGodSnowforSkiesivandOpenMW\Data
+[22:53:20.578 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\11 SophiasClearBlueSkies
+[22:53:20.579 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\SkiesandWeather\NewStarfields\00 Core
+[22:53:20.581 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\15 Dying Moons New Starfields Upscaled
+[22:53:20.582 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\SkiesandWeather\Meteors
+[22:53:20.583 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\GlowintheDahrk\00 Core
+[22:53:20.664 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\GlowintheDahrk\01 Hi Res Window Texture Replacer
+[22:53:20.666 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\GlowintheDahrk\04 Raven Rock Glass Windows
+[22:53:20.682 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\GlowintheDahrk\07 Telvanni Tower Interior Glow OpenMW
+[22:53:20.690 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\GlowintheDahrkNormalSpecularPBRMaps
+[22:53:20.692 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\17 GITD Telvanni Dormers
+[22:53:20.692 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\ProjectAtlas\06 Glow in the Dahrk Patch
+[22:53:20.700 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\04 Project Atlas and GiTD Patches\02 GITD + Atlas
+[22:53:20.723 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\ModdingResources\OAABData\08 GitD Shacks Patch
+[22:53:20.750 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\TomboftheSnowPrincePAandGitDPatch\00 Core
+[22:53:20.765 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\TomboftheSnowPrincePAandGitDPatch\01 Normal Maps for OpenMW
+[22:53:20.780 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\001 Core - Interiors With Glow in the Dahrk
+[22:53:20.782 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\Nordsshutyourwindows\00 Core
+[22:53:20.794 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\Nordsshutyourwindows\01 Interior sunrays
+[22:53:20.817 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VariousModsandPatches\nordsshutyourwindowspatch
+[22:53:20.820 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\MagicallightsforTelvanni\OAAB - Magical Lights\00 Core
+[22:53:20.825 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\MagicallightsforTelvanni\OAAB - Magical Lights\01 BCoM Version
+[22:53:20.826 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Architecture\MagicallightsforTelvanni\OAAB - Magical Lights\02 Telvanni Council House Pathway
+[22:53:20.827 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CavesandDungeons\DarknutsLightedDwemerTowers\Data Files
+[22:53:20.849 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Lighting\ImprovedLightsforAllShaders\00 Core
+[22:53:20.874 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Lighting\ImprovedLightsforAllShaders\01 Smoke and Steam Emitters
+[22:53:20.891 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Performance\ProjectAtlas\08 ILFAS Patch
+[22:53:20.902 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\OpenMWvanillacandlespatchedwithEnlightenedFlamesandILFAS
+[22:53:20.913 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LogsonFire\00 Core
+[22:53:20.916 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LogsonFireTamrielRebuilt\00 Core
+[22:53:20.928 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LogsonFire\01 HD Textures
+[22:53:20.930 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\LogsonFire\02 Apel's Fire Retexture Patch
+[22:53:20.932 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\VFX\OpenMWDynamicAmbientVisualEffects
+[22:53:20.999 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VariousModsandPatches\DynamicAmbientVisualEffectsMagicalLightsPatch
+[22:53:21.000 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\34 MOMW Logs On Fire Patch
+[22:53:21.001 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\Patches\85 Logs on fire
+[22:53:21.002 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmerLanternsReplacer\01 Glow Effect
+[22:53:21.017 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmerLanternsReplacer\04 Tamriel_Data Patch - Glow Effect
+[22:53:21.022 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\DunmerLanternsReplacer\05 OAAB_Data Patch - Glow Effect
+[22:53:21.029 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\NormalMapsforEverything\DunmerLanternsReplacer
+[22:53:21.031 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\AshlanderLanternsRetextureAestetikaofVvardenfell\HQ
+[22:53:21.033 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\AshlanderLanternsRetextureAestetikaofVvardenfell\OMW Normal
+[22:53:21.034 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\AshlanderBugsCarapacesRetextureAestetikaofVvardenfell\HQ
+[22:53:21.036 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\00 Data Files
+[22:53:21.055 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\2k Atlas Texture (Bigjpg+MET)
+[22:53:21.056 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\OpenMW Compatible Normal Map (2k)
+[22:53:21.057 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\Separate Silverware Textures Replacer (Bigjpg+MET)
+[22:53:21.058 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\Wax Textures 4x Vanilla (Bigjpg)
+[22:53:21.060 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\SilverwareRepolished\OpenMW vanilla candles patched-Compatibility Patch
+[22:53:21.069 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\AnimatedMorrowindandWeaponSheathingpatchforOpenMW
+[22:53:21.089 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\ArukinnsBetterBooksandScrolls
+[22:53:21.091 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\BookJacketsCompleteCollectionHD\book-jackets\00 Core
+[22:53:21.148 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MelchiorsMagnificentManuscripts\00 Core
+[22:53:21.151 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\FurnitureandClutter\MelchiorsMagnificentManuscripts\01 Book Jackets Patch
+[22:53:21.158 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\VariousModsandPatches\OAABBookJackets
+[22:53:21.158 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\MOMWGameplay\00 Core
+[22:53:21.180 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\MOMWGameplay\01 Total Overhaul
+[22:53:21.197 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Gameplay\FriendlyAutosave
+[22:53:21.200 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PostProcessingShaders\MOMWPostProcessingPack\00 RecommendedConfig
+[22:53:21.201 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PostProcessingShaders\MOMWPostProcessingPack\01 XE-Shaders
+[22:53:21.217 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PostProcessingShaders\MOMWPostProcessingPack\02 OMWFX-Shaders
+[22:53:21.224 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PostProcessingShaders\MOMWPostProcessingPack\03 ZesterersVolumetricClouds
+[22:53:21.225 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PostProcessingShaders\MOMWPostProcessingPack\04 WareyaOpenMWShaders
+[22:53:21.231 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\InterfaceReimaginedforOpenMW
+[22:53:21.243 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\50 Skip Intro Videos Fixed
+[22:53:21.244 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\SMEUsefulWidgetsActorInfoHealthBarHitChance\SMEUsefulWidgetsActorInfoHealthBarHitChanceEdited
+[22:53:21.246 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\Enchantingiconsasyouwish\Ice\Data Files
+[22:53:21.248 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\SmallSkyrimCrosshairOpenMWcompatible
+[22:53:21.250 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Environment\HarvestLights
+[22:53:21.268 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\SimpleHUDforOpenMWwithcompassorminimap\version 03 - immersive skyrim
+[22:53:21.270 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\39 Simple HUD+SME Patch
+[22:53:21.271 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\VanillaStyleHDIconsforAttributesandSkills
+[22:53:21.295 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\00 Core
+[22:53:21.301 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\01 Monopteryx Creature Art
+[22:53:21.315 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\02 Wagner Vvardenfell Maps
+[22:53:21.325 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\03 Wagner Bloodmoon Maps
+[22:53:21.326 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\04 Wagner Tribunal Map
+[22:53:21.327 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\05 Tamriel Rebuilt Maps
+[22:53:21.328 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\GonzosSplashScreens\06 Myrcenart Addon
+[22:53:21.339 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MonosMinorModdities\UpscaledJournalandBookmarkBGReplacement\01 2x Resolution Textures
+[22:53:21.341 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Fonts\AlternativeTrueTypeFonts
+[22:53:21.351 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\BigIcons\07 8X Textured
+[22:53:21.382 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\VvardenfellAnimatedMainMenu\00 Animated Main Menu
+[22:53:21.383 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\UserInterface\HDIntroCinematicEnglish
+[22:53:21.384 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\Tools\MOMWToolsPack
+[22:53:21.471 I] Adding data directory D:\Games\OpenMWMods\graphics-overhaul\TexturePacks\SophiesSkoomaSweetshoppe\30 Temporary Fixes
+[22:53:21.472 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Expansion Delay-47588-1-3-1612481103
+[22:53:21.474 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Graphic Herbalism MWSE - OpenMW-46599-1-04-1558643353/01 Optional - Smoothed Meshes
+[22:53:21.512 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Interior Update-47543-1-1-1-1601926570/00 - OG with fixes
+[22:53:21.513 I] Adding data directory D:/Games/OpenMW_Manual_Mods/LCV-54662-03-13-1715729510
+[22:53:21.515 I] Adding data directory D:/Games/OpenMW_Manual_Mods/MORRA BUF - English-International fonts-42934-0-1-0
+[22:53:21.532 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Morrowind Crafting-47392-2-1-2-1605328252
+[22:53:21.568 I] Adding data directory D:/Games/OpenMW_Manual_Mods/openmw-third-person-alt-attacks
+[22:53:21.614 I] Adding data directory D:/Games/OpenMW_Manual_Mods/openmw-third-person-alt-attacks-master
+[22:53:21.672 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Purist Friendly Magicka Regen-45636-1-2
+[22:53:21.674 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Purist Friendly Magicka Regen-45636-1-2/Data Files
+[22:53:21.675 I] Adding data directory D:/Games/OpenMW_Manual_Mods/ReAnimation v2 Rogue - OpenMW-52596-2-7-1771797842
+[22:53:21.699 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Big Icons - OpenMW-49662-1-1-3-1622906127/07 8X Textured
+[22:53:21.718 I] Adding data directory D:/Games/OpenMW_Manual_Mods/True Strike - Skill Scaling Combat
+[22:53:21.720 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Voices Of Vvardenfell - Voices/00 Core
+[22:53:36.975 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Voices Of Vvardenfell - Voices/11 FurbyZone's Skyrim Neloth
+[22:53:36.978 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Voices Of Vvardenfell - Voices/12 FurbyZone's Almalexia
+[22:53:37.005 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Voices Of Vvardenfell - Scripts/00 OpenMW
+[22:53:37.007 I] Adding data directory D:/Games/OpenMW_Manual_Mods/Voices Of Vvardenfell - Voices/01 Patch for Purists
+[22:53:37.156 I] Adding data directory D:/Work/Morrowind reborn/mod
+[22:53:37.158 I] Adding data directory D:/Work/Morrowind reborn/tools/build
+[22:53:37.160 I] Adding data directory D:/Work/Morrowind reborn/tools/build/vfx-momw
+[22:53:37.329 I] Preferred locales: gmst en
+[22:53:37.338 I] Initializing LuaUtil::LuaState without profiler
+[22:53:37.389 I] Lua version: Lua 5.1.4 (LuaJIT 2.1.1767980792)
+[22:53:37.390 I] Loading keybindings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\input_v3.xml
+[22:53:37.485 I] Loading TrueType font file fonts/pelagiad.omwfont
+[22:53:37.594 I] Loading TrueType font file fonts/omwayembedt.omwfont
+[22:53:37.623 I] Loading TrueType font file fonts/dejavulgcsansmono.omwfont
+[22:53:38.868 I] Detected game controller: Controller (XUSB Gamepad)
+[22:53:38.874 I] Initializing OpenAL...
+[22:53:38.935 I] Opened "OpenAL Soft on Speakers (High Definition Audio Device)"
+[22:53:38.936 I]   ALC Version: 1.1
+[22:53:38.936 I]   ALC Extensions: ALC_ENUMERATE_ALL_EXT ALC_ENUMERATION_EXT ALC_EXT_CAPTURE ALC_EXT_debug ALC_EXT_DEDICATED ALC_EXT_direct_context ALC_EXT_disconnect ALC_EXT_EFX ALC_EXT_thread_local_context ALC_SOFT_device_clock ALC_SOFT_HRTF ALC_SOFT_loopback ALC_SOFT_loopback_bformat ALC_SOFT_output_limiter ALC_SOFT_output_mode ALC_SOFT_pause_device ALC_SOFT_reopen_device ALC_SOFT_system_events
+[22:53:38.970 I]   Vendor: OpenAL Community
+[22:53:38.970 I]   Renderer: OpenAL Soft
+[22:53:38.970 I]   Version: 1.1 ALSOFT 
+[22:53:38.970 I]   Extensions: EAX EAX2.0 EAX3.0 EAX4.0 EAX5.0 EAX-RAM AL_EXT_ALAW AL_EXT_BFORMAT AL_EXT_debug AL_EXT_direct_context AL_EXT_DOUBLE AL_EXT_EXPONENT_DISTANCE AL_EXT_FLOAT32 AL_EXT_IMA4 AL_EXT_LINEAR_DISTANCE AL_EXT_MCFORMATS AL_EXT_MULAW AL_EXT_MULAW_BFORMAT AL_EXT_MULAW_MCFORMATS AL_EXT_OFFSET AL_EXT_source_distance_model AL_EXT_SOURCE_RADIUS AL_EXT_STATIC_BUFFER AL_EXT_STEREO_ANGLES AL_LOKI_quadriphonic AL_SOFT_bformat_ex AL_SOFT_bformat_hoa AL_SOFT_block_alignment AL_SOFT_buffer_length_query AL_SOFT_callback_buffer AL_SOFTX_convolution_effect AL_SOFT_deferred_updates AL_SOFT_direct_channels AL_SOFT_direct_channels_remix AL_SOFT_effect_target AL_SOFT_events AL_SOFT_gain_clamp_ex AL_SOFTX_hold_on_disconnect AL_SOFT_loop_points AL_SOFTX_map_buffer AL_SOFT_MSADPCM AL_SOFT_source_latency AL_SOFT_source_length AL_SOFTX_source_panning AL_SOFT_source_resampler AL_SOFT_source_spatialize AL_SOFT_source_start_delay AL_SOFT_UHJ AL_SOFT_UHJ_ex
+[22:53:38.974 I] HRTF disabled
+[22:53:38.978 I] Allocated 256 sound sources
+[22:53:38.978 I] Low-pass filter supported
+[22:53:38.979 I] EAX Reverb supported
+[22:53:38.981 V] Using idle priority for thread=18564
+[22:53:38.982 I] Enumerated output devices:
+[22:53:38.982 I]   OpenAL Soft on Speakers (High Definition Audio Device)  OpenAL Soft on Speakers (Steam Streaming Microphone)  OpenAL Soft on Speakers (Steam Streaming Speakers)
+[22:53:38.985 I] Enumerated HRTF names:
+[22:53:38.985 I]   Built-In HRTF
+[22:53:39.791 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\global_storage.bin" (3940127 bytes)
+[22:53:40.028 I] Loading Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\player_storage.bin" (6341 bytes)
+[22:53:40.492 I] Loading content file builtin.omwscripts
+[22:53:40.762 I] Loading content file Morrowind.esm
+[22:53:41.844 I] Loading content file Tribunal.esm
+[22:53:41.945 I] Loading content file distant_seafloor_2.00.esm
+[22:53:42.121 I] Loading content file Bloodmoon.esm
+[22:53:42.309 I] Loading content file Patch for Purists.esm
+[22:53:42.672 I] Loading content file New Bow of Shadows (MW).ESP
+[22:53:42.683 I] Loading content file Tamriel_Data.esm
+[22:53:42.980 I] Loading content file TR_Mainland.esm
+[22:53:45.302 I] Loading content file OAAB_Data.esm
+[22:53:45.378 I] Loading content file RR_Telvanni_Lighthouse_Tel Branora_Eng.ESP
+[22:53:45.403 I] Loading content file Solstheim Tomb of The Snow Prince.esm
+[22:53:45.591 I] Loading content file NOD - Core.esm
+[22:53:45.674 I] Loading content file OAAB_Saplings OpenMW Patch.ESP
+[22:53:45.696 I] Loading content file DistantEbonTower.ESP
+[22:53:45.722 I] Loading content file distant seafloor TOTSP 2.3.0 edges fix.esp
+[22:53:45.838 I] Loading content file LB_TempleBalmora.ESP
+[22:53:45.864 I] Loading content file BalmoraHighTownBell.ESP
+[22:53:45.890 I] Loading content file BalmoraHighTownBellBCOM.ESP
+[22:53:45.909 I] Loading content file Better Clothes Definitive Edition.ESP
+[22:53:45.936 I] Loading content file Baar Dau - Ministry of Truth.esp
+[22:53:45.953 I] Loading content file Unique_Tavern_Signs_for_Tamriel_Rebuilt_v2.ESP
+[22:53:45.980 I] Loading content file Clean_EbonyMailReplacer.ESP
+[22:53:46.010 I] Loading content file Old Blue Fin.ESP
+[22:53:46.022 I] Loading content file Balmora waterworks merchants addon.ESP
+[22:53:46.056 I] Loading content file RubbersWeaponsPack.ESP
+[22:53:46.089 I] Loading content file OAAB - The Ashen Divide.ESP
+[22:53:46.118 I] Loading content file OAAB_Grazelands.ESP
+[22:53:46.269 I] Loading content file Sanctus Shrine.esp
+[22:53:46.290 I] Loading content file OAAB - Foyada Mamaea.ESP
+[22:53:46.348 I] Loading content file Manor Banners.ESP
+[22:53:46.387 I] Loading content file Little_Landscape_-_Path_to_Balmora.esp
+[22:53:46.461 I] Loading content file mistify.ESP
+[22:53:46.489 I] Loading content file The Dream is the Door.ESP
+[22:53:46.511 I] Loading content file COI.ESP
+[22:53:46.535 I] Loading content file diverse-blood-openmw-lua.omwscripts
+[22:53:46.536 I] Loading content file Silt Strider Animation Restored.ESP
+[22:53:46.556 I] Loading content file Khajiit-BaseReplace.ESP
+[22:53:46.594 I] Loading content file Khajiit-NPCPlayable.ESP
+[22:53:46.608 I] Loading content file Hag Hair for MacKom.ESP
+[22:53:46.629 I] Loading content file Familiar  Looks - Unique Characters MacKom-ed.esp
+[22:53:46.642 I] Loading content file Better Bodies TR.ESP
+[22:53:46.656 I] Loading content file New Argonian Bodies - Clean.esp
+[22:53:46.684 I] Loading content file New Khajiit Bodies - Clean.esp
+[22:53:46.695 I] Loading content file correctUV Ore Replacer_fixed.esp
+[22:53:46.741 I] Loading content file Know Thy Ancestors.esp
+[22:53:46.761 I] Loading content file BCOM_Animated_GhostGate_Statues.ESP
+[22:53:46.801 I] Loading content file BCOM_Tribal_Erabenimsun.ESP
+[22:53:46.811 I] Loading content file BCOM_PfP_patch.ESP
+[22:53:46.854 I] Loading content file DM_CrownOfUrshilaku.ESP
+[22:53:46.875 I] Loading content file DM_RiverOfFire.ESP
+[22:53:46.903 I] Loading content file SuranBarrierRocks.ESP
+[22:53:46.921 I] Loading content file RP_Great_Scathes.ESP
+[22:53:46.991 I] Loading content file Marbled Zafirbel Bay.ESP
+[22:53:47.047 I] Loading content file Shipyards of Vvardenfell.esp
+[22:53:47.077 I] Loading content file OAAB Dwemer Pavements.esm
+[22:53:47.108 I] Loading content file TracklessGrazelandOpenMW.esp
+[22:53:47.167 I] Loading content file Trackless Grazeland OAAB Dwemer Pavements Patch.ESP
+[22:53:47.221 I] Loading content file Bal'laku - The Lonely Towers.esp
+[22:53:47.258 I] Loading content file DM_SouthernAshlandsTrees.ESP
+[22:53:47.268 I] Loading content file DM_AshlandsWall.ESP
+[22:53:47.283 I] Loading content file Justice4Khartag.esp
+[22:53:47.304 I] Loading content file Containers Animated.esp
+[22:53:47.326 I] Loading content file Velothi Wall Art.ESP
+[22:53:47.357 I] Loading content file Concept art palace.ESP
+[22:53:47.382 I] Loading content file CAP_Interior_Cluttering.ESP
+[22:53:47.426 I] Loading content file CAP_Flame.ESP
+[22:53:47.702 I] Loading content file CAP_Flame patch.omwaddon
+[22:53:47.772 I] Loading content file CAP_Rotating_Planets.ESP
+[22:53:47.791 I] Loading content file CAP_Bridge.ESP
+[22:53:47.810 I] Loading content file CAP_Cluttered Staircase.ESP
+[22:53:47.831 I] Loading content file CAP_Door.ESP
+[22:53:47.856 I] Loading content file The Mountain of Fear.ESP
+[22:53:47.878 I] Loading content file Bitter Coast Waterway.esp
+[22:53:47.902 I] Loading content file Bitter Coast Waterway Cliff Fix.esp
+[22:53:47.923 I] Loading content file Little Landscape - Path to Pelagiad.esp
+[22:53:47.934 I] Loading content file Little Landscape - Path to Pelagiad Rock Fix.esp
+[22:53:47.991 I] Loading content file Gates of Ascadia.ESP
+[22:53:48.018 I] Loading content file Faces of Vel - Ash Mire.ESP
+[22:53:48.040 I] Loading content file 1.2dagothspartyCLEANED.esp
+[22:53:48.062 I] Loading content file Unique Dagoth Brandy & Amulet.ESP
+[22:53:48.082 I] Loading content file Better Skulls.ESP
+[22:53:48.139 I] Loading content file Better Robes TR.esp
+[22:53:48.165 I] Loading content file Better Robes.ESP
+[22:53:48.187 I] Loading content file New Randagulf's Fists.ESP
+[22:53:48.208 I] Loading content file ABCmod.ESP
+[22:53:48.244 I] Loading content file PR Perfect Scum.esp
+[22:53:48.267 I] Loading content file Eltonbrand Replacer.ESP
+[22:53:48.278 I] Loading content file New Widowmaker.ESP
+[22:53:48.287 I] Loading content file New Bow of Shadows.esp
+[22:53:48.311 I] Loading content file Glowing_Mines.ESP
+[22:53:48.332 I] Loading content file RPNR_Library.ESP
+[22:53:48.351 I] Loading content file NOD_RPNR_Library_patch.esp
+[22:53:48.389 I] Loading content file DN-Lighted_Dwemer_Towers.ESP
+[22:53:48.410 I] Loading content file SR_1_BoundSpells.esp
+[22:53:48.429 I] Loading content file SR_3_ElementalShields.esp
+[22:53:48.445 I] Loading content file FM - Unique Items v1.0.ESP
+[22:53:48.471 I] Loading content file FM - Unique Items v1.0 - PfP.ESP
+[22:53:48.493 I] Loading content file Unique Jewelry Redone.ESP
+[22:53:48.538 I] Loading content file Dwarven Spectres BB.ESP
+[22:53:48.573 I] Loading content file Store Entrance Chimes - Alt Ver.ESP
+[22:53:48.592 I] Loading content file Store Entrance Chimes - TR Mainland.ESP
+[22:53:48.612 I] Loading content file PherimAnimatedBellowsSounds.omwaddon
+[22:53:48.621 I] Loading content file HD Forge.omwscripts
+[22:53:48.622 I] Loading content file Flies.ESP
+[22:53:48.663 I] Loading content file RP_fireflies.ESP
+[22:53:48.685 I] Loading content file Logs on Fire.esp
+[22:53:48.707 I] Loading content file Logs on Fire Tamriel Rebuilt.esp
+[22:53:48.811 I] Loading content file Dynamic Ambient Visual Effects.omwscripts
+[22:53:48.811 I] Loading content file Royal_Barenziah.ESP
+[22:53:48.859 I] Loading content file Meteor.esp
+[22:53:48.881 I] Loading content file Clean_sm_golden_mask.ESP
+[22:53:48.959 I] Loading content file GITD_Telvanni_Dormers.ESP
+[22:53:48.978 I] Loading content file GITD_WL_RR_Interiors.esp
+[22:53:48.999 I] Loading content file RR_Telvanni_Lighthouse_Tel Vos_Eng.ESP
+[22:53:49.025 I] Loading content file RR_Vivec_Statues_Eng.esp
+[22:53:49.050 I] Loading content file ghastly gg.esp
+[22:53:49.069 I] Loading content file Holamayan Island.esp
+[22:53:49.108 I] Loading content file Static Switching System.esp
+[22:53:49.170 I] Loading content file The Grove of Ben'Abi Enhanced.ESP
+[22:53:49.195 I] Loading content file Mid Mushroom Overhaul.ESP
+[22:53:49.213 I] Loading content file Missing snow armor.esp
+[22:53:49.224 I] Loading content file TOTSP TD Content Integration.esp
+[22:53:49.234 I] Loading content file TOTSP_Patch_for_Purists_5.0.6.esp
+[22:53:49.300 I] Loading content file TOTSP_Forceful_Travel_NPC_Override.ESP
+[22:53:49.310 I] Loading content file Guar stables of Vivec.ESP
+[22:53:49.369 I] Loading content file Immersive Mournhold.esp
+[22:53:49.392 I] Loading content file Immersive Mournhold Corner Tower Remover Patch.esp
+[22:53:49.455 I] Loading content file distant-fixes-lua-edition.omwscripts
+[22:53:49.456 I] Loading content file tamrielrebuilt.omwscripts
+[22:53:49.457 I] Loading content file book-jackets.esp
+[22:53:49.528 I] Loading content file OAAB_BookJackets.omwaddon
+[22:53:49.554 I] Loading content file Mage Robes.ESP
+[22:53:49.582 I] Loading content file mage-robes-for-openmw-lua.omwscripts
+[22:53:49.583 I] Loading content file Telvanni Magister Robes.esp
+[22:53:49.623 I] Loading content file Telvanni Magister Robes Anticheese.esp
+[22:53:49.668 I] Loading content file Nordic Dagon Fel NPCs.ESP
+[22:53:49.692 I] Loading content file TR_BCOM_Patch.ESP
+[22:53:49.716 I] Loading content file BCOM_Cluttered_Canal.ESP
+[22:53:49.741 I] Loading content file Hawia Infrastructure.ESP
+[22:53:49.765 I] Loading content file TelvanniSeaBeacons.ESP
+[22:53:49.786 I] Loading content file Beautiful cities of Morrowind.ESP
+[22:53:49.909 I] Loading content file BCOM_Vanilla_Skar.ESP
+[22:53:49.922 I] Loading content file BCOM_RR_Statues.ESP
+[22:53:49.985 I] Loading content file BCoM_logs_on_fire.ESP
+[22:53:50.028 I] Loading content file RP_Ald'ruhn_Architecture_Variety.ESP
+[22:53:50.105 I] Loading content file Unique Banners and Signs.esp
+[22:53:50.132 I] Loading content file Unique Banners and Signs Rat in the Pot.esp
+[22:53:50.207 I] Loading content file LB_RatPot.ESP
+[22:53:50.229 I] Loading content file BCoM_Khuul_Lighthouse_02.ESP
+[22:53:50.378 I] Loading content file Magical Lights.ESP
+[22:53:50.449 I] Loading content file Magical Lights_Council Pathway.ESP
+[22:53:50.524 I] Loading content file DM_TelvRRtoOAAB.ESP
+[22:53:50.544 I] Loading content file RP_Maar_Gan.ESP
+[22:53:50.594 I] Loading content file RP_Maar_Gan_Ashlander_Addon.ESP
+[22:53:50.613 I] Loading content file BCOM_Decorated_Cantons.ESP
+[22:53:50.654 I] Loading content file BCOM_Vivec_Arena_planters.ESP
+[22:53:50.735 I] Loading content file BCOM_Vivec_Planters.ESP
+[22:53:50.749 I] Loading content file BCOM_Vivec_Street_Vendors.ESP
+[22:53:50.758 I] Loading content file BCOM_Vivec_Temple_Fountains.ESP
+[22:53:50.769 I] Loading content file HumblePrayerHall.ESP
+[22:53:50.780 I] Loading content file Planters for Ajira.ESP
+[22:53:50.839 I] Loading content file Under-Skar.ESP
+[22:53:50.898 I] Loading content file RPNR_Hall_of_justice.ESP
+[22:53:50.953 I] Loading content file OAAB Market.ESP
+[22:53:50.973 I] Loading content file Hanging Gardens of Suran.esp
+[22:53:50.999 I] Loading content file IGE.ESP
+[22:53:51.020 I] Loading content file Raven Rock Enhanced for TOTSP.ESP
+[22:53:51.047 I] Loading content file Solstheim Interior Overhaul Project.ESP
+[22:53:51.073 I] Loading content file Cliff_racer_restored.ESP
+[22:53:51.086 I] Loading content file RPNR_Shrine_Of_Azura.ESP
+[22:53:51.133 I] Loading content file Nordic Dagon Fel.ESP
+[22:53:51.178 I] Loading content file Dagon Fel Mill.ESP
+[22:53:51.204 I] Loading content file Dagon_Fel_Lighthouse.ESP
+[22:53:51.242 I] Loading content file BCOM_Sadrith_Mora_dock_expanded.ESP
+[22:53:51.278 I] Loading content file RP_Arano_Plantation_Windmill.ESP
+[22:53:51.297 I] Loading content file Concept_Arts_plantations.esp
+[22:53:51.328 I] Loading content file MinorPlantationsRedone.esp
+[22:53:51.353 I] Loading content file AscadianFarmhouses.ESP
+[22:53:51.380 I] Loading content file BCOM_pathgrid_reset.ESP
+[22:53:51.419 I] Loading content file BCoM_WaterWorks.ESP
+[22:53:51.465 I] Loading content file Vivec_Lighthouse.ESP
+[22:53:51.506 I] Loading content file Little_Landscape_-_Path_to_Vivec_Lighthouse.esp
+[22:53:51.517 I] Loading content file Great Seawall of Vivec.ESP
+[22:53:51.556 I] Loading content file Little Landscape Vivec Islands Plain.ESP
+[22:53:51.604 I] Loading content file Odai River Upper Overhaul.esp
+[22:53:51.670 I] Loading content file Odai River Overhaul Statue Remover Patch.esp
+[22:53:51.750 I] Loading content file Little Landscapes - Seyda Neen Swamp Pools.ESP
+[22:53:51.765 I] Loading content file Little Landscape - Nix Hunting Ground.esp
+[22:53:51.774 I] Loading content file Little Landscape - Foyada of Sharp Teeth.esp
+[22:53:51.785 I] Loading content file Little Landscape - Foyada of Sharp Teeth Rock Fix.esp
+[22:53:51.872 I] Loading content file BCoM_Caldera_MG_Basement.ESP
+[22:53:51.890 I] Loading content file BCoM_Concept_Art_Husk_Urshilaku.ESP
+[22:53:51.905 I] Loading content file BCoM_AldRuhn_Outdoor_Merchants.ESP
+[22:53:51.923 I] Loading content file BCoM_Imperial_Gaehouse_Buckmoth.ESP
+[22:53:51.935 I] Loading content file BCoM_Imperial_Gaehouse_MoonMoth.ESP
+[22:53:51.956 I] Loading content file BCoM_Imperial_Gatehouse_Pelagiad.ESP
+[22:53:51.966 I] Loading content file Yet Another Guard Diversity - Full Cephalopod.ESP
+[22:53:52.050 I] Loading content file IO - Solstheim.ESP
+[22:53:52.077 I] Loading content file IO - TR Imperial Guards.ESP
+[22:53:52.108 I] Loading content file Vibrant Ivy.ESP
+[22:53:52.148 I] Loading content file Vibrant Ivy - BCoM addon.esp
+[22:53:52.168 I] Loading content file Trellis addon - BCoM.ESP
+[22:53:52.189 I] Loading content file BlightedAnimalsRetextured.esp
+[22:53:52.212 I] Loading content file Blighted Beasts Retextured.esp
+[22:53:52.230 I] Loading content file Rather Nice Factor's Estate.esp
+[22:53:52.247 I] Loading content file Rather Nice Factor's Estate - GitD.esp
+[22:53:52.262 I] Loading content file RnFE - Patch for Purists.esp
+[22:53:52.274 I] Loading content file Steel_broadsword_alternative.esp
+[22:53:52.290 I] Loading content file Remiros' Uniques.ESP
+[22:53:52.325 I] Loading content file DaedricArmor.esp
+[22:53:52.337 I] Loading content file RPNR_Almalexia_Chamber.ESP
+[22:53:52.402 I] Loading content file BCOM_MarbledZafirbelBay_WHO.esp
+[22:53:52.424 I] Loading content file BCOM_Suran Expansion.ESP
+[22:53:52.462 I] Loading content file BCOM - Taller Lighthouse.ESP
+[22:53:52.485 I] Loading content file BCoM_Open_Cantons.ESP
+[22:53:52.507 I] Loading content file BCoM - Atmospheric_Arena.ESP
+[22:53:52.519 I] Loading content file BCoM_Atmospheric_Plazas.ESP
+[22:53:52.533 I] Loading content file Interior exterior flag reset_Atmospheric Arena.ESP
+[22:53:52.543 I] Loading content file Interior exterior flag reset_Atmospheric Plazas.ESP
+[22:53:52.560 I] Loading content file sm_tel_robe.ESP
+[22:53:52.581 I] Loading content file The_magic_rock_of_Maar_Gan.ESP
+[22:53:52.623 I] Loading content file CalderaGovernorsManor.ESP
+[22:53:52.659 I] Loading content file BearArmorReplacer.ESP
+[22:53:52.697 I] Loading content file sm_boiled_netch_set_vanilla.ESP
+[22:53:52.715 I] Loading content file Bob's Diverse Dagoths - Hostile Gilvoth.esp
+[22:53:52.757 I] Loading content file TheForgottenShields - Artifacts_NG.esp
+[22:53:52.863 I] Loading content file JASPR-V.ESP
+[22:53:52.891 I] Loading content file JASPR-TR.ESP
+[22:53:52.912 I] Loading content file OAAB_Tel Mora.esm
+[22:53:53.135 I] Loading content file OAAB_Tel Mora_Female Guards.ESP
+[22:53:53.202 I] Loading content file Westly_Presents_Unique_Winged_Twilights.esp
+[22:53:53.292 I] Loading content file EKM Native Corprus Variants - Vanilla - All.esp
+[22:53:53.326 I] Loading content file ReAnimation_API.omwscripts
+[22:53:53.326 I] Loading content file ReAnimation_v2_Rogue.omwscripts
+[22:53:53.327 I] Loading content file third-person-alt-attacks.omwscripts
+[22:53:53.328 I] Loading content file Impact Effects.omwscripts
+[22:53:53.329 I] Loading content file footsteps.omwscripts
+[22:53:53.330 I] Loading content file animated-levitation.omwscripts
+[22:53:53.330 I] Loading content file harvest-lights.omwscripts
+[22:53:53.331 I] Loading content file MOMW Sadrith Mora Pathgrid Reset-GO.esp
+[22:53:53.414 I] Loading content file S3LightFixes.omwaddon
+[22:53:53.514 I] Loading content file bcomxpfp.omwaddon
+[22:53:53.534 I] Loading content file Tamriel_Data.omwscripts
+[22:53:53.535 I] Loading content file friendly-autosave.omwscripts
+[22:53:53.536 I] Loading content file SME - Actor UI and Healthbar.omwscripts
+[22:53:53.536 I] Loading content file S3maphore.esp
+[22:53:53.557 I] Loading content file momw-gameplay.omwscripts
+[22:53:53.558 I] Loading content file momw-gameplay-controls.omwscripts
+[22:53:53.558 I] Loading content file momw-gameplay-camera.omwscripts
+[22:53:53.559 I] Loading content file momw-gameplay-ui.omwscripts
+[22:53:53.560 I] Loading content file delta-merged.omwaddon
+[22:53:53.618 I] Loading content file deleted_groundcover.omwaddon
+[22:53:53.960 I] Loading content file Expansion Delay.ESP
+[22:53:53.985 I] Loading content file Starfires NPC Additions ver-1.13.esp
+[22:53:54.062 I] Loading content file LCV Schedule Markers.esp
+[22:53:54.120 I] Loading content file NPC LCV Schedules 03.esp
+[22:53:54.280 I] Loading content file Morrowind Crafting 2-1.esp
+[22:53:54.457 I] Loading content file Morrowind Crafting Equipment.esp
+[22:53:54.483 I] Loading content file Purist-friendly magicka regen.ESP
+[22:53:54.512 I] Loading content file True Strike - Skill Scaling Combat.omwaddon
+[22:53:54.521 I] Loading content file True Strike - Skill Scaling Combat.omwscripts
+[22:53:54.522 I] Loading content file Voices of Vvardenfell.omwscripts
+[22:53:54.523 I] Loading content file scifi-rewrite-momw.esp
+[22:53:54.618 I] Loading content file scifi-rewrite.omwscripts
+[22:53:54.619 I] Loading groundcover:
+[22:53:54.620 I] Loading ESM data...
+[22:53:54.712 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\00 Core\OAAB_Saplings.esm
+[22:53:54.727 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\01 BCOM patch\OAAB_Saplings BCOM patch.esp
+[22:53:54.736 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\03 Concept Arts plantations patch\OAAB_Saplings Concept Arts plantations patch.esp
+[22:53:54.745 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\04 Great Seawall of Vivec patch\OAAB_Saplings Great Seawall of Vivec patch.esp
+[22:53:54.756 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\OAABSaplings\06 Minor Plantations Redone patch\OAAB_Saplings Minor Plantations Redone patch.esp
+[22:53:54.822 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis\LUSH_UNDERWATER\lush3_RI_TR_TOTSP.esp
+[22:53:55.150 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis\LUSH_UNDERWATER\lush3_SE_TR_TOTSP.esp
+[22:53:55.285 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\RemirosGroundcover\00 Core OpenMW\Rem_AL.esp
+[22:53:55.391 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Landmasses\SolstheimTomboftheSnowPrince\012 Remiros' Groundcover for TOTSP\Rem-TOTSP.esp
+[22:53:55.602 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\05 Grass Patches\01 Remiros Groundcover\Rem_GL_Trackless_GL.esp
+[22:53:55.696 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\BeautifulCitiesofMorrowind\05 Grass Patches\01 Remiros Groundcover\Rem_WG.esp
+[22:53:56.036 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\24 BCOM+Dagon Fel Lighthouse+Remiros' Groundcover Patch\REM_AC.ESP
+[22:53:56.092 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\CitiesTowns\OAABGrazelands\01 Remiros Groundcover GL Patch for Trackless Grazelands\Rem_GL - OAAB Landscape.esp
+[22:53:56.129 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\61 Remiros BC MOMW Patch\Rem_BC.esp
+[22:53:56.195 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\PatchesFixesandConsistency\MOMWPatches\51 Remiros AI MOMW Patch\Rem_AI.ESP
+[22:53:56.335 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Groundcover\LushSynthesis\LUSH_TR\MERGED\lush3_TR_merged.esp
+[22:53:57.726 I] Loading ESM file D:\Games\OpenMWMods\graphics-overhaul\Tools\MOMWToolsPack\groundcover.omwaddon
+[22:53:57.802 I] Loaded 3822 cells, 537 statics,
+[22:53:57.823 I] Prepared 3822 unique cells, 523 unique statics,
+[22:53:58.118 V] Lua scripts configuration (105 scripts):
+[22:53:58.119 V] #0 MENU PLAYER : scripts/omw/mwui/init.lua
+[22:53:58.120 V] #1 MENU : scripts/omw/settings/menu.lua
+[22:53:58.121 V] #2 PLAYER : scripts/omw/settings/player.lua
+[22:53:58.122 V] #3 GLOBAL : scripts/omw/settings/global.lua
+[22:53:58.122 V] #4 GLOBAL : scripts/omw/activationhandlers.lua
+[22:53:58.123 V] #5 GLOBAL : scripts/omw/usehandlers.lua
+[22:53:58.123 V] #6 GLOBAL : scripts/omw/worldeventhandlers.lua
+[22:53:58.124 V] #7 GLOBAL : scripts/omw/crimes.lua
+[22:53:58.124 V] #8 PLAYER CREATURE NPC : scripts/omw/mechanics/animationcontroller.lua
+[22:53:58.125 V] #9 PLAYER : scripts/omw/skillhandlers.lua
+[22:53:58.125 V] #10 PLAYER : scripts/omw/mechanics/playercontroller.lua
+[22:53:58.126 V] #11 MENU : scripts/omw/camera/settings.lua
+[22:53:58.126 V] #12 MENU : scripts/omw/input/settings.lua
+[22:53:58.127 V] #13 PLAYER : scripts/omw/input/playercontrols.lua
+[22:53:58.127 V] #14 PLAYER : scripts/omw/camera/camera.lua
+[22:53:58.128 V] #15 PLAYER : scripts/omw/input/actionbindings.lua
+[22:53:58.128 V] #16 PLAYER : scripts/omw/input/smoothmovement.lua
+[22:53:58.129 V] #17 PLAYER : scripts/omw/input/gamepadcontrols.lua
+[22:53:58.129 V] #18 NPC CREATURE : scripts/omw/ai.lua
+[22:53:58.130 V] #19 GLOBAL : scripts/omw/mechanics/globalcontroller.lua
+[22:53:58.130 V] #20 PLAYER CREATURE NPC : scripts/omw/mechanics/actorcontroller.lua
+[22:53:58.131 V] #21 PLAYER NPC CREATURE : scripts/omw/combat/interface.lua
+[22:53:58.131 V] #22 PLAYER : scripts/omw/ui.lua
+[22:53:58.132 V] #23 MENU : scripts/omw/console/menu.lua
+[22:53:58.132 V] #24 PLAYER : scripts/omw/console/player.lua
+[22:53:58.133 V] #25 GLOBAL : scripts/omw/console/global.lua
+[22:53:58.133 V] #26 CUSTOM : scripts/omw/console/local.lua
+[22:53:58.134 V] #27 NPC CREATURE : scripts/omw/music/actor.lua
+[22:53:58.134 V] #28 GLOBAL : scripts/omw/cellhandlers.lua
+[22:53:58.135 V] #29 GLOBAL : scripts/omw/combat/global.lua
+[22:53:58.135 V] #30 MENU : scripts/omw/combat/menu.lua
+[22:53:58.135 V] #31 PLAYER NPC CREATURE : scripts/omw/combat/local.lua
+[22:53:58.136 V] #32 PLAYER : scripts/omw/music/music.lua
+[22:53:58.136 V] #33 MENU : scripts/omw/music/settings.lua
+[22:53:58.137 V] #34 PLAYER : scripts/omw/playerskillhandlers.lua
+[22:53:58.137 V] #35 LOAD : scripts/omw/esmfallbacks.lua
+[22:53:58.138 V] #36 GLOBAL : scripts/diverse-blood-openmw-lua/global.lua
+[22:53:58.138 V] #37 CUSTOM : scripts/diverse-blood-openmw-lua/creatures.lua
+[22:53:58.139 V] #38 PLAYER : scripts/diverse-blood-openmw-lua/player.lua
+[22:53:58.139 V] #39 MENU : scripts/diverse-blood-openmw-lua/renderer.lua
+[22:53:58.140 V] #40 GLOBAL : scripts/hdforge/global.lua
+[22:53:58.140 V] #41 MENU : scripts/dynamicvisuals/menusettings.lua
+[22:53:58.141 V] #42 PLAYER : scripts/dynamicvisuals/player.lua
+[22:53:58.141 V] #43 GLOBAL : scripts/dynamicvisuals/global.lua
+[22:53:58.142 V] #44 MENU : scripts/staticswitcher/menu.lua
+[22:53:58.142 V] #45 GLOBAL : scripts/staticswitcher/global.lua
+[22:53:58.143 V] #46 GLOBAL : scripts/distant-fixes/global.lua
+[22:53:58.143 V] #47 PLAYER : scripts/distant-fixes/player.lua
+[22:53:58.144 V] #48 GLOBAL : scripts/tamrielrebuilt/strongholds.lua
+[22:53:58.144 V] #49 MENU : scripts/tamrielrebuilt/menu_settings.lua
+[22:53:58.145 V] #50 MENU : scripts/tamrielrebuilt/firemothcomp.lua
+[22:53:58.145 V] #51 GLOBAL : scripts/mage-robes-openmw-lua/global.lua
+[22:53:58.146 V] #52 NPC : scripts/mage-robes-openmw-lua/npc.lua
+[22:53:58.146 V] #53 PLAYER NPC : scripts/maxyari/reanimation_v2/reanimationapi.lua
+[22:53:58.147 V] #54 PLAYER : scripts/maxyari/reanimation_v2/animationoverrides.lua
+[22:53:58.147 V] #55 PLAYER NPC : scripts/third-person-alt-attacks/reanimate.lua
+[22:53:58.148 V] #56 MENU : scripts/third-person-alt-attacks/settings.lua
+[22:53:58.148 V] #57 GLOBAL : scripts/third-person-alt-attacks/global.lua
+[22:53:58.149 V] #58 MENU : scripts/impacteffects/settings.lua
+[22:53:58.149 V] #59 PLAYER : scripts/impacteffects/player.lua
+[22:53:58.150 V] #60 CUSTOM : scripts/impacteffects/npc.lua
+[22:53:58.150 V] #61 GLOBAL : scripts/impacteffects/global.lua
+[22:53:58.151 V] #62 PLAYER : scripts/footsteps/player.lua
+[22:53:58.151 V] #63 MENU : scripts/footsteps/settings.lua
+[22:53:58.152 V] #64 GLOBAL : scripts/footsteps/global.lua
+[22:53:58.152 V] #65 NPC : scripts/footsteps/npc.lua
+[22:53:58.153 V] #66 PLAYER : scripts/animated-levitation/player.lua
+[22:53:58.153 V] #67 NPC : scripts/animated-levitation/npc.lua
+[22:53:58.154 V] #68 GLOBAL : scripts/animated-levitation/global.lua
+[22:53:58.154 V] #69 MENU : scripts/animated-levitation/settings.lua
+[22:53:58.155 V] #70 CONTAINER : scripts/harvest-lights/container.lua
+[22:53:58.155 V] #71 GLOBAL : scripts/harvest-lights/global.lua
+[22:53:58.155 V] #72 LIGHT : scripts/harvest-lights/light.lua
+[22:53:58.156 V] #73 PLAYER : scripts/harvest-lights/player.lua
+[22:53:58.156 V] #74 MENU : scripts/tamrieldata/menu_settings.lua
+[22:53:58.157 V] #75 GLOBAL : scripts/tamrieldata/global_restrict_equipment.lua
+[22:53:58.157 V] #76 GLOBAL : scripts/tamrieldata/global_magic_passwall.lua
+[22:53:58.158 V] #77 GLOBAL : scripts/tamrieldata/global_mwscript_variable.lua
+[22:53:58.158 V] #78 PLAYER : scripts/tamrieldata/player_magic.lua
+[22:53:58.159 V] #79 PLAYER : scripts/tamrieldata/player_restrict_equipment.lua
+[22:53:58.159 V] #80 MENU : scripts/tamrieldata/menu_version_warning.lua
+[22:53:58.160 V] #81 PLAYER : scripts/friendly-autosave/player.lua
+[22:53:58.160 V] #82 MENU : scripts/friendly-autosave/menu.lua
+[22:53:58.161 V] #83 NPC CREATURE : scripts/friendly-autosave/actor.lua
+[22:53:58.161 V] #84 GLOBAL : scripts/friendly-autosave/global.lua
+[22:53:58.162 V] #85 PLAYER : scripts/sme_settings.lua
+[22:53:58.162 V] #86 PLAYER : scripts/sme_style_settings.lua
+[22:53:58.163 V] #87 PLAYER : scripts/sme_widget.lua
+[22:53:58.163 V] #88 PLAYER : scripts/sme_hitchance.lua
+[22:53:58.164 V] #89 PLAYER : scripts/s3/music/core.lua
+[22:53:58.164 V] #90 GLOBAL : scripts/s3/music/staticcollection.lua
+[22:53:58.165 V] #91 PLAYER : scripts/momw-gameplay/player.lua
+[22:53:58.165 V] #92 GLOBAL : scripts/momw-gameplay/global.lua
+[22:53:58.166 V] #93 PLAYER : scripts/momw-gameplay/player-controls.lua
+[22:53:58.166 V] #94 PLAYER : scripts/momw-gameplay/player-camera.lua
+[22:53:58.166 V] #95 PLAYER : scripts/momw-gameplay/player-ui.lua
+[22:53:58.167 V] #96 PLAYER : scripts/true_strike_skill_scaling_combat/settings.lua
+[22:53:58.167 V] #97 GLOBAL : scripts/true_strike_skill_scaling_combat/global.lua
+[22:53:58.168 V] #98 CUSTOM : scripts/true_strike_skill_scaling_combat/main.lua
+[22:53:58.168 V] #99 GLOBAL : scripts/touch/global.lua
+[22:53:58.169 V] #100 CUSTOM : scripts/touch/touch.lua
+[22:53:58.169 V] #101 PLAYER : scripts/aivoices/player.lua
+[22:53:58.170 V] #102 GLOBAL : scripts/aivoices/global.lua
+[22:53:58.170 V] #103 LOAD : scripts/rewrite/apply.lua
+[22:53:58.171 V] #104 PLAYER : scripts/rewrite/topic.lua
+[22:53:58.354 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] rules 23, targets 132, table 812a892ea58b
+[22:53:58.355 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] changed 132, skipped 0, failed 0
+[22:53:58.356 I] Load[scripts/rewrite/apply.lua]:	[REWRITE] light: particle tx_firealpha00A.tga -> vfx_zen_light.dds
+[22:53:58.472 V] NPC "Rp_arena NPC_01" (Pyke) has nonexistent faction "Arena Blue Team", ignoring it.
+[22:53:58.474 V] NPC "rp_arena_dunmer_f_01" (Vulyne) has nonexistent faction "Arena Red Team", ignoring it.
+[22:53:58.480 V] NPC "wr_morEri_s1" (Erielle) has nonexistent faction "wr_morFaction1", ignoring it.
+[22:53:58.483 V] NPC "RP_arena_NPC_02" (Ababae Salkatanat) has nonexistent faction "Arena Red Team", ignoring it.
+[22:53:58.486 V] Enchantment "test magic axe": dropping unexpected skill argument of "FortifyMaximumMagicka" effect
+[22:54:01.860 I] Using 4 async physics threads
+[22:54:01.871 I] Using D:\Backups\OneDrive\All\Documents\My Games\OpenMW/navmesh.db to store navigation mesh cache
+[22:54:02.106 V] Using idle priority for thread=20784
+[22:54:02.128 I] Reserving texture units for shadow maps: 28..31
+[22:54:02.312 I] Reserving texture unit for opaque depth texture: 27
+[22:54:02.355 V] Disabling Multiview (disabled by config)
+[22:54:03.109 I] Initialized compute shader pipeline for water ripples
+[22:54:03.236 I] Reserving texture unit for sky RTT: 26
+[22:54:03.383 V] Language file "l10n/Interface/gmst.yaml" is enabled
+[22:54:03.541 V] Language file "l10n/Interface/en.yaml" is enabled
+[22:54:07.674 W] ReadDDSFile warning: couldn't read mipmapData
+[22:54:08.709 V] Language file "l10n/OMWEngine/gmst.yaml" is enabled
+[22:54:08.921 V] Language file "l10n/OMWEngine/en.yaml" is enabled
+[22:54:11.505 V] Language file "l10n/OMWShaders/en.yaml" is enabled
+[22:54:14.723 V] Language file "l10n/OMWCamera/en.yaml" is enabled
+[22:54:14.791 V] Language file "l10n/OMWControls/en.yaml" is enabled
+[22:54:14.793 V] Language file "l10n/interface/gmst.yaml" is enabled
+[22:54:14.795 V] Language file "l10n/interface/en.yaml" is enabled
+[22:54:15.217 V] Language file "l10n/Calendar/gmst.yaml" is enabled
+[22:54:15.246 V] Language file "l10n/Calendar/en.yaml" is enabled
+[22:54:15.312 V] Language file "l10n/OMWCombat/en.yaml" is enabled
+[22:54:15.604 V] Language file "l10n/S3Music/en.yaml" is enabled
+[22:54:15.694 V] Language file "l10n/DynamicVisuals/en.yaml" is enabled
+[22:54:15.751 V] Language file "l10n/StaticSwitcher/en.yaml" is enabled
+[22:54:15.785 V] Language file "l10n/TamrielRebuilt/en.yaml" is enabled
+[22:54:15.815 W] No language files for the preferred languages found in "l10n/ThirdPersonAltAttacks"
+[22:54:15.847 V] Language file "l10n/ImpactEffects/en.yaml" is enabled
+[22:54:15.857 W] No language files for the preferred languages found in "l10n/Footsteps"
+[22:54:15.868 W] No language files for the preferred languages found in "l10n/AnimatedLevitation"
+[22:54:15.928 V] Language file "l10n/TamrielData/en.yaml" is enabled
+[22:54:17.455 I] Playing "music/special/morrowind title.mp3"
+[22:54:17.785 I] Unhandled SDL event of type 0x607
+[22:54:46.110 I] Reading save file 64.omwsave
+[22:54:46.200 I] Loading saved game '64' for character 'Faig'
+[22:54:46.422 I] Warning: mc_sewing_shears[local variables] line 97, column 13 (=): invalid operator =, treating it as ==
+[22:54:46.479 I] Warning: mc_firestarterscript[local variables] line 67, column 13 (=): invalid operator =, treating it as ==
+[22:54:46.487 I] Warning: rp_b_rl_script1[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:46.631 I] Warning: rp_caldera_ladder01_s[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:46.632 I] Warning: rp_caldera_ladder02_s[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:46.807 I] Warning: rp_V_rl_script1[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:46.887 I] Warning: rp_sn_ladder01_script[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:46.899 I] Warning: lookoutScript[local variables] line 41, column 37 (=): invalid operator =, treating it as ==
+[22:54:47.037 I] Warning: rp_moonmoth_ladder01_s[local variables] line 7, column 14 (=): invalid operator =, treating it as ==
+[22:54:47.123 I] Warning: racistSafe[local variables] line 8, column 14 (=): invalid operator =, treating it as ==
+[22:54:54.494 V] Language file "l10n/Mechanics/gmst.yaml" is enabled
+[22:54:55.287 I] L@0x1[scripts/omw/settings/player.lua]:	Group key SMESettingsBh doesn't start with Settings
+[22:54:55.287 I] L@0x1[scripts/omw/settings/player.lua]:	Group key SMESettingsSt doesn't start with Settings
+[22:54:55.289 I] L@0x1[scripts/omw/settings/player.lua]:	Group key SMEHitChanceSettings doesn't start with Settings
+[22:54:55.644 E] Not supported handler 'UiModeChanged' in L@0x1[scripts/aivoices/player.lua]
+[22:54:55.665 I] L@0x1[scripts/rewrite/topic.lua]:	[REWRITE] topic "Zenar" added to the player
+[22:55:32.425 I] Unhandled effect NiPointLight in meshes/x/ex_velothi_window_01.nif
+[22:55:49.947 I] Loading cell Vivec, Foreign Quarter (3, -10)
+[22:55:53.465 E] Failed to open image: Resource 'textures/tx_c_gondolier_h_hat_nm.dds' not found
+[22:56:24.363 I] Loading cell Vivec (2, -10)
+[22:56:27.927 I] Loading cell Vivec (3, -9)
+[22:56:38.582 I] Loading cell Vivec, Redoran (3, -11)
+[22:56:52.759 I] Loading cell Vivec, Foreign Quarter (4, -10)
+[22:56:57.844 I] Loading cell Ascadian Isles Region (2, -9)
+[22:57:00.612 I] Loading cell Vivec, Hlaalu (2, -11)
+[22:57:09.619 I] Loading cell Ascadian Isles Region (4, -9)
+[22:57:14.124 I] Loading cell Vivec, Arena (4, -11)
+[22:57:28.122 V] Language file "l10n/DiverseBlood/en.yaml" is enabled
+[22:57:28.151 V] Language file "l10n/DistantFixes/en.yaml" is enabled
+[22:57:28.160 V] Language file "l10n/HarvestLights/en.yaml" is enabled
+[22:57:28.194 V] Language file "l10n/FriendlyAutosave/en.yaml" is enabled
+[22:57:28.196 W] No language files for the preferred languages found in "l10n/SMESettingsBehavior"
+[22:57:28.198 W] No language files for the preferred languages found in "l10n/SMESettingsStyle"
+[22:57:28.199 W] No language files for the preferred languages found in "l10n/randomValue"
+[22:57:28.200 W] No language files for the preferred languages found in "l10n/SMEhitChance"
+[22:57:28.209 V] Language file "l10n/MOMW_Gameplay/en.yaml" is enabled
+[22:57:28.210 W] No language files for the preferred languages found in "l10n/TrueStrike"
+[22:57:28.243 V] Language file "l10n/AIVoices/en.yaml" is enabled
+[22:58:13.149 V] Language file "l10n/S3maphoreTracks_Explore/en.yaml" is enabled
+[22:58:13.150 W] Warning generated while parsing layouts of a(n) LuaWidget named 'healthBarContent'. Set 'lua debug=true' in the [Lua] section of settings.cfg to enable detailed warnings.
+[22:58:13.151 W] Warning generated while parsing layouts of a(n) LuaWidget named 'TutorialNotifyMenu'. Set 'lua debug=true' in the [Lua] section of settings.cfg to enable detailed warnings.
+[22:58:13.182 W] Warning generated while parsing layouts of a(n) LuaWidget named 'TutorialNotifyMenu'. Set 'lua debug=true' in the [Lua] section of settings.cfg to enable detailed warnings.
+[22:58:13.526 I] Warning: OutsideBanner line 38, column 6 (endif): endif without matching if/elseif
+[22:58:13.528 I] Warning: mc_sewing_shears line 97, column 13 (=): invalid operator =, treating it as ==
+[22:58:14.975 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Beautiful Cities of Morrowind (Beautiful cities of Morrowind.ESP)
+[22:58:14.976 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Bloodmoon (Bloodmoon.esm)
+[22:58:14.977 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Morrowind (Ghostgate) (Morrowind.esm)
+[22:58:14.979 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Morrowind (Hlaalu Faction) (Morrowind.esm)
+[22:58:14.981 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Morrowind (Redoran Faction) (Morrowind.esm)
+[22:58:14.982 I] Global[scripts/distant-fixes/global.lua]:	[DistantFixes]: Enabling support for: Morrowind (Telvanni Faction) (Morrowind.esm)
+[22:58:15.065 W] No language files for the preferred languages found in "l10n/ThirdPersonAltAttacksVFX"
+[22:58:15.507 I] Global[scripts/harvest-lights/global.lua]:	Registering support for Morrowind.esm
+[22:58:15.508 I] Global[scripts/harvest-lights/global.lua]:	Registering support for Tamriel_Data.esm
+[22:58:16.385 V] Language file "l10n/S3maphoreTracks_Battle/en.yaml" is enabled
+[22:58:16.610 I] Global[scripts/true_strike_skill_scaling_combat/global.lua]:	[TrueStrike Config Log] Enabled: true | Base: 0.50 | Scale: 0.010 | AffectPlayer: true | AffectNPC: true
+[22:58:16.817 E] Error: [dialogue script] line 4, column 39 (nolore): Unexpected name
+[22:58:16.833 E] Error: compiling failed (dialogue script): 
+[22:58:16.833 E] ;--SC_INIT: V_Foreign
+[22:58:16.833 E] set SC_temp to "agrippina herennia".nolore
+[22:58:16.833 E] set SC_temp to "alusaron".nolore
+[22:58:16.833 E] set SC_temp to "andilu drothan".nolore
+[22:58:16.833 E] set SC_temp to "baissa".nolore
+[22:58:16.833 E] set SC_temp to "bashag gro-snagdu".nolore
+[22:58:16.833 E] set SC_temp to "baurin".nolore
+[22:58:16.833 E] set SC_temp to "chalone".nolore
+[22:58:16.833 E] set SC_temp to "craeita jullalian".nolore
+[22:58:16.833 E] set SC_temp to "domalen".nolore
+[22:58:16.833 E] set SC_temp to "favise selaren".nolore
+[22:58:16.833 E] set SC_temp to "felvos droryn".nolore
+[22:58:16.833 E] set SC_temp to "flacassia fauseius".nolore
+[22:58:16.833 E] set SC_temp to "huleeya".nolore
+[22:58:16.833 E] set SC_temp to "hylf the harrier".nolore
+[22:58:16.833 E] set SC_temp to "idonea munia".nolore
+[22:58:16.833 E] set SC_temp to "janand maulinie".nolore
+[22:58:16.833 E] set SC_temp to "jeanne".nolore
+[22:58:16.833 E] set SC_temp to "lorbumol gro-aglakh".nolore
+[22:58:16.833 E] set SC_temp to "malven romori".nolore
+[22:58:16.833 E] set SC_temp to "miun_gei".nolore
+[22:58:16.833 E] set SC_temp to "raig".nolore
+[22:58:16.833 E] set SC_temp to "ralen tilvur".nolore
+[22:58:16.833 E] set SC_temp to "rolasa oren".nolore
+[22:58:16.833 E] set SC_temp to "seryn othralen".nolore
+[22:58:16.833 E] set SC_temp to "sevyni saryon".nolore
+[22:58:16.833 E] set SC_temp to "simine fralinie".nolore
+[22:58:16.833 E] set SC_temp to "sirilonwe".nolore
+[22:58:16.833 E] set SC_temp to "sjoring hard-heart".nolore
+[22:58:16.833 E] set SC_temp to "tiram gadar".nolore
+[22:58:16.833 E] set SC_temp to "trebonius artorius".nolore
+[22:58:16.833 E] set SC_temp to "tsrazami".nolore
+[22:58:16.833 E] set SC_V_Foreign_State to -1
+[22:58:16.833 E] ;messagebox "Initialized V_Foreign"
+[22:58:16.833 E] 
+[22:58:18.223 V] Language file "l10n/S3maphoreTracks_shotn_city/en.yaml" is enabled
+[22:58:18.258 V] Language file "l10n/S3maphoreTracks_shotn_wilds/en.yaml" is enabled
+[22:58:18.926 I] L@0x1[scripts/s3/music/core.lua]:	[ S3MAPHORE ]: 68 playlists loaded. Ready to play music!
+[22:58:18.930 I] Playing "music/explore/mx_explore_1.mp3"
+[22:58:26.951 E] Error: [dialogue script] line 4, column 39 (nolore): Unexpected name
+[22:58:26.953 E] Error: compiling failed (dialogue script): 
+[22:58:26.953 E] ;--SC_INIT: V_Foreign
+[22:58:26.953 E] set SC_temp to "agrippina herennia".nolore
+[22:58:26.953 E] set SC_temp to "alusaron".nolore
+[22:58:26.953 E] set SC_temp to "andilu drothan".nolore
+[22:58:26.953 E] set SC_temp to "baissa".nolore
+[22:58:26.953 E] set SC_temp to "bashag gro-snagdu".nolore
+[22:58:26.953 E] set SC_temp to "baurin".nolore
+[22:58:26.953 E] set SC_temp to "chalone".nolore
+[22:58:26.953 E] set SC_temp to "craeita jullalian".nolore
+[22:58:26.953 E] set SC_temp to "domalen".nolore
+[22:58:26.953 E] set SC_temp to "favise selaren".nolore
+[22:58:26.953 E] set SC_temp to "felvos droryn".nolore
+[22:58:26.953 E] set SC_temp to "flacassia fauseius".nolore
+[22:58:26.953 E] set SC_temp to "huleeya".nolore
+[22:58:26.953 E] set SC_temp to "hylf the harrier".nolore
+[22:58:26.953 E] set SC_temp to "idonea munia".nolore
+[22:58:26.953 E] set SC_temp to "janand maulinie".nolore
+[22:58:26.953 E] set SC_temp to "jeanne".nolore
+[22:58:26.953 E] set SC_temp to "lorbumol gro-aglakh".nolore
+[22:58:26.953 E] set SC_temp to "malven romori".nolore
+[22:58:26.953 E] set SC_temp to "miun_gei".nolore
+[22:58:26.953 E] set SC_temp to "raig".nolore
+[22:58:26.953 E] set SC_temp to "ralen tilvur".nolore
+[22:58:26.953 E] set SC_temp to "rolasa oren".nolore
+[22:58:26.953 E] set SC_temp to "seryn othralen".nolore
+[22:58:26.953 E] set SC_temp to "sevyni saryon".nolore
+[22:58:26.953 E] set SC_temp to "simine fralinie".nolore
+[22:58:26.953 E] set SC_temp to "sirilonwe".nolore
+[22:58:26.953 E] set SC_temp to "sjoring hard-heart".nolore
+[22:58:26.953 E] set SC_temp to "tiram gadar".nolore
+[22:58:26.953 E] set SC_temp to "trebonius artorius".nolore
+[22:58:26.953 E] set SC_temp to "tsrazami".nolore
+[22:58:26.953 E] set SC_V_Foreign_State to -1
+[22:58:26.953 E] ;messagebox "Initialized V_Foreign"
+[22:58:26.953 E] 
+[23:01:24.004 I] Playing "music/explore/mx_explore_6.mp3"
+[23:05:36.152 I] Playing "music/explore/mx_explore_5.mp3"
+[23:09:00.752 I] Saving shader settings file: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\shaders.yaml
+[23:09:00.910 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\global_storage.bin" (3c1f1f bytes)
+[23:09:00.927 I] Saving Lua storage "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\player_storage.bin" (18c5 bytes)
+[23:09:02.032 I] Saved input bindings: D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\input_v3.xml
+[23:09:04.036 I] Quitting peacefully.

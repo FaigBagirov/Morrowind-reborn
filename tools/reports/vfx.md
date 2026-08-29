@@ -261,10 +261,26 @@ Both builds are on disk:
 `data=` line for the matching profile; remove the line to remove the change.
 Nothing was written into `mod/`, which stays shared.
 
+## Confirmed in the real profile
+
+2026-08-29, `play` profile, Vivec exterior. Light, `self dispel` and `hearth
+heal` cast in turn: each a hexagon swarm in its own colour, plates at the finer
+size. `hearth heal` is the one that matters most - `vfx_bluecloud` is 28 effects,
+the largest group after the summons, and it was vanilla until this pass.
+
+**The Light redirect took.** From the log:
+
+    [REWRITE] light: particle tx_firealpha00A.tga -> vfx_zen_light.dds
+
+So `MagicEffect.particle` is writable from the load context in 0.51, which
+nothing documented and no probe had established. Verified the two ways the
+working method asks for: the readback in the context that wrote it, and the
+engine's own use of the field on screen.
+
+Zero errors in the log touching our textures, and no complaint about the DXT5
+files - the hand-written header and mip chain are read as the engine expects.
+
 ## Still open
 
 The grain shader, which Part 9 puts in post-processing rather than in particles.
-Not started.
-
-And the Light redirect, which needs one line of log or one cast in game to move
-from guarded guess to measured fact.
+Not started. It is the only part of Part 9 that is not in the game.
