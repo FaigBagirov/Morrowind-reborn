@@ -41,38 +41,99 @@ TARGETS = {
 DENSE = {"vfx_corprus"}          # Canon Part 9 reserves the swarm for Corprus.
 
 
-def hex_field(size, cell, softness, jitter_seed):
-    """Sparse hexagon grid as an alpha field in [0,1].
+def _hex_distance(x, y, cx, cy, angle):
+    """Distance to a flat-topped hexagon centred at (cx, cy), rotated by angle.
 
-    Flat-topped hexagons on a staggered grid. Distance to a hexagon is the
-    max of three axis projections, which gives the six flats without any
-    trigonometry per pixel.
+    max of the three flat-normal projections. No trigonometry per pixel beyond
+    the one rotation, and the six sides stay straight - which is the point: a
+    blob does not read as manufactured, and manufactured is the whole idea.
     """
-    rng = np.random.default_rng(jitter_seed)
+    ca, sa = np.cos(angle), np.sin(angle)
+    dx = x - cx
+    dy = y - cy
+    px = np.abs(dx * ca - dy * sa)
+    py = np.abs(dx * sa + dy * ca)
+    return np.maximum(px * 0.8660254 + py * 0.5, py)
+
+
+def _segment_distance(x, y, ax, ay, bx, by):
+    """Distance from each pixel to the segment AB."""
+    vx, vy = bx - ax, by - ay
+    length2 = vx * vx + vy * vy
+    if length2 < 1e-6:
+        return np.hypot(x - ax, y - ay)
+    t = np.clip(((x - ax) * vx + (y - ay) * vy) / length2, 0.0, 1.0)
+    return np.hypot(x - (ax + t * vx), y - (ay + t * vy))
+
+
+def hex_field(size, cell, dense, seed):
+    """Plates, filaments and motes.
+
+    Three passes, and each is there for a reason the first draft got wrong:
+
+    * **Plates, not blobs.** The hexagon is drawn as a bright rim with a dim
+      interior, and the rim is only a couple of pixels of falloff wide. A filled
+      soft hexagon reads as a smudge at particle size; an outlined one keeps its
+      six sides. Each plate is rotated a little so the field is not a lattice.
+    * **Filaments.** Short tapering threads between neighbouring plates. This is
+      what makes it read as a swarm with something holding it together rather
+      than as confetti.
+    * **Motes.** Sub-pixel specks in the gaps, at low alpha. They fill the empty
+      space without adding structure, and they are what stops the gaps looking
+      deliberate.
+    """
+    rng = np.random.default_rng(seed)
     y, x = np.mgrid[0:size, 0:size].astype(np.float32)
-    field = np.zeros((size, size), np.float32)
+    plates = np.zeros((size, size), np.float32)
+    threads = np.zeros((size, size), np.float32)
+    motes = np.zeros((size, size), np.float32)
 
     dx = cell * 1.5
     dy = cell * np.sqrt(3.0)
-    cols = int(size / dx) + 2
-    rows = int(size / dy) + 2
-
-    for r in range(-1, rows):
-        for c in range(-1, cols):
-            cx = c * dx
+    centres = []
+    for r in range(-1, int(size / dy) + 2):
+        for c in range(-1, int(size / dx) + 2):
+            cx = c * dx + rng.uniform(-cell * 0.2, cell * 0.2)
             cy = r * dy + (dy * 0.5 if c % 2 else 0.0)
-            # A little irregularity: a perfect lattice reads as a texture bug.
-            cx += rng.uniform(-cell * 0.18, cell * 0.18)
-            cy += rng.uniform(-cell * 0.18, cell * 0.18)
-            radius = cell * rng.uniform(0.34, 0.5)
+            cy += rng.uniform(-cell * 0.2, cell * 0.2)
+            if -cell < cx < size + cell and -cell < cy < size + cell:
+                centres.append((cx, cy, rng.uniform(0.32, 0.46) * cell,
+                                rng.uniform(0.0, np.pi / 3)))
 
-            px = np.abs(x - cx)
-            py = np.abs(y - cy)
-            # Hexagon distance: max of the three flat-normal projections.
-            d = np.maximum(px * 0.8660254 + py * 0.5, py)
-            edge = np.clip((radius - d) / (radius * softness), 0.0, 1.0)
-            field = np.maximum(field, edge * edge * (3 - 2 * edge))  # smoothstep
-    return field
+    edge = max(size / 256.0, 1.0) * (1.6 if dense else 2.2)
+    for cx, cy, radius, angle in centres:
+        d = _hex_distance(x, y, cx, cy, angle)
+        rim = np.clip(1.0 - np.abs(d - radius) / edge, 0.0, 1.0)
+        fill = np.clip((radius - d) / (radius * 0.9), 0.0, 1.0) ** 2
+        plates = np.maximum(plates, rim * rim * (3 - 2 * rim))
+        plates = np.maximum(plates, fill * (0.30 if dense else 0.22))
+
+    # Filaments: each plate reaches for one or two neighbours, never all of
+    # them - a fully connected mesh reads as a net rather than as a swarm.
+    width = max(size / 512.0, 0.6) * (1.1 if dense else 0.9)
+    for i, (cx, cy, radius, _a) in enumerate(centres):
+        near = sorted(
+            ((np.hypot(cx - ox, cy - oy), ox, oy)
+             for j, (ox, oy, _r, _b) in enumerate(centres) if j != i),
+            key=lambda t: t[0])[:3]
+        for dist, ox, oy in near[:rng.integers(1, 3)]:
+            if dist > cell * 2.2:
+                continue
+            d = _segment_distance(x, y, cx, cy, ox, oy)
+            line = np.clip(1.0 - d / width, 0.0, 1.0)
+            along = np.clip(1.0 - _segment_distance(x, y, cx, cy, cx, cy)
+                            / (dist + 1e-3), 0.0, 1.0)
+            threads = np.maximum(threads, line * (0.30 + 0.25 * along))
+
+    for _ in range(int(size * (1.6 if dense else 0.9))):
+        mx, my = rng.uniform(0, size, 2)
+        rad = rng.uniform(0.6, 1.8) * max(size / 512.0, 1.0)
+        d = np.hypot(x - mx, y - my)
+        motes = np.maximum(motes, np.clip(1.0 - d / rad, 0.0, 1.0)
+                           * rng.uniform(0.12, 0.34))
+
+    return np.clip(plates + threads * (1.0 - plates) * 0.85
+                   + motes * (1.0 - plates), 0.0, 1.0)
 
 
 def write_dds(path, rgba):
@@ -99,9 +160,8 @@ def write_dds(path, rgba):
         f.write(bgra.tobytes())
 
 
-def build(src_path, dense):
+def build(src_path, dense, size=512):
     src = np.array(Image.open(src_path).convert("RGBA")).astype(np.float32)
-    size = src.shape[0]
     lum = src[..., :3].mean(axis=2)
     bright = lum > 8
     if bright.sum() < 64:
@@ -110,9 +170,8 @@ def build(src_path, dense):
     colour = src[..., :3][bright].mean(axis=0)
     colour = colour / max(colour.max(), 1.0) * 255.0
 
-    cell = size / 9.0 if dense else size / 5.0
-    softness = 0.55 if dense else 0.75
-    field = hex_field(size, cell, softness, jitter_seed=7)
+    cell = size / 10.0 if dense else size / 5.5
+    field = hex_field(size, cell, dense, seed=7)
 
     # A faint core keeps the particle from disappearing at distance, where the
     # grid is below a pixel and would otherwise flicker out.
@@ -140,13 +199,27 @@ def main():
     here = os.path.dirname(os.path.abspath(__file__))
     root = os.path.abspath(os.path.join(here, "..", ".."))
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--source", default=(
-        r"D:\Games\OpenMWMods\graphics-overhaul\TexturePacks"
-        r"\VurtsMorrowindVisualResurgence\vfx\Data Files\Textures"))
+    ap.add_argument("--profile", choices=["vanilla", "momw"], default="momw",
+                    help="which installed textures to take the colour from")
+    ap.add_argument("--source", default=None)
     ap.add_argument("--preview-dir", default=os.path.join(root, "tools", "vfx"))
-    ap.add_argument("--out", default=os.path.join(root, "mod", "Textures"))
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--size", type=int, default=512)
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
+
+    # Two builds for the same reason the plugin has two: what is installed
+    # underneath differs, and the colour is sampled from it.
+    if args.source is None:
+        args.source = (
+            os.path.join(root, "tools", "build", "vfx-src-vanilla")
+            if args.profile == "vanilla" else
+            r"D:\Games\OpenMWMods\graphics-overhaul\TexturePacks"
+            r"\VurtsMorrowindVisualResurgence\vfx\Data Files\Textures")
+    if args.out is None:
+        args.out = os.path.join(root, "tools", "build",
+                                f"vfx-{args.profile}", "Textures")
+    args.preview_dir = os.path.join(args.preview_dir, args.profile)
 
     os.makedirs(args.preview_dir, exist_ok=True)
     if args.write:
@@ -157,7 +230,7 @@ def main():
         if not os.path.exists(src):
             print(f"  missing source, skipped: {name}")
             continue
-        rgba = build(src, name in DENSE)
+        rgba = build(src, name in DENSE, args.size)
         kind = "dense (Corprus)" if name in DENSE else "sparse"
         prev = os.path.join(args.preview_dir, name + ".png")
         preview(rgba, prev)

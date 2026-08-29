@@ -55,6 +55,33 @@ Output is uncompressed 32-bit BGRA DDS - no DXT compressor needed and the engine
 reads it. Six files at 1 MB each against 256 KB, which is not worth a
 compressor for six textures.
 
+## Two builds, as with the plugin
+
+`--profile momw` samples colour from Vurt's; `--profile vanilla` samples it from
+the textures extracted out of `Morrowind.bsa` with `delta_plugin vfs-extract`,
+which are 64x64 DXT3 against Vurt's 512x512 DXT5. Both are generated at 512:
+the hexagons need the resolution, and a sharper particle is the signature.
+
+Output goes to `tools/build/vfx-<profile>/Textures/`, a data directory the user
+adds - one line, and removing the line removes the change. Nothing is written
+into `mod/`, which stays shared between both profiles.
+
+## The second pass on the shape
+
+The first draft drew soft filled hexagons, and Faig's read of it was right: they
+were blobs, and a blob does not look manufactured. Rebuilt around three ideas:
+
+* **Plates rather than blobs.** A bright rim with a dim interior, the falloff
+  only a couple of pixels wide. A filled soft hexagon smudges at particle size;
+  an outlined one keeps its six sides, which is the only thing that says
+  somebody made it. Each plate is rotated a little, because a lattice reads as a
+  texture bug.
+* **Filaments.** Short tapering threads to one or two neighbours - never all of
+  them, since a fully connected mesh reads as a net rather than as a swarm.
+  This is what makes the cloud look like it is holding itself together.
+* **Motes.** Sub-pixel specks in the gaps at low alpha, so the empty space does
+  not look deliberate.
+
 ## Still open
 
 Whether to ship at all, given that it overrides Vurt's. And the grain shader,
