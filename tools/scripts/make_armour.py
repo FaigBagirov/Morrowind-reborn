@@ -88,8 +88,10 @@ PIECES = (
     # whole helm would be called mechanism and come out black. Its trim is gold
     # rather than red, which the red detector barely sees. And the map is named
     # `_spec`.
+    # Gold off here too. Faig on the Pragmata reference: the orange was the one
+    # element he did not like, so the band and the studs go to steel.
     {"stem": "tx_a_ebony_helmet", "spec": "_spec",
-     "plate_from": "diffuse", "trim": "warm"},
+     "plate_from": "diffuse", "trim": "warm", "gold": False},
 )
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
@@ -99,20 +101,20 @@ PIECES = (
 # "a bit more silvery", then "a touch darker than the darkest one you offered" -
 # which was 0.60. The blue channel leads, and that is what separates silver from
 # grey paint.
-CERAMIC = np.array([0.50, 0.525, 0.565])   # plate, lit
-CERAMIC_DARK = np.array([0.12, 0.13, 0.155])
-MECH = np.array([0.16, 0.165, 0.185])     # what shows between the plates
-MECH_DARK = np.array([0.030, 0.032, 0.038])
-GOLD = np.array([1.00, 0.74, 0.32])
-GOLD_DARK = np.array([0.30, 0.20, 0.07])
+CERAMIC = np.array([0.50, 0.525, 0.565], np.float32)   # plate, lit
+CERAMIC_DARK = np.array([0.12, 0.13, 0.155], np.float32)
+MECH = np.array([0.16, 0.165, 0.185], np.float32)   # what shows between plates
+MECH_DARK = np.array([0.030, 0.032, 0.038], np.float32)
+GOLD = np.array([1.00, 0.74, 0.32], np.float32)
+GOLD_DARK = np.array([0.30, 0.20, 0.07], np.float32)
 
 # Faig on the Face of Terror: the colours came out well, take the gold off. The
 # trim does not simply disappear when it does - those lines are the design, and
 # a helm with no piping reads as unfinished. It goes to a brighter, cooler metal
 # instead, so the piping still separates itself from the plate it sits on.
 NO_GOLD = {"daefacet"}
-STEEL = np.array([0.78, 0.80, 0.85])
-STEEL_DARK = np.array([0.17, 0.18, 0.21])
+STEEL = np.array([0.78, 0.80, 0.85], np.float32)
+STEEL_DARK = np.array([0.17, 0.18, 0.21], np.float32)
 
 
 def load(path, size=None):
@@ -139,6 +141,17 @@ def _blur(mask, radius):
     """
     im = Image.fromarray((mask * 255).astype(np.uint8))
     return np.array(im.filter(ImageFilter.GaussianBlur(radius))).astype(np.float32) / 255.0
+
+
+def _f32(a):
+    """Keep arrays in float32.
+
+    Multiplying a float32 image by a plain Python float promotes the result to
+    float64 and doubles the memory for every intermediate. On a 1024x1024 sheet
+    that is 8 MB a time, and this machine runs close to its commit limit - the
+    generator failed on an 8 MB allocation with 2 GB of RAM free.
+    """
+    return np.asarray(a, dtype=np.float32)
 
 
 def _split(tone, radius):
@@ -232,13 +245,15 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
         detail = 1.0
     tone = np.clip((1.0 - detail) * s_n + detail * d_n, 0.0, 1.0)
     form, fine = _split(tone, max(dif.shape[0], dif.shape[1]) / 90.0)
-    tone = np.clip(form + fine * grain, 0.0, 1.0)
-    tone = _smooth(np.clip((tone - 0.5) * contrast + 0.5, 0.0, 1.0))
+    tone = _f32(np.clip(form + fine * np.float32(grain), 0.0, 1.0))
+    tone = _f32(_smooth(np.clip((tone - 0.5) * np.float32(contrast) + 0.5, 0.0, 1.0)))
 
     if normal_path and os.path.exists(normal_path):
         lit, hot = _relight(load(normal_path, size))
-        tone = np.clip(tone * lit ** curve * (1.0 - kant * _kant(plate))
-                       + gloss * hot * plate, 0.0, 1.0)
+        tone = _f32(np.clip(
+            tone * lit ** np.float32(curve)
+            * (1.0 - np.float32(kant) * _kant(plate))
+            + np.float32(gloss) * hot * plate, 0.0, 1.0))
 
     ceramic = CERAMIC_DARK + (CERAMIC - CERAMIC_DARK) * tone[..., None]
     mech = MECH_DARK + (MECH - MECH_DARK) * tone[..., None]

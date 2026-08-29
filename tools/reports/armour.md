@@ -135,6 +135,32 @@ burial and two Vivec vaults - plus a test crate and one scripted NPC. So the
 five ebony helms in the world become Zenaric silver, and one of them is the
 player's.
 
+## Eye slits, and why they wait for one screenshot
+
+Faig wants Pragmata's eye slits on the closed helm - opaque is fine, they just
+have to be there. That is the first thing asked of this generator that is
+*painting* rather than transforming, and painting needs to know where the front
+of the head lands on the sheet.
+
+The unwrap is cylindrical: the sheet's horizontal axis runs around the head.
+Nothing in the texture says which column faces forward.
+
+The mesh does, in principle. `meshes/a/a_ebony_helmet.nif` was parsed far enough
+to get both - 117 vertices with positions and UVs, validated by the file size
+working out and the UVs landing in 0..1. Reading a NIF is not editing one, so
+the rule is intact. But the shape sits under a node transform, and the sign
+conventions of a 2002 format are exactly the sort of inference that is right
+until it is silently wrong. Wrong here is eye slits on the back of the skull.
+
+So it is measured instead. `tools/scripts/uv_calibrate.py` paints eight named
+colour bands around the horizontal axis and three rules across the vertical one,
+over the real texture so the piece stays recognisable. Wear it, look from the
+front: the colour in the middle of the face names U, the rule crossing the eyes
+names V. One screenshot and the slits can be placed exactly, once.
+
+The tool is general - any texture, any piece - which is why it is a script and
+not a scratch file. The same question will come up for the weapons.
+
 ## Scope, deliberately narrow for this iteration
 
 Done: the worn set and the mod's blade — `daecuir`, `daeboots`, `daegaunt`,
