@@ -67,8 +67,14 @@ PIECES = ("daecuir", "daeboots", "daegaunt", "daegreaves",
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
 # mechanism lit and in shadow. Gold sits on top of whichever it lands on.
-CERAMIC = np.array([0.95, 0.95, 0.93])    # plate, lit
-CERAMIC_DARK = np.array([0.26, 0.27, 0.30])
+# Silver-grey, slightly cool. The first pass was bone white; Faig's correction
+# was the grey of his reference render, "a bit more silvery" - so the plate sits
+# a shade under mid and the blue channel leads, which is what separates silver
+# from white paint. Rendered at 0.95 / 0.83 / 0.72 / 0.60 and this is the third,
+# chosen as the closest read of that brief; his own pick may move it a step
+# either way.
+CERAMIC = np.array([0.72, 0.745, 0.79])   # plate, lit
+CERAMIC_DARK = np.array([0.19, 0.205, 0.235])
 MECH = np.array([0.16, 0.165, 0.185])     # what shows between the plates
 MECH_DARK = np.array([0.030, 0.032, 0.038])
 GOLD = np.array([1.00, 0.74, 0.32])
