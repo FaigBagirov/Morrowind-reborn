@@ -55,6 +55,7 @@ from PIL import Image, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dds import write_dxt  # noqa: E402
+from paint_helm import paint as paint_helm  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 
 PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
@@ -68,8 +69,10 @@ FOLDER = "jy_daedric"
 #   plate_from  "spec" or "diffuse" - which map decides plate against mechanism
 #   trim        "red" or "warm" - what the gold is looking for in the original
 #   gold        False keeps the trim but makes it steel
+#   paint       "pragmata" draws a panel layout on top; see paint_helm.py
 DEFAULTS = {"folder": "", "spec": "_s", "normal": "_n", "glow": "_g",
-            "plate_from": "spec", "trim": "red", "gold": True}
+            "plate_from": "spec", "trim": "red", "gold": True,
+            "paint": None}
 
 PIECES = (
     {"stem": "daecuir", "folder": "jy_daedric"},
@@ -91,7 +94,13 @@ PIECES = (
     # Gold off here too. Faig on the Pragmata reference: the orange was the one
     # element he did not like, so the band and the studs go to steel.
     {"stem": "tx_a_ebony_helmet", "spec": "_spec",
-     "plate_from": "diffuse", "trim": "warm", "gold": False},
+     "plate_from": "diffuse", "trim": "warm", "gold": False,
+     # "paint": "pragmata" is written and works, and is off. The layout it
+     # draws is not good enough to wear yet: seams converging on the crown read
+     # as cracks, and the wide horizontal bands cross the sheet in steps. The
+     # machinery under it - an exact per-pixel map from texture to helmet - is
+     # the part that was hard, and it is done. The design on top wants rounds.
+     "paint": None},
 )
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
@@ -377,6 +386,8 @@ def main():
             diffuse, specular, args.contrast, args.blur, args.grain,
             args.detail, normal, args.kant, args.curve, args.gloss,
             p["gold"], p["plate_from"], p["trim"])
+        if p["paint"] == "pragmata":
+            after = paint_helm(after)
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""

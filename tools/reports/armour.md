@@ -135,6 +135,42 @@ burial and two Vivec vaults - plus a test crate and one scripted NPC. So the
 five ebony helms in the world become Zenaric silver, and one of them is the
 player's.
 
+## The UV map is solved. The painting on top is not.
+
+**Solved, and reusable.** `tools/scripts/uvmap.py` parses a Morrowind NIF far
+enough to get vertices, UVs and triangles, then rasterises the triangles so
+every texture pixel knows which point of the helmet it is - height and azimuth,
+exactly, no fit. Reading a NIF is not editing one and nothing writes.
+
+The parse validates rather than trusts. Writers disagree on whether the "has
+vertices" flag is one byte or four, so instead of encoding one dialect it
+searches for the arrangement that is *consistent*: finite vertices, UVs in the
+unit square, a triangle header whose point count is three times its triangle
+count, and indices that fit the vertex count. On this helm: 117 vertices, 230
+triangles, 690 points, indices 0..116, 63% sheet coverage.
+
+Three things that fitting would have got wrong and rasterising got right:
+
+* **The unwrap is not cylindrical.** A straight-line fit of u against azimuth
+  leaves 0.10 turns of residual - 36 degrees. Eye slits do not survive that.
+* **Up is not the axis of least variance.** That guess put the pole through the
+  side of the head; a helmet is thinnest across the ears. Up is recovered by
+  regressing position against the sheet's row index, because every helmet unwrap
+  in this game lays height along v.
+* **Geometry cannot say which way a helmet faces.** That is the one number no
+  amount of parsing produces, and it is why the calibration texture exists.
+
+Faig's two readings became the two anchors: `FRONT_AZ = +0.0873`,
+`EYE_H = -0.30`. Height landmarks fall out of the same map - crown +8.6, the
+wide band +4.0, the stud row +1.5, eyes -0.3, flare below -1.7.
+
+**Not solved: the design.** `paint_helm.py` draws on that map and is committed
+switched **off**, because what it produces is worse than the plain helm. Seams
+of constant azimuth converge at the pole and read as a cracked eggshell; the
+wide horizontal bands cross the sheet in visible steps; the visor smears. That
+is art direction, and it wants its own rounds rather than being shipped because
+the machinery under it finally works.
+
 ## Eye slits, and why they wait for one screenshot
 
 Faig wants Pragmata's eye slits on the closed helm - opaque is fine, they just
