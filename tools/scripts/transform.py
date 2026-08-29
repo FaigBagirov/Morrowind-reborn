@@ -40,6 +40,7 @@ from momw_compat import TYPE_CODE  # noqa: E402
 from check_rules import (  # noqa: E402
     apply_rules_keeping, load_frozen, load_rules, validate,
 )
+import effective  # noqa: E402
 
 MASTERS = ("Morrowind.esm", "Tribunal.esm", "Bloodmoon.esm")
 
@@ -267,6 +268,10 @@ def main():
     ap.add_argument("--profile", choices=["vanilla", "momw"], default="vanilla")
     ap.add_argument("--plugins", default=None,
                     help="momw profile: file listing the active load order")
+    ap.add_argument("--tes3conv",
+                    default=os.path.join(root, "tools", "bin", "tes3conv.exe"))
+    ap.add_argument("--out-name", default="scifi-rewrite",
+                    help="base name for the plugin artifacts")
     ap.add_argument("--write", action="store_true",
                     help="write the artifacts; without it this is a dry run")
     args = ap.parse_args()
@@ -310,6 +315,51 @@ def main():
               f"{', '.join(r['speaker'] for r in replies)}")
 
     records = load_masters(paths)
+
+    # Under the momw profile the record a player reads is not the master's. A
+    # plugin overrides a record whole, so the last plugin to define one holds
+    # everything about it - text, mesh, icon. Take the winner's version before
+    # substituting, or the rebuild silently strips other people's work.
+    overrides = {}
+    if args.profile == "momw":
+        data_dirs, content = effective.parse_cfg(args.plugins)
+        plugins, missing = effective.resolve(content, data_dirs)
+        if missing:
+            raise SystemExit(f"{len(missing)} content files not found on disk: "
+                             f"{missing[:3]}")
+        print(f"Load order: {len(plugins)} plugin files from {args.plugins}")
+        master_names = {m.lower() for m in MASTERS}
+        # Only the records a rule could possibly touch. Scanning for all 60,000
+        # would drag half the mod list through tes3conv for nothing.
+        wanted_keys = set()
+        for key, rec in records.items():
+            specs = DISPLAY_FIELDS.get(rec["type"])
+            if not specs:
+                continue
+            for spec in specs:
+                if (rec["type"], spec) in FROZEN:
+                    continue
+                for value in field_values(rec, spec):
+                    low = value.lower()
+                    if any(r.pattern.lower() in low for r in rules):
+                        wanted_keys.add(key)
+                        break
+        print(f"  records a rule could touch: {len(wanted_keys)}")
+        print("  scanning for overrides ...")
+        winners = effective.find_winners(plugins, wanted_keys)
+        foreign = {k: v for k, v in winners.items()
+                   if os.path.basename(v).lower() not in master_names}
+        print(f"  records a mod defines last: {len(foreign)}")
+        converted = effective.convert(set(foreign.values()), args.cache_dir,
+                                      args.tes3conv)
+        by_plugin = collections.defaultdict(set)
+        for key, path in foreign.items():
+            by_plugin[path].add(key)
+        for path, keys in by_plugin.items():
+            overrides.update(effective.read_records(converted[path], keys))
+        print(f"  effective records taken from mods: {len(overrides)}")
+        for key, rec in overrides.items():
+            records[key] = rec
 
     lua_targets = []
     plugin_records = collections.OrderedDict()
@@ -475,6 +525,12 @@ def main():
     }
     print("Re-reading the masters for complete plugin records ...")
     full, dials, order = full_records(paths, set(plugin_records))
+    # Where a mod defines the record last, that is the record to emit. Taking
+    # the master's version here would hand back a plugin that strips their mesh,
+    # their icon and their typo fixes while claiming only to rename a thing.
+    for key, rec in overrides.items():
+        if key in full:
+            full[key] = rec
     missing = set(plugin_records) - set(full)
     if missing:
         raise SystemExit(f"{len(missing)} plugin records could not be re-read: "
@@ -523,7 +579,7 @@ def main():
     header["num_objects"] = len(out) - 1
     print(f"  {emitted_dial} topic records emitted to own "
           f"{sum(len(v) for v in grouped.values())} dialogue records")
-    plugin_path = os.path.join(args.out_build, "scifi-rewrite.json")
+    plugin_path = os.path.join(args.out_build, args.out_name + ".json")
     with open(plugin_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
     print("Wrote", os.path.relpath(plugin_path, root))

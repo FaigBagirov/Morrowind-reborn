@@ -251,8 +251,15 @@ Nothing below is blocked on tooling.
    and rebuilding is the whole edit. **Read on screen 2026-08-29**, paragraphs
    and all; reachable in a test save with `Journal B8_MeetVivec 50`. The
    mitochondrial line, Canon Part 5, `PROPOSED`, is still unplaced.
-5. **`--profile momw`** needs a load-order file, and the plugin needs to go
-   through the Delta Plugin merge on that list rather than straight in.
+5. **`--profile momw` is built.** The load order is
+   `D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.cfg` - 240
+   plugin files, and it already contains `delta-merged.omwaddon` **and**
+   `Voices of Vvardenfell.omwscripts`. 327 of our records are defined last by a
+   mod, and the build now carries their version forward: the daedric cuirass
+   comes out with our name and the armour mod's mesh. Left to do: put our
+   plugin through the Delta merge rather than straight into the load order, and
+   find out whether changing 187 replies breaks the voice mod's playback. **The
+   user's `play` profile has not been touched.**
 6. The upstream ticket is written and on the user's Google Drive, for them to
    file.
 

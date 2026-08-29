@@ -144,6 +144,38 @@ The vanilla build is stable for as long as the three masters are - which is
 forever. The mod-list build is regenerated when the list changes, which is the
 standing cost the hybrid route already carries.
 
+## Built against the real load order `DONE 2026-08-29`
+
+The load order was found: `.../My Games/OpenMW/play/openmw.cfg` - **240 plugin
+files** and 22 `.omwscripts`, every one of them present on disk. `delta-merged.omwaddon`
+is in it, so Delta Plugin is not merely installed but in use. So is
+**Voices of Vvardenfell**, which makes the audio question from Architecture
+Part 15 a live one rather than a hypothetical.
+
+    python tools/scripts/transform.py --profile momw         --plugins ".../play/openmw.cfg" --out-name scifi-rewrite-momw --write
+
+`tools/scripts/effective.py` does it in two passes, because 240 plugins are 405
+MB and converting all of them is not practical: a binary scan in load order
+finds which plugin defines each record last, then only the winners go through
+`tes3conv`. The scan takes seven seconds.
+
+**327 of the records we touch are defined last by a mod, not by a master.** That
+is the number that matters, and it is much larger than the 13 this document
+estimated from text differences alone - because a plugin override is
+whole-record, so we must carry the winner's mesh, icon and typo fixes forward
+whether or not their *text* differs from vanilla.
+
+Proof, from the built plugin:
+
+    Record: ARMO "daedric_cuirass"
+      Name:  Zenaric Cuirass
+      Model: jy_daedric\DaedricCuirGND.nif
+      Icon:  jy_daedric\DaedricCuirass.dds
+
+The rename and the Daedric Lord Armor mesh in the same record. Built from the
+masters instead, that model line would have read `a\A_Daedric_cuirass_GND.nif`
+and the armour mod would have been silently undone.
+
 ## What this does not answer
 
 - **Which plugins are actually in the load order.** There is no `openmw.cfg`

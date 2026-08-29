@@ -79,9 +79,9 @@ plugin,ARMO,daedric_shield,name,R300,1,0,,0,0
 plugin,ARMO,daedric_terrifying_helm,name,R300,1,0,,0,0
 plugin,ARMO,daedric_towershield,name,R300,1,0,,0,0
 plugin,CLOT,Daedric_special,name,R300,1,0,,0,0
-lua,INGR,ingred_cursed_daedras_heart_01,name,R010,1,-3,,0,0
+lua,INGR,ingred_cursed_daedras_heart_01,name,R500,1,-1,,0,0
 lua,INGR,ingred_daedra_skin_01,name,R500,1,-1,,0,0
-lua,INGR,ingred_daedras_heart_01,name,R010,1,-3,,0,0
+lua,INGR,ingred_daedras_heart_01,name,R500,1,-1,,0,0
 lua,BOOK,BookSkill_Alchemy4,text,R400,2,0,,0,0
 lua,BOOK,BookSkill_Alteration3,text,R600,3,0,,0,0
 lua,BOOK,BookSkill_Athletics3,text,R400 R500,2,-1,,0,0
@@ -119,7 +119,7 @@ lua,BOOK,bk_Dagoth_Urs_Plans,text,R500,2,-2,,0,0
 lua,BOOK,bk_HouseOfTroubles_c,text,R500,2,-2,,0,0
 lua,BOOK,bk_HouseOfTroubles_o,text,R500,2,-2,,0,0
 lua,BOOK,bk_Ibardad_Elante_notes,text,R300,1,0,,0,0
-lua,BOOK,bk_InvocationOfAzura,text,R220 R400 R500,5,-6,,0,0
+lua,BOOK,bk_InvocationOfAzura,text,R220 R500,5,-7,,0,0
 lua,BOOK,bk_LegendaryScourge,text,R210,1,-2,,0,0
 lua,BOOK,bk_LivesOfTheSaints,text,R500,3,-3,,0,0
 lua,BOOK,bk_Mysticism,text,R300,1,0,,0,0
@@ -217,7 +217,7 @@ plugin,INFO,13125145792237029688,text,R500,1,-1,bound armor spells,1,1
 plugin,INFO,2296424604965814421,text,R500,1,-1,bound armor spells,1,1
 plugin,INFO,2837727123107723176,text,R500,1,-1,bound armor spells,1,1
 plugin,INFO,1416722331880314880,text,R500,1,-1,bound armor spells,1,1
-plugin,INFO,932425122266223858,text,R100,1,-2,gold kanet flower,0,0
+plugin,INFO,932425122266223858,text,R100,1,-2,,0,0
 plugin,INFO,1053123401240582096,text,R500,1,-1,sensitive matters,0,0
 plugin,INFO,18879125951316324172,text,R500,1,-1,Redoran Hortator,0,0
 plugin,INFO,1825146562838218905,text,R500,1,-1,Redoran Hortator,0,0
@@ -228,7 +228,7 @@ plugin,INFO,3050776952842713146,text,R400,1,0,summoning spells,1,1
 plugin,INFO,9803214401253319157,text,R400,1,0,summoning spells,1,1
 plugin,INFO,3688255662191031689,text,R400,1,0,summoning spells,1,1
 plugin,INFO,1756623776980030532,text,R400,1,0,summoning spells,1,1
-plugin,INFO,7939321882060124566,text,R400,1,0,explore together,0,0
+plugin,INFO,7939321882060124566,text,R400,1,0,,0,0
 plugin,INFO,1776920257330710884,text,R100,1,-2,Ring of the Wind,0,0
 plugin,INFO,51358524162012703,text,R400,1,0,Hlireni Indavel,1,1
 plugin,INFO,3103727901690722640,text,R120 R500,2,-3,Hlireni Indavel,0,0
@@ -241,18 +241,18 @@ plugin,INFO,22010612395371320,text,R270,1,-2,flame atronach,1,1
 plugin,INFO,352621530612704,text,R270,1,-2,flame atronach,1,1
 plugin,INFO,234952372639094666,text,R270,1,-2,frost atronach,2,2
 plugin,INFO,244639002936515910,text,R270,1,-2,frost atronach,2,2
-plugin,INFO,2522915002870332121,text,R270,1,-2,storm atronach,2,2
-plugin,INFO,41302208659118958,text,R270,1,-2,storm atronach,2,2
+plugin,INFO,2522915002870332121,text,R270,1,-2,,0,0
+plugin,INFO,41302208659118958,text,R270,1,-2,,0,0
 plugin,INFO,23449314121640910844,text,R500,1,-1,Daedra's heart,2,1
 plugin,INFO,2718011837103625929,text,R500,1,-1,Daedra's heart,2,1
-plugin,INFO,32354297442887026523,text,R500,1,-1,vampirism cure,0,0
+plugin,INFO,32354297442887026523,text,R500,1,-1,,0,0
 plugin,INFO,7027327552545817126,text,R500,1,-1,Humanoid Races,0,0
-plugin,INFO,28455296191979011517,text,R100,1,-2,Joncis Dalomax,1,1
+plugin,INFO,28455296191979011517,text,R100,1,-2,,0,0
 plugin,INFO,256153141124018972,text,R100,1,-2,Ashalmimilkala,1,1
 plugin,INFO,18724106871144813180,text,R100,1,-2,Ashalmimilkala,1,1
 plugin,INFO,81418063306221012,text,R500,2,-2,Daedra's Pawn,0,0
 plugin,INFO,2280215770695014012,text,R100 R400,2,-2,Ahemmusa camp,1,1
-plugin,INFO,1163613760290325210,text,R500,1,-1,Daedric sites,0,0
+plugin,INFO,1163613760290325210,text,R500,1,-1,,0,0
 plugin,INFO,947826065722121726,text,R500,4,-4,Daedric sites,0,0
 plugin,INFO,1780757646719404,text,R400,1,0,accompany you,1,1
 plugin,INFO,26949321972009317085,text,R400,1,0,accompany you,1,1
@@ -269,7 +269,7 @@ plugin,INFO,124974922249611126,text,R100,1,-2,little secret,0,0
 plugin,INFO,25729225963140232687,text,R500,1,-1,latest rumors,0,0
 plugin,INFO,276633262352427495,text,R500,1,-1,latest rumors,0,0
 plugin,INFO,25621103999213660,text,R500,1,-1,latest rumors,0,0
-plugin,INFO,218051894382021198,text,R600,1,0,Imperial cult,1,1
+plugin,INFO,218051894382021198,text,R600,1,0,,0,0
 plugin,INFO,31931137473110828419,text,R500,2,-2,way to escape,0,0
 plugin,INFO,3220021953679228145,text,R500,1,-1,raw materials,0,0
 plugin,INFO,24320163261010028218,text,R500 R600,3,-2,break my oath,0,0
@@ -282,19 +282,19 @@ plugin,INFO,19490137733140524327,text,R400,1,0,make it safe,0,0
 plugin,INFO,877220269297527221,text,R400,2,0,make it safe,0,0
 plugin,INFO,361921234262745713,text,R400,3,0,make it safe,1,1
 plugin,INFO,85761739158131290,text,R100 R500,2,-3,Four Corners,1,1
-plugin,INFO,17387101471785030673,text,R300 R500,2,-1,Four Corners,1,1
-plugin,INFO,31736211981826415121,text,R500,1,-1,nothing left,0,0
-plugin,INFO,19389260531509322592,text,R500,2,-2,strong souls,0,0
-plugin,INFO,20648175702863015478,text,R100,2,-4,Maelkashishi,1,1
+plugin,INFO,17387101471785030673,text,R300 R500,2,-1,,0,0
+plugin,INFO,31736211981826415121,text,R500,1,-1,,0,0
+plugin,INFO,19389260531509322592,text,R500,2,-2,,0,0
+plugin,INFO,20648175702863015478,text,R100,2,-4,,0,0
 plugin,INFO,9192286043218978,text,R500,1,-1,Sixth House,0,0
-plugin,INFO,626330163484113756,text,R500,1,-1,Daedra Skin,2,1
-plugin,INFO,2008411972330818414,text,R500,3,-3,Daedra Skin,2,1
+plugin,INFO,626330163484113756,text,R500,2,-2,,0,0
+plugin,INFO,2008411972330818414,text,R500,4,-4,,0,0
 plugin,INFO,302182842587958280,text,R500,2,-2,Daedra Skin,2,1
 plugin,INFO,1552112570775215760,text,R500,2,-2,Daedra Skin,2,1
-plugin,INFO,2302128661764914469,text,R500,1,-1,who are you,0,0
-plugin,INFO,28401184352168431557,text,R500,1,-1,who are you,0,0
+plugin,INFO,2302128661764914469,text,R500,1,-1,,0,0
+plugin,INFO,28401184352168431557,text,R500,1,-1,,0,0
 plugin,INFO,7845286491425821777,text,R400,2,0,Gambolpuddy,1,1
-plugin,INFO,1228113341154996662,text,R120 R400,3,-4,Ordinators,3,3
+plugin,INFO,1228113341154996662,text,R120 R400,3,-4,,0,0
 plugin,INFO,1856323442151927010,text,R400,1,0,safe place,0,0
 plugin,INFO,2506946612893128418,text,R110 R400,4,-2,safe place,1,1
 plugin,INFO,292442930812206363,text,R400,1,0,safe place,0,0
@@ -304,7 +304,7 @@ plugin,INFO,13349528327226309,text,R500,1,-1,Mount Kand,2,2
 plugin,INFO,2189930746133321952,text,R400 R500,2,-1,Bad Daedra,2,1
 plugin,INFO,16033271019818693,text,R400 R500,2,-1,Bad Daedra,2,1
 plugin,INFO,13302538963722469,text,R500,1,-1,Ashalmawia,1,1
-plugin,INFO,9819186011414313638,text,R500,4,-4,Odirniran,0,0
+plugin,INFO,9819186011414313638,text,R500,4,-4,,0,0
 plugin,INFO,295819958194376852,text,R300,1,0,longsword,2,2
 plugin,INFO,1964015707149176183,text,R270 R500,2,-3,clannfear,1,1
 plugin,INFO,3797170121523127866,text,R270 R500,2,-3,clannfear,1,1
@@ -312,12 +312,12 @@ plugin,INFO,7458153442470511531,text,R500,3,-3,atronachs,4,4
 plugin,INFO,29198203683166230008,text,R500,3,-3,atronachs,4,4
 plugin,INFO,21456167471394015241,text,R100 R270,2,-4,Ald Sotha,1,1
 plugin,INFO,16871106641445926629,text,R100 R270,2,-4,Ald Sotha,1,1
-plugin,INFO,17800272171933632584,text,R500,1,-1,Honthjolf,1,1
+plugin,INFO,17800272171933632584,text,R500,1,-1,,0,0
 plugin,INFO,574580391613828057,text,R500,1,-1,Maar Gan,0,0
 plugin,INFO,234754529126424634,text,R280 R500,3,-4,daedroth,1,1
-plugin,INFO,2672066491848416296,text,R280 R500,3,-4,daedroth,1,1
+plugin,INFO,2672066491848416296,text,R280 R400 R500,4,-4,,0,0
 plugin,INFO,2815193931564914555,text,R140,1,-2,Bal Fell,2,2
-plugin,INFO,1131515014464226706,text,R110,1,-2,Kogoruhn,2,2
+plugin,INFO,1131515014464226706,text,R110,1,-2,,0,0
 plugin,INFO,19710277652701625257,text,R100,1,-2,J'Saddha,0,0
 plugin,INFO,23066325801462131675,text,R300,1,0,Daedric,2,1
 plugin,INFO,175141918339729660,text,R300 R500,2,-1,Daedric,2,1
@@ -332,18 +332,18 @@ plugin,INFO,129027474885622520,text,R500,1,-1,riddle,0,0
 plugin,INFO,345773992093114460,text,R300,1,0,dagger,3,3
 plugin,INFO,19445557144421072,text,R500,2,-2,hunger,1,1
 plugin,INFO,1580515103409018566,text,R500,2,-2,hunger,1,1
-plugin,INFO,27026660941786938,text,R500,1,-1,Scamp,0,0
+plugin,INFO,27026660941786938,text,R500,1,-1,,0,0
 plugin,INFO,241713053353833325,text,R500,3,-3,ogrim,2,2
 plugin,INFO,226336763353019227,text,R500,3,-3,ogrim,2,2
 plugin,INFO,3269812507128722743,text,R100,1,-2,Khuul,4,4
 plugin,INFO,27490147102083214873,text,R300,1,0,mace,2,2
 plugin,INFO,1265690951491529886,text,R100,1,-2,Shal,1,1
 plugin,WEAP,daedric dagger_bar,name,R300,1,0,,0,0
-lua,BOOK,bk_Artifacts_Tamriel,text,R210 R230 R300 R500,8,-5,,0,0
-plugin,INFO,230879835320426665,text,R500,1,-1,discontent in the Temple,0,0
+lua,BOOK,bk_Artifacts_Tamriel,text,R210 R230 R300 R500,10,-7,,0,0
+plugin,INFO,230879835320426665,text,R500,1,-1,,0,0
 plugin,INFO,9670272931397023662,text,R500,2,-2,making ourselves ready,0,0
 plugin,INFO,777060658815161,text,R500,1,-1,reorganize the Temple,0,0
-plugin,INFO,30678111231429010357,text,R200 R500,2,-3,Boots of the Apostle,0,0
+plugin,INFO,30678111231429010357,text,R200 R500,2,-3,,0,0
 plugin,INFO,5495238071015227583,text,R500,1,-1,reclaim your station,0,0
 plugin,INFO,279916338606412388,text,R300,1,0,the Cleansing,0,0
 plugin,INFO,18487327421804021090,text,R500,1,-1,great horror,0,0
@@ -359,8 +359,8 @@ plugin,INFO,3023911526304823908,text,R500,1,-1,greater purpose,0,0
 plugin,INFO,766932545279449832,text,R500,1,-1,was cast out,1,1
 plugin,INFO,8532312101388421878,text,R500,1,-1,was cast out,0,0
 plugin,INFO,1984363691010128667,text,R500,1,-1,must act,0,0
-plugin,BOOK,bk_AedraAndDaedra,text,HAND-WRITTEN,0,1227,,0,0
-plugin,BOOK,bk_Aedra_Tarer_Unique,text,HAND-WRITTEN,0,1445,,0,0
+plugin,BOOK,bk_AedraAndDaedra,text,HAND-WRITTEN,0,1226,,0,0
+plugin,BOOK,bk_Aedra_Tarer_Unique,text,HAND-WRITTEN,0,1446,,0,0
 plugin,INFO,19139287163203512660,text,HAND-WRITTEN,0,157,,0,0
 plugin,INFO,21911249873129121827,text,HAND-WRITTEN,0,260,,0,0
 plugin,INFO,190453052515814369,text,HAND-WRITTEN,0,169,,0,0
