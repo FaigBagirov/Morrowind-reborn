@@ -38,34 +38,32 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   THE ZENAR TOPIC -- what to check
+echo   CAIUS, AND THE CHAIN -- what to check
 echo   =====================================================================
 echo.
-echo   The plugin now carries a topic of its own with six answers under it.
-echo   Only people who know it have a reply, so it should appear for them
-echo   and for nobody else.
+echo   Two of his lines are written by hand now. Together with the topic and
+echo   the book they make one chain: hear the word, be told who to ask, ask.
 echo.
 echo   LOAD YOUR SAVE, wait a moment, then console with ~:
 echo.
-echo   1. SOMEONE WHO KNOWS.
+echo        player-^>PlaceAtPC "caius cosades" 1 1 1
+echo.
+echo   1. Topic "little advice". His answer should end with:
+echo        "And if Zenar is a new word to you, good. It means you've been
+echo         reading something besides Temple pamphlets. Ask a wise woman
+echo         what it means. Don't ask a priest."
+echo      Zenar should be highlighted - the topic is known to you.
+echo.
+echo   2. Topic "Blades". Should now carry:
+echo        "The Temple says Daedra... The things themselves say Zenar. Both
+echo         words are in my files. Only one of them is a fact."
+echo.
+echo   3. CLICK Zenar in either reply. Caius has no answer of his own, so
+echo      the topic should be absent from HIS list - he knows the word, he
+echo      is not the man who explains it. If it is there, the filter leaked.
+echo.
+echo   4. Then the one who does explain:
 echo        player-^>PlaceAtPC "sinnammu mirpal" 1 1 1
-echo      Talk to her. "Zenar" should be in her topic list. Her answer is
-echo      about the Temple dividing them into good and bad because a divided
-echo      thing is easier to own.
-echo.
-echo   2. THE WORD ITSELF, clickable. Ask her about "Daedric summonings"
-echo      first - if the topic is missing, give it to yourself:
-echo        player-^>AddTopic "Daedric summonings"
-echo      In that reply the word Zenar should now be highlighted and
-echo      clickable, because the player knows the topic.
-echo.
-echo   3. SOMEONE WHO DOES NOT KNOW. Talk to any guard or commoner nearby.
-echo      There should be no Zenar in their list at all. That silence is the
-echo      point: the word belongs to the few.
-echo.
-echo   4. OPTIONAL, other voices:
-echo        player-^>PlaceAtPC "divayth fyr" 1 1 1
-echo        player-^>PlaceAtPC "yagrum bagarn" 1 1 1
 echo.
 echo   Do not save. Quit when done; this window collects the log by itself.
 echo   =====================================================================
