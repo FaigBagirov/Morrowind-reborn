@@ -238,6 +238,15 @@ keep.
 `--format rgba` still builds the uncompressed form at any size, which is what
 any future artifact should be compared against.
 
+### Mips are no longer a separate command
+
+`add_mips.py` is gone. Its whole purpose was a second step run after the
+generator, and forgetting it once nearly shipped 36 mipless textures - the
+defect was the separateness. The chain is now built inside the writer, and the
+writer itself moved to `tools/scripts/dds.py` so that `make_vfx.py` and
+`make_armour.py` do not each carry a hand-written DDS header. Verified across
+that move: all 36 particle textures regenerate byte for byte identical.
+
 ### The generator stopped painting the whole canvas
 
 Every plate, thread and mote used to be evaluated over the full array. At 512

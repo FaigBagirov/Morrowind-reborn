@@ -40,7 +40,7 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from add_mips import mip_levels  # noqa: E402
+from dds import write_bgra, write_dxt  # noqa: E402
 from bsa import find, open_archives  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 from wo1_survey import stream_records  # noqa: E402
@@ -307,81 +307,6 @@ def hex_field(size, cell, dense, seed):
                    + motes * (1.0 - plates), 0.0, 1.0)
 
 
-def write_dds_dxt5(path, rgba):
-    """DXT5 with a full mipmap chain.
-
-    Chosen over the uncompressed 32-bit form for one reason: it is what makes a
-    1024 texture cost what a 512 one used to, and 1024 is what buys plates half
-    the size while they still read as hexagons.
-
-    The obvious worry is that DXT5 quantises alpha in 4x4 blocks and this
-    texture is nothing but thin rims and one-pixel filaments in alpha, so the
-    artifacts would land exactly where the design lives. Measured instead of
-    assumed: mean alpha error 1.5 of 255, and 1.6% of pixels off by more than
-    20, all of them on rim gradients. Side by side at 3x there is nothing to
-    see. Pillow does the block encoding; the mip chain and the header are ours,
-    because Pillow writes a single level.
-    """
-    levels = mip_levels(rgba)
-    payload = []
-    for level in levels:
-        buf = io.BytesIO()
-        Image.fromarray(level, "RGBA").save(buf, format="DDS", pixel_format="DXT5")
-        payload.append(buf.getvalue()[128:])   # strip Pillow's own header
-    h, w = levels[0].shape[:2]
-    header = bytearray(128)
-    header[0:4] = b"DDS "
-    struct.pack_into("<I", header, 4, 124)
-    # caps | height | width | pixelformat | linearsize | mipmapcount
-    struct.pack_into("<I", header, 8,
-                     0x1 | 0x2 | 0x4 | 0x1000 | 0x80000 | 0x20000)
-    struct.pack_into("<I", header, 12, h)
-    struct.pack_into("<I", header, 16, w)
-    struct.pack_into("<I", header, 20, len(payload[0]))    # linear size
-    struct.pack_into("<I", header, 28, len(levels))
-    struct.pack_into("<I", header, 76, 32)                 # pixelformat size
-    struct.pack_into("<I", header, 80, 0x4)                # DDPF_FOURCC
-    header[84:88] = b"DXT5"
-    struct.pack_into("<I", header, 108, 0x1000 | 0x400000 | 0x8)
-    with open(path, "wb") as f:
-        f.write(header)
-        for block in payload:
-            f.write(block)
-
-
-def write_dds(path, rgba):
-    """Uncompressed 32-bit BGRA DDS, mipmapped. The engine reads it as is.
-
-    Kept as the fallback for `--format rgba`: no block encoding anywhere in the
-    path, so if a DXT5 artifact is ever suspected this is what it is compared
-    against. Four times the file of the DXT5 form at the same resolution.
-    """
-    levels = mip_levels(rgba)
-    h, w = levels[0].shape[:2]
-    header = bytearray(128)
-    header[0:4] = b"DDS "
-    struct.pack_into("<I", header, 4, 124)                 # header size
-    # caps | height | width | pitch | pixelformat | mipmapcount
-    struct.pack_into("<I", header, 8,
-                     0x1 | 0x2 | 0x4 | 0x8 | 0x1000 | 0x20000)
-    struct.pack_into("<I", header, 12, h)
-    struct.pack_into("<I", header, 16, w)
-    struct.pack_into("<I", header, 20, w * 4)              # pitch
-    struct.pack_into("<I", header, 28, len(levels))
-    struct.pack_into("<I", header, 76, 32)                 # pixelformat size
-    struct.pack_into("<I", header, 80, 0x1 | 0x40)         # alphapixels | rgb
-    struct.pack_into("<I", header, 88, 32)                 # bit count
-    struct.pack_into("<I", header, 92, 0x00FF0000)         # R mask
-    struct.pack_into("<I", header, 96, 0x0000FF00)         # G
-    struct.pack_into("<I", header, 100, 0x000000FF)        # B
-    struct.pack_into("<I", header, 104, 0xFF000000)        # A
-    struct.pack_into("<I", header, 108, 0x1000 | 0x400000 | 0x8)
-    with open(path, "wb") as f:
-        f.write(header)
-        for level in levels:
-            f.write(level[..., [2, 1, 0, 3]].astype(np.uint8).tobytes())
-
-
 def load_rgba(path):
     with open(path, "rb") as f:
         return np.array(Image.open(io.BytesIO(f.read())).convert("RGBA"),
@@ -429,9 +354,9 @@ def emit(path, rgba, fmt):
     is how 36 mipless textures nearly shipped once already.
     """
     if fmt == "dxt5":
-        write_dds_dxt5(path, rgba)
+        write_dxt(path, rgba, "dxt5")
     else:
-        write_dds(path, rgba)
+        write_bgra(path, rgba)
 
 
 def preview(rgba, path):

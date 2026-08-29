@@ -330,9 +330,11 @@ Three things worth carrying forward:
 - **`tools/scripts/bsa.py` reads Morrowind BSAs directly**, so the vanilla
   profile no longer needs `delta_plugin vfs-extract`. Verified against it: the
   six files the first pass extracted come back identical.
-- **`make_vfx.py --write` builds its own mipmaps now.** The separate `add_mips`
-  step was forgotten once in this session and 36 mipless textures nearly
-  shipped.
+- **`tools/scripts/dds.py` writes every DDS in the project**, mipmapped, BGRA or
+  DXT1 or DXT5. `add_mips.py` is deleted: its whole purpose was a second command
+  run after the generator, forgetting it once nearly shipped 36 mipless
+  textures, and the separateness was the defect. All 36 particle textures
+  regenerate byte for byte identical across that move.
 - **1024 DXT5, 36 plates across.** Faig asked for smaller hexagons; the limit
   turned out to be the rim rather than the cell, so the answer was resolution.
   DXT5 pays for it exactly - 1,398,256 bytes against 1,398,228 for the 512
@@ -358,6 +360,41 @@ Verified the two ways the working method asks for: the readback in the load
 context, and the engine's own use of the field on screen - Faig cast Light in
 the Vivec exterior and got the warm hexagon swarm, not the vanilla flame. Add
 `particle` to the short list of MGEF fields known to be writable, beside `name`.
+
+## Zenaric armour - `BUILT, NOT YET SEEN ON SCREEN`
+
+Report `tools/reports/armour.md`, generator `tools/scripts/make_armour.py`,
+output `tools/build/armour-momw/Textures/jy_daedric/` - 15 files, one `data=`
+line in the play profile, delete the line to undo it.
+
+Faig asked on 2026-08-30 for the Daedric armour reworked toward a white-and-gold
+ceramic reference, "with notes of the original". **No geometry** - the rules and
+Canon Part 9 both forbid generating NIFs - so the silhouette is untouched, which
+is what supplies the second half of the brief for free.
+
+We write the diffuse and the glow. `_n` and `_s` are deliberately not written,
+so Daedric Lord Armor's own normal and specular maps stay in use.
+
+Three things worth carrying forward:
+
+- **The specular map is the source of structure, not the diffuse.** The diffuse
+  has median luminance 0.094 and p90 0.191, so the whole sculpt is in a dark
+  band and stretching it turns compression noise into dirt. The specular has the
+  range - and it carries the artist's own judgement of what is hard armour
+  against what is cloth or mail, which is what separates ceramic from mechanism.
+- **Gold has to be qualified by that mask.** Red in the source marks the hot
+  veins, but it also marks dyed leather and cloth, and unqualified it turned the
+  collar strap and the cuirass's fabric panel solid gold.
+- **The open question is the dark mottling.** The Daedric coral pattern is
+  painted low-specular, so the mask correctly calls it not-plate and it comes
+  out near black on a white plate. That is a look, not a bug, and it is Faig's
+  call. The lever is the plate threshold, `_norm(s_n, 0.34, 0.66)`.
+
+Out of scope on purpose, and each for a reason: Dremora skin (a creature's body,
+not equipment), vanilla Daedric weapons and shields (no specular map exists for
+them in this load order, so a different tuning problem - but a white cuirass
+beside a black dai-katana will show), and Daedric ruins (those are Zetic, the
+cult's architecture, not Zenaric manufacture).
 
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 
