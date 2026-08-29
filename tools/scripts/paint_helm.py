@@ -99,9 +99,14 @@ def paint(rgba, cover=None, strength=1.0):
     # Two seams down the crown, stopping well short of the top. Lines of
     # constant azimuth all the way to the pole converge there and read as a
     # cracked eggshell, which is what the first attempt looked like.
+    # Wider and more of them. At two pixels they were invisible on screen -
+    # Faig's first note was that the vertical divisions of the reference simply
+    # are not there. These are six pixels of groove with a lit lip, which is
+    # what survives being a hundred pixels tall in game.
     crown = _span(v, 0.115, BROW_V - 0.01, 0.045)
-    for side in (1.0, -1.0):
-        groove(_rule(du, side * 0.132, 0.0022, 0.0022) * crown, 0.75, 0.45)
+    for turn in (0.062, 0.148, 0.238):
+        for side in (1.0, -1.0):
+            groove(_rule(du, side * turn, 0.0032, 0.0026) * crown, 0.85, 0.5)
     groove(_rule(v, CROWN_SEAM_V, 0.0025, 0.0025), 0.5, 0.35)
 
     # The brow, and the face plate under it. The visor stops at the temples: it
