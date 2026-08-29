@@ -248,9 +248,9 @@ Nothing below is blocked on tooling.
 4. **Vivec's monologue is in the game**, appended to his confession under
    `Dwemer's sin`. The text is still Canon Part 4's `NEEDS REVISION` working
    wording, extracted from the document rather than retyped, so revising Part 4
-   and rebuilding is the whole edit. Not yet seen on screen - it needs
-   `Journal B8_MeetVivec 50` to be reachable. The mitochondrial line, Canon
-   Part 5, `PROPOSED`, is still unplaced.
+   and rebuilding is the whole edit. **Read on screen 2026-08-29**, paragraphs
+   and all; reachable in a test save with `Journal B8_MeetVivec 50`. The
+   mitochondrial line, Canon Part 5, `PROPOSED`, is still unplaced.
 5. **`--profile momw`** needs a load-order file, and the plugin needs to go
    through the Delta Plugin merge on that list rather than straight in.
 6. The upstream ticket is written and on the user's Google Drive, for them to

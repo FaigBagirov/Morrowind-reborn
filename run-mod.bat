@@ -38,32 +38,32 @@ if not exist "%PROJECT%logs" mkdir "%PROJECT%logs"
 
 echo.
 echo   =====================================================================
-echo   CAIUS, AND THE CHAIN -- what to check
+echo   VIVEC -- what to check
 echo   =====================================================================
 echo.
-echo   Two of his lines are written by hand now. Together with the topic and
-echo   the book they make one chain: hear the word, be told who to ask, ask.
+echo   The monologue from Canon Part 4 now sits at the end of Vivec's own
+echo   confession. It is late main-quest material, so the console has to
+echo   open the door first.
 echo.
-echo   LOAD YOUR SAVE, wait a moment, then console with ~:
+echo   LOAD YOUR SAVE, then console with ~, three commands in this order:
 echo.
-echo        player-^>PlaceAtPC "caius cosades" 1 1 1
+echo        Journal B8_MeetVivec 50
+echo        player-^>PlaceAtPC "vivec_god" 1 1 1
 echo.
-echo   1. Topic "little advice". His answer should end with:
-echo        "And if Zenar is a new word to you, good. It means you've been
-echo         reading something besides Temple pamphlets. Ask a wise woman
-echo         what it means. Don't ask a priest."
-echo      Zenar should be highlighted - the topic is known to you.
+echo   The first moves the main quest on in this save. DO NOT SAVE after.
 echo.
-echo   2. Topic "Blades". Should now carry:
-echo        "The Temple says Daedra... The things themselves say Zenar. Both
-echo         words are in my files. Only one of them is a fact."
+echo   Then talk to him and pick the topic "Dwemer's sin".
 echo.
-echo   3. CLICK Zenar in either reply. Caius has no answer of his own, so
-echo      the topic should be absent from HIS list - he knows the word, he
-echo      is not the man who explains it. If it is there, the filter leaked.
+echo   1. His vanilla confession should end "If we sinned, we have paid the
+echo      price." and then continue, in the same reply, with "I have told
+echo      you what we did."
 echo.
-echo   4. Then the one who does explain:
-echo        player-^>PlaceAtPC "sinnammu mirpal" 1 1 1
+echo   2. PARAGRAPHS. The monologue is six of them. They should be separated
+echo      by blank lines, the way the prophecy verses are - not run together
+echo      into one wall of text.
+echo.
+echo   3. "It is elementary." should stand alone on its own line. If that
+echo      landed, every break landed.
 echo.
 echo   Do not save. Quit when done; this window collects the log by itself.
 echo   =====================================================================
