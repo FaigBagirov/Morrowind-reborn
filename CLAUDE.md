@@ -34,6 +34,13 @@ stopped. **Every change set ends by updating this section.**
 | WO1 | Dialogue survey (Architecture Part 13) | **DONE, `SETTLED, CROSS-CHECKED`.** Re-run 2026-08-28 with all five defects fixed and checked against `esmtool`. Canonical write-up is Canon Part 7; working detail in `tools/reports/wo1.md` |
 | WO2 | Rules table + transform script | **DONE, `SETTLED, MEASURED`.** All three gates pass, confirmed on screen 2026-08-28. Canonical write-up is Architecture Part 14; `run-mod.bat` re-runs the game check |
 
+Two launchers, and they are not interchangeable. `run-mod.bat` is the Gate 3
+harness: clean dev profile, three masters, our two content files passed on the
+command line. `run-play.bat` starts the **real** modded game - the `play`
+profile as it stands, with the conversion already registered in its own
+`openmw.cfg`, and `openmw.cfg.bak` beside it to undo that. Neither is ever run
+by Claude; the user runs them.
+
 ## WO0 - the answer, and why it is the constraint on everything
 
 Log run 2026-08-21, 93 seconds; raw output `logs/wo0-spike.txt`, full log
@@ -324,6 +331,14 @@ Three things worth carrying forward:
 - **`make_vfx.py --write` builds its own mipmaps now.** The separate `add_mips`
   step was forgotten once in this session and 36 mipless textures nearly
   shipped.
+- **1024 DXT5, 36 plates across.** Faig asked for smaller hexagons; the limit
+  turned out to be the rim rather than the cell, so the answer was resolution.
+  DXT5 pays for it exactly - 1,398,256 bytes against 1,398,228 for the 512
+  uncompressed it replaces. The earlier refusal to compress was reasoning, not
+  measurement, and measurement reversed it: mean alpha error 1.5 of 255.
+- **The generator writes into bounding boxes, not the whole canvas.** Thirty
+  seconds a profile instead of ten minutes, and one colour byte in 1,048,576
+  differs from the old code, none in alpha.
 
 **The one open item: `Light`.** Its effect record names `tx_firealpha00a`, which
 is not a magic texture - it is the world flame sheet every torch and campfire

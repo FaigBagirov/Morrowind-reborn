@@ -40,7 +40,7 @@ import numpy as np
 from PIL import Image
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from add_mips import mip_directory  # noqa: E402
+from add_mips import mip_levels  # noqa: E402
 from bsa import find, open_archives  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 from wo1_survey import stream_records  # noqa: E402
@@ -50,6 +50,20 @@ BSA_DIR = r"D:/ProgramFiles/Steam/steamapps/common/Morrowind/Data Files"
 PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
 
 DENSE = {"vfx_corprus"}          # Canon Part 9 reserves the swarm for Corprus.
+
+# How many plates across the texture, sparse and dense.
+#
+# Faig's note after seeing the first iteration in game was: smaller. The floor
+# on that is set by the rim, not by taste - a plate needs roughly four pixels of
+# radius before six straight sides read at all, so past about thirty across at
+# 512 the hexagons flatten into rings and then into grit. Measured on a strip of
+# 20 / 26 / 32 / 40; 40 was crumbs.
+#
+# The way under the floor is resolution rather than cell size. At 1024 a plate
+# with the same pixel crispness covers half as much of the texture, so 36 across
+# is finer than 20 was and still hexagonal. DXT5 pays for the resolution: 1024
+# compressed is the same file as 512 uncompressed used to be.
+PLATES = {False: 36, True: 54}
 
 # `tx_firealpha00a` is the one texture a magic effect names that is not a magic
 # texture. The `tx_` prefix is Bethesda's for ordinary world surfaces, and where
@@ -168,6 +182,17 @@ def _segment_distance(x, y, ax, ay, bx, by):
     return np.hypot(x - (ax + t * vx), y - (ay + t * vy))
 
 
+def _window(cx, cy, reach, size):
+    """The slice pair covering a square of half-side `reach` around (cx, cy)."""
+    x0 = max(int(np.floor(cx - reach)), 0)
+    x1 = min(int(np.ceil(cx + reach)) + 1, size)
+    y0 = max(int(np.floor(cy - reach)), 0)
+    y1 = min(int(np.ceil(cy + reach)) + 1, size)
+    if x1 <= x0 or y1 <= y0:
+        return None
+    return (slice(y0, y1), slice(x0, x1))
+
+
 def hex_field(size, cell, dense, seed):
     """Plates, filaments and motes.
 
@@ -214,14 +239,25 @@ def hex_field(size, cell, dense, seed):
 
     edge = max(size / 512.0, 1.0) * (1.1 if dense else 1.4)
     for cx, cy, radius, angle, broken in centres:
-        d = _hex_distance(x, y, cx, cy, angle)
+        # Only the pixels a plate can reach. The first version evaluated every
+        # plate, thread and mote over the whole canvas, which at 512 was merely
+        # slow and at 1024 was ten minutes a profile. A plate contributes where
+        # `rim` is non-zero, so within hexagon distance radius + edge; hexagon
+        # distance is never below 0.866 of the euclidean one, so dividing by
+        # that cannot clip a contributing pixel. Measured against the old code:
+        # one colour byte in 1,048,576 lands a level apart, none in alpha.
+        w = _window(cx, cy, (radius + edge) / 0.8660254 + 2.0, size)
+        if w is None:
+            continue
+        xs, ys = x[w], y[w]
+        d = _hex_distance(xs, ys, cx, cy, angle)
         rim = np.clip(1.0 - np.abs(d - radius) / edge, 0.0, 1.0)
         fill = np.clip((radius - d) / (radius * 0.9), 0.0, 1.0) ** 2
         if broken:
             # Which of the six sides a pixel belongs to, in the plate's own
             # frame. Knock out the chosen ones and the plate reads as a piece
             # of something rather than a shape.
-            theta = np.arctan2(y - cy, x - cx) - angle
+            theta = np.arctan2(ys - cy, xs - cx) - angle
             sector = np.floor(((theta + np.pi) % (2 * np.pi))
                               / (np.pi / 3)).astype(np.int8)
             keep = np.ones_like(rim)
@@ -229,8 +265,8 @@ def hex_field(size, cell, dense, seed):
                 keep[sector == side] = 0.0
             rim = rim * keep
             fill = fill * 0.35
-        plates = np.maximum(plates, rim * rim * (3 - 2 * rim))
-        plates = np.maximum(plates, fill * (0.30 if dense else 0.22))
+        np.maximum(plates[w], rim * rim * (3 - 2 * rim), out=plates[w])
+        np.maximum(plates[w], fill * (0.30 if dense else 0.22), out=plates[w])
 
     # Filaments: each plate reaches for one or two neighbours, never all of
     # them - a fully connected mesh reads as a net rather than as a swarm.
@@ -243,33 +279,95 @@ def hex_field(size, cell, dense, seed):
         for dist, ox, oy in near[:rng.integers(1, 3)]:
             if dist > cell * 2.2:
                 continue
-            d = _segment_distance(x, y, cx, cy, ox, oy)
+            # A square on the segment's midpoint, half-side half the length plus
+            # the thread width, holds every pixel the thread can reach.
+            w = _window((cx + ox) / 2.0, (cy + oy) / 2.0,
+                        dist / 2.0 + width + 2.0, size)
+            if w is None:
+                continue
+            xs, ys = x[w], y[w]
+            d = _segment_distance(xs, ys, cx, cy, ox, oy)
             line = np.clip(1.0 - d / width, 0.0, 1.0)
-            along = np.clip(1.0 - _segment_distance(x, y, cx, cy, cx, cy)
+            along = np.clip(1.0 - _segment_distance(xs, ys, cx, cy, cx, cy)
                             / (dist + 1e-3), 0.0, 1.0)
-            threads = np.maximum(threads, line * (0.44 + 0.26 * along))
+            np.maximum(threads[w], line * (0.44 + 0.26 * along), out=threads[w])
 
     for _ in range(int(size * (3.0 if dense else 1.8))):
         mx, my = rng.uniform(0, size, 2)
         rad = rng.uniform(0.6, 1.8) * max(size / 512.0, 1.0)
-        d = np.hypot(x - mx, y - my)
-        motes = np.maximum(motes, np.clip(1.0 - d / rad, 0.0, 1.0)
-                           * rng.uniform(0.12, 0.34))
+        amp = rng.uniform(0.12, 0.34)
+        w = _window(mx, my, rad + 2.0, size)
+        if w is None:
+            continue
+        d = np.hypot(x[w] - mx, y[w] - my)
+        np.maximum(motes[w], np.clip(1.0 - d / rad, 0.0, 1.0) * amp,
+                   out=motes[w])
 
     return np.clip(plates + threads * (1.0 - plates) * 0.95
                    + motes * (1.0 - plates), 0.0, 1.0)
 
 
+def write_dds_dxt5(path, rgba):
+    """DXT5 with a full mipmap chain.
+
+    Chosen over the uncompressed 32-bit form for one reason: it is what makes a
+    1024 texture cost what a 512 one used to, and 1024 is what buys plates half
+    the size while they still read as hexagons.
+
+    The obvious worry is that DXT5 quantises alpha in 4x4 blocks and this
+    texture is nothing but thin rims and one-pixel filaments in alpha, so the
+    artifacts would land exactly where the design lives. Measured instead of
+    assumed: mean alpha error 1.5 of 255, and 1.6% of pixels off by more than
+    20, all of them on rim gradients. Side by side at 3x there is nothing to
+    see. Pillow does the block encoding; the mip chain and the header are ours,
+    because Pillow writes a single level.
+    """
+    levels = mip_levels(rgba)
+    payload = []
+    for level in levels:
+        buf = io.BytesIO()
+        Image.fromarray(level, "RGBA").save(buf, format="DDS", pixel_format="DXT5")
+        payload.append(buf.getvalue()[128:])   # strip Pillow's own header
+    h, w = levels[0].shape[:2]
+    header = bytearray(128)
+    header[0:4] = b"DDS "
+    struct.pack_into("<I", header, 4, 124)
+    # caps | height | width | pixelformat | linearsize | mipmapcount
+    struct.pack_into("<I", header, 8,
+                     0x1 | 0x2 | 0x4 | 0x1000 | 0x80000 | 0x20000)
+    struct.pack_into("<I", header, 12, h)
+    struct.pack_into("<I", header, 16, w)
+    struct.pack_into("<I", header, 20, len(payload[0]))    # linear size
+    struct.pack_into("<I", header, 28, len(levels))
+    struct.pack_into("<I", header, 76, 32)                 # pixelformat size
+    struct.pack_into("<I", header, 80, 0x4)                # DDPF_FOURCC
+    header[84:88] = b"DXT5"
+    struct.pack_into("<I", header, 108, 0x1000 | 0x400000 | 0x8)
+    with open(path, "wb") as f:
+        f.write(header)
+        for block in payload:
+            f.write(block)
+
+
 def write_dds(path, rgba):
-    """Uncompressed 32-bit BGRA DDS. No compressor needed and the engine reads it."""
-    h, w = rgba.shape[:2]
+    """Uncompressed 32-bit BGRA DDS, mipmapped. The engine reads it as is.
+
+    Kept as the fallback for `--format rgba`: no block encoding anywhere in the
+    path, so if a DXT5 artifact is ever suspected this is what it is compared
+    against. Four times the file of the DXT5 form at the same resolution.
+    """
+    levels = mip_levels(rgba)
+    h, w = levels[0].shape[:2]
     header = bytearray(128)
     header[0:4] = b"DDS "
     struct.pack_into("<I", header, 4, 124)                 # header size
-    struct.pack_into("<I", header, 8, 0x1 | 0x2 | 0x4 | 0x1000 | 0x8)  # caps|h|w|pixelformat|pitch
+    # caps | height | width | pitch | pixelformat | mipmapcount
+    struct.pack_into("<I", header, 8,
+                     0x1 | 0x2 | 0x4 | 0x8 | 0x1000 | 0x20000)
     struct.pack_into("<I", header, 12, h)
     struct.pack_into("<I", header, 16, w)
     struct.pack_into("<I", header, 20, w * 4)              # pitch
+    struct.pack_into("<I", header, 28, len(levels))
     struct.pack_into("<I", header, 76, 32)                 # pixelformat size
     struct.pack_into("<I", header, 80, 0x1 | 0x40)         # alphapixels | rgb
     struct.pack_into("<I", header, 88, 32)                 # bit count
@@ -277,11 +375,11 @@ def write_dds(path, rgba):
     struct.pack_into("<I", header, 96, 0x0000FF00)         # G
     struct.pack_into("<I", header, 100, 0x000000FF)        # B
     struct.pack_into("<I", header, 104, 0xFF000000)        # A
-    struct.pack_into("<I", header, 108, 0x1000)            # caps: texture
-    bgra = rgba[..., [2, 1, 0, 3]].astype(np.uint8)
+    struct.pack_into("<I", header, 108, 0x1000 | 0x400000 | 0x8)
     with open(path, "wb") as f:
         f.write(header)
-        f.write(bgra.tobytes())
+        for level in levels:
+            f.write(level[..., [2, 1, 0, 3]].astype(np.uint8).tobytes())
 
 
 def load_rgba(path):
@@ -322,6 +420,20 @@ def build(src, field, dense, size=512):
     return np.clip(out, 0, 255)
 
 
+def emit(path, rgba, fmt):
+    """Write one texture, mipmapped either way.
+
+    Mips are not a separate command any more. Without them the GPU samples a
+    full-size texture for a particle a few pixels across and it shimmers as the
+    particle moves - and a second command is a step that gets forgotten, which
+    is how 36 mipless textures nearly shipped once already.
+    """
+    if fmt == "dxt5":
+        write_dds_dxt5(path, rgba)
+    else:
+        write_dds(path, rgba)
+
+
 def preview(rgba, path):
     """On black, which is what additive blending shows."""
     a = rgba[..., 3:4] / 255.0
@@ -340,7 +452,9 @@ def main():
     ap.add_argument("--cache-dir", default=os.path.join(root, "tools", "cache"))
     ap.add_argument("--preview-dir", default=os.path.join(root, "tools", "vfx"))
     ap.add_argument("--out", default=None)
-    ap.add_argument("--size", type=int, default=512)
+    ap.add_argument("--size", type=int, default=1024)
+    ap.add_argument("--format", choices=["dxt5", "rgba"], default="dxt5",
+                    help="dxt5 keeps 1024 at the cost 512 uncompressed had")
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 
@@ -385,11 +499,10 @@ def main():
         if dense not in fields:
             # Small and many. The first pass put five plates across the texture,
             # which at particle size is a handful of slabs - Faig's word was
-            # megaliths, and he was right. A swarm has to be a population:
-            # roughly twenty across for casting and thirty for Corprus, so a
+            # megaliths, and he was right. A swarm has to be a population, so a
             # single plate lands on a few pixels of screen and the eye reads the
-            # cloud rather than the pieces.
-            cell = args.size / (30.0 if dense else 20.0)
+            # cloud rather than the pieces. PLATES carries the count and why.
+            cell = args.size / float(PLATES[dense])
             fields[dense] = hex_field(args.size, cell, dense, seed=7)
         src = load_rgba(src_path)
         rgba = build(src, fields[dense], dense, args.size)
@@ -400,7 +513,7 @@ def main():
         origin = os.path.basename(os.path.dirname(os.path.dirname(src_path)))
         print(f"  {stem:22} {len(effects[stem]):3} effects  {kind:16} {origin}")
         if args.write:
-            write_dds(os.path.join(args.out, stem + ".dds"), rgba)
+            emit(os.path.join(args.out, stem + ".dds"), rgba, args.format)
             written += 1
     for name, borrowed in sorted(REDIRECT.items()):
         src_path = sources.get(borrowed)
@@ -412,20 +525,13 @@ def main():
         print(f"  {name:22} {len(effects.get(borrowed, [])):3} effects  "
               f"{'redirect':16} colour from {borrowed}")
         if args.write:
-            write_dds(os.path.join(args.out, name + ".dds"), rgba)
+            emit(os.path.join(args.out, name + ".dds"), rgba, args.format)
             written += 1
             covered += len(effects.get(borrowed, []))
 
     print(f"\n{covered} of {total} magic effects converted, "
-          f"{written} textures written")
-    if args.write:
-        # Not a separate command. Without mips the GPU samples a full 512x512
-        # texture for a particle a few pixels across, and it shimmers as the
-        # particle moves - and a second command is a step that gets forgotten,
-        # which is how 36 mipless textures nearly shipped.
-        mipped = mip_directory(args.out, quiet=True)
-        print(f"mipmap chains built for {mipped} files in {args.out}")
-    else:
+          f"{written} textures written at {args.size}px {args.format}")
+    if not args.write:
         print("Preview only. Nothing was written.")
     return 0
 

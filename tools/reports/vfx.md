@@ -204,6 +204,52 @@ lines - and is **verified against `delta_plugin`**: the six files the first pass
 extracted come back byte for byte identical. All 36 textures are present in the
 three vanilla BSAs, so the vanilla build has no external dependency left.
 
+## Sixth pass: half the plate, same file
+
+Faig's note on seeing the full coverage: smaller hexagons.
+
+**The limit is the rim, not the cell.** Rendered a strip at 20 / 26 / 32 / 40
+plates across at 512. At 32 the plates are rings; at 40 they are grit. The
+falloff is a fixed 1.4 px, so shrinking the plate does not shrink its outline,
+and a plate needs about four pixels of radius before six straight sides survive.
+Turning the cell size down alone cannot deliver what he asked for.
+
+**The way under the floor is resolution.** At 1024 a plate with the same pixel
+crispness covers half as much of the texture, so 36 across is finer than 20 was
+and still hexagonal. The obvious objection is memory, and this is where the
+earlier refusal to compress gets reversed.
+
+### DXT5, measured this time rather than assumed
+
+The first write-up rejected DXT5 on the reasoning that it quantises alpha in 4x4
+blocks while this texture is nothing but thin rims and one-pixel filaments in
+alpha - so the artifacts would land exactly where the design lives. Plausible,
+and wrong. Measured on the 1024 field:
+
+* mean alpha error **1.5 of 255**;
+* 1.6% of pixels off by more than 20, every one of them on a rim gradient;
+* side by side at 3x magnification there is nothing to see.
+
+And the arithmetic is the whole argument: **1024 DXT5 is 1,398,256 bytes against
+1,398,228 for the 512 uncompressed it replaces.** Twice the resolution, 28 bytes.
+The rejection cost nothing to make and would have cost the whole improvement to
+keep.
+
+`--format rgba` still builds the uncompressed form at any size, which is what
+any future artifact should be compared against.
+
+### The generator stopped painting the whole canvas
+
+Every plate, thread and mote used to be evaluated over the full array. At 512
+that was slow; at 1024 it was over ten minutes a profile, which is too slow to
+iterate on a look. Each now writes into its own bounding box - a plate reaches
+`(radius + edge) / 0.866`, since hexagon distance is never below 0.866 of the
+euclidean one and so cannot clip a contributing pixel.
+
+**Thirty seconds a profile, down from ten minutes.** Checked against the old code
+at 512 sparse and dense: the float fields agree to 1e-7, and after quantisation
+**one colour byte in 1,048,576 lands a level apart, none of them in alpha.**
+
 ## Written
 
 Both builds are on disk:
@@ -211,17 +257,9 @@ Both builds are on disk:
     tools/build/vfx-vanilla/Textures/*.dds     36 files, 1.4 MB each
     tools/build/vfx-momw/Textures/*.dds        36 files
 
-Uncompressed 32-bit BGRA at 512x512 with a full mipmap chain, 47 MB a profile.
-Add one `data=` line for the matching profile; remove the line to remove the
-change. Nothing was written into `mod/`, which stays shared.
-
-The size is a deliberate choice rather than an oversight. Vurt's are DXT5 and
-about a tenth of this, so the set costs roughly 35 MB more texture memory than
-what it replaces. Pillow 12 can write DXT5 if that ever matters - but DXT5
-quantises alpha in 4x4 blocks, and this texture is nothing *but* thin bright
-rims and one-pixel filaments in alpha. Compressing it would put the artifacts
-exactly where the design lives, to save 35 MB on a 16 GB machine. Not worth it
-until something says otherwise.
+1024x1024 DXT5 with a full 11-level mipmap chain, 49 MB a profile. Add one
+`data=` line for the matching profile; remove the line to remove the change.
+Nothing was written into `mod/`, which stays shared.
 
 ## Still open
 

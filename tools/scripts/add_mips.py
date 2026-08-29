@@ -47,6 +47,17 @@ def write_dds(path, levels):
             f.write(lvl[..., [2, 1, 0, 3]].astype(np.uint8).tobytes())
 
 
+def mip_levels(rgba):
+    """The full chain, level 0 first, halving until 1x1."""
+    levels = [rgba.astype(np.uint8)]
+    cur = Image.fromarray(levels[0], "RGBA")
+    while min(cur.size) > 1:
+        cur = cur.resize((max(cur.width // 2, 1), max(cur.height // 2, 1)),
+                         Image.LANCZOS)
+        levels.append(np.array(cur))
+    return levels
+
+
 def mip_directory(directory, label="", quiet=False):
     """Give every DDS in one directory a full mipmap chain, in place.
 
