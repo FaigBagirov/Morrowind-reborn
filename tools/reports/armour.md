@@ -91,19 +91,49 @@ unfinished. It goes to a brighter cool steel instead, and the glow follows the
 same decision, since amber piping on a helm with no gold piping would
 contradict itself.
 
-## The open question, and it is not mine to answer
+## The marbling was the right answer, and it is settled
 
-The large dark mottling on the helm and cuirass survives all of that, and it is
-not noise: it is the Daedric coral pattern, which the artist painted with **low
-specular**, so the mask correctly calls it not-plate and it comes out near
-black.
+The open question was the dark mottling: the Daedric coral pattern, painted
+low-specular, coming through as veining on a pale plate. It was flagged as a
+look rather than a defect, and Faig's call went the other way from the guess -
+he liked it on the helm and asked for the **cuirass to match**.
 
-So the plates are white with dark organic veining rather than the clean panels
-of the reference. That reads as a deliberate material to me and it is a strong
-note of the original — but it is a look, not a bug, and looks are Faig's call.
-If he wants the plates cleaner, the lever is the `plate` threshold in
-`_norm(s_n, 0.34, 0.66)`: widening the low end pulls the coral back into
-ceramic.
+The cuirass had less of it because the grain was dialled to 0.35, back when the
+plate was bone white and the veining read as cracked porcelain. At 0.50 it does
+not: it reads as marble. Grain is now **1.0** across the suit, and the character
+is consistent from helm to boot.
+
+Worth keeping: the same number was wrong at one plate colour and right at
+another. It was never a property of the veining.
+
+## The closed helm
+
+Faig chose the **Ebony Closed Helm** shape over the horned Daedric one, from a
+catalogue built out of the game's own inventory icons - 47 helmets, real
+pictures rather than mesh names. Reference for the material: the Pragmata
+helmet, which is a pale shell with dark mechanism and yellow accents.
+
+Its source is `tx_a_ebony_helmet`, replaced in this list by Morrowind Enhanced
+Textures, and it needed three per-piece settings and one new step:
+
+* **`plate_from: diffuse`.** Its specular map is a *highlight* map - near black
+  with a few glints - not a hardness map. Used as the plate mask it calls the
+  whole helm mechanism; used as tone it drags the piece to black.
+* **`trim: warm`.** Its trim is gold, which is red *and* green against little
+  blue, so the red detector barely registers it.
+* **`spec: _spec`.** Different mod, different suffix.
+* **A midtone gamma.** This is the general lesson. Ebony's median luminance is
+  0.114; stretching the percentiles leaves it at 0.136, and the contrast curve
+  then crushes that to **0.019** - a black helmet with gold on it, which is what
+  two attempts produced before the number was measured rather than guessed. One
+  gamma puts the object's median at mid grey, and any piece however dark its own
+  paint now arrives where the palette expects it.
+
+**Cost of overriding that texture, measured rather than assumed:** the ebony
+closed helm exists in exactly **three places** in the game - the Urshilaku
+burial and two Vivec vaults - plus a test crate and one scripted NPC. So the
+five ebony helms in the world become Zenaric silver, and one of them is the
+player's.
 
 ## Scope, deliberately narrow for this iteration
 

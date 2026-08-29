@@ -60,10 +60,37 @@ from effective import parse_cfg  # noqa: E402
 PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
 FOLDER = "jy_daedric"
 
-# The worn set from Daedric Lord Armor, plus the weapon it ships. Every one of
-# these has a specular map, which is what the conversion runs on.
-PIECES = ("daecuir", "daeboots", "daegaunt", "daegreaves",
-          "daefacei", "daefacet", "daeneck", "daedrickatana")
+# Every piece names its own maps, because they do not agree across mods. The
+# defaults are Daedric Lord Armor's; anything else states what it differs in.
+#
+#   folder      subdirectory under Textures/, "" for the root
+#   spec        suffix of the specular map
+#   plate_from  "spec" or "diffuse" - which map decides plate against mechanism
+#   trim        "red" or "warm" - what the gold is looking for in the original
+#   gold        False keeps the trim but makes it steel
+DEFAULTS = {"folder": "", "spec": "_s", "normal": "_n", "glow": "_g",
+            "plate_from": "spec", "trim": "red", "gold": True}
+
+PIECES = (
+    {"stem": "daecuir", "folder": "jy_daedric"},
+    {"stem": "daeboots", "folder": "jy_daedric"},
+    {"stem": "daegaunt", "folder": "jy_daedric"},
+    {"stem": "daegreaves", "folder": "jy_daedric"},
+    {"stem": "daefacei", "folder": "jy_daedric"},
+    # Faig on the Face of Terror: the colours are right, take the gold off.
+    {"stem": "daefacet", "folder": "jy_daedric", "gold": False},
+    {"stem": "daeneck", "folder": "jy_daedric"},
+    {"stem": "daedrickatana", "folder": "jy_daedric"},
+    # The closed helm Faig chose over the horned one, so that the silhouette is
+    # a sealed dome rather than a face. Three things differ. Its specular map is
+    # a highlight map rather than a hardness map - almost black, with a few
+    # glints - so the plate mask has to come from the diffuse instead, or the
+    # whole helm would be called mechanism and come out black. Its trim is gold
+    # rather than red, which the red detector barely sees. And the map is named
+    # `_spec`.
+    {"stem": "tx_a_ebony_helmet", "spec": "_spec",
+     "plate_from": "diffuse", "trim": "warm"},
+)
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
 # mechanism lit and in shadow. Gold sits on top of whichever it lands on.
@@ -158,7 +185,8 @@ def _relight(normal_map, tighten=18.0):
 
 def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
                     grain=0.35, detail=0.25, normal_path=None,
-                    kant=0.75, curve=1.0, gloss=0.45, gold_on=True):
+                    kant=0.75, curve=1.0, gloss=0.45, gold_on=True,
+                    plate_from="spec", trim_mode="red"):
     dif = load(diffuse_path)
     size = (dif.shape[1], dif.shape[0])
     spec = load(spec_path, size) if spec_path else dif
@@ -170,8 +198,38 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
     s_n = _norm(spec_l, np.percentile(spec_l, 2), np.percentile(spec_l, 98))
     d_n = _norm(dif_l, np.percentile(dif_l, 2), np.percentile(dif_l, 98))
 
-    plate = _blur(_smooth(_norm(s_n, 0.34, 0.66)), blur)
+    if plate_from == "diffuse":
+        # For a piece whose specular is a highlight map, the diffuse is the only
+        # thing that says where the object is at all: the unused parts of the
+        # sheet are black and the shell is not.
+        #
+        # And the percentiles have to be taken over the object rather than the
+        # sheet. Half of this helm's page is empty black, which drags the low
+        # end down and leaves an already-dark ebony shell normalising to almost
+        # nothing - the first attempt came out a black helmet with gold on it.
+        body = dif_l > 0.02
+        if body.sum() > 64:
+            d_n = _norm(dif_l, np.percentile(dif_l[body], 3),
+                        np.percentile(dif_l[body], 97))
+            # Then put the object's midtone at mid grey. Stretching the ends is
+            # not enough for a source this dark: ebony's median luminance is
+            # 0.114, which survives the stretch at 0.136 and the contrast curve
+            # then crushes it to 0.019 - a black helmet with gold on it, which
+            # is what the first two attempts produced. One gamma fixes it, and
+            # it generalises: any piece, however dark its own paint, arrives at
+            # the palette in the middle of the range the palette expects.
+            median = float(np.median(d_n[body]))
+            if 0.02 < median < 0.98:
+                d_n = d_n ** (np.log(0.5) / np.log(median))
+        plate = _blur(_smooth(_norm(d_n, 0.10, 0.35)), blur)
+    else:
+        plate = _blur(_smooth(_norm(s_n, 0.34, 0.66)), blur)
 
+    # A specular map that is really a highlight map is no good for tone either -
+    # it is black almost everywhere, and mixing it in drags the whole piece down
+    # to black. The same per-piece decision covers both.
+    if plate_from == "diffuse":
+        detail = 1.0
     tone = np.clip((1.0 - detail) * s_n + detail * d_n, 0.0, 1.0)
     form, fine = _split(tone, max(dif.shape[0], dif.shape[1]) / 90.0)
     tone = np.clip(form + fine * grain, 0.0, 1.0)
@@ -186,8 +244,13 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
     mech = MECH_DARK + (MECH - MECH_DARK) * tone[..., None]
     body = mech + (ceramic - mech) * plate[..., None]
 
-    redness = dif[..., 0] - np.maximum(dif[..., 1], dif[..., 2])
-    trim = _smooth(np.clip((redness - 0.05) / 0.13, 0.0, 1.0))
+    if trim_mode == "warm":
+        # Gold is red *and* green against little blue, so the red detector
+        # barely registers it. This one finds any warm hue.
+        signal = np.minimum(dif[..., 0], dif[..., 1]) - dif[..., 2]
+    else:
+        signal = dif[..., 0] - np.maximum(dif[..., 1], dif[..., 2])
+    trim = _smooth(np.clip((signal - 0.05) / 0.13, 0.0, 1.0))
     # Gold belongs on metal. Red in the source marks the hot veins, but it also
     # marks dyed leather and cloth - the collar strap and the cuirass's fabric
     # panel are red end to end, and unqualified this turned both solid gold.
@@ -216,17 +279,22 @@ def convert_glow(glow_path, gold_on=True):
     return g, np.concatenate([rgb, g[..., 3:]], axis=2)
 
 
-def find_folder(cfg_path, skip):
-    """The last data directory in the load order holding Textures/jy_daedric."""
+def data_dirs(cfg_path, skip):
+    """The load order's data directories, ours removed."""
     data, _ = parse_cfg(cfg_path)
     skip = {os.path.normcase(os.path.abspath(s)) for s in skip}
+    return [d for d in data
+            if os.path.normcase(os.path.abspath(d)) not in skip]
+
+
+def find_texture(dirs, folder, name):
+    """The file the engine would use: the last directory that has it wins."""
     hit = None
-    for directory in data:
-        if os.path.normcase(os.path.abspath(directory)) in skip:
-            continue
-        candidate = os.path.join(directory, "Textures", FOLDER)
-        if os.path.isdir(candidate):
-            hit = candidate
+    for directory in dirs:
+        for ext in (".dds", ".tga"):
+            path = os.path.join(directory, "Textures", folder, name + ext)
+            if os.path.exists(path):
+                hit = path
     return hit
 
 
@@ -256,7 +324,7 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--preview-dir", default=os.path.join(root, "tools", "armour"))
     ap.add_argument("--contrast", type=float, default=1.15)
-    ap.add_argument("--grain", type=float, default=0.35,
+    ap.add_argument("--grain", type=float, default=1.0,
                     help="how much of the original fine veining survives")
     ap.add_argument("--detail", type=float, default=0.25,
                     help="diffuse weight in the tone; the rest is specular")
@@ -272,46 +340,44 @@ def main():
 
     out_root = args.out or os.path.join(root, "tools", "build",
                                         f"armour-{args.profile}")
-    out_dir = os.path.join(out_root, "Textures", FOLDER)
-    src = find_folder(args.config, skip=[out_root])
-    if not src:
-        raise SystemExit(f"no Textures/{FOLDER} in the load order - is Daedric "
-                         f"Lord Armor installed?")
-    print(f"source: {src}")
-
+    dirs = data_dirs(args.config, skip=[out_root])
     os.makedirs(args.preview_dir, exist_ok=True)
-    if args.write:
-        os.makedirs(out_dir, exist_ok=True)
 
     rows, written = [], 0
-    for stem in PIECES:
-        diffuse = os.path.join(src, stem + ".dds")
-        if not os.path.exists(diffuse):
-            print(f"  ! missing, skipped: {stem}")
+    for spec_row in PIECES:
+        p = dict(DEFAULTS, **spec_row)
+        stem, folder = p["stem"], p["folder"]
+        diffuse = find_texture(dirs, folder, stem)
+        if not diffuse:
+            print(f"  ! not in the load order, skipped: {folder}/{stem}")
             continue
-        spec = os.path.join(src, stem + "_s.dds")
+        out_dir = os.path.join(out_root, "Textures", folder)
+        if args.write:
+            os.makedirs(out_dir, exist_ok=True)
+        specular = find_texture(dirs, folder, stem + p["spec"])
+        normal = find_texture(dirs, folder, stem + p["normal"])
+        glow = find_texture(dirs, folder, stem + p["glow"]) if p["glow"] else None
+
         before, after, plate = convert_diffuse(
-            diffuse, spec if os.path.exists(spec) else None,
-            args.contrast, args.blur, args.grain, args.detail,
-            os.path.join(src, stem + "_n.dds"),
-            args.kant, args.curve, args.gloss, stem not in NO_GOLD)
+            diffuse, specular, args.contrast, args.blur, args.grain,
+            args.detail, normal, args.kant, args.curve, args.gloss,
+            p["gold"], p["plate_from"], p["trim"])
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""
-        glow = os.path.join(src, stem + "_g.dds")
-        if os.path.exists(glow):
-            g_before, g_after = convert_glow(glow, stem not in NO_GOLD)
+        if glow:
+            g_before, g_after = convert_glow(glow, p["gold"])
             panels.append(("glow AFTER", g_after))
             note = " + glow"
         rows.append([stem] + panels)
-        print(f"  {stem:16} {before.shape[1]}x{before.shape[0]}{note}")
+        print(f"  {stem:22} {before.shape[1]}x{before.shape[0]}"
+              f"{'' if specular else '  (no specular)'}{note}")
         if args.write:
             # Opaque, and the originals are DXT1. Same format, same footprint.
-            write_dxt(os.path.join(out_dir, stem + ".dds"),
-                      after * 255.0, "dxt1")
+            write_dxt(os.path.join(out_dir, stem + ".dds"), after * 255.0, "dxt1")
             written += 1
-            if os.path.exists(glow):
-                write_dxt(os.path.join(out_dir, stem + "_g.dds"),
+            if glow:
+                write_dxt(os.path.join(out_dir, stem + p["glow"] + ".dds"),
                           g_after * 255.0, "dxt1")
                 written += 1
 
