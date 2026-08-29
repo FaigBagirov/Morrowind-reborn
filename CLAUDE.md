@@ -236,11 +236,13 @@ Nothing below is blocked on tooling.
    copies ship from `tools/handwritten/`, the transform emits authored records,
    and `tools/rules/frozen-records.csv` keeps the rules off them. The pattern is
    there for every hand-written record that follows.
-2. ~~Caius Cosades.~~ **Written, not yet seen on screen.** Two of his lines are
-   authored overrides: `little advice`, where the vanilla text already listed
-   Daedra among what to look out for, and `Blades`, where he explains why two
-   words exist for one thing. Both point the player at a wise woman and away
-   from a priest, which is where the `Zenar` topic has answers.
+2. ~~Caius Cosades.~~ **Done, read on screen 2026-08-29 on the `play` profile.**
+   Two of his lines are authored overrides: `little advice`, where the vanilla
+   text already listed Daedra among what to look out for, and `Blades`, where he
+   explains why two words exist for one thing. Both point the player at a wise
+   woman and away from a priest, which is where the `Zenar` topic has answers.
+   `Blades` came up whole, and its inherited topic links still fire - `Temple`,
+   `guilds and factions` and `orders` are all live in the rendered text.
 3. ~~The `Zenar` topic.~~ **Done, confirmed on screen 2026-08-29.** Six
    informed voices answer it, nobody else does, and the topic is absent from
    every passer-by's list. The transform can now invent records as well as
@@ -250,15 +252,20 @@ Nothing below is blocked on tooling.
    wording, extracted from the document rather than retyped, so revising Part 4
    and rebuilding is the whole edit. **Read on screen 2026-08-29**, paragraphs
    and all; reachable in a test save with `Journal B8_MeetVivec 50`. The
-   mitochondrial line is **written and placed**: Divayth Fyr, topic `corprus
-   disease`, right after he has had the player's blood on the glass. Canon
-   Part 5.
+   mitochondrial line is **written, placed and read on screen 2026-08-29**:
+   Divayth Fyr, topic `corprus disease`, appended after the vanilla paragraph,
+   right after he has had the player's blood on the glass. Canon Part 5 - which
+   is still `PROPOSED` there, because being in the game is not the same as the
+   wording being approved.
 5. **`--profile momw` is built.** The load order is
    `D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.cfg` - 240
    plugin files, and it already contains `delta-merged.omwaddon` **and**
    `Voices of Vvardenfell.omwscripts`. 327 of our records are defined last by a
    mod, and the build now carries their version forward: the daedric cuirass
-   comes out with our name and the armour mod's mesh. Left to do: put our
+   comes out with our name and the armour mod's mesh. **Confirmed on screen
+   2026-08-29** - `Zenaric Cuirass`, armour rating 26, value 70000, worn as
+   Daedric Lord Armor. That was the one part of the hybrid route that had only
+   ever been measured. Left to do: put our
    **The Delta merge turns out not to be needed for us**, measured: Delta sees
    our plugin and has nothing to reconcile, because a `--profile momw` build
    already carries the other mods' versions of every record it touches. Install
@@ -525,6 +532,10 @@ What follows for every probe from here on:
 
   Record IDs are never renamed, so the vanilla ID always works even after the
   probe has rewritten the display name.
+- **`AddTopic`, `Journal` and `PlaceAtPC` take no `player->` prefix.** With one
+  the console prints `warning: Stray explicit reference` in red and then runs the
+  command anyway, which looks like a failure and is not. `AddItem` and `AddSpell`
+  do want it. Seen 2026-08-29.
 - Items, spells and effects can all be handed over this way. If a probe needs
   something that cannot be conjured into the inventory - a specific cell, an
   NPC, a quest state - say so up front and let the user decide whether it is
