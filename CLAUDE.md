@@ -272,13 +272,63 @@ Nothing below is blocked on tooling.
    we keep the ids - so playback works and contradicts the screen. 181 of our
    190 rewritten replies have a voice file. Architecture Part 15 carries the
    three ways out; the cheapest is the mod's own `greetingsOnly` setting.
-6. The upstream ticket is written and on the user's Google Drive, for them to
+7. **The particle textures are converted, all 36 of them.** Seen on screen
+   2026-08-29 and approved for the first iteration. See the section below - the
+   shape is settled, the coverage was the defect, and one spell (Light) rides on
+   an unproven write.
+8. The upstream ticket is written and on the user's Google Drive, for them to
    file.
 
 Raised and scoped, not started: **AI voice acting** for the rewritten lines.
 Architecture Part 15 has the measurements - vanilla voices no topic dialogue at
 all, none of our 193 lines is voiced, and no vanilla bark says a target word.
 The tooling exists and the one conflict is the Delta merge we already do.
+
+## Particle visuals - `SHAPE APPROVED, COVERAGE FIXED, ONE WRITE UNPROVEN`
+
+Canon Part 9, report `tools/reports/vfx.md`, generator
+`tools/scripts/make_vfx.py`. Output is `tools/build/vfx-<profile>/Textures/`,
+36 files a profile, added to a config with one `data=` line and removed by
+deleting it. Nothing goes into `mod/`.
+
+**Confirmed on screen 2026-08-29.** The user cast `summon flame atronach` in the
+Vivec Fighters Guild, saw the hexagon field on his hands, and called it good for
+a first iteration. Shape, threads, plate size and the torn Corprus variant are
+all settled at this iteration.
+
+**What he caught in the same run is the lesson.** Only that one spell had
+changed. The first pass shipped the six textures with the highest effect counts,
+which the report's own table called most of the game - it is 85 of 141, so 56
+effects still cast vanilla, and the player's magic changed denomination between
+one spell and the next. **A partial visual conversion reads as a bug, not as a
+style.** The generator no longer picks: it reads every texture named by any
+magic effect straight out of the masters, 36 of them, 141 of 141 effects.
+
+Three things worth carrying forward:
+
+- **The field is computed once and reused.** It never depended on the source -
+  only the colour does, and that is sampled from what is installed. One
+  technology, one structure, each school's own light. The six textures the user
+  approved regenerate **byte for byte identical**, which is how that refactor
+  was allowed to happen at all.
+- **`tools/scripts/bsa.py` reads Morrowind BSAs directly**, so the vanilla
+  profile no longer needs `delta_plugin vfs-extract`. Verified against it: the
+  six files the first pass extracted come back identical.
+- **`make_vfx.py --write` builds its own mipmaps now.** The separate `add_mips`
+  step was forgotten once in this session and 36 mipless textures nearly
+  shipped.
+
+**The one open item: `Light`.** Its effect record names `tx_firealpha00a`, which
+is not a magic texture - it is the world flame sheet every torch and campfire
+wears, and overriding it would put hexagons on every fire in the game to convert
+one spell. So it is excluded by name, and instead `mod/scripts/rewrite/apply.lua`
+points the record at a private copy: `rec.particle = 'vfx_zen_light.dds'`.
+
+**That write has never been proved.** `particle` is documented as a field of
+`MagicEffect` and the record list as mutable, but it was not a WO0 probe and no
+readback exists. It is guarded - read, write, read back, log - so a refusal
+costs nothing but leaves Light vanilla. The answer is one line in
+`play/openmw.log`, tagged `[REWRITE] light:`.
 
 ## MOMW `graphics-overhaul` compatibility - `SCOPED, MEASURED`
 

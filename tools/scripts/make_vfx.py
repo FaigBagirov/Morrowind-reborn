@@ -2,7 +2,7 @@
 """Generate the Zenaric particle textures: hexagons in alpha, nothing in geometry.
 
     python tools/scripts/make_vfx.py --preview      # PNG previews only
-    python tools/scripts/make_vfx.py --write        # also the .dds into mod/Textures
+    python tools/scripts/make_vfx.py --write        # also the .dds into tools/build
 
 *Canon* Part 9 settles the design and this only implements it:
 
@@ -19,9 +19,19 @@
 The colour is taken from the texture already installed rather than invented, so
 each school keeps its own light - fire stays warm, frost stays cold - and only
 the structure becomes theirs.
+
+**Coverage.** The first pass shipped the six textures with the highest effect
+counts. Faig's read of it in game was that only the summons had changed, and the
+arithmetic says why: six files are 85 of 142 effects, so well over a third of
+the game's casting still looked vanilla. A conversion that covers some of the
+schools reads as a bug rather than as a style. The target list is therefore
+taken from the masters - every texture any magic effect names - instead of being
+a hand-picked top six.
 """
 
 import argparse
+import collections
+import io
 import os
 import struct
 import sys
@@ -29,16 +39,108 @@ import sys
 import numpy as np
 from PIL import Image
 
-# Effects covered, from the masters: how many magic effects reference each.
-TARGETS = {
-    "vfx_conj_flare02": 31,
-    "vfx_bluecloud": 28,
-    "vfx_redglowalpha": 13,
-    "vfx_particle064": 9,
-    "vfx_summon": 2,
-    "vfx_corprus": 1,
-}
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from add_mips import mip_directory  # noqa: E402
+from bsa import find, open_archives  # noqa: E402
+from effective import parse_cfg  # noqa: E402
+from wo1_survey import stream_records  # noqa: E402
+
+MASTERS = ("Morrowind.json", "Tribunal.json", "Bloodmoon.json")
+BSA_DIR = r"D:/ProgramFiles/Steam/steamapps/common/Morrowind/Data Files"
+PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
+
 DENSE = {"vfx_corprus"}          # Canon Part 9 reserves the swarm for Corprus.
+
+# `tx_firealpha00a` is the one texture a magic effect names that is not a magic
+# texture. The `tx_` prefix is Bethesda's for ordinary world surfaces, and where
+# it resolves says the rest: not in Vurt's vfx pack but in Morrowind Enhanced
+# Textures, a landscape and architecture pack. It is the flame sheet - torches,
+# braziers, campfires - and one magic effect, Light, happens to borrow it.
+# Overriding it would put hexagons on every fire in the game in order to convert
+# a single spell. Left alone; `tools/reports/vfx.md` records the way to reach
+# Light without touching it.
+EXCLUDE = {"tx_firealpha00a": "world flame texture, shared with every fire"}
+
+# The way to reach Light without overwriting the flame sheet: generate a private
+# copy under a name nothing else uses, and point the effect record at it from
+# the load context. The colour is still sampled from the flame, so Light keeps
+# the warm light it has always had. `mod/scripts/rewrite/apply.lua` does the
+# redirect, guarded - if the engine refuses the write, Light stays vanilla and
+# nothing else is affected.
+REDIRECT = {"vfx_zen_light": "tx_firealpha00a"}
+
+
+def effect_textures(cache_dir):
+    """{texture stem: [effect ids]}, from the masters, the last master winning.
+
+    An effect an expansion redefines is one effect, not two, and the texture
+    that counts is the one the last definition names.
+    """
+    latest = {}
+    for name in MASTERS:
+        path = os.path.join(cache_dir, name)
+        if not os.path.exists(path):
+            continue
+        for rec in stream_records(path):
+            if rec.get("type") != "MagicEffect":
+                continue
+            texture = str(rec.get("texture") or "").strip().lower()
+            if texture:
+                latest[str(rec.get("effect_id"))] = os.path.splitext(texture)[0]
+    out = collections.defaultdict(list)
+    for effect, stem in sorted(latest.items()):
+        out[stem].append(effect)
+    return out
+
+
+def installed_sources(stems, cfg_path, skip):
+    """Where each texture resolves in the player's own load order.
+
+    The engine takes the last data directory that has the file, so this does the
+    same. Our own output directories are skipped: they are listed in that config
+    too, and sampling the colour out of the file we generated last time would
+    walk the palette a little further from the mod's every time it is run.
+    """
+    data, _ = parse_cfg(cfg_path)
+    skip = {os.path.normcase(os.path.abspath(s)) for s in skip}
+    found = {}
+    for directory in data:
+        if os.path.normcase(os.path.abspath(directory)) in skip:
+            continue
+        try:
+            present = {f.lower(): f
+                       for f in os.listdir(os.path.join(directory, "Textures"))}
+        except OSError:
+            continue
+        for stem in stems:
+            for ext in (".dds", ".tga", ".png"):
+                hit = present.get(stem + ext)
+                if hit:
+                    found[stem] = os.path.join(directory, "Textures", hit)
+                    break
+    return found
+
+
+def vanilla_sources(stems, bsa_dir, out_dir):
+    """The vanilla originals, extracted out of the three BSAs and cached."""
+    archives = open_archives([os.path.join(bsa_dir, n) for n in
+                              ("Morrowind.bsa", "Tribunal.bsa", "Bloodmoon.bsa")])
+    os.makedirs(out_dir, exist_ok=True)
+    found = {}
+    for stem in stems:
+        for ext in (".dds", ".tga"):
+            hit = find(archives, "textures/" + stem + ext)
+            if hit:
+                archive, name = hit
+                path = os.path.join(out_dir, stem + ext)
+                if not os.path.exists(path):
+                    with open(path, "wb") as f:
+                        f.write(archive.read(name))
+                found[stem] = path
+                break
+    for archive in archives:
+        archive.close()
+    return found
 
 
 def _hex_distance(x, y, cx, cy, angle):
@@ -182,8 +284,20 @@ def write_dds(path, rgba):
         f.write(bgra.tobytes())
 
 
-def build(src_path, dense, size=512):
-    src = np.array(Image.open(src_path).convert("RGBA")).astype(np.float32)
+def load_rgba(path):
+    with open(path, "rb") as f:
+        return np.array(Image.open(io.BytesIO(f.read())).convert("RGBA"),
+                        dtype=np.float32)
+
+
+def build(src, field, dense, size=512):
+    """One texture: the shared hexagon field, wearing this effect's own light.
+
+    The field is one array for every sparse texture and a second one for
+    Corprus. That is not a shortcut, it is the fiction - one technology has one
+    structure. What differs between schools is the light it is lit by, and that
+    is sampled from what is installed rather than chosen.
+    """
     lum = src[..., :3].mean(axis=2)
     bright = lum > 8
     if bright.sum() < 64:
@@ -191,14 +305,6 @@ def build(src_path, dense, size=512):
     # The light this effect already has, taken from its own brightest pixels.
     colour = src[..., :3][bright].mean(axis=0)
     colour = colour / max(colour.max(), 1.0) * 255.0
-
-    # Small and many. The first pass put five plates across the texture, which
-    # at particle size is a handful of slabs - Faig's word was megaliths, and he
-    # was right. A swarm has to be a population: roughly twenty across for
-    # casting and thirty for Corprus, so a single plate lands on a few pixels of
-    # screen and the eye reads the cloud rather than the pieces.
-    cell = size / 30.0 if dense else size / 20.0
-    field = hex_field(size, cell, dense, seed=7)
 
     # A faint core keeps the particle from disappearing at distance, where the
     # grid is below a pixel and would otherwise flicker out.
@@ -228,47 +334,99 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--profile", choices=["vanilla", "momw"], default="momw",
                     help="which installed textures to take the colour from")
-    ap.add_argument("--source", default=None)
+    ap.add_argument("--config", default=PLAY_CFG,
+                    help="the openmw.cfg whose load order resolves the sources")
+    ap.add_argument("--bsa-dir", default=BSA_DIR)
+    ap.add_argument("--cache-dir", default=os.path.join(root, "tools", "cache"))
     ap.add_argument("--preview-dir", default=os.path.join(root, "tools", "vfx"))
     ap.add_argument("--out", default=None)
     ap.add_argument("--size", type=int, default=512)
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 
-    # Two builds for the same reason the plugin has two: what is installed
-    # underneath differs, and the colour is sampled from it.
-    if args.source is None:
-        args.source = (
-            os.path.join(root, "tools", "build", "vfx-src-vanilla")
-            if args.profile == "vanilla" else
-            r"D:\Games\OpenMWMods\graphics-overhaul\TexturePacks"
-            r"\VurtsMorrowindVisualResurgence\vfx\Data Files\Textures")
     if args.out is None:
         args.out = os.path.join(root, "tools", "build",
                                 f"vfx-{args.profile}", "Textures")
-    args.preview_dir = os.path.join(args.preview_dir, args.profile)
+    preview_dir = os.path.join(args.preview_dir, args.profile)
 
-    os.makedirs(args.preview_dir, exist_ok=True)
+    effects = effect_textures(args.cache_dir)
+    total = sum(len(v) for v in effects.values())
+    stems = sorted(s for s in effects if s not in EXCLUDE)
+    print(f"{total} magic effects name {len(effects)} textures")
+    for stem in sorted(s for s in effects if s in EXCLUDE):
+        print(f"  excluded: {stem:22} {EXCLUDE[stem]} "
+              f"({len(effects[stem])} effect: "
+              f"{', '.join(effects[stem])})")
+
+    # Two builds for the same reason the plugin has two: what is installed
+    # underneath differs, and the colour is sampled from it.
+    lookup = stems + sorted(set(REDIRECT.values()) - set(stems))
+    if args.profile == "momw":
+        sources = installed_sources(
+            lookup, args.config,
+            skip=[os.path.join(root, "tools", "build", "vfx-momw"),
+                  os.path.join(root, "tools", "build", "vfx-vanilla")])
+    else:
+        sources = vanilla_sources(
+            lookup, args.bsa_dir,
+            os.path.join(root, "tools", "build", "vfx-src-vanilla"))
+
+    os.makedirs(preview_dir, exist_ok=True)
     if args.write:
         os.makedirs(args.out, exist_ok=True)
 
-    for name, effects in TARGETS.items():
-        src = os.path.join(args.source, name + ".dds")
-        if not os.path.exists(src):
-            print(f"  missing source, skipped: {name}")
+    fields, covered, written = {}, 0, 0
+    for stem in stems:
+        src_path = sources.get(stem)
+        if not src_path:
+            print(f"  ! no source found, skipped: {stem}")
             continue
-        rgba = build(src, name in DENSE, args.size)
-        kind = "dense (Corprus)" if name in DENSE else "sparse"
-        prev = os.path.join(args.preview_dir, name + ".png")
-        preview(rgba, prev)
-        side = os.path.join(args.preview_dir, name + "-before.png")
-        preview(np.array(Image.open(src).convert("RGBA")).astype(np.float32), side)
-        print(f"  {name:20} {effects:3} effects  {kind:16} -> "
-              f"{os.path.relpath(prev, root)}")
+        dense = stem in DENSE
+        if dense not in fields:
+            # Small and many. The first pass put five plates across the texture,
+            # which at particle size is a handful of slabs - Faig's word was
+            # megaliths, and he was right. A swarm has to be a population:
+            # roughly twenty across for casting and thirty for Corprus, so a
+            # single plate lands on a few pixels of screen and the eye reads the
+            # cloud rather than the pieces.
+            cell = args.size / (30.0 if dense else 20.0)
+            fields[dense] = hex_field(args.size, cell, dense, seed=7)
+        src = load_rgba(src_path)
+        rgba = build(src, fields[dense], dense, args.size)
+        preview(rgba, os.path.join(preview_dir, stem + ".png"))
+        preview(src, os.path.join(preview_dir, stem + "-before.png"))
+        covered += len(effects[stem])
+        kind = "dense (Corprus)" if dense else "sparse"
+        origin = os.path.basename(os.path.dirname(os.path.dirname(src_path)))
+        print(f"  {stem:22} {len(effects[stem]):3} effects  {kind:16} {origin}")
+        if args.write:
+            write_dds(os.path.join(args.out, stem + ".dds"), rgba)
+            written += 1
+    for name, borrowed in sorted(REDIRECT.items()):
+        src_path = sources.get(borrowed)
+        if not src_path:
+            print(f"  ! no source found, skipped: {name} (from {borrowed})")
+            continue
+        rgba = build(load_rgba(src_path), fields[False], False, args.size)
+        preview(rgba, os.path.join(preview_dir, name + ".png"))
+        print(f"  {name:22} {len(effects.get(borrowed, [])):3} effects  "
+              f"{'redirect':16} colour from {borrowed}")
         if args.write:
             write_dds(os.path.join(args.out, name + ".dds"), rgba)
-    if not args.write:
-        print("\nPreview only. Nothing was written into mod/.")
+            written += 1
+            covered += len(effects.get(borrowed, []))
+
+    print(f"\n{covered} of {total} magic effects converted, "
+          f"{written} textures written")
+    if args.write:
+        # Not a separate command. Without mips the GPU samples a full 512x512
+        # texture for a particle a few pixels across, and it shimmers as the
+        # particle moves - and a second command is a step that gets forgotten,
+        # which is how 36 mipless textures nearly shipped.
+        mipped = mip_directory(args.out, quiet=True)
+        print(f"mipmap chains built for {mipped} files in {args.out}")
+    else:
+        print("Preview only. Nothing was written.")
     return 0
 
 

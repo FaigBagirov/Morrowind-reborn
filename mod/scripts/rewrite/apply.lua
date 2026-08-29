@@ -199,6 +199,50 @@ local function findRecord(store, id)
     return nil, nil
 end
 
+-- Light is the one magic effect whose particle texture is not a magic texture.
+-- Its record names `tx_firealpha00a`, the world flame sheet that every torch,
+-- brazier and campfire in the game also wears, so the texture pack cannot
+-- override it: converting one spell would put hexagons on every fire. Instead
+-- `make_vfx.py` writes a private copy under a name nothing else uses, and this
+-- points the record at it.
+--
+-- Guarded on purpose. `particle` is documented as a field of MagicEffect and
+-- the record list is documented as mutable, but no probe has established that
+-- this particular field has a setter in 0.51 - and unlike `name`, it was never
+-- part of the WO0 spike. If the engine refuses, Light keeps the vanilla flame
+-- and nothing else changes. The log line says which happened.
+local LIGHT_EFFECT = 'Light'
+local LIGHT_PARTICLE = 'vfx_zen_light.dds'
+
+local function redirectLight()
+    local ok, store = try(function() return content.magicEffects.records end)
+    if not ok or store == nil then
+        log('light: no magicEffects store')
+        return
+    end
+    local rec
+    for _, variant in ipairs({ LIGHT_EFFECT, string.lower(LIGHT_EFFECT) }) do
+        local okr, found = try(function() return store[variant] end)
+        if okr and found ~= nil then rec = found break end
+    end
+    if rec == nil then
+        log('light: record not found')
+        return
+    end
+    local okr, before = try(function() return rec.particle end)
+    if not okr then
+        log('light: particle field not readable')
+        return
+    end
+    local okw = try(function() rec.particle = LIGHT_PARTICLE end)
+    if not okw then
+        log('light: write refused, particle stays ' .. tostring(before))
+        return
+    end
+    local _, after = try(function() return rec.particle end)
+    log('light: particle ' .. tostring(before) .. ' -> ' .. tostring(after))
+end
+
 local function run()
     local changed, skipped, failed = 0, 0, 0
 
@@ -249,6 +293,8 @@ local function run()
     if failed > 0 then
         log('WARNING: ' .. failed .. ' writes failed - check the API surface')
     end
+
+    redirectLight()
 end
 
 return {

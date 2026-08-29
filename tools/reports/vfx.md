@@ -21,6 +21,28 @@ lopsided enough to make the plan obvious:
 Two files cover 59 effects of 141. Four cover 81. That is what Part 9 means by
 "replacing one DDS changes every cast in the game".
 
+### That reading of the table was wrong, and the game said so
+
+The six shipped. Faig cast three spells and reported that only the summons had
+changed - hexagons on `summon flame atronach`, a plain vanilla glow on the next
+thing he tried.
+
+He was right, and the same table says why if you read the other column: six
+files are 85 of 141, so **56 effects were still vanilla**. The lopsided
+distribution made a top-six look like most of the game; what it actually buys is
+three fifths. And a conversion that covers three fifths of the schools does not
+read as a style, it reads as a bug - the player sees his own casting change
+denomination between one spell and the next.
+
+The fix is not a bigger top-N. It is to stop picking: **the target list is now
+read out of the masters**, every texture any magic effect names, and the six
+hand-picked names are gone from the source. 35 textures, 141 of 141 effects.
+
+The long tail is genuinely long and genuinely cheap - 20 of the 35 textures
+serve a single effect each - but it is where the schools live. `vfx_myst_flare01`
+is five Absorb effects, `vfx_map21` is five Drains, `vfx_ill_glow` is Open and
+Lock. Any of them is the next spell a player casts.
+
 ## What is installed there now
 
 All six resolve, through `delta_plugin vfs-find`, to the same place:
@@ -122,20 +144,89 @@ Half the Corprus plates lose one or two of their six sides, and what fill they
 have is dimmed. Healthy casting never shows a broken plate. Same material,
 damaged - which is what Canon Part 3a says Corprus is.
 
+## Fifth pass: every school, not the top six
+
+Confirmed on screen first - the sparse field reads as machinery in motion, which
+is the judgement no still image could give. Then the coverage was fixed.
+
+### The list comes from the masters
+
+`effect_textures()` walks the three converted masters, takes each magic effect's
+`texture` field with the last master winning, and returns texture to effects.
+141 effects, 36 textures. Nothing is hand-picked and nothing can silently fall
+out of the set: add a mod that introduces an effect and the generator picks up
+its texture the next time it runs.
+
+### The one texture that is not a magic texture
+
+`tx_firealpha00a`, and the `tx_` prefix is the tell - Bethesda's prefix for
+ordinary world surfaces, against `vfx_` for magic. Where it resolves confirms
+it: not in Vurt's vfx pack but in **Morrowind Enhanced Textures**, a landscape
+and architecture pack. It is the flame sheet, worn by every torch, brazier and
+campfire in the game. One magic effect borrows it: **Light**.
+
+Overriding it would put hexagons on every fire in Vvardenfell in order to
+convert one spell. So it is excluded by name, with the reason in the code.
+
+**Light is still converted, by a different route.** The generator writes a
+private copy, `vfx_zen_light.dds`, colour sampled from the flame so the spell
+keeps its warm light, and `mod/scripts/rewrite/apply.lua` points the effect
+record at it - `rec.particle = 'vfx_zen_light.dds'`.
+
+That write is **guarded and unproven**. `particle` is documented as a field of
+`MagicEffect` and `content.magicEffects.records` as mutable, but it was not one
+of the WO0 probes and no readback has established that this field has a setter
+in 0.51. So the code reads the value, writes, reads back, and logs all three. If
+the engine refuses, Light keeps the vanilla flame and nothing else is touched.
+Grep the log for `[REWRITE] light:` to find out which happened.
+
+### One field, thirty-six colours
+
+The hexagon field does not depend on the source at all - same size, same seed,
+same cell. So it is computed once for sparse and once for Corprus and reused,
+which is why 36 textures take about the same time the six did.
+
+That is not an optimisation dressed up as a principle. It is the fiction: one
+technology has one structure, and what differs between schools is the light it
+is lit by. The light is sampled, never chosen - fire comes back 255/89/8, frost
+196/235/255, poison 224/255/16, mysticism 235/64/255.
+
+**Proof the refactor changed nothing Faig approved:** the six textures he saw
+regenerate byte for byte identical, checked pixel by pixel against the shipped
+files.
+
+### The BSA reader
+
+`--profile vanilla` needs the vanilla originals to sample from, and the first
+pass got them with `delta_plugin vfs-extract`, which is not in the repo.
+`tools/scripts/bsa.py` reads the 2002 archive format directly - about forty
+lines - and is **verified against `delta_plugin`**: the six files the first pass
+extracted come back byte for byte identical. All 36 textures are present in the
+three vanilla BSAs, so the vanilla build has no external dependency left.
+
 ## Written
 
 Both builds are on disk:
 
-    tools/build/vfx-vanilla/Textures/*.dds     six files, 1 MB each
-    tools/build/vfx-momw/Textures/*.dds
+    tools/build/vfx-vanilla/Textures/*.dds     36 files, 1.4 MB each
+    tools/build/vfx-momw/Textures/*.dds        36 files
 
-Uncompressed 32-bit BGRA at 512x512. Add one `data=` line for the matching
-profile; remove the line to remove the change. Nothing was written into `mod/`,
-which stays shared.
+Uncompressed 32-bit BGRA at 512x512 with a full mipmap chain, 47 MB a profile.
+Add one `data=` line for the matching profile; remove the line to remove the
+change. Nothing was written into `mod/`, which stays shared.
+
+The size is a deliberate choice rather than an oversight. Vurt's are DXT5 and
+about a tenth of this, so the set costs roughly 35 MB more texture memory than
+what it replaces. Pillow 12 can write DXT5 if that ever matters - but DXT5
+quantises alpha in 4x4 blocks, and this texture is nothing *but* thin bright
+rims and one-pixel filaments in alpha. Compressing it would put the artifacts
+exactly where the design lives, to save 35 MB on a 16 GB machine. Not worth it
+until something says otherwise.
 
 ## Still open
 
 The grain shader, which Part 9 puts in post-processing rather than in particles.
-Not started. And the only judgement that matters: how a plate reads in motion,
-under additive blending, against sky and in a small room. A still image cannot
-answer that.
+Not started.
+
+And the Light redirect, which needs one line of log or one cast in game to move
+from guarded guess to measured fact.

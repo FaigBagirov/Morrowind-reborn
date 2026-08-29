@@ -47,27 +47,39 @@ def write_dds(path, levels):
             f.write(lvl[..., [2, 1, 0, 3]].astype(np.uint8).tobytes())
 
 
+def mip_directory(directory, label="", quiet=False):
+    """Give every DDS in one directory a full mipmap chain, in place.
+
+    Idempotent: `read_dds` takes level 0 only, so running it twice is a no-op
+    beyond the rewrite. `make_vfx.py --write` calls this itself - forgetting the
+    second command once was enough to ship 36 mipless textures.
+    """
+    count = 0
+    for name in sorted(os.listdir(directory)):
+        if not name.endswith(".dds"):
+            continue
+        path = os.path.join(directory, name)
+        rgba = read_dds(path)
+        levels, cur = [rgba], Image.fromarray(rgba, "RGBA")
+        while min(cur.size) > 1:
+            cur = cur.resize((max(cur.width // 2, 1), max(cur.height // 2, 1)),
+                             Image.LANCZOS)
+            levels.append(np.array(cur))
+        write_dds(path, levels)
+        count += 1
+        if not quiet:
+            print(f"  {label}{name}: {len(levels)} levels, "
+                  f"{os.path.getsize(path) // 1024} KB")
+    return count
+
+
 def main():
     root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
     total = 0
     for profile in ("vanilla", "momw"):
         d = os.path.join(root, "tools", "build", f"vfx-{profile}", "Textures")
-        if not os.path.isdir(d):
-            continue
-        for name in sorted(os.listdir(d)):
-            if not name.endswith(".dds"):
-                continue
-            p = os.path.join(d, name)
-            rgba = read_dds(p)
-            levels, cur = [rgba], Image.fromarray(rgba, "RGBA")
-            while min(cur.size) > 1:
-                cur = cur.resize((max(cur.width // 2, 1), max(cur.height // 2, 1)),
-                                 Image.LANCZOS)
-                levels.append(np.array(cur))
-            write_dds(p, levels)
-            total += 1
-            print(f"  {profile}/{name}: {len(levels)} levels, "
-                  f"{os.path.getsize(p) // 1024} KB")
+        if os.path.isdir(d):
+            total += mip_directory(d, f"{profile}/")
     print(f"{total} files")
     return 0
 

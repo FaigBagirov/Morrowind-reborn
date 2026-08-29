@@ -401,6 +401,8 @@ The instinct is to model hexagonal particles. Do not.
 
 **Replacing one DDS changes every cast in the game.** Best effort-to-result ratio in the project; start here.
 
+That last sentence is the one claim here that measurement has corrected. Magic effects name **36 different particle textures**, and replacing the six busiest converts three fifths of them — which on screen reads as a bug rather than as a style, because the player's own casting changes denomination between one spell and the next. Replace all 36 or the effort is wasted; the generator now takes its list from the masters rather than from a judgement. `tools/reports/vfx.md`.
+
 Two rules for the texture:
 
 * **The alpha channel carries the shape.** Hexagons must be in alpha with soft edges. A hard edge under additive blending reads as a rendering fault.

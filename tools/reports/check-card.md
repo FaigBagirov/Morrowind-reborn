@@ -9,35 +9,68 @@ That is normal when any mod is added. Continue.
 
 ---
 
-## 1. The visuals — the only genuinely unknown part
+## 1. The visuals — the shape is settled, the coverage is what is new
 
-Everything else has been seen on screen already. This has not.
+The shape passed on screen: `summon flame atronach` read as machinery, and you
+approved it. What failed was **coverage** — six textures out of thirty-six, so
+the next spell you cast came up vanilla. Now all thirty-six are converted, and
+this list exists to catch any that did not take.
 
+Every spell below is cheap, harmless and castable in a room. Paste the block,
+then cast them in order and watch the hands.
+
+    player->AddSpell "Ogrul's_Strong_Again"
+    player->AddSpell "self dispel"
+    player->AddSpell "sotha's grace"
+    player->AddSpell "lock"
+    player->AddSpell "fleabite"
+    player->AddSpell "weariness"
+    player->AddSpell "righteousness"
     player->AddSpell "fireball"
-    player->AddSpell "summon flame atronach"
+    player->AddSpell "frostball"
+    player->AddSpell "shockball"
     player->AddSpell "light"
 
-Cast each one and watch the particles.
+What each one is for. The count is how many magic effects share that texture, so
+the top of the list is most of the game's casting:
 
-* **Fireball** uses `vfx_particle064` and is the fastest read - a burst, gone.
-* **Summon flame atronach** is the important one. Summoning runs about a
-  second, so the shape is legible: this is where the hexagons either read as
-  machinery or read as noise.
-* **Light** is slow and lingering, which shows what a single plate looks like
-  when you can stare at it.
+| Spell | Texture | Effects | Should look |
+| --- | --- | --- | --- |
+| `Ogrul's_Strong_Again` | `vfx_bluecloud` | 28 | pale blue — the second biggest after the summons |
+| `self dispel` | `vfx_particle064` | 9 | near-white |
+| `sotha's grace` | `vfx_greenglow` | 4 | cyan-green |
+| `lock` | `vfx_ill_glow` | 4 | violet |
+| `fleabite` | `vfx_alpha_bolt01` | 5 | red |
+| `weariness` | `vfx_map21` | 5 | orange |
+| `righteousness` | `vfx_myst_flare01` | 5 | magenta |
+| `fireball` | `vfx_firealpha00a` | 3 | hot orange |
+| `frostball` | `vfx_icestar` | 1 | pale blue-white |
+| `shockball` | `vfx_map39` | 2 | violet |
+| `light` | `vfx_zen_light` | 1 | warm — **the one that may fail, see below** |
 
-What to look for, in order of importance:
+**The only thing to judge: does any of them still show a plain smooth glow?**
+That is a texture that did not take, and the spell name tells us which. The
+shape itself is already approved; nothing about it changed.
 
-1. **Do the plates read as made rather than as dirt?** Six sides, a bright rim,
-   a dim middle. If they read as smudges the texture is too soft.
-2. **Do the threads hold the cloud together?** They are what separates a swarm
-   from dust. You asked for them a touch stronger; this is where that is judged.
-3. **Does anything flicker or vanish at distance?** Cast, then back away. There
-   is a faint core in the texture for exactly this; if it still flickers the
-   core needs raising.
-4. **Colour.** Fire should still be warm, frost still cold. The colour is
-   sampled from Vurt's own textures, so if a school looks wrong that sampling
-   is wrong.
+Colour is sampled from what you have installed, so each school keeps its own
+light — fire warm, frost cold, poison green. If a school's colour looks wrong,
+the sampling is wrong, not the shape.
+
+### Light is the one deliberate risk
+
+Light's effect record points at `tx_firealpha00a`, which is not a magic texture
+at all — it is the flame sheet every torch, brazier and campfire in the game
+wears. Overriding it would put hexagons on every fire in Vvardenfell to convert
+one spell, so we do not. Instead Light's record is pointed at a private copy
+from Lua, and **that write has never been proved to work in 0.51** — it was not
+one of the WO0 probes.
+
+It is guarded: if the engine refuses, Light keeps the vanilla flame and nothing
+else is affected. Either way the answer is one line in the log —
+
+```bash
+findstr /c:"[REWRITE] light:" "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.log"
+```
 
 To compare against what you had: delete the one line
 `data="D:/Work/Morrowind reborn/tools/build/vfx-momw"` and Vurt's comes back.
