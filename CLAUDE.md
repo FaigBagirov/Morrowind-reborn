@@ -250,7 +250,9 @@ Nothing below is blocked on tooling.
    wording, extracted from the document rather than retyped, so revising Part 4
    and rebuilding is the whole edit. **Read on screen 2026-08-29**, paragraphs
    and all; reachable in a test save with `Journal B8_MeetVivec 50`. The
-   mitochondrial line, Canon Part 5, `PROPOSED`, is still unplaced.
+   mitochondrial line is **written and placed**: Divayth Fyr, topic `corprus
+   disease`, right after he has had the player's blood on the glass. Canon
+   Part 5.
 5. **`--profile momw` is built.** The load order is
    `D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.cfg` - 240
    plugin files, and it already contains `delta-merged.omwaddon` **and**

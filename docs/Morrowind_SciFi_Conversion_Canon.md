@@ -158,13 +158,19 @@ One grumble line early converts the whole thing from a bug into a premise. The s
 **Anyone who has actually heard it**, short, for late in the game:
 > One of them gave me the name. Zenar. I asked it to say it again. It did not.
 
-## The mitochondrial line `PROPOSED`
+## The mitochondrial line `WRITTEN, IN THE GAME`
 
-Give this to one informed character, once. It supplies a physical mechanism for the Zenad trace (*Shared Canon* Part 3), which otherwise rests on a metaphor.
+Supplies a physical mechanism for the Zenad trace (*Shared Canon* Part 3), which otherwise rests on a metaphor.
 
-A mitochondrion is an endosymbiont: a foreign organism absorbed into a cell that stopped being foreign. Every living thing carries a descendant of an outsider inside every cell. Yagrum Bagarn or Divayth Fyr are the natural speakers, since both can plausibly have looked.
+**Speaker: Divayth Fyr.** The canon offered him or Yagrum Bagarn. The claim is an *observation* - somebody looked into a cell - and that is Fyr's disposition and Fyr's equipment. Yagrum's knowledge is memory; he was there, he did not measure. Fyr has four thousand years of cutting things open and a Corprusarium full of subjects.
 
-Text not yet written.
+**Placement:** topic `corprus disease`, the reply that fires once the player has caught corprus and come to Tel Fyr for the cure - the moment Fyr has just had the player's blood in front of him. The vanilla text is kept whole and the observation follows his own joke about the Nerevarine being a fat corprus monster, which is the register it needs: the deepest fact in the passage delivered as an aside, the same device as Vivec's "It is elementary."
+
+> While I had your blood on the glass I looked at it properly. There is a passenger in every cell of you. Not the disease. Something older, taken in so long ago the cell has forgotten it was ever a guest. You are a collaboration, and nobody asked you. So is every living thing on this rock. Whoever was here first is still here, in the only way left to them. I find that more interesting than prophecy.
+
+It never names the Zenad, and it should not. Vivec says their remains are "a trace in the blood of everything that lives"; Fyr says there is a passenger in every cell. The player joins them, which is worth more than being told.
+
+Record `tools/handwritten/info_fyr_mitochondria.txt`, 802 bytes.
 
 ## The one rule for hand-written lines
 
