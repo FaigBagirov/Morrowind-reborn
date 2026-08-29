@@ -344,7 +344,21 @@ def main():
                     if any(r.pattern.lower() in low for r in rules):
                         wanted_keys.add(key)
                         break
-        print(f"  records a rule could touch: {len(wanted_keys)}")
+        # Authored records are touched whether or not a rule matches them -
+        # Vivec's confession contains no keyword at all - so they have to join
+        # the scan explicitly. Missed here, the build inherits the master's
+        # version of the record and quietly drops whatever a mod changed in it.
+        # Caught by verify_momw.py: his filters came from Morrowind.esm while
+        # Patch for Purists had edited them.
+        type_name_pre = {v: k for k, v in TYPE_CODE.items()}
+        for a in authored:
+            if a["type"] == "INFO":
+                wanted_keys.add(("DialogueInfo", a["topic"].lower(),
+                                 a["id"].lower()))
+            else:
+                wanted_keys.add((type_name_pre[a["type"]], a["id"].lower()))
+        print(f"  records a rule could touch, plus authored: "
+              f"{len(wanted_keys)}")
         print("  scanning for overrides ...")
         winners = effective.find_winners(plugins, wanted_keys)
         foreign = {k: v for k, v in winners.items()
