@@ -53,10 +53,13 @@ VISOR_TOP = 0.505
 VISOR_BOTTOM = 0.605
 FLARE_V = 0.638
 
-DARK = np.array([0.055, 0.060, 0.072], np.float32)    # a groove
-VISOR = np.array([0.050, 0.055, 0.068], np.float32)   # the face plate
-LIP = np.array([0.74, 0.77, 0.83], np.float32)        # the lit edge of a panel
-OPTIC = np.array([0.58, 0.76, 0.86], np.float32)      # the slit itself
+# All four sit close together on purpose. The first pass in game came out as
+# black-and-white stripes because every one of these was far from the plate it
+# was drawn on.
+DARK = np.array([0.105, 0.110, 0.125], np.float32)    # a groove
+VISOR = np.array([0.135, 0.142, 0.160], np.float32)   # the face plate
+LIP = np.array([0.62, 0.638, 0.672], np.float32)      # the lit edge of a panel
+OPTIC = np.array([0.52, 0.70, 0.80], np.float32)      # the slit itself
 
 
 def _turns(a):
@@ -108,16 +111,17 @@ def paint(rgba, cover=None, strength=1.0):
     lay(_span(v, VISOR_TOP, VISOR_BOTTOM, 0.008) * front, VISOR, 0.88)
     groove(_rule(v, VISOR_BOTTOM, 0.003, 0.003) * front, 0.9, 0.5)
 
-    # The slits. Opaque, as asked - a dark recess with a bright inner line,
-    # which is what reads as a lens at this size rather than as a hole.
-    for side in (1.0, -1.0):
-        at = side * 0.036
-        recess = (_span(np.abs(du - at), -1.0, 0.026, 0.005)
-                  * _span(v, EYE_V - 0.017, EYE_V + 0.017, 0.004))
-        lay(recess, DARK, 1.0)
-        lens = (_span(np.abs(du - at), -1.0, 0.021, 0.004)
-                * _span(v, EYE_V - 0.008, EYE_V + 0.008, 0.003))
-        lay(lens, OPTIC, 0.85)
+    # One continuous slit, not two eyes. Two came out as four on screen: this
+    # unwrap maps several parts of the shell onto the same pixels, so anything
+    # drawn once appears more than once. A single band across the front is
+    # immune to that - duplication merely extends it - and a continuous visor
+    # line is closer to the reference anyway.
+    recess = (_span(np.abs(du), -1.0, 0.088, 0.010)
+              * _span(v, EYE_V - 0.016, EYE_V + 0.016, 0.004))
+    lay(recess, DARK, 1.0)
+    lens = (_span(np.abs(du), -1.0, 0.082, 0.008)
+            * _span(v, EYE_V - 0.007, EYE_V + 0.007, 0.003))
+    lay(lens, OPTIC, 0.9)
 
     # Where the shell ends and the neck flare begins.
     groove(_rule(v, FLARE_V, 0.0035, 0.003), 0.9, 0.45)

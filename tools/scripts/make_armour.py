@@ -111,8 +111,10 @@ PIECES = (
 # grey paint.
 CERAMIC = np.array([0.50, 0.525, 0.565], np.float32)   # plate, lit
 CERAMIC_DARK = np.array([0.12, 0.13, 0.155], np.float32)
-MECH = np.array([0.16, 0.165, 0.185], np.float32)   # what shows between plates
-MECH_DARK = np.array([0.030, 0.032, 0.038], np.float32)
+# Lifted off black. In game the deep recesses read as holes punched in the
+# helmet rather than as a mechanism sitting behind the plates.
+MECH = np.array([0.22, 0.228, 0.250], np.float32)   # what shows between plates
+MECH_DARK = np.array([0.065, 0.068, 0.080], np.float32)
 GOLD = np.array([1.00, 0.74, 0.32], np.float32)
 GOLD_DARK = np.array([0.30, 0.20, 0.07], np.float32)
 
@@ -121,8 +123,12 @@ GOLD_DARK = np.array([0.30, 0.20, 0.07], np.float32)
 # a helm with no piping reads as unfinished. It goes to a brighter, cooler metal
 # instead, so the piping still separates itself from the plate it sits on.
 NO_GOLD = {"daefacet"}
-STEEL = np.array([0.78, 0.80, 0.85], np.float32)
-STEEL_DARK = np.array([0.17, 0.18, 0.21], np.float32)
+# Close to the plate rather than far above it. At 0.78 against a 0.50 plate the
+# trim came out as blown white sashes and the helm read as black-and-white
+# stripes on screen - Faig's word, twice. Trim should say "a different metal",
+# not "a different object".
+STEEL = np.array([0.60, 0.618, 0.655], np.float32)
+STEEL_DARK = np.array([0.155, 0.163, 0.185], np.float32)
 
 
 def load(path, size=None):
