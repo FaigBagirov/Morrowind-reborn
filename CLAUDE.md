@@ -257,9 +257,13 @@ Nothing below is blocked on tooling.
    `Voices of Vvardenfell.omwscripts`. 327 of our records are defined last by a
    mod, and the build now carries their version forward: the daedric cuirass
    comes out with our name and the armour mod's mesh. Left to do: put our
-   plugin through the Delta merge rather than straight into the load order, and
-   find out whether changing 187 replies breaks the voice mod's playback. **The
-   user's `play` profile has not been touched.**
+   plugin through the Delta merge rather than straight into the load order.
+   **The user's `play` profile has not been touched.**
+6. **The voice mod question is answered, and the answer is worse than a break.**
+   Voices of Vvardenfell finds its files by INFO record id, never by text, and
+   we keep the ids - so playback works and contradicts the screen. 181 of our
+   190 rewritten replies have a voice file. Architecture Part 15 carries the
+   three ways out; the cheapest is the mod's own `greetingsOnly` setting.
 6. The upstream ticket is written and on the user's Google Drive, for them to
    file.
 

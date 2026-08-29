@@ -597,7 +597,25 @@ Vanilla Morrowind does not voice its topic dialogue at all. Everything we rewrit
 * **Morrowind Voice Generator** — the tool for authors: generates lines for a mod, locally on a GPU or through ElevenLabs, with a separate voice per race, gender or NPC. This is the one that fits our shape.
 * **AIVoices** — real-time synthesis, but MWSE, so not for OpenMW.
 
-### The conflict, and it is the one we already solved
+### The conflict, measured 2026-08-29, and it is not the one the mod page describes
+
+Voices of Vvardenfell is **installed in the play profile**, so this stopped being hypothetical. Its OpenMW script was read rather than guessed at:
+
+```lua
+if infoId then path = path .. '\' .. infoId .. '.mp3' end
+```
+
+The file is found by the **INFO record id**, through a fallback chain of race, sex, actor, faction and rank. It never looks at the text.
+
+Our plugin overrides those records and keeps their ids. So playback does **not** break, whatever the mod page says about mods that alter dialogue. Something worse happens instead: it works, and contradicts the screen. Of the 190 replies we rewrite, **181 have a voice file** - the player hears "Daedra" while reading "Zenar", in 95% of the lines we touched. A break announces itself. This just looks like sloppiness.
+
+Three ways out, in ascending order of cost:
+
+1. **Turn on the mod's own `greetingsOnly` setting.** It voices greetings and nothing else; greetings are frozen by our dialogue policy, so the mismatch disappears entirely. The price is the feature the player installed that mod for.
+2. **Accept it.** *Shared World Canon* Part 9 says a mortal saying Daedra is correct by construction - but that argument covers a different mouth, not the same speaker saying one word aloud and another in text.
+3. **Regenerate those 181 lines** with the same tooling, per this part's rule that text comes first and audio last. `tools/reports/transform-diff.csv` already carries every id and its final text, so the input exists.
+
+### The conflict the mod page describes, and the tool that answers it
 
 The OpenMW patch states plainly that **any mod altering dialogue entries blocks playback**. We alter 193. The published resolution is Delta Plugin — the same field-wise merge that resolves the Daedric armour collision, and the same tool already sitting in the MOMW list. So this is not a second problem; it is the same build step.
 
