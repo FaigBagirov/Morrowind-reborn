@@ -114,6 +114,36 @@ def split(path, out_dir, knee_fraction=0.5, overlap=2):
     bind = model.accessor(skin["inverseBindMatrices"])
     bind = bind.reshape(-1, 4, 4).transpose(0, 2, 1)
 
+    # **A bone with no slot inherits its parent's.** A rig carries more than
+    # the dozen bones Morrowind knows: this one has hip and strap cloth, a
+    # tail, and elbow deformers, and matching only the names left 9 per cent of
+    # the vertices and 7.8 per cent of the triangles belonging to nothing at
+    # all. They were dropped, and the holes showed on screen as a torso you
+    # could see the floor through. Walking up the hierarchy needs no list of
+    # names and works on the next model too.
+    where = {n: i for i, n in enumerate(skin["joints"])}
+    parent = {}
+    for i, node in enumerate(model.json["nodes"]):
+        for kid in node.get("children", []):
+            parent[kid] = i
+    inherited = 0
+
+    def resolve(index):
+        nonlocal inherited
+        node = skin["joints"][index]
+        steps = 0
+        while node is not None and steps < 64:
+            here = where.get(node)
+            if here is not None:
+                name, side = slot_of(bones[here])
+                if name:
+                    if steps:
+                        inherited += 1
+                    return name, side
+            node = parent.get(node)
+            steps += 1
+        return None, ""
+
     global _BONES
     _BONES = bones
     pieces = {}
@@ -130,10 +160,16 @@ def split(path, out_dir, knee_fraction=0.5, overlap=2):
             joint = dominant(model, prim)
 
             label = np.empty(len(verts), object)
+            settled = {}
             for i, ji in enumerate(joint):
-                name, side = slot_of(bones[ji])
+                if ji not in settled:
+                    settled[ji] = resolve(int(ji))
+                name, side = settled[ji]
                 label[i] = None if name is None else (
                     f"{name}_{side}" if name in SIDED and side else name)
+            missing = sum(1 for x in label if x is None)
+            print(f"bones resolved through a parent: {inherited}; "
+                  f"vertices still unplaced: {missing} of {len(label)}")
 
             # A triangle belongs where its majority of corners belong.
             for tri in tris:
