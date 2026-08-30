@@ -29,6 +29,7 @@ import csv
 import hashlib
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,40 @@ from check_rules import (  # noqa: E402
 import effective  # noqa: E402
 
 MASTERS = ("Morrowind.esm", "Tribunal.esm", "Bloodmoon.esm")
+
+CORE_LUA = r"D:/Program Files/OpenMW 0.51.0/resources/lua_api/openmw/core.lua"
+
+
+def effect_keys(path=CORE_LUA):
+    """The magic effect ids the load context actually answers to.
+
+    They are not the ids in the ESM. The masters call one effect
+    `FortifyMagickaMultiplier`; OpenMW calls it `fortifymaximummagicka`, and a
+    lookup by the ESM id simply finds nothing. This reads the engine's own
+    documented list rather than guessing at the difference.
+    """
+    if not os.path.exists(path):
+        return set()
+    keys = set()
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            m = re.match(r'--\s*@field\s+#number\s+\w+\s+"([a-z]+)"',
+                         line.strip())
+            if m:
+                keys.add(m.group(1))
+    return keys
+
+
+def effect_key(display_name):
+    """An effect's key is its display name, letters only, lowercased.
+
+    Checked against the engine's own list: it holds for 139 of the 144
+    `sEffect*` settings, and the five it does not are two unused Bloodmoon
+    placeholders whose value is their own id, two renamed summons, and
+    `sEffects`, which is a menu label rather than an effect. Every one of those
+    is caught by testing the result against the list instead of trusting it.
+    """
+    return re.sub(r"[^a-z]", "", display_name.lower())
 
 # Which content sub-package each record type lives in, from the 16 keys WO0
 # enumerated at runtime. A type absent here has no load-context store and
@@ -417,6 +452,8 @@ def main():
     plugin_records = collections.OrderedDict()
     rows = []
     ceiling = collections.defaultdict(int)  # longest vanilla string per field
+    known_effects = effect_keys()
+    unmapped = []
     counts = collections.Counter()
 
     for key, rec in records.items():
@@ -451,6 +488,15 @@ def main():
                     value, rules, code, field, rid, keep, frozen)
                 ceiling[(code, field)] = max(ceiling[(code, field)],
                                              len(value))
+                # A magic effect's name is not a field of any record, so no
+                # value is ever seen for it and its ceiling stayed at zero -
+                # which made the guard fall back to "no longer than the old
+                # one" and drop "Resist Discharge" for being two characters
+                # over. The names live in these settings, so the ceiling does
+                # too.
+                if code == "GMST" and rid.startswith("sEffect"):
+                    ceiling[("MGEF", "name")] = max(ceiling[("MGEF", "name")],
+                                                    len(value))
                 if kept:
                     counts["topic_keyword_kept"] += 1
                 counts["protected_in_markup"] += len(protected)
@@ -482,9 +528,22 @@ def main():
                     # written directly as well, on top of what the fallback
                     # copied. The GMST rewrite stays - it is what the tooltip
                     # header and the spellmaker use.
+                    # The effect id is derived from the setting's *value* -
+                    # the display name - and then checked against the engine's
+                    # own list. Deriving it from the setting's *id* by cutting
+                    # off "sEffect" is what the first version did, and it is
+                    # wrong wherever Bethesda's setting name and effect name
+                    # disagree: sEffectAbsorbSpellPoints names the effect
+                    # `absorbmagicka`, and four such targets pointed at records
+                    # that do not exist. The log said no-record; the tooltip
+                    # said "Resist Magicka" under a spell called "Resist
+                    # Discharge".
                     if code == "GMST" and rid.startswith("sEffect"):
-                        lua_targets.append(("MGEF", rid[len("sEffect"):],
-                                            "name"))
+                        key = effect_key(value)
+                        if key in known_effects:
+                            lua_targets.append(("MGEF", key, "name"))
+                        elif known_effects:
+                            unmapped.append((rid, value, key))
                 else:
                     plugin_records.setdefault(key, {})[spec] = new
 
@@ -512,6 +571,11 @@ def main():
         print(f"    {a['type']} {a['id']}: {len(old)} -> {len(a['text'])} bytes"
               f"  ({a['file']})")
 
+    if unmapped:
+        print(f"{len(unmapped)} effect settings name no effect the engine "
+              f"knows - no name target emitted for them:")
+        for rid, value, key in unmapped[:8]:
+            print(f"    {rid} = {value!r} -> {key}")
     print(f"Lua half   : {counts['lua_fields']} record-fields, "
           f"{len(lua_targets)} targets")
     print(f"Plugin half: {counts['plugin_fields']} record-fields, "
