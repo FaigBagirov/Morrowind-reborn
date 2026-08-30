@@ -188,6 +188,31 @@ Left alone on purpose:
   different look, and they are everywhere in the world. Not in scope by meaning,
   not by effort.
 
+## The helmet built from a downloaded model
+
+The one piece here whose geometry is not the game's own. `tools/build/` is
+gitignored, so the command that produces it is recorded here or it is lost:
+
+    python tools/scripts/glb.py <model.glb> --extract helmet --out helmet.obj
+    python tools/scripts/nif_write.py helmet.obj         --donor meshes/a/a_ebony_helmet.nif         --out tools/build/armour-momw/Meshes/a/a_ebony_helmet.nif         --texture zenar_helm.dds --scale 1.55
+
+and the texture through the ordinary converter, `plate_from="diffuse"`,
+`trim="warm"`, gold off, grain 1.0, written to `Textures/zenar_helm.dds`.
+
+**1.55** is where the size landed after two looks: a bounding-box fit is
+conservative when a mesh carries spikes, so the first build was a third too
+small and the second slightly so.
+
+**No axis swap.** Morrowind bodyparts are Y-up with +Z forward, the same as
+glTF - measured on the ebony helm, and confirmed on screen. Swapping is a
+ninety-degree roll about the ear-to-ear axis and looks like a helmet nodding at
+the floor.
+
+The mesh sits at the ebony closed helm's own path inside our data directory, so
+no record is touched and equipping that item shows it. The ebony helm exists in
+three places in the game plus a test crate and one scripted NPC. Deleting two
+files undoes all of it.
+
 ## Format
 
 DXT1 with a full mip chain, written through `tools/scripts/dds.py`. The
