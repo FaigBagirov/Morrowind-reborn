@@ -60,8 +60,17 @@ if ($p.MainWindowHandle -eq 0) { Write-Output "$Target has no window"; exit 1 }
 Start-Sleep -Milliseconds 1800
 $owner = [Con]::Owner([Con]::GetForegroundWindow())
 if ($owner -ne $Target) {
-  Write-Output "the foreground window belongs to $owner, not $Target - typing nothing"
-  exit 1
+  # The other half of the same game is acceptable - OpenMW runs two processes
+  # and either may own the window. Anything else is somebody else's game, or
+  # another application entirely, and gets nothing.
+  $him = Get-Process -Id $owner -ErrorAction SilentlyContinue
+  $me  = Get-Process -Id $Target -ErrorAction SilentlyContinue
+  $sibling = $him -and $me -and $him.ProcessName -eq "openmw" -and
+             [Math]::Abs(($him.StartTime - $me.StartTime).TotalSeconds) -lt 15
+  if (-not $sibling) {
+    Write-Output "the foreground window belongs to $owner, not $Target - typing nothing"
+    exit 1
+  }
 }
 
 [Con]::Key(0xC0)                      # grave, opens the console

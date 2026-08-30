@@ -57,8 +57,17 @@ Start-Sleep -Milliseconds 1800
 # and a keypress then lands somewhere else entirely.
 $owner = [Shot]::Owner([Shot]::GetForegroundWindow())
 if ($owner -ne $Target) {
-  Write-Output "the foreground window belongs to process $owner, not $Target - not pressing anything"
-  exit 1
+  # The other half of the same game is acceptable - OpenMW runs two processes
+  # and either may own the window. Anything else is somebody else's game, or
+  # another application entirely, and gets nothing.
+  $him = Get-Process -Id $owner -ErrorAction SilentlyContinue
+  $me  = Get-Process -Id $Target -ErrorAction SilentlyContinue
+  $sibling = $him -and $me -and $him.ProcessName -eq "openmw" -and
+             [Math]::Abs(($him.StartTime - $me.StartTime).TotalSeconds) -lt 15
+  if (-not $sibling) {
+    Write-Output "the foreground window belongs to process $owner, not $Target - not pressing anything"
+    exit 1
+  }
 }
 
 for ($i = 1; $i -le $Count; $i++) {

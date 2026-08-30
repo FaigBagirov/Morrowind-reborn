@@ -43,4 +43,12 @@ for ($i = 1; $i -le 20; $i++) {
   }
 }
 Start-Sleep -Seconds $SettleSeconds
-Write-Output $p.Id
+
+# **Report the process that owns the window, not the one Start-Process
+# returned.** OpenMW runs as two processes per game, and the window can belong
+# to the sibling; the foreground check in shot.ps1 caught exactly that. The
+# window owner is the one every other script needs.
+$mine = @(Get-Process openmw -ErrorAction SilentlyContinue |
+          Where-Object { $_.MainWindowHandle -ne 0 -and
+                         [Math]::Abs(($_.StartTime - $p.StartTime).TotalSeconds) -lt 15 })
+if ($mine) { Write-Output $mine[0].Id } else { Write-Output $p.Id }

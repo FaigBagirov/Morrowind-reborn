@@ -180,6 +180,10 @@ REFERENCE = {
     "hand": (BODY % "skins", "%s Hand"),
 }
 # The skeleton node each hangs on, without the side.
+# The helmet mesh is painted on its own sheet, so the two pieces cut from it
+# wear that one. Everything else is the body sheet.
+SHEET = {"head": "zenar_helm.dds", "neck": "zenar_helm.dds"}
+
 NODE = {"neck": "Neck", "head": "Head", "chest": "Chest",
         "groin": "Groin", "clavicle": "%s Clavicle",
         "upperarm": "%s Upper Arm", "forearm": "%s Forearm",
@@ -271,7 +275,8 @@ def main():
                 "--core", core, "--donor", spec["donor"],
                 "--reference", spec["reference"], "--out", target,
                 "--bone", spec["node"], "--axes=" + spec["axes"],
-                "--texture", args.texture, "--clearance", str(args.clearance),
+                "--texture", SHEET.get(spec["slot"], args.texture),
+                "--clearance", str(args.clearance),
                 "--double"]
         if spec["shape"]:
             call += ["--shape", spec["shape"]]
