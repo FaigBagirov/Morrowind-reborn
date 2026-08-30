@@ -61,7 +61,8 @@ param(
 # takes and what SDL turns back into its own scancodes.
 $Scan = @{ 'console' = 0x29; 'grave' = 0x29; 'enter' = 0x1C; 'esc' = 0x01
            'i' = 0x17; 'space' = 0x39; 'tab' = 0x0F; 'w' = 0x11
-           'back' = 0x0E; 'up' = 0xC8; 'down' = 0xD0 }
+           'back' = 0x0E; 'up' = 0xC8; 'down' = 0xD0
+           'e' = 0x12; 'j' = 0x24; 'r' = 0x13 }
 
 $ErrorActionPreference = 'Stop'
 
@@ -239,15 +240,22 @@ public class Play {
     }
   }
 
+  // times=1 is a click; times=2 is a real double-click, which is a different
+  // message rather than two of the same one. Windows sends WM_LBUTTONDBLCLK for
+  // the second press, SDL counts its clicks from that message alone, and MyGUI
+  // asks SDL. Two plain presses are therefore two single clicks however close
+  // together - which in the inventory picks an item up and then drops it on the
+  // floor, and never opens the book.
   public static void PostClick(IntPtr h, int x, int y, int times) {
     IntPtr lp = (IntPtr)((y << 16) | (x & 0xFFFF));
     PostMessage(h, 0x0200, IntPtr.Zero, lp);              // WM_MOUSEMOVE
     System.Threading.Thread.Sleep(120);
     for (int n = 0; n < times; n++) {
-      PostMessage(h, 0x0201, (IntPtr)1, lp);              // WM_LBUTTONDOWN, MK_LBUTTON
-      System.Threading.Thread.Sleep(90);
+      uint down = (n == 0) ? 0x0201u : 0x0203u;           // WM_LBUTTONDOWN / DBLCLK
+      PostMessage(h, down, (IntPtr)1, lp);
+      System.Threading.Thread.Sleep(80);
       PostMessage(h, 0x0202, IntPtr.Zero, lp);            // WM_LBUTTONUP
-      System.Threading.Thread.Sleep(90);
+      System.Threading.Thread.Sleep(80);
     }
   }
 
