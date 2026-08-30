@@ -361,7 +361,7 @@ context, and the engine's own use of the field on screen - Faig cast Light in
 the Vivec exterior and got the warm hexagon swarm, not the vanilla flame. Add
 `particle` to the short list of MGEF fields known to be writable, beside `name`.
 
-## Zenaric armour - `BUILT, NOT YET SEEN ON SCREEN`
+## Zenaric armour - `WORN AND ITERATED, HELM SETTLED`
 
 Report `tools/reports/armour.md`, generator `tools/scripts/make_armour.py`,
 output `tools/build/armour-momw/Textures/jy_daedric/` - 15 files, one `data=`
@@ -371,6 +371,20 @@ Faig asked on 2026-08-30 for the Daedric armour reworked toward a white-and-gold
 ceramic reference, "with notes of the original". **No geometry** - the rules and
 Canon Part 9 both forbid generating NIFs - so the silhouette is untouched, which
 is what supplies the second half of the brief for free.
+
+**Where it landed after several rounds on screen:** silver-grey plate at 0.50,
+cool, with the marbling he asked to keep and to spread from the helm to the
+cuirass; a dark kant around every plate, drawn from the gradient of the plate
+mask; a sheen baked out of the mod's own normal map. The helmet is the **Face of
+Terror with its gold removed**.
+
+**The closed-helm experiment is over.** He chose the Ebony Closed Helm shape,
+asked for a Pragmata-like paint job, and after four rounds called it off. Our
+override of `tx_a_ebony_helmet` is deleted and every ebony helm in the game is
+vanilla again. Kept from it: `uv_calibrate.py` (which way does a piece face -
+answered by measurement, right first time) and `uvmap.py` (parse and rasterise a
+mesh, validates its own parse). `paint_helm.py` is deleted rather than left
+switched off.
 
 We write the diffuse and the glow. `_n` and `_s` are deliberately not written,
 so Daedric Lord Armor's own normal and specular maps stay in use.
@@ -385,10 +399,25 @@ Three things worth carrying forward:
 - **Gold has to be qualified by that mask.** Red in the source marks the hot
   veins, but it also marks dyed leather and cloth, and unqualified it turned the
   collar strap and the cuirass's fabric panel solid gold.
-- **The open question is the dark mottling.** The Daedric coral pattern is
-  painted low-specular, so the mask correctly calls it not-plate and it comes
-  out near black on a white plate. That is a look, not a bug, and it is Faig's
-  call. The lever is the plate threshold, `_norm(s_n, 0.34, 0.66)`.
+- **Contrast has to sit close to the plate.** Trim at 0.78 against a 0.50 plate
+  read as black-and-white stripes on screen, twice. Trim should say "a different
+  metal", not "a different object". Steel is 0.60 and the mechanism is lifted
+  off black.
+- **The dark mottling was the right answer.** It is the Daedric coral pattern,
+  painted low-specular, so the mask calls it not-plate. It was flagged as an
+  open question and Faig's call went the other way from the guess: he liked it
+  and asked for the cuirass to match, so grain is 1.0 across the suit.
+
+**On the no-geometry rule, stated accurately.** It is a project rule and it was
+followed. Its justification in Canon Part 9 - "the engine validates models on
+load and rejects machine-assembled files" - is **not something this project has
+measured**, and it was quoted to Faig as fact, which was wrong. Reading a NIF is
+demonstrably fine: `uvmap.py` parses one. The real reason not to generate
+geometry is different and stronger: good geometry is sculpting, not scripting,
+and a bad mesh breaks animation and physics and cannot be undone by deleting a
+`data=` line the way a texture can. The honest routes to a new shape are an
+existing mesh from another mod - the plugin can repoint `male_bodypart`, keeping
+name and stats - or hand-modelling.
 
 Out of scope on purpose, and each for a reason: Dremora skin (a creature's body,
 not equipment), vanilla Daedric weapons and shields (no specular map exists for
