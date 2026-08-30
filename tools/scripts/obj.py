@@ -50,14 +50,20 @@ def write(path, verts, uv, tris, name="mesh"):
             f.write(f"f {a + 1}/{a + 1} {b + 1}/{b + 1} {c + 1}/{c + 1}\n")
 
 
-def read(path):
+def read(path, want_groups=False):
     """Vertices, UVs and triangles. Quads and n-gons are fanned into triangles.
+
+    With `want_groups`, also returns a label per triangle taken from the `o`,
+    `g` and `usemtl` lines. A suit of armour exported from a modelling package
+    almost always carries those, and when it does, cutting it into pieces is
+    reading them rather than guessing.
 
     OBJ lets a face reference a different vertex and texture index, which a
     mesh with a UV seam always does. Those are split into separate vertices
     here, because that is what the engine's format expects anyway.
     """
     positions, texcoords, faces = [], [], []
+    labels, label = [], "mesh"
     with open(path, "r", encoding="utf-8", errors="replace") as f:
         for line in f:
             parts = line.split()
@@ -68,6 +74,8 @@ def read(path):
                 positions.append([float(x) for x in parts[1:4]])
             elif tag == "vt":
                 texcoords.append([float(x) for x in parts[1:3]])
+            elif tag in ("o", "g", "usemtl") and len(parts) > 1:
+                label = parts[1]
             elif tag == "f":
                 corner = []
                 for chunk in parts[1:]:
@@ -82,6 +90,7 @@ def read(path):
                     corner.append((vi, ti))
                 for i in range(1, len(corner) - 1):
                     faces.append((corner[0], corner[i], corner[i + 1]))
+                    labels.append(label)
 
     seen, verts, uv, tris = {}, [], [], []
     for face in faces:
@@ -97,8 +106,9 @@ def read(path):
                     uv.append([u, 1.0 - v])
             indices.append(seen[key])
         tris.append(indices)
-    return (np.array(verts, np.float64), np.array(uv, np.float64),
-            np.array(tris, np.int32))
+    out = (np.array(verts, np.float64), np.array(uv, np.float64),
+           np.array(tris, np.int32))
+    return out + (labels,) if want_groups else out
 
 
 def main():
