@@ -76,11 +76,52 @@ def wanted(model):
     return out
 
 
+# The palette the Zenaric armour already wears, from make_armour.py: cool
+# silver-grey plate, a dark near-black for the kant, and a lighter steel for
+# the pieces that used to be a different metal.
+CERAMIC = np.array([0.50, 0.525, 0.565])
+STEEL = np.array([0.60, 0.615, 0.645])
+
+
+def zenar(sheet):
+    """The author's sheet in the conversion's colours, sculpt intact.
+
+    **Hue goes, tone stays.** The first attempt at this drained the sheet and
+    took the dark navy panels down to black with it, which is what Faig had
+    been reporting as black patches since the very first screenshot. Luminance
+    is remapped into a band instead of being crushed, so a dark panel comes out
+    dark grey and still reads as a panel.
+
+    Gold is not kept - Faig asked for it gone - but it is not flattened into the
+    plate either: it becomes the lighter steel, so the engraving is still legible
+    as a different metal.
+    """
+    rgb = np.asarray(sheet, np.float64) / 255.0
+    high = rgb.max(2)
+    low = rgb.min(2)
+    sat = (high - low) / np.maximum(high, 1e-6)
+    lum = rgb @ np.array([0.2126, 0.7152, 0.0722])
+
+    # Gold is the warm, saturated part: red leads and blue trails.
+    gold = (sat > 0.22) & (rgb[..., 0] >= rgb[..., 1]) & (rgb[..., 1] > rgb[..., 2])
+
+    # Into a band rather than to zero. Black lands at 0.10, white at 0.66, so
+    # the navy panels sit near 0.24 - dark, present, not a hole.
+    tone = 0.10 + 0.56 * lum
+    out = tone[..., None] * CERAMIC / CERAMIC.mean()
+    lifted = np.clip(tone + 0.13, 0, 1)[..., None] * STEEL / STEEL.mean()
+    out = np.where(gold[..., None], lifted, out)
+    return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8))
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("model")
     ap.add_argument("--out", default=os.path.join("tools", "build",
                                                   "armour-momw", "Textures"))
+    ap.add_argument("--zenar", action="store_true",
+                    help="recolour to the conversion's palette instead of "
+                         "shipping the author's")
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 
@@ -107,6 +148,11 @@ def main():
               f"{count} vertices, luminance {bright:.0f}, saturation {colour:.3f}")
         if not args.write:
             continue
+        if args.zenar:
+            sheet = zenar(sheet)
+            pixels = np.array(sheet).astype(float)
+            print(f"                 recoloured: luminance {pixels.mean():.0f}, "
+                  f"saturation {np.mean((pixels.max(2) - pixels.min(2)) / np.maximum(pixels.max(2), 1)):.3f}")
         rgba = np.dstack([np.array(sheet.convert("RGB")),
                           np.full(sheet.size[::-1], 255, np.uint8)])
         path = os.path.join(args.out, name)

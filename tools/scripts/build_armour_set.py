@@ -150,7 +150,6 @@ MODEL_TO_GAME = "-x,z,y"
 # any rigid single-shape file serves, which is how the chest and the hand are
 # done. Checked, not assumed: only the cuirass came back skinned.
 DONOR = {
-    "neck": BODY % "neck",
     "head": BODY % "neck",
     "chest": BODY % "ankle",
     "groin": BODY % "groin",
@@ -166,7 +165,6 @@ DONOR = {
 # What each is fitted against, and which shapes of it. `skins.nif` is the Chest
 # bodypart and both Hand bodyparts at once, seven shapes in one file.
 REFERENCE = {
-    "neck": (BODY % "neck", None),
     "head": ("meshes/b/b_n_dark elf_m_head_01.nif", None),
     "chest": (BODY % "skins", "Tri Chest"),
     "groin": (BODY % "groin", None),
@@ -182,9 +180,30 @@ REFERENCE = {
 # The skeleton node each hangs on, without the side.
 # The helmet mesh is painted on its own sheet, so the two pieces cut from it
 # wear that one. Everything else is the body sheet.
-SHEET = {"head": "zenar_helm.dds", "neck": "zenar_helm.dds"}
+SHEET = {"head": "zenar_helm.dds"}
 
-NODE = {"neck": "Neck", "head": "Head", "chest": "Chest",
+# **Which space a piece is fitted in, and it is not one answer for all.**
+#
+# World space compares a piece against the vanilla part hung on its own bone,
+# where up is up for both - which is what the chest, the head and the neck need,
+# and what let the chest be fitted at all. But the model stands in an A-pose
+# with its arms out, while Morrowind's skeleton has them hanging at the side:
+# for a limb the two boxes are in different poses, and fitting one to the other
+# squashes it and pulls it inward. Faig saw the forearms pressed towards the
+# middle.
+#
+# A bone's own frame has no pose in it, so limbs are fitted there. The axes
+# come from ranking the extents, which was checked against an independent
+# measurement - the rotation carrying each bone's own anatomical directions
+# into Morrowind's - and the two agree: the forearm needs no turn, the knee
+# needs X and Z exchanged.
+IN_WORLD = {"chest", "head"}
+
+# A helmet fitted per axis into an elf head's box comes out flattened at the
+# sides, which is exactly what Faig reported. Proportions are kept instead.
+UNIFORM = {"head"}
+
+NODE = {"head": "Head", "chest": "Chest",
         "groin": "Groin", "clavicle": "%s Clavicle",
         "upperarm": "%s Upper Arm", "forearm": "%s Forearm",
         "upperleg": "%s Upper Leg", "knee": "%s Knee", "ankle": "%s Ankle",
@@ -211,7 +230,8 @@ def slots():
             hand = "Left" if side == "l" else "Right"
             out[key] = {
                 "slot": slot,
-                "cut": (f"{slot}_{side}" if side else slot) + "_world",
+                "cut": ((f"{slot}_{side}" if side else slot)
+                        + ("_world" if slot in IN_WORLD else "")),
                 "donor": donor,
                 "reference": ref,
                 "shape": shape % hand if shape and "%s" in shape else shape,
@@ -274,10 +294,13 @@ def main():
         call = [os.path.join(HERE, "nif_write.py"), source,
                 "--core", core, "--donor", spec["donor"],
                 "--reference", spec["reference"], "--out", target,
-                "--bone", spec["node"], "--axes=" + spec["axes"],
                 "--texture", SHEET.get(spec["slot"], args.texture),
                 "--clearance", str(args.clearance),
                 "--double"]
+        if spec["slot"] in IN_WORLD:
+            call += ["--bone", spec["node"], "--axes=" + spec["axes"]]
+        if spec["slot"] in UNIFORM:
+            call += ["--uniform"]
         if spec["shape"]:
             call += ["--shape", spec["shape"]]
         if not args.write:

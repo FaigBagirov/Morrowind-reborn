@@ -352,6 +352,10 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--uniform", action="store_true",
+                    help="one scale for all three axes. A helmet must keep its "
+                         "proportions: fitted per axis into a vanilla elf "
+                         "head's box it comes out flattened at the sides.")
     ap.add_argument("--double", action="store_true",
                     help="add every triangle again, wound the other way, so "
                          "the piece has no one-sided face")
@@ -406,6 +410,12 @@ def main():
         target = ref.max(0) - ref.min(0)
         scale = (target / np.maximum(core.max(0) - core.min(0), 1e-9)
                  * args.clearance)
+        if args.uniform:
+            # By height, not by the tightest axis. A helmet is wider than an elf
+            # head and shorter, so the smallest ratio shrank it to a tenth of
+            # what it should be; the vertical is the measurement that means the
+            # same thing on both.
+            scale = np.full(3, float(scale[2]))
         shift = ((ref.max(0) + ref.min(0)) / 2.0
                  - (core.max(0) + core.min(0)) / 2.0 * scale)
         ours = ours * scale + shift

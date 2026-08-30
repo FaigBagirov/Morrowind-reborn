@@ -60,13 +60,14 @@ if ($p.MainWindowHandle -eq 0) { Write-Output "$Target has no window"; exit 1 }
 Start-Sleep -Milliseconds 1800
 $owner = [Con]::Owner([Con]::GetForegroundWindow())
 if ($owner -ne $Target) {
-  # The other half of the same game is acceptable - OpenMW runs two processes
-  # and either may own the window. Anything else is somebody else's game, or
-  # another application entirely, and gets nothing.
+  # OpenMW runs two processes per game and either may own the window, so the
+  # other half of *this* game is acceptable. Anything else is not. When only
+  # one game is up - which play.ps1 ensures by closing the others first - two
+  # openmw processes is that one game; more than two means several are running
+  # and nothing is pressed.
   $him = Get-Process -Id $owner -ErrorAction SilentlyContinue
-  $me  = Get-Process -Id $Target -ErrorAction SilentlyContinue
-  $sibling = $him -and $me -and $him.ProcessName -eq "openmw" -and
-             [Math]::Abs(($him.StartTime - $me.StartTime).TotalSeconds) -lt 15
+  $all = @(Get-Process openmw -ErrorAction SilentlyContinue)
+  $sibling = $him -and $him.ProcessName -eq "openmw" -and $all.Count -le 2
   if (-not $sibling) {
     Write-Output "the foreground window belongs to $owner, not $Target - typing nothing"
     exit 1
