@@ -214,7 +214,19 @@ PROP = {"forearm": ("x", "min")}
 # the hand, toes and ankle for the foot), one rotated onto the other, snapped
 # to the axis grid. Faig saw the left hand fingers-up and the feet a quarter
 # turn out; ranking had silently picked the wrong sign.
-LOCAL_AXES = {"hand": "-y,-z,x", "foot": "z,-y,x"}
+LOCAL_AXES = {"hand": "-y,x,z", "foot": "z,-y,x"}
+
+# Corrections Faig called from the screen, each verified against a rendered
+# candidate sheet before being written down - three 180-degree turns are
+# possible per piece and a wireframe can compare them where prose cannot.
+# The thigh and upper arm hung upside down, the pauldron faced backward, the
+# hand needed its fingers turned from forward to down (folded into LOCAL_AXES
+# above), the head floated at 70 per cent of its own height, and the upper
+# arms sat a touch too close to the body - the shift is world -1.8 on X,
+# expressed in the arm bone's frame.
+POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
+             "clavicle": "-x,-y,z"}
+POST_SHIFT = {"upperarm": "0.36,0.67,1.63", "head": "0,0,-13"}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
 # fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
@@ -345,6 +357,10 @@ def main():
             call += ["--prop-axis", axis, "--prop-anchor", anchor]
         if spec["slot"] in LOCAL_AXES:
             call += ["--axes=" + LOCAL_AXES[spec["slot"]]]
+        if spec["slot"] in POST_AXES:
+            call += ["--post-axes=" + POST_AXES[spec["slot"]]]
+        if spec["slot"] in POST_SHIFT:
+            call += ["--post-shift=" + POST_SHIFT[spec["slot"]]]
         if not args.write:
             rows.append("%-12s%-22s  dry run" % (key, spec["node"]))
             return None

@@ -352,6 +352,15 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--post-axes", metavar="SPEC",
+                    help="rotate the finished piece about its own centre and "
+                         "refit the box - for corrections Faig calls from the "
+                         "screen, like a thigh plate upside down. Same token "
+                         "form as --axes.")
+    ap.add_argument("--post-shift", metavar="A,B,C",
+                    help="move the finished piece, in the frame it was fitted "
+                         "in - bone units for a bone-local fit, world units "
+                         "for a world fit")
     ap.add_argument("--prop-axis", choices=["x", "y", "z"],
                     help="bone-local fit: keep this axis in proportion to the "
                          "other two instead of squeezing it into the "
@@ -504,6 +513,21 @@ def main():
                            fixed=args.fixed_scale)
         print(f"fitted   scale {scale:.3f}"
               f"{', axes swapped' if args.swap else ', axes as they came'}")
+    if args.post_axes:
+        M = axes(args.post_axes)
+        centre = (verts.max(0) + verts.min(0)) / 2.0
+        span = verts.max(0) - verts.min(0)
+        turned = (verts - centre) @ M.T
+        # A quarter turn trades one axis's extent for another's; refit so the
+        # piece still fills the box it was fitted to, or fingers turned
+        # downward would stay squashed to the palm's old thickness.
+        again = span / np.maximum(turned.max(0) - turned.min(0), 1e-9)
+        verts = turned * again + centre
+        print(f"post     turned {args.post_axes}, box refilled")
+    if args.post_shift:
+        move = np.array([float(x) for x in args.post_shift.split(",")])
+        verts = verts + move
+        print(f"post     shifted {args.post_shift}")
     print("bounds   X %.2f..%.2f  Y %.2f..%.2f  Z %.2f..%.2f"
           % (verts[:, 0].min(), verts[:, 0].max(), verts[:, 1].min(),
              verts[:, 1].max(), verts[:, 2].min(), verts[:, 2].max()))
