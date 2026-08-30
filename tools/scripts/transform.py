@@ -400,7 +400,20 @@ def main():
         if missing:
             raise SystemExit(f"{len(missing)} content files not found on disk: "
                              f"{missing[:3]}")
-        print(f"Load order: {len(plugins)} plugin files from {args.plugins}")
+        # Our own output has to come out of the load order first. Once it is
+        # installed it is the *last* plugin to define every record we touch, so
+        # reading the winner reads our own previous build - already renamed,
+        # with nothing left to substitute. Measured: a rebuild fell from 236
+        # plugin records to 22, and the authored book reported "2304 -> 2304
+        # bytes", which is the transform being handed back its own homework.
+        # Every rebuild would have eaten the one before it, silently.
+        ours = {f"{args.out_name}{ext}".lower()
+                for ext in (".esp", ".esm", ".omwaddon")}
+        kept = [(n, p) for n, p in plugins if os.path.basename(n).lower() not in ours]
+        dropped = len(plugins) - len(kept)
+        plugins = kept
+        print(f"Load order: {len(plugins)} plugin files from {args.plugins}"
+              + (f", {dropped} of our own excluded" if dropped else ""))
         master_names = {m.lower() for m in MASTERS}
         # Only the records a rule could possibly touch. Scanning for all 60,000
         # would drag half the mod list through tes3conv for nothing.

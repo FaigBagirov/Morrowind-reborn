@@ -16,12 +16,17 @@ rem left exactly as the other worktree wrote it.
 rem
 rem What that does and does not cover:
 rem
-rem   Lua half     THIS worktree's rules.lua wins. That is the whole magicka
-rem                rename - every one of its 59 records is on the load-context
-rem                route, so this is the half that matters here.
-rem   Plugin half  still the other worktree's scifi-rewrite-momw.esp, named by
-rem                the config. Untouched by the magicka work, which writes no
-rem                plugin records at all.
+rem   Lua half     THIS worktree's rules.lua wins - the 59 renamed records.
+rem   Plugin half  THIS worktree's scifi-rewrite-momw.esp wins too. The config
+rem                names that file; both worktrees build one under that name,
+rem                and the later data directory supplies it.
+rem
+rem That second line was wrong for one build. It said the plugin could stay the
+rem other worktree's because the magicka rename writes no plugin records - true
+rem when written, and false the moment an authored book was added, since
+rem authored records go through the plugin. The Firmament's new paragraph was
+rem simply absent in game, and the comment was the reason it took a screenshot
+rem to notice.
 
 set "OPENMW_EXE=D:\Program Files\OpenMW 0.51.0\openmw.exe"
 set "PLAY_CFG=D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play"
@@ -55,7 +60,7 @@ echo     5. A BOOK or a spoken line that mentions magicka - it must NOT change.
 echo.
 
 start /wait "" "%OPENMW_EXE%" --replace config --config "%PLAY_CFG%" ^
-    --data "%HERE%mod"
+    --data "%HERE%mod" --data "%HERE%tools\build"
 
 echo.
 echo [run-play-2] Game exited. Collecting the log...

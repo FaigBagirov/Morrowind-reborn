@@ -244,7 +244,7 @@ return {
         { [[APPA]], [[name]], 31 },
         { [[ARMO]], [[name]], 31 },
         { [[BOOK]], [[name]], 31 },
-        { [[BOOK]], [[text]], 41971 },
+        { [[BOOK]], [[text]], 41993 },
         { [[BSGN]], [[description]], 62 },
         { [[BSGN]], [[name]], 14 },
         { [[CLAS]], [[description]], 240 },
