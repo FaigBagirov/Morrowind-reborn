@@ -57,16 +57,14 @@ Start-Sleep -Milliseconds 1800
 # and a keypress then lands somewhere else entirely.
 $owner = [Shot]::Owner([Shot]::GetForegroundWindow())
 if ($owner -ne $Target) {
-  # OpenMW runs two processes per game and either may own the window, so the
-  # other half of *this* game is acceptable. Anything else is not. When only
-  # one game is up - which play.ps1 ensures by closing the others first - two
-  # openmw processes is that one game; more than two means several are running
-  # and nothing is pressed.
-  $him = Get-Process -Id $owner -ErrorAction SilentlyContinue
-  $all = @(Get-Process openmw -ErrorAction SilentlyContinue)
-  $sibling = $him -and $him.ProcessName -eq "openmw" -and $all.Count -le 2
-  if (-not $sibling) {
-    Write-Output "the foreground window belongs to process $owner, not $Target - not pressing anything"
+  # OpenMW runs two processes per game and either may own the window. Only the
+  # ones `play.ps1` wrote down are ours - **counting processes proves nothing**,
+  # because the single game that is running may belong to Faig's other session.
+  $ours = @()
+  $note = Join-Path $env:TEMP "zenar-game.txt"
+  if (Test-Path $note) { $ours = (Get-Content $note) -split "," }
+  if ($ours -notcontains [string]$owner) {
+    Write-Output "the foreground window belongs to process $owner, which this session did not start - not pressing anything"
     exit 1
   }
 }

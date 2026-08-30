@@ -49,6 +49,15 @@ Start-Sleep -Seconds $SettleSeconds
 # to the sibling; the foreground check in shot.ps1 caught exactly that. The
 # window owner is the one every other script needs.
 $mine = @(Get-Process openmw -ErrorAction SilentlyContinue |
-          Where-Object { $_.MainWindowHandle -ne 0 -and
-                         [Math]::Abs(($_.StartTime - $p.StartTime).TotalSeconds) -lt 15 })
-if ($mine) { Write-Output $mine[0].Id } else { Write-Output $p.Id }
+          Where-Object { [Math]::Abs(($_.StartTime - $p.StartTime).TotalSeconds) -lt 20 })
+
+# **Write down which processes are ours.** Faig's warning: even when only one
+# game is running it may be the other session's, not this one's. Counting
+# processes is not proof of ownership. These ids are, and `shot.ps1` and
+# `console.ps1` will touch nothing else.
+$ours = @($p.Id) + @($mine | ForEach-Object { $_.Id })
+$ours = $ours | Sort-Object -Unique
+Set-Content -Path (Join-Path $env:TEMP "zenar-game.txt") -Value ($ours -join ",")
+
+$withWindow = @($mine | Where-Object { $_.MainWindowHandle -ne 0 })
+if ($withWindow) { Write-Output $withWindow[0].Id } else { Write-Output $p.Id }

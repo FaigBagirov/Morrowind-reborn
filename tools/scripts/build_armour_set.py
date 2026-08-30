@@ -203,6 +203,12 @@ IN_WORLD = {"chest", "head"}
 # sides, which is exactly what Faig reported. Proportions are kept instead.
 UNIFORM = {"head"}
 
+# The chest gets no clearance. Clearance exists so armour sits over a body, and
+# the chest replaces the body rather than covering it - with 8 per cent it
+# reached down to 67.3 where the vanilla torso stops at 71.4, and rode on the
+# thighs.
+CLEARANCE = {"chest": 1.0}
+
 NODE = {"head": "Head", "chest": "Chest",
         "groin": "Groin", "clavicle": "%s Clavicle",
         "upperarm": "%s Upper Arm", "forearm": "%s Forearm",
@@ -295,7 +301,7 @@ def main():
                 "--core", core, "--donor", spec["donor"],
                 "--reference", spec["reference"], "--out", target,
                 "--texture", SHEET.get(spec["slot"], args.texture),
-                "--clearance", str(args.clearance),
+                "--clearance", str(CLEARANCE.get(spec["slot"], args.clearance)),
                 "--double"]
         if spec["slot"] in IN_WORLD:
             call += ["--bone", spec["node"], "--axes=" + spec["axes"]]
