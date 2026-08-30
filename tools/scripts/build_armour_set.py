@@ -197,7 +197,12 @@ SHEET = {"head": "zenar_helm.dds"}
 # measurement - the rotation carrying each bone's own anatomical directions
 # into Morrowind's - and the two agree: the forearm needs no turn, the knee
 # needs X and Z exchanged.
-IN_WORLD = {"chest", "head"}
+IN_WORLD = {"chest", "head", "groin"}
+
+# The groin carries the model's tabard - hip cloth, front straps, a tail of
+# fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
+# hung, the cloth falls below the box the way the author drew it.
+HANG = {"groin"}
 
 # A helmet fitted per axis into an elf head's box comes out flattened at the
 # sides, which is exactly what Faig reported. Proportions are kept instead.
@@ -207,7 +212,10 @@ UNIFORM = {"head"}
 # the chest replaces the body rather than covering it - with 8 per cent it
 # reached down to 67.3 where the vanilla torso stops at 71.4, and rode on the
 # thighs.
-CLEARANCE = {"chest": 1.0}
+CLEARANCE = {"chest": 1.0, "groin": 1.0,
+             # the Daedric pauldron donor box is grander than the author's
+             # shoulder line; ninety per cent of it hugs instead of floating
+             "clavicle": 0.9}
 
 NODE = {"head": "Head", "chest": "Chest",
         "groin": "Groin", "clavicle": "%s Clavicle",
@@ -307,6 +315,8 @@ def main():
             call += ["--bone", spec["node"], "--axes=" + spec["axes"]]
         if spec["slot"] in UNIFORM:
             call += ["--uniform"]
+        if spec["slot"] in HANG:
+            call += ["--hang"]
         if spec["shape"]:
             call += ["--shape", spec["shape"]]
         if not args.write:

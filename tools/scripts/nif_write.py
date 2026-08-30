@@ -352,6 +352,12 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--hang", action="store_true",
+                    help="fit width and depth to the reference, keep the "
+                         "vertical in proportion, and align tops - for a piece "
+                         "that carries cloth meant to hang below its box. The "
+                         "groin squeezed the model's knee-length tabard into a "
+                         "21-unit crotch box without this.")
     ap.add_argument("--uniform", action="store_true",
                     help="one scale for all three axes. A helmet must keep its "
                          "proportions: fitted per axis into a vanilla elf "
@@ -416,9 +422,15 @@ def main():
             # what it should be; the vertical is the measurement that means the
             # same thing on both.
             scale = np.full(3, float(scale[2]))
+        if args.hang:
+            scale[2] = float((scale[0] + scale[1]) / 2.0)
         shift = ((ref.max(0) + ref.min(0)) / 2.0
                  - (core.max(0) + core.min(0)) / 2.0 * scale)
         ours = ours * scale + shift
+        if args.hang:
+            # Tops together, and let the rest fall where the model says.
+            ours[:, 2] += ref[:, 2].max() - (core[:, 2].max() * scale[2]
+                                             + shift[2])
         # **Two transforms sit between world space and what gets written**, and
         # only one of them is the bone. The donor's own NiTriShape carries a
         # transform too - the vanilla upper leg's swaps X and Z and shifts ten
