@@ -118,19 +118,28 @@ def normals(verts, tris):
                     np.array([0.0, 0.0, 1.0]))
 
 
-def fit(verts, donor_verts, swap=True):
+def fit(verts, donor_verts, swap=True, extra=1.0):
     """Put an incoming mesh where the donor's is, at the donor's size.
 
-    glTF and most exporters are Y-up with +Z toward the viewer; Morrowind is
-    Z-up. The scale is uniform and taken from the tightest of the three axes, so
-    proportions survive and nothing pokes out of the space the original piece
-    occupied.
+    **Morrowind bodyparts are Y-up too, and +Z is forward.** That was measured
+    rather than assumed, on the ebony helm: the texture sheet's vertical axis
+    runs along -Y with a correlation of 0.998, and the point Faig identified as
+    the front of the helm during the colour-band calibration sits at +Z. glTF
+    uses the same pair, so **no swap is wanted** - `swap` exists because the
+    first attempt applied one, and a swap here is a 90-degree roll about the
+    ear-to-ear axis. On screen that is a helmet nodding at the floor, which is
+    exactly what it did.
+
+    The base scale fits the incoming bounding box inside the donor's, uniformly
+    and off the tightest axis so proportions survive. `extra` multiplies that,
+    because a box fit is conservative when a mesh has spikes: the first build
+    came out about a third too small.
     """
     if swap:
         verts = np.column_stack([verts[:, 0], -verts[:, 2], verts[:, 1]])
     lo, hi = verts.min(axis=0), verts.max(axis=0)
     lo0, hi0 = donor_verts.min(axis=0), donor_verts.max(axis=0)
-    scale = float(np.min((hi0 - lo0) / np.maximum(hi - lo, 1e-9)))
+    scale = float(np.min((hi0 - lo0) / np.maximum(hi - lo, 1e-9))) * extra
     return (verts - (lo + hi) / 2.0) * scale + (lo0 + hi0) / 2.0, scale
 
 
@@ -161,8 +170,12 @@ def main():
     ap.add_argument("--donor", required=True,
                     help="a game mesh to borrow everything else from")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--no-swap", action="store_true",
-                    help="the source is already Z-up")
+    ap.add_argument("--swap", action="store_true",
+                    help="rotate the source into a different up axis - not "
+                         "wanted for glTF, which shares Morrowind's")
+    ap.add_argument("--scale", type=float, default=1.0,
+                    help="multiply the fitted scale; a box fit is conservative "
+                         "when the mesh has spikes")
     ap.add_argument("--no-fit", action="store_true",
                     help="leave the source at its own scale and position")
     ap.add_argument("--texture", metavar="NAME",
@@ -177,9 +190,10 @@ def main():
     print(f"donor    {len(donor_verts)} vertices")
 
     if not args.no_fit:
-        verts, scale = fit(verts, donor_verts, swap=not args.no_swap)
+        verts, scale = fit(verts, donor_verts, swap=args.swap,
+                           extra=args.scale)
         print(f"fitted   scale {scale:.3f}"
-              f"{'' if args.no_swap else ', axes swapped to Z-up'}")
+              f"{', axes swapped' if args.swap else ', axes as they came'}")
     print("bounds   X %.2f..%.2f  Y %.2f..%.2f  Z %.2f..%.2f"
           % (verts[:, 0].min(), verts[:, 0].max(), verts[:, 1].min(),
              verts[:, 1].max(), verts[:, 2].min(), verts[:, 2].max()))
