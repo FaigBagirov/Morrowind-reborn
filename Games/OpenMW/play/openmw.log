@@ -1,0 +1,11 @@
+[20:35:31.879 *] Loading config file: D:\Program Files\OpenMW 0.51.0\openmw.cfg
+[20:35:31.890 *] Logs dir: D:\Work\Morrowind reborn\Games\OpenMW\play
+[20:35:31.892 *] User data dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/
+[20:35:31.894 *] Screenshots dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/screenshots
+[20:35:31.896 I] OpenMW version 0.51.0
+[20:35:31.896 I] Revision: f4bec41444
+[20:35:31.902 I] Loading settings file: D:\Program Files\OpenMW 0.51.0\defaults.bin
+[20:35:31.908 I] Using default (English) font encoding.
+[20:35:31.910 W] No such dir: D:\Backups\OneDrive\All\Documents\My Games\OpenMW/data
+[20:35:31.912 E] No content file given (esm/esp, nor omwgame/omwaddon). Aborting...
+[20:35:31.916 I] Quitting peacefully.
