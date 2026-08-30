@@ -38,12 +38,14 @@ PARTS = {
     "knee": ("zenar_knee", "Knee"),
     "ankle": ("zenar_ankle", "Ankle"),
     "foot": ("zenar_foot", "Foot"),
+    "hand": ("zenar_hand", "Hand"),
 }
 
-# Hand is absent, and deliberately: no hand bodypart in the masters has a single
-# shape, so nothing can be built for it yet. Leaving the gauntlets pointing at
-# their own bodypart is the right failure - the hands stay Daedric rather than
-# vanishing.
+# Hand was absent for a long time on a false premise: that a donor had to be a
+# hand bodypart, and none of the twelve in the masters has a single shape for
+# this writer to replace. The donor only supplies the node, the material and the
+# texture reference - the bone decides placement - so any single-shape file with
+# an identity transform serves, and the vanilla ankle does.
 
 # An armour record names its slots as LeftPauldron, RightUpperArm and so on.
 # Strip the side and this is what remains.
@@ -52,7 +54,7 @@ SLOT_OF = {
     "pauldron": "clavicle", "clavicle": "clavicle",
     "upperarm": "upperarm", "forearm": "forearm",
     "upperleg": "upperleg", "knee": "knee",
-    "ankle": "ankle", "foot": "foot",
+    "ankle": "ankle", "foot": "foot", "hand": "hand", "wrist": "hand",
 }
 
 # The armour this replaces. Daedric becomes Zenaric throughout the conversion,

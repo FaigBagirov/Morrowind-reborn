@@ -352,6 +352,15 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--bone", metavar="NODE",
+                    help="fit in world space against the reference hung on "
+                         "this skeleton node, then write back into the "
+                         "bodypart's own frame. The honest way round: up means "
+                         "up for both sides, and no axis has to be guessed.")
+    ap.add_argument("--shape", metavar="TEXT",
+                    help="use only the reference's shapes whose name contains "
+                         "this - `b_n_..._skins.nif` is the Chest bodypart and "
+                         "both Hand bodyparts in one file")
     ap.add_argument("--trim", metavar="AXIS",
                     help="keep only one side of the reference, cut at its own "
                          "narrowest cross-section, e.g. z- - for a donor that "
@@ -370,7 +379,28 @@ def main():
     print(f"incoming {len(verts)} vertices, {len(tris)} triangles")
     print(f"donor    {len(donor_verts)} vertices")
 
-    if args.reference:
+    if args.bone:
+        from skeleton import SKELETON, all_shapes, place, unplace
+        from skeleton import world as skeleton_frames
+        with open(_resolve(SKELETON), "rb") as f:
+            frame = skeleton_frames(f.read())[args.bone]
+        with open(_resolve(args.reference), "rb") as f:
+            parts = all_shapes(f.read(), only=args.shape)
+        if not parts:
+            raise SystemExit(f"no shape named {args.shape} in {args.reference}")
+        ref = np.vstack([place(v, frame) for v, _t, _n in parts])
+        turn = axes(args.axes) if args.axes else np.eye(3)
+        ours = verts @ turn.T
+        target = ref.max(0) - ref.min(0)
+        scale = (target / np.maximum(ours.max(0) - ours.min(0), 1e-9)
+                 * args.clearance)
+        ours = ours * scale
+        ours += (ref.max(0) + ref.min(0)) / 2.0 - (ours.max(0) + ours.min(0)) / 2.0
+        verts = unplace(ours, frame)
+        print(f"aligned  on {args.bone}, {len(parts)} reference shape(s), "
+              f"scale {np.mean(scale):.2f}, world height "
+              f"{ref[:, 2].min():.1f} to {ref[:, 2].max():.1f}")
+    elif args.reference:
         ref, _ruv, _rt = read_mesh(args.reference)
         if args.trim:
             whole = len(ref)

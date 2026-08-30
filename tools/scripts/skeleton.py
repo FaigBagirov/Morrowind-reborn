@@ -178,6 +178,42 @@ def shape(blob):
     return np.eye(3), np.zeros(3), 1.0
 
 
+def all_shapes(blob, only=None):
+    """Every NiTriShape in a file, each already through its own transform.
+
+    Multi-shape files are the normal case for the parts this cannot otherwise
+    reach. `b_n_..._skins.nif` is the Dark Elf's Chest bodypart *and* his Hand
+    bodypart at once - seven shapes, three per hand and one torso - which is why
+    reading only the first one made the chest measure seven units across.
+    """
+    out = []
+    shapes = [at for kind, at in blocks(blob) if kind == "NiTriShape"]
+    datas = [at for kind, at in blocks(blob) if kind == "NiTriShapeData"]
+    for at, data in zip(shapes, datas):
+        length, = struct.unpack_from("<i", blob, at)
+        name = blob[at + 4:at + 4 + length].decode("latin-1")
+        if only and only.lower() not in name.lower():
+            continue
+        p = at + 4 + length + 8 + 2
+        move = np.frombuffer(blob, np.float32, 3, p).astype(np.float64)
+        turn = np.array(np.frombuffer(blob, np.float32, 9, p + 12)
+                        .reshape(3, 3), np.float64)
+        size, = struct.unpack_from("<f", blob, p + 48)
+        verts, _uv, tris = parse_trishape(blob[data - len("NiTriShapeData"):])
+        out.append(((verts * size) @ turn.T + move, tris, name))
+    return out
+
+
+def unplace(verts, frame):
+    """Back out of world space into the bodypart's own frame.
+
+    The inverse of `place`, and the step that lets a piece be fitted where
+    everyone can see what up means and then written where the engine wants it.
+    """
+    r, p, s = frame
+    return ((verts - p) @ r) / s
+
+
 def place(verts, frame):
     """A part's vertices where the skeleton puts them."""
     r, p, s = frame

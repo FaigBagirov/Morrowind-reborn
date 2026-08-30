@@ -133,9 +133,24 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 # units across, and a naked body has no clavicle at all. Those two fall back to
 # an armour donor, and to the median scale of the slots that were measured.
 BODY = "meshes/b/b_n_dark elf_m_%s.nif"
+
+# From the model's axes into the game's, measured both ways rather than assumed.
+# Morrowind's toes reach 9.7 units past the ankle node along +Y and 7.2 the
+# other way, so the game faces +Y; the model's foot runs +Z from its ankle, and
+# glTF is Y-up, so the model faces +Z with up along +Y. And the sides are
+# opposite: the game's left hand sits at x -16.7 to -12.1 while the model's is
+# at +4.26, so the model's left is the game's -X.
+#
+# The chest was on backwards and mirrored until this was measured - it had
+# x,z,-y, which points the breastplate at the character's own spine.
+MODEL_TO_GAME = "-x,z,y"
 SLOTS = {
     # slot: (donor, reference or None to reuse the donor, forced axes, trim)
-    "chest": ("meshes/a/a_adamantium_cuirass_c.nif", None, "x,z,-y", "z+"),
+    # Fitted in world space against the naked torso, hung on the Chest node -
+    # see BONE below. The donor is only a container now; its skirt no longer
+    # decides anything.
+    "chest": ("meshes/a/a_adamantium_cuirass_c.nif",
+              "meshes/b/b_n_dark elf_m_skins.nif", MODEL_TO_GAME, None),
     "groin": (BODY % "groin", None, None, None),
     "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, None, None),
     "upperarm": (BODY % "upper arm", None, None, None),
@@ -146,8 +161,26 @@ SLOTS = {
     # the naked foot carries two shapes and this writer replaces one, so the
     # boot supplies the container while the foot still supplies the fitting
     "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", None, None),
+    # The hand had no donor for a long time and the reason was a
+    # misunderstanding: **the donor does not have to be a hand.** It supplies
+    # the node, the material and the texture reference; where the piece goes is
+    # decided by the bone. So any single-shape file whose own shape transform is
+    # identity will do, and the vanilla ankle is one. The reference is the real
+    # hand, three shapes of it, out of the file that also holds the torso.
+    "hand": (BODY % "ankle", BODY % "skins", MODEL_TO_GAME, None),
 }
 MEASURED = {s for s, (d, *_) in SLOTS.items() if d.startswith("meshes/b/")}
+
+# Slots fitted in world space instead: the skeleton node they hang on, and
+# which shapes of the reference file to use. **This is the better way round**
+# and the limbs would be no worse for it - up means up on both sides, so no
+# axis has to be ranked or forced. It is used where the old way could not
+# reach: the only chest donor in the game wears a skirt, and the naked torso
+# turned out to be hiding in the hands file.
+IN_WORLD = {
+    "chest": ("Chest", "Tri Chest"),
+    "hand": ("Left Hand", "Left Hand"),
+}
 
 # **The chest is not like the others, and the reason is structural.** Every
 # cuirass in the three masters is a *skinned* mesh: it carries the whole Bip01
@@ -171,7 +204,7 @@ MEASURED = {s for s, (d, *_) in SLOTS.items() if d.startswith("meshes/b/")}
 SOURCE = {"chest": "chest_world", "groin": "groin", "clavicle": "clavicle_l",
           "upperarm": "upperarm_l", "forearm": "forearm_l",
           "upperleg": "upperleg_l", "knee": "knee_l", "ankle": "ankle_l",
-          "foot": "foot_l"}
+          "foot": "foot_l", "hand": "hand_l_world"}
 
 NIFTEST = r"D:/Program Files/OpenMW 0.51.0/niftest.exe"
 
@@ -223,6 +256,9 @@ def main():
             call += ["--axes=" + turn]
         if cut:
             call += ["--trim", cut]
+        if slot in IN_WORLD:
+            bone, which = IN_WORLD[slot]
+            call += ["--bone", bone, "--shape", which]
         if fallback:
             call += ["--fixed-scale", str(fallback)]
         if not args.write:
@@ -267,7 +303,8 @@ def main():
               "Forearm bodypart spans 8.1 units where its Ankle spans 24.3."
               % (min(scales.values()), max(scales.values()), median))
     print("\n%d of %d pieces built and accepted." % (built, len(SLOTS)))
-    print("Hand is not in the list: no hand bodypart has a single shape.")
+    print("The hand rides a donor of its own: any single-shape file with an "
+          "identity transform, the bone decides the rest.")
     if not args.write:
         print("Dry run. Pass --write to build.")
     return 0
