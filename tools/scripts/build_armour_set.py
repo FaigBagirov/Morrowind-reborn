@@ -45,11 +45,11 @@ history is.
 * **Height.** A box fit can centre a piece and still hang it too low, because
   the bodypart's origin is its attachment point. `--lift` moves it along the
   bone.
-* **Donors are not interchangeable and not all parseable.** Every slot has a
-  single-shape donor except Hand. Several of those still use a field
-  arrangement the reader refuses - it validates against the file's own bounding
-  sphere and will not guess - so the donor list below is what actually works,
-  found by trying.
+* **Donors are not interchangeable.** Each must be a bodypart of the same slot
+  and must have exactly one shape, since this writer replaces one. Every slot
+  has such a donor except Hand: twelve hand meshes parse and not one of them is
+  single-shape. The list below is what works, found by trying rather than
+  assumed.
 * **Licence.** A downloaded model usually carries one. See `CREDITS.md`.
 """
 
@@ -63,10 +63,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 
-# slot -> donor bodypart of that slot, chosen because it parses. Chest and Hand
-# are absent on purpose: no candidate for either passes the reader, which is an
-# open problem rather than an oversight.
+# slot -> donor bodypart of that slot, chosen because it parses. Hand is absent
+# on purpose: twelve hand meshes parse but not one of them has a single shape,
+# and this writer replaces one. That is an open problem, not an oversight.
 DONORS = {
+    "chest": "meshes/a/a_adamantium_cuirass_c.nif",
     "groin": "meshes/a/a_daedric_greaves_g.nif",
     "clavicle": "meshes/a/a_daedric_pauldron_cl.nif",
     "upperarm": "meshes/a/a_ebony_pauldron_ua.nif",
@@ -77,7 +78,7 @@ DONORS = {
     "foot": "meshes/a/a_daedric_boots_f.nif",
 }
 # which cut piece feeds each slot; a left-side cut serves both sides
-SOURCE = {"groin": "groin", "clavicle": "clavicle_l", "upperarm": "upperarm_l",
+SOURCE = {"chest": "chest", "groin": "groin", "clavicle": "clavicle_l", "upperarm": "upperarm_l",
           "forearm": "forearm_l", "upperleg": "upperleg_l", "knee": "knee_l",
           "ankle": "ankle_l", "foot": "foot_l"}
 
@@ -140,8 +141,7 @@ def main():
         built += ok
 
     print(f"\n{built} of {len(DONORS)} pieces built and accepted.")
-    print("Chest and Hand are not in the list: no donor for either passes the "
-          "reader yet.")
+    print("Hand is not in the list: no hand bodypart has a single shape.")
     if not args.write:
         print("Dry run. Pass --write to build.")
     return 0

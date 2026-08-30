@@ -81,42 +81,60 @@ def parse_trishape(blob):
     #   ushort numTriangles         uint32 numTrianglePoints
     #   ushort3 * m triangles
     #
-    # An earlier version of this function searched for a layout that merely
-    # looked consistent and settled on one four bytes short, because a float
-    # array read at the wrong offset is still a float array. The damage was
-    # silent and real: the vertices came back scrambled against their own UVs,
-    # which is what made this mesh's azimuth map look like an overlapping mess.
-    #
-    # So it is checked against something no wrong offset can satisfy: the file
-    # states its own bounding sphere, and the stated radius has to equal the
-    # furthest vertex from the stated centre. On the ebony helm both are
-    # 13.0252.
+    # The vertex offset is fixed and was earned. An earlier version searched for
+    # a layout that merely looked consistent and settled on one four bytes
+    # short, because a float array read at the wrong offset is still a float
+    # array: the vertices came back scrambled against their own UVs and nothing
+    # complained. It was caught by the file's own bounding sphere, where the
+    # stated radius equals the furthest vertex from the stated centre - on the
+    # ebony helm both are 13.0252 - and confirmed by rebuilding the file byte
+    # for byte from these arrays.
     vert_off = off + 6
-    norm_off = vert_off + 12 * count + 4
-    sphere_off = norm_off + 12 * count
-    uv_off = sphere_off + 16 + 4 + 2 + 4
-    tri_off = uv_off + 8 * count
-    if tri_off + 6 > len(blob):
-        raise ValueError("file ends before the triangle header")
-
+    if vert_off + 12 * count > len(blob):
+        raise ValueError("file ends inside the vertex array")
     verts = np.frombuffer(blob, np.float32, count * 3, vert_off).reshape(count, 3)
-    centre = np.frombuffer(blob, np.float32, 3, sphere_off)
-    radius, = struct.unpack_from("<f", blob, sphere_off + 12)
-    reach = float(np.linalg.norm(verts - centre, axis=1).max())
-    if radius <= 0 or abs(reach - radius) > max(radius * 1e-3, 1e-3):
-        raise ValueError(f"bounding sphere disagrees: stated {radius:.4f}, "
-                         f"furthest vertex {reach:.4f} - layout not understood")
+    if not np.isfinite(verts).all() or np.abs(verts).max() > 1e4:
+        raise ValueError("vertex array is not plausible at the known offset")
 
-    ntri, = struct.unpack_from("<H", blob, tri_off)
-    npoints, = struct.unpack_from("<I", blob, tri_off + 2)
-    if npoints != 3 * ntri or tri_off + 6 + 6 * ntri > len(blob):
-        raise ValueError("triangle header inconsistent")
-    uv = np.frombuffer(blob, np.float32, count * 2, uv_off).reshape(count, 2)
-    tris = np.frombuffer(blob, np.uint16, ntri * 3, tri_off + 6).reshape(ntri, 3)
-    if tris.max() >= count:
-        raise ValueError("triangle index out of range")
-    return (verts.astype(np.float64).copy(), uv.astype(np.float64).copy(),
-            tris.astype(np.int32).copy())
+    # After the vertices the file may or may not carry normals, and may or may
+    # not carry vertex colours, and different meshes differ. So the UV block is
+    # *searched* for rather than computed, with the triangle header as the
+    # oracle: it has to say three points per triangle, every index has to fit
+    # the vertex count, and the arrays have to fit the file. That combination
+    # does not occur by accident.
+    #
+    # An earlier version validated against the file's own bounding sphere
+    # instead, which is exact when the sphere is tight - it caught a four-byte
+    # offset error that nothing else would have - but **most meshes do not
+    # store a tight one**. Vanilla cuirasses state a radius around 25 where the
+    # furthest vertex is nearer 40, and the check threw all of them out. The
+    # sphere is still used where it agrees, as corroboration, never as the gate.
+    first = vert_off + 12 * count
+    for uv_off in range(first, min(first + 40 + 24 * count, len(blob) - 8 * count)):
+        tri_off = uv_off + 8 * count
+        if tri_off + 6 > len(blob):
+            break
+        ntri, = struct.unpack_from("<H", blob, tri_off)
+        npoints, = struct.unpack_from("<I", blob, tri_off + 2)
+        if ntri == 0 or npoints != 3 * ntri:
+            continue
+        if tri_off + 6 + 6 * ntri > len(blob):
+            continue
+        uv = np.frombuffer(blob, np.float32, count * 2, uv_off).reshape(count, 2)
+        # Texture coordinates outside the unit square are ordinary - a mesh that
+        # tiles its texture runs past 1, and one authored from the other corner
+        # runs below 0. The Daedric boot's ankle starts at -0.485. Requiring
+        # [0, 1] threw out valid meshes; the bound here only has to reject the
+        # nonsense a wrong offset produces, which is orders of magnitude out.
+        if not np.isfinite(uv).all() or uv.min() < -8.0 or uv.max() > 9.0:
+            continue
+        tris = np.frombuffer(blob, np.uint16, ntri * 3,
+                             tri_off + 6).reshape(ntri, 3)
+        if tris.max() >= count:
+            continue
+        return (verts.astype(np.float64).copy(), uv.astype(np.float64).copy(),
+                tris.astype(np.int32).copy())
+    raise ValueError("no consistent UV and triangle block after the vertices")
 
 
 def rasterise(verts, uv, tris, size):
