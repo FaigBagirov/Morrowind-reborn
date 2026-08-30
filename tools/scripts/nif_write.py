@@ -165,7 +165,13 @@ def trim(ref, spec):
     for a, b in zip(slices, slices[1:]):
         got = ref[(ref[:, axis] >= a) & (ref[:, axis] < b)]
         other = [k for k in range(3) if k != axis]
-        width.append(np.prod(got[:, other].max(0) - got[:, other].min(0))
+        # The widest of the two remaining axes, not their product. Area is
+        # fooled by a thin ring at the hem: on the adamantium cuirass the
+        # narrowest slice by area is the second one, 33.3 by 7.5, and cutting
+        # there keeps the skirt and the whole thing with it. By width the
+        # profile reads 32, 33, 31, 31, 27, 20.8, 22, 24, 25, 28, 28 - one
+        # clear minimum, in the middle, which is the waist.
+        width.append(np.max(got[:, other].max(0) - got[:, other].min(0))
                      if len(got) > 2 else np.inf)
     # Ignore the two end slices: a cuirass tapers at the shoulders and the hem,
     # and the waist is what is wanted, not an end.
