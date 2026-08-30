@@ -4,11 +4,11 @@ GMST,sEffectDamageMagicka,value.data,lua,R900,-1,Damage Magicka,Damage Charge
 GMST,sEffectDrainSpellpoints,value.data,lua,R900,-1,Drain Magicka,Drain Charge
 GMST,sEffectFortifyMagickaMultiplier,value.data,lua,R900,-1,Fortify Maximum Magicka,Fortify Maximum Charge
 GMST,sEffectFortifySpellpoints,value.data,lua,R900,-1,Fortify Magicka,Fortify Charge
-GMST,sEffectResistMagicka,value.data,lua,R710,-1,Resist Magicka,Resist Signal
+GMST,sEffectResistMagicka,value.data,lua,R710,2,Resist Magicka,Resist Discharge
 GMST,sEffectRestoreSpellPoints,value.data,lua,R900,-1,Restore Magicka,Restore Charge
 GMST,sEffectStuntedMagicka,value.data,lua,R900,-1,Stunted Magicka,Stunted Charge
 GMST,sEffectSummonDaedroth,value.data,lua,R400,0,Summon Daedroth,Summon Zenaroth
-GMST,sEffectWeaknessToMagicka,value.data,lua,R720,-1,Weakness to Magicka,Weakness to Signal
+GMST,sEffectWeaknessToMagicka,value.data,lua,R720,2,Weakness to Magicka,Weakness to Discharge
 GMST,sIntDesc,value.data,lua,R900,-1,Determines your maximum amount of Magicka.,Determines your maximum amount of Charge.
 GMST,sMagDesc,value.data,lua,R900,-1,Used to cast spells. Magicka is naturally restored by resting.,Used to cast spells. Charge is naturally restored by resting.
 GMST,sMagic,value.data,lua,R900,-1,Magicka,Charge
@@ -27,7 +27,7 @@ MGEF,DemoralizeHumanoid,description,lua,R500,-1,"This effect temporarily increas
 MGEF,DemoralizeCreature,description,lua,R500,-1,"This effect temporarily increases a creature's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the increase of the flee rating. When the effect ends, the creature's flee rating returns to normal. Humanoids, undead, Daedra, and artifacts are not affected.","This effect temporarily increases a creature's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the increase of the flee rating. When the effect ends, the creature's flee rating returns to normal. Humanoids, undead, Zenar, and artifacts are not affected."
 MGEF,RallyHumanoid,description,lua,R500,-1,"This effect temporarily decreases a humanoid's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the decrease in the flee rating. When the effect ends, the humanoid's flee rating returns to normal. Creatures, undead, Daedra, and artifacts are not affected.","This effect temporarily decreases a humanoid's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the decrease in the flee rating. When the effect ends, the humanoid's flee rating returns to normal. Creatures, undead, Zenar, and artifacts are not affected."
 MGEF,RallyCreature,description,lua,R500,-1,"This effect temporarily decreases a creature's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the decrease in the flee rating. When the effect ends, the creature's flee rating returns to normal. Humanoids, undead, Daedra, and artifacts are not affected.","This effect temporarily decreases a creature's flee rating (i.e., its inclination to flee from an attacker). The effect's magnitude is the value of the decrease in the flee rating. When the effect ends, the creature's flee rating returns to normal. Humanoids, undead, Zenar, and artifacts are not affected."
-MGEF,Dispel,description,lua,R730,-1,"This effect removes magicka-based spell effects from the subject. It does not affect abilities, disease, curses, or constant magic item effects. The magnitude is the chance an effect is removed.","This effect removes signal-based spell effects from the subject. It does not affect abilities, disease, curses, or constant magic item effects. The magnitude is the chance an effect is removed."
+MGEF,Dispel,description,lua,R730,2,"This effect removes magicka-based spell effects from the subject. It does not affect abilities, disease, curses, or constant magic item effects. The magnitude is the chance an effect is removed.","This effect removes discharge-based spell effects from the subject. It does not affect abilities, disease, curses, or constant magic item effects. The magnitude is the chance an effect is removed."
 MGEF,SpellAbsorption,description,lua,R800 R900,-10,"This effect allows the caster to absorb an attacking spell's power as an increase to his reservoir of magicka. The magnitude is the percentage chance that an attacking spell is absorbed. If successful, the caster absorbs the attacking spell's cost in spell points as increased magicka. (The caster's magicka cannot be increased above the caster's standard magicka score.) If failed, the attacking spe ...","This effect allows the caster to absorb an attacking spell's power as an increase to his reservoir of charge. The magnitude is the percentage chance that an attacking spell is absorbed. If successful, the caster absorbs the attacking spell's cost in charge as increased charge. (The caster's charge cannot be increased above the caster's standard charge score.) If failed, the attacking spell takes e ..."
 MGEF,RestoreMagicka,description,lua,R900,-3,"If a subject's magicka has been reduced by magical attack, the effect can restore magicka to its original value. The magnitude is the units of magicka restored for each second of duration.","If a subject's charge has been reduced by magical attack, the effect can restore charge to its original value. The magnitude is the units of charge restored for each second of duration."
 MGEF,FortifyMagicka,description,lua,R900,-3,This effect temporarily increases the value of a subject's magicka. Any derived attributes are recalculated. Magicka returns to its original values when the spell ends. The magnitude is the value of the increase in magicka.,This effect temporarily increases the value of a subject's charge. Any derived attributes are recalculated. Charge returns to its original values when the spell ends. The magnitude is the value of the increase in charge.
@@ -35,7 +35,7 @@ MGEF,FortifyMagickaMultiplier,description,lua,R900,-3,"This effect temporarily m
 ","This effect temporarily modifies the multiplier used to derive the amount of charge a character has.  The magnitude is multiplied by a character's Intelligence to derive charge.  The standard multiplier is 0.5 (Intelligence * 0.5).  A magnitude of 2 produces charge equal to the character's Intelligence * 2.
 "
 MGEF,AbsorbMagicka,description,lua,R900,-4,"This effect transfers magicka from the victim to the caster, reducing the victim's spellcasting reservoirs and filling the caster's. The caster may exceed his maximum magicka for the duration. When the effect ends, the caster loses the borrowed magicka, and the victim regains lost magicka.","This effect transfers charge from the victim to the caster, reducing the victim's spellcasting reservoirs and filling the caster's. The caster may exceed his maximum charge for the duration. When the effect ends, the caster loses the borrowed charge, and the victim regains lost charge."
-MGEF,ResistMagicka,description,lua,R730,-1,"This effect increases the target's resistance to damage from magicka-based attacks (i.e., magical attacks not based on elemental forces). The magnitude is percentage reduction in damage caused by non-elemental magical damage effects.","This effect increases the target's resistance to damage from signal-based attacks (i.e., magical attacks not based on elemental forces). The magnitude is percentage reduction in damage caused by non-elemental magical damage effects."
+MGEF,ResistMagicka,description,lua,R730,2,"This effect increases the target's resistance to damage from magicka-based attacks (i.e., magical attacks not based on elemental forces). The magnitude is percentage reduction in damage caused by non-elemental magical damage effects.","This effect increases the target's resistance to damage from discharge-based attacks (i.e., magical attacks not based on elemental forces). The magnitude is percentage reduction in damage caused by non-elemental magical damage effects."
 MGEF,SummonDaedroth,description,lua,R400,0,"This effect summons a daedroth from Oblivion. It appears six feet in front of the caster and attacks any entity that attacks the caster until the effect ends or the summoning is killed. At death, or when the effect ends, the summoning disappears, returning to Oblivion. If summoned in town, the guards will attack you and the summoning on sight.","This effect summons a zenaroth from Oblivion. It appears six feet in front of the caster and attacks any entity that attacks the caster until the effect ends or the summoning is killed. At death, or when the effect ends, the summoning disappears, returning to Oblivion. If summoned in town, the guards will attack you and the summoning on sight."
 MGEF,BoundDagger,description,lua,R300 R500,-1,"The spell effect conjures a lesser Daedra bound in the form of a magical, wondrously light Daedric dagger. The dagger appears automatically equipped on the caster, displacing any currently equipped weapon to inventory.  When the effect ends, the dagger disappears, and any previously equipped weapon is automatically re-equipped.","The spell effect conjures a lesser Zenar bound in the form of a magical, wondrously light Zenaric dagger. The dagger appears automatically equipped on the caster, displacing any currently equipped weapon to inventory.  When the effect ends, the dagger disappears, and any previously equipped weapon is automatically re-equipped."
 MGEF,BoundLongsword,description,lua,R300 R500,-1,"The spell effect conjures a lesser Daedra bound in the form of a magical, wondrously light Daedric longsword. The longsword appears automatically equipped on the caster, displacing any currently equipped weapon to inventory.  When the effect ends, the longsword disappears, and any previously equipped weapon is automatically re-equipped.","The spell effect conjures a lesser Zenar bound in the form of a magical, wondrously light Zenaric longsword. The longsword appears automatically equipped on the caster, displacing any currently equipped weapon to inventory.  When the effect ends, the longsword disappears, and any previously equipped weapon is automatically re-equipped."
@@ -65,22 +65,22 @@ SPEL,daedric speed,name,lua,R300,0,Daedric Speed,Zenaric Speed
 SPEL,daedric strength,name,lua,R300,0,Daedric Strength,Zenaric Strength
 SPEL,daedric willpower,name,lua,R300,0,Daedric Willpower,Zenaric Willpower
 SPEL,dagoth_ur_shield_04,name,lua,R900,-1,Dagoth Ur Magicka,Dagoth Ur Charge
-SPEL,dire weakness to magicka,name,lua,R720,-1,Dire Weakness to Magicka,Dire Weakness to Signal
+SPEL,dire weakness to magicka,name,lua,R720,2,Dire Weakness to Magicka,Dire Weakness to Discharge
 SPEL,dread curse: spell points,name,lua,R800,-6,Dread Curse: Spell Points,Dread Curse: Charge
 SPEL,grave curse: spell points,name,lua,R900,-1,Grave Curse: Magicka,Grave Curse: Charge
-SPEL,great resist magicka,name,lua,R710,-1,Great Resist Magicka,Great Resist Signal
+SPEL,great resist magicka,name,lua,R710,2,Great Resist Magicka,Great Resist Discharge
 SPEL,magicka leech,name,lua,R900,-1,Magicka Leech,Charge Leech
 SPEL,magicka mult bonus_10,name,lua,R900,-1,Magicka Bonus,Charge Bonus
 SPEL,magicka mult bonus_15,name,lua,R900,-1,Magicka Bonus,Charge Bonus
 SPEL,magicka mult bonus_5,name,lua,R900,-1,Magicka Bonus,Charge Bonus
-SPEL,resist magicka,name,lua,R710,-1,Resist Magicka,Resist Signal
-SPEL,resist magicka_25,name,lua,R710,-1,Resist Magicka,Resist Signal
-SPEL,resist magicka_50,name,lua,R710,-1,Resist Magicka,Resist Signal
-SPEL,strong resist magicka,name,lua,R710,-1,Strong Resist Magicka,Strong Resist Signal
+SPEL,resist magicka,name,lua,R710,2,Resist Magicka,Resist Discharge
+SPEL,resist magicka_25,name,lua,R710,2,Resist Magicka,Resist Discharge
+SPEL,resist magicka_50,name,lua,R710,2,Resist Magicka,Resist Discharge
+SPEL,strong resist magicka,name,lua,R710,2,Strong Resist Magicka,Strong Resist Discharge
 SPEL,summon daedroth,name,lua,R400,0,Summon Daedroth,Summon Zenaroth
-SPEL,variable resist magicka,name,lua,R710,-1,Variable Resist Magicka,Variable Resist Signal
-SPEL,weakness magicka_50,name,lua,R720,-1,Weakness to Magicka,Weakness to Signal
-SPEL,weakness to magicka,name,lua,R720,-1,Weakness to Magicka,Weakness to Signal
+SPEL,variable resist magicka,name,lua,R710,2,Variable Resist Magicka,Variable Resist Discharge
+SPEL,weakness magicka_50,name,lua,R720,2,Weakness to Magicka,Weakness to Discharge
+SPEL,weakness to magicka,name,lua,R720,2,Weakness to Magicka,Weakness to Discharge
 MISC,key_Forge of Rolamus,name,lua,R300,0,Ancient daedric Key,Ancient zenaric Key
 MISC,key_ashalmawia_prisoncell,name,lua,R300,0,Ancient daedric Key,Ancient zenaric Key
 MISC,key_ashurninibi,name,lua,R300,0,Ancient daedric Key,Ancient zenaric Key
@@ -1137,11 +1137,11 @@ ALCH,p_fortify_magicka_c,name,lua,R900,-1,Cheap Potion of Fortify Magicka,Cheap 
 ALCH,p_fortify_magicka_e,name,lua,R900,-1,Exclusive Fortify Magicka,Exclusive Fortify Charge
 ALCH,p_fortify_magicka_q,name,lua,R900,-1,Quality Fortify Magicka,Quality Fortify Charge
 ALCH,p_fortify_magicka_s,name,lua,R900,-1,Standard Fortify Magicka Potion,Standard Fortify Charge Potion
-ALCH,p_magicka_resistance_b,name,lua,R700,-1,Bargain Magicka Resistance,Bargain Signal Resistance
-ALCH,p_magicka_resistance_c,name,lua,R700,-1,Cheap Magicka Resistance,Cheap Signal Resistance
-ALCH,p_magicka_resistance_e,name,lua,R700,-1,Exclusive Magicka Resistance,Exclusive Signal Resistance
-ALCH,p_magicka_resistance_q,name,lua,R700,-1,Quality Magicka Resistance,Quality Signal Resistance
-ALCH,p_magicka_resistance_s,name,lua,R700,-1,Standard Magicka Resistance,Standard Signal Resistance
+ALCH,p_magicka_resistance_b,name,lua,R700,2,Bargain Magicka Resistance,Bargain Discharge Resistance
+ALCH,p_magicka_resistance_c,name,lua,R700,2,Cheap Magicka Resistance,Cheap Discharge Resistance
+ALCH,p_magicka_resistance_e,name,lua,R700,2,Exclusive Magicka Resistance,Exclusive Discharge Resistance
+ALCH,p_magicka_resistance_q,name,lua,R700,2,Quality Magicka Resistance,Quality Discharge Resistance
+ALCH,p_magicka_resistance_s,name,lua,R700,2,Standard Magicka Resistance,Standard Discharge Resistance
 ALCH,p_restore_magicka_b,name,lua,R900,-1,Bargain Restore Magicka,Bargain Restore Charge
 ALCH,p_restore_magicka_c,name,lua,R900,-1,Cheap Restore Magicka,Cheap Restore Charge
 ALCH,p_restore_magicka_e,name,lua,R900,-1,Exclusive Restore Magicka,Exclusive Restore Charge

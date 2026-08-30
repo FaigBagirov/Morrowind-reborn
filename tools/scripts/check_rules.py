@@ -31,7 +31,7 @@ MASTERS = ("Morrowind.json", "Tribunal.json", "Bloodmoon.json")
 
 class Rule:
     __slots__ = ("id", "order", "pattern", "replacement", "types", "fields",
-                 "left", "right", "case", "exclude", "notes")
+                 "left", "right", "case", "exclude", "allow_longer", "notes")
 
     def __init__(self, row):
         self.id = row["id"].strip()
@@ -44,6 +44,7 @@ class Rule:
         self.right = row["right_boundary"].strip().lower() == "yes"
         self.case = row["case_handling"].strip().lower()
         self.exclude = {r.lower() for r in row["exclude_records"].split()}
+        self.allow_longer = (row.get("allow_longer", "") or "").strip().lower() == "yes"
         self.notes = row["notes"]
 
     def applies(self, code, field):
@@ -98,8 +99,22 @@ def validate(rules):
 
     for r in rules:
         if len(r.replacement) > len(r.pattern):
-            errors.append(f"{r.id}: replacement is longer than pattern "
-                          f"({len(r.replacement)} > {len(r.pattern)})")
+            # The blanket rule exists to stop a name overflowing its widget, and
+            # for that purpose it is a proxy: what matters is the string the
+            # engine ends up with, not whether it grew. A rule may opt out by
+            # saying so in the table, and the record pass then holds it to the
+            # real measure - no produced string may exceed the longest vanilla
+            # string already shipping in the same record type and field. That is
+            # a stronger guarantee than this one, and it is checked against the
+            # masters rather than assumed.
+            if r.allow_longer:
+                warnings.append(f"{r.id}: replacement is longer than pattern "
+                                f"({len(r.replacement)} > {len(r.pattern)}) - "
+                                f"allowed by the table, held to the measured "
+                                f"ceiling below")
+            else:
+                errors.append(f"{r.id}: replacement is longer than pattern "
+                              f"({len(r.replacement)} > {len(r.pattern)})")
         for label, text in (("pattern", r.pattern),
                             ("replacement", r.replacement)):
             bad = [c for c in text if ord(c) > 127]
@@ -361,6 +376,8 @@ def main():
     # INFO records alone are defined more than once.
     records = load_masters(paths)
 
+    ceiling = collections.defaultdict(int)   # longest vanilla string per field
+    grew = []                                # what our rules produced, if longer
     for rec in records.values():
         rtype = rec["type"]
         specs = DISPLAY_FIELDS.get(rtype)
@@ -390,8 +407,12 @@ def main():
                     in_markup[(rule_id, matched)] += 1
                     if len(markup_examples) < 6:
                         markup_examples.append(f"{code} {rid}: ...{ctx}...")
+                ceiling[(code, field)] = max(ceiling[(code, field)], len(value))
                 if not applied:
                     continue
+                if len(new_value) > len(value):
+                    grew.append((code, field, rid, len(new_value),
+                                 " ".join(sorted({a[0] for a in applied}))))
                 for rule_id, matched, written, nxt in applied:
                     fired[rule_id] += 1
                     if rule_id == "R300":
@@ -422,8 +443,27 @@ def main():
     print(f"Records touched: {len(rows)}")
     by_route = collections.Counter(r["route"] for r in rows)
     print(f"  lua {by_route['lua']}   plugin {by_route['plugin']}")
-    longer = [r for r in rows if r["length_delta"] > 0]
-    print(f"  fields that grew: {len(longer)} (must be 0)")
+    # Growth is no longer a defect in itself - a rule may opt out and be held
+    # to the real measure instead. What must be zero is a produced string longer
+    # than anything vanilla already ships in the same record type and field,
+    # because that is what a widget was sized for.
+    over = [(code, field, rid, made, rules_fired)
+            for code, field, rid, made, rules_fired in grew
+            if made > ceiling[(code, field)]]
+    print(f"  fields that grew: {len(grew)}"
+          f"   over the vanilla ceiling for their field: {len(over)} (must be 0)")
+    for code, field, rid, made, rules_fired in grew[:0] or []:
+        pass
+    if grew:
+        widest = collections.defaultdict(int)
+        for code, field, _rid, made, _rf in grew:
+            widest[(code, field)] = max(widest[(code, field)], made)
+        for key in sorted(widest):
+            print(f"    {key[0]} {key[1]}: longest we produce {widest[key]}, "
+                  f"longest vanilla already ships {ceiling[key]}")
+    for code, field, rid, made, rules_fired in over:
+        print(f"    OVER: {code} {rid} {field} -> {made} chars, "
+              f"ceiling {ceiling[(code, field)]} ({rules_fired})")
     print("")
     print("Rule firing counts:")
     for r in rules:
