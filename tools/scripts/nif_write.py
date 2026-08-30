@@ -76,6 +76,36 @@ def donor_parts(blob):
     return blob[:body], (flag_a, flag_b, flag_c), tail
 
 
+def retexture(blob, name):
+    """Point the donor's texture reference somewhere else.
+
+    Without this a mesh built on the ebony helm wears the ebony helm's texture,
+    because that filename is baked into the donor's NiSourceTexture block. The
+    string is length-prefixed and nothing in this format stores block offsets,
+    so a replacement of any length is safe.
+    """
+    for ext in (b".bmp", b".dds", b".tga", b".png"):
+        at = blob.lower().find(ext)
+        while at > 0:
+            # walk back to a plausible length prefix and check it matches
+            for back in range(4, 80):
+                start = at + 4 - back
+                if start < 4:
+                    break
+                length, = struct.unpack_from("<I", blob, start - 4)
+                if length == back and _printable(blob[start:start + back]):
+                    old = blob[start:start + back].decode("ascii")
+                    new = name.encode("ascii")
+                    return (blob[:start - 4] + struct.pack("<I", len(new))
+                            + new + blob[start + back:]), old
+            at = blob.lower().find(ext, at + 1)
+    raise ValueError("no texture filename found in the donor")
+
+
+def _printable(chunk):
+    return all(32 <= c < 127 for c in chunk)
+
+
 def normals(verts, tris):
     """Area-weighted per-vertex normals, which is what the format stores."""
     out = np.zeros_like(verts)
@@ -135,6 +165,10 @@ def main():
                     help="the source is already Z-up")
     ap.add_argument("--no-fit", action="store_true",
                     help="leave the source at its own scale and position")
+    ap.add_argument("--texture", metavar="NAME",
+                    help="repoint the donor's texture reference, e.g. "
+                         "zenar_helm.dds - without this the new mesh wears "
+                         "the donor's own texture")
     args = ap.parse_args()
 
     verts, uv, tris = read_obj(args.source)
@@ -152,6 +186,9 @@ def main():
 
     with open(_resolve(args.donor), "rb") as f:
         blob = f.read()
+    if args.texture:
+        blob, was = retexture(blob, args.texture)
+        print(f"texture  {was} -> {args.texture}")
     written = build(blob, verts, uv, tris)
     with open(args.out, "wb") as f:
         f.write(written)
