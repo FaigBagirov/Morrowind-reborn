@@ -150,6 +150,8 @@ MODEL_TO_GAME = "-x,z,y"
 # any rigid single-shape file serves, which is how the chest and the hand are
 # done. Checked, not assumed: only the cuirass came back skinned.
 DONOR = {
+    "neck": BODY % "neck",
+    "head": BODY % "neck",
     "chest": BODY % "ankle",
     "groin": BODY % "groin",
     "clavicle": "meshes/a/a_daedric_pauldron_cl.nif",
@@ -164,6 +166,8 @@ DONOR = {
 # What each is fitted against, and which shapes of it. `skins.nif` is the Chest
 # bodypart and both Hand bodyparts at once, seven shapes in one file.
 REFERENCE = {
+    "neck": (BODY % "neck", None),
+    "head": ("meshes/b/b_n_dark elf_m_head_01.nif", None),
     "chest": (BODY % "skins", "Tri Chest"),
     "groin": (BODY % "groin", None),
     "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None),
@@ -176,7 +180,8 @@ REFERENCE = {
     "hand": (BODY % "skins", "%s Hand"),
 }
 # The skeleton node each hangs on, without the side.
-NODE = {"chest": "Chest", "groin": "Groin", "clavicle": "%s Clavicle",
+NODE = {"neck": "Neck", "head": "Head", "chest": "Chest",
+        "groin": "Groin", "clavicle": "%s Clavicle",
         "upperarm": "%s Upper Arm", "forearm": "%s Forearm",
         "upperleg": "%s Upper Leg", "knee": "%s Knee", "ankle": "%s Ankle",
         "foot": "%s Foot", "hand": "%s Hand"}
@@ -266,7 +271,8 @@ def main():
                 "--core", core, "--donor", spec["donor"],
                 "--reference", spec["reference"], "--out", target,
                 "--bone", spec["node"], "--axes=" + spec["axes"],
-                "--texture", args.texture, "--clearance", str(args.clearance)]
+                "--texture", args.texture, "--clearance", str(args.clearance),
+                "--double"]
         if spec["shape"]:
             call += ["--shape", spec["shape"]]
         if not args.write:

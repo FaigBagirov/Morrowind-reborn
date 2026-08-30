@@ -37,7 +37,8 @@ import os
 # own bone and ruinous for one carrying an offset: Faig's left leg vanished
 # outright and his forearms were pushed towards the middle. Filling both slots
 # takes the mirror out of the question.
-UNSIDED = {"chest": "Chest", "groin": "Groin"}
+UNSIDED = {"chest": "Chest", "groin": "Groin", "neck": "Neck",
+           "head": "Head"}
 BY_SIDE = {"clavicle": "Clavicle", "upperarm": "UpperArm", "forearm": "Forearm",
            "upperleg": "UpperLeg", "knee": "Knee", "ankle": "Ankle",
            "foot": "Foot", "hand": "Hand"}
@@ -49,7 +50,7 @@ PARTS.update({f"{k}_{s}": (f"zenar_{k}_{s}", v)
 # An armour record names its slots as LeftPauldron, RightUpperArm and so on.
 # This turns one of those into the key above, side and all.
 SLOT_OF = {
-    "chest": "chest", "groin": "groin",
+    "chest": "chest", "groin": "groin", "neck": "neck", "head": "head",
     "pauldron": "clavicle", "clavicle": "clavicle",
     "upperarm": "upperarm", "forearm": "forearm",
     "upperleg": "upperleg", "knee": "knee",
@@ -65,6 +66,10 @@ TARGETS = {
     "daedric_greaves_htab", "daedric_boots", "daedric_pauldron_left",
     "daedric_pauldron_right", "daedric_gauntlet_left",
     "daedric_gauntlet_right",
+    # All four helms. Faig asked for the fountain one by name, but the whole
+    # Daedric set becomes Zenaric, so a player in any of them gets the set.
+    "daedric_fountain_helm", "daedric_terrifying_helm", "daedric_god_helm",
+    "daedric_helm_clavicusvile",
 }
 
 
@@ -79,7 +84,7 @@ def slot_of(biped_type):
     base = SLOT_OF.get(name)
     if not base:
         return None
-    if base in ("chest", "groin"):
+    if base in ("chest", "groin", "neck", "head"):
         return base
     return f"{base}_{side}" if side else None
 
@@ -109,6 +114,17 @@ def repoint(record, built=None):
     if str(record.get("id", "")).lower() not in TARGETS:
         return 0
     moved = 0
+    # **A cuirass has no Neck slot and the head floats without one.** Vanilla
+    # armour leaves the throat to the naked body, but our chest replaces that
+    # body, so the gap shows. The slot is added rather than found.
+    if str(record.get("id", "")).lower().startswith("daedric_cuirass")             and (built is None or "neck" in built):
+        got = record.setdefault("biped_objects", [])
+        if not any(str(b.get("biped_object_type", "")).lower() == "neck"
+                   for b in got):
+            got.append({"biped_object_type": "Neck",
+                        "male_bodypart": PARTS["neck"][0],
+                        "female_bodypart": PARTS["neck"][0]})
+            moved += 1
     for biped in record.get("biped_objects") or []:
         slot = slot_of(biped.get("biped_object_type"))
         if not slot or slot not in PARTS:

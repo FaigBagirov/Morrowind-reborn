@@ -75,7 +75,8 @@ SLOTS = (
     ("knee", 11, ()),          # the upper half of the calf, split by height
     ("ankle", 10, ("calf_",)),
     ("foot", 9, ("foot_", "ball_", "toe_")),
-    ("head", 0, ("head", "neck_")),
+    ("neck", 2, ("neck_",)),
+    ("head", 0, ("head",)),
 )
 
 SIDED = {"clavicle", "upperarm", "forearm", "hand", "upperleg", "knee",
@@ -147,17 +148,52 @@ def split(path, out_dir, knee_fraction=0.5, overlap=2):
     global _BONES
     _BONES = bones
     pieces = {}
+
+    # **Every distinct skinned primitive, not just the first.** This model
+    # carries the body and the helmet as separate meshes, each listed three
+    # times over with a different material - and stopping at the first meant
+    # the helmet never arrived, which is where the collar lives. Faig had
+    # already noticed the neck coming from the helmet rather than the body.
+    # Primitives are recognised by their POSITION accessor, so the duplicates
+    # are read once.
+    chunks, seen = [], set()
     for mesh in model.json.get("meshes", []):
         for prim in mesh.get("primitives", []):
             attrs = prim.get("attributes", {})
             if "JOINTS_0" not in attrs or "POSITION" not in attrs:
                 continue
-            verts = model.accessor(attrs["POSITION"]).astype(np.float64)
-            uv = (model.accessor(attrs["TEXCOORD_0"]).astype(np.float64)
-                  if "TEXCOORD_0" in attrs else np.zeros((len(verts), 2)))
-            tris = model.accessor(prim["indices"]).ravel().astype(np.int32)
-            tris = tris.reshape(-1, 3)
-            joint = dominant(model, prim)
+            # Recognised by the geometry, not by the accessor index: the
+            # duplicates are three separate accessors holding the same points.
+            v = model.accessor(attrs["POSITION"])
+            mark = (len(v), tuple(np.round(v[0], 5)), tuple(np.round(v[-1], 5)))
+            if mark in seen:
+                continue
+            seen.add(mark)
+            chunks.append(prim)
+
+    all_verts, all_uv, all_tris, all_joint = [], [], [], []
+    at = 0
+    for prim in chunks:
+        attrs = prim["attributes"]
+        v = model.accessor(attrs["POSITION"]).astype(np.float64)
+        u = (model.accessor(attrs["TEXCOORD_0"]).astype(np.float64)
+             if "TEXCOORD_0" in attrs else np.zeros((len(v), 2)))
+        t = model.accessor(prim["indices"]).ravel().astype(np.int32).reshape(-1, 3)
+        all_verts.append(v)
+        all_uv.append(u)
+        all_tris.append(t + at)
+        all_joint.append(dominant(model, prim))
+        at += len(v)
+    if not chunks:
+        return pieces
+    verts = np.vstack(all_verts)
+    uv = np.vstack(all_uv)
+    tris = np.vstack(all_tris)
+    joint = np.concatenate(all_joint)
+    print(f"read {len(chunks)} distinct skinned primitives, "
+          f"{len(verts)} vertices")
+    if True:
+        if True:
 
             label = np.empty(len(verts), object)
             settled = {}
@@ -230,7 +266,7 @@ def split(path, out_dir, knee_fraction=0.5, overlap=2):
             # which then sticks out past the joint exactly as intended.
             _emit(core, verts, uv, out_dir, joint, bind, suffix="_core")
             return pieces
-    raise SystemExit("no skinned primitive found")
+    return pieces
 
 
 def _emit(pieces, verts, uv, out_dir, joint, bind, suffix=""):

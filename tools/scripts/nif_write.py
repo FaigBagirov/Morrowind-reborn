@@ -352,6 +352,9 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--double", action="store_true",
+                    help="add every triangle again, wound the other way, so "
+                         "the piece has no one-sided face")
     ap.add_argument("--core", metavar="OBJ",
                     help="measure the fit from this mesh but write the source. "
                          "The source carries the overlap that hides a seam, and "
@@ -447,6 +450,16 @@ def main():
     if args.texture:
         blob, was = retexture(blob, args.texture)
         print(f"texture  {was} -> {args.texture}")
+    if args.double:
+        # **Every piece is an open shell.** An armour model is plates, not a
+        # solid, and the cut adds more free edges on top: measured, 15 to 27 per
+        # cent of the edges in each piece belong to one triangle only. In game
+        # that is a hole you see the room through, because the armour bodypart
+        # replaces the body and there is nothing behind it. Adding each triangle
+        # again with the winding reversed costs twice the triangles and means a
+        # hole shows the inside of the armour instead.
+        tris = np.vstack([tris, tris[:, ::-1]])
+        print(f"doubled  {len(tris)} triangles, both facings")
     written = build(blob, verts, uv, tris)
     with open(args.out, "wb") as f:
         f.write(written)
