@@ -149,8 +149,16 @@ SLOTS = {
     # Fitted in world space against the naked torso, hung on the Chest node -
     # see BONE below. The donor is only a container now; its skirt no longer
     # decides anything.
-    "chest": ("meshes/a/a_adamantium_cuirass_c.nif",
-              "meshes/b/b_n_dark elf_m_skins.nif", MODEL_TO_GAME, None),
+    # **The donor must not be skinned.** Every cuirass in the game is, and
+    # putting our geometry into one leaves its bone weights describing the 1302
+    # vertices we replaced: the engine then drives our 1978 by weights that mean
+    # nothing, and the whole torso collapses into a thin blade reaching to the
+    # floor. That is what Faig was seeing as a cloak down the middle and two
+    # cones meeting at the knee. A rigid single-shape file serves instead - the
+    # bone decides placement, the donor only carries node, material and texture,
+    # exactly as for the hand.
+    "chest": (BODY % "ankle", "meshes/b/b_n_dark elf_m_skins.nif",
+              MODEL_TO_GAME, None),
     "groin": (BODY % "groin", None, MODEL_TO_GAME, None),
     "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, MODEL_TO_GAME, None),
     "upperarm": (BODY % "upper arm", None, MODEL_TO_GAME, None),
