@@ -207,6 +207,15 @@ IN_WORLD = {"chest", "head", "groin"}
 # Faig reported the forearms invisible.
 PROP = {"forearm": ("x", "min")}
 
+# Explicit turns for the two slots whose extents cannot say which way round
+# they go - the hand's box is nearly square across the palm and the foot's
+# roll is invisible to ranking. Derived anatomically rather than guessed: a
+# frame from two measured directions in each skeleton (fingers and forearm for
+# the hand, toes and ankle for the foot), one rotated onto the other, snapped
+# to the axis grid. Faig saw the left hand fingers-up and the feet a quarter
+# turn out; ranking had silently picked the wrong sign.
+LOCAL_AXES = {"hand": "-y,-z,x", "foot": "z,-y,x"}
+
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
 # fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
 # hung, the cloth falls below the box the way the author drew it.
@@ -247,24 +256,23 @@ def slots():
     out = {}
     for slot, donor in DONOR.items():
         ref, shape = REFERENCE[slot]
-        # Only the left side is fitted. **The right is not fitted at all**:
-        # it is the left mirrored through the skeleton's own Left and Right
-        # node transforms, so it is correct by construction. Fitting the right
-        # independently was sign-blind and turned the right pauldron onto its
-        # back like a turtle.
-        for side in (("l",) if slot in SIDED else ("",)):
-            key = f"{slot}_{side}" if side else slot
-            hand = "Left" if side == "l" else "Right"
-            out[key] = {
-                "slot": slot,
-                "cut": ((f"{slot}_{side}" if side else slot)
-                        + ("_world" if slot in IN_WORLD else "")),
-                "donor": donor,
-                "reference": ref,
-                "shape": shape % hand if shape and "%s" in shape else shape,
-                "node": NODE[slot] % hand if "%s" in NODE[slot] else NODE[slot],
-                "axes": MODEL_TO_GAME,
-            }
+        # **One piece per slot, authored left; the engine mirrors it.** That
+        # is how vanilla works - both Daedric pauldron records reference the
+        # same `_cl` bodypart and the right slot mirrors it natively. My own
+        # mirror pass through base_anim's rest pose put both pauldrons on the
+        # left: the game hangs parts on *animated* bones, and the rest pose is
+        # not what plays. The engine's mirror lives on the right side of that
+        # problem; mine could not.
+        cut = (slot + "_l") if slot in SIDED else slot
+        out[slot] = {
+            "slot": slot,
+            "cut": cut + ("_world" if slot in IN_WORLD else ""),
+            "donor": donor,
+            "reference": ref,
+            "shape": shape,
+            "node": NODE[slot] % "Left" if "%s" in NODE[slot] else NODE[slot],
+            "axes": MODEL_TO_GAME,
+        }
     return out
 
 
@@ -335,6 +343,8 @@ def main():
         if spec["slot"] in PROP:
             axis, anchor = PROP[spec["slot"]]
             call += ["--prop-axis", axis, "--prop-anchor", anchor]
+        if spec["slot"] in LOCAL_AXES:
+            call += ["--axes=" + LOCAL_AXES[spec["slot"]]]
         if not args.write:
             rows.append("%-12s%-22s  dry run" % (key, spec["node"]))
             return None
@@ -359,52 +369,6 @@ def main():
             scales[key] = got
     median = sorted(scales.values())[len(scales) // 2] if scales else 1.0
 
-    # **The right side is the left, mirrored through the skeleton itself.**
-    # For stored verts v, the engine shows W_node(T_donor(v)); the right piece
-    # must show the world-mirror of the left, so
-    #   v_r = T^-1( W_right^-1( Mx( W_left( T(v_l) ) ) ) ).
-    # No fitting, no ranking, no sign to guess - which is the point.
-    if args.write:
-        import numpy as np
-        from nif_write import build as build_nif
-        from skeleton import SKELETON, shape as donor_shape, world as frames
-        from uvmap import parse_trishape
-        from nif_write import _resolve
-        with open(_resolve(SKELETON), "rb") as f:
-            F = frames(f.read())
-
-        def into(v, rps):
-            r, pp, sc = rps
-            return (v * sc) @ r.T + pp
-
-        def outof(v, rps):
-            r, pp, sc = rps
-            return ((v - pp) @ r) / sc
-
-        for slot in SIDED:
-            left = os.path.join(mesh_dir, slot + "_l.nif")
-            right = os.path.join(mesh_dir, slot + "_r.nif")
-            if not os.path.exists(left):
-                continue
-            blob = open(left, "rb").read()
-            v, uv, tris = parse_trishape(blob)
-            T = donor_shape(blob)
-            base = NODE[slot] % "Left" if "%s" in NODE[slot] else NODE[slot]
-            wl, wr = F[base], F[base.replace("Left", "Right")]
-            w = into(into(v, T), wl)
-            w[:, 0] *= -1.0
-            vr = outof(outof(w, wr), T)
-            out = build_nif(blob, vr, uv, tris)
-            with open(right, "wb") as f:
-                f.write(out)
-            ok = (os.path.exists(NIFTEST)
-                  and subprocess.run([NIFTEST, right],
-                                     capture_output=True).returncode == 0)
-            rows.append("%-12s%-22s mirror%9d  %s"
-                        % (slot + "_r", base.replace("Left", "Right"),
-                           os.path.getsize(right),
-                           "accepts" if ok else "REJECTS"))
-
     print("\n%-11s%-28s%7s%9s  ENGINE"
           % ("SLOT", "REFERENCE", "SCALE", "BYTES"))
     for line in rows:
@@ -416,9 +380,8 @@ def main():
               "Forearm bodypart spans 8.1 units where its Ankle spans 24.3."
               % (min(scales.values()), max(scales.values()), median))
     print("\n%d of %d pieces built and accepted." % (built, len(SLOTS)))
-    print("Both sides are built on purpose: the vanilla records leave every "
-          "left slot empty and rely on the engine mirroring, which throws an "
-          "offset piece off the body.")
+    print("One piece per sided slot, authored left; the engine mirrors it "
+          "for the right slot, exactly as vanilla pauldrons work.")
     if not args.write:
         print("Dry run. Pass --write to build.")
     return 0

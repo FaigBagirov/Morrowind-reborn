@@ -37,14 +37,16 @@ import os
 # own bone and ruinous for one carrying an offset: Faig's left leg vanished
 # outright and his forearms were pushed towards the middle. Filling both slots
 # takes the mirror out of the question.
-UNSIDED = {"chest": "Chest", "groin": "Groin", "head": "Head"}
-BY_SIDE = {"clavicle": "Clavicle", "upperarm": "UpperArm", "forearm": "Forearm",
-           "upperleg": "UpperLeg", "knee": "Knee", "ankle": "Ankle",
-           "foot": "Foot", "hand": "Hand"}
-
-PARTS = {k: (f"zenar_{k}", v) for k, v in UNSIDED.items()}
-PARTS.update({f"{k}_{s}": (f"zenar_{k}_{s}", v)
-              for k, v in BY_SIDE.items() for s in ("l", "r")})
+# **One record per slot, both side slots filled with it.** This is the vanilla
+# pauldron pattern: both Daedric pauldron records reference the same `_cl`
+# bodypart and the engine mirrors it for the right slot natively. Building the
+# right side myself through the rest pose put both pauldrons on the left - the
+# game hangs parts on animated bones, and the rest pose is not what plays.
+PARTS = {k: (f"zenar_{k}", v) for k, v in {
+    "chest": "Chest", "groin": "Groin", "head": "Head",
+    "clavicle": "Clavicle", "upperarm": "UpperArm", "forearm": "Forearm",
+    "upperleg": "UpperLeg", "knee": "Knee", "ankle": "Ankle",
+    "foot": "Foot", "hand": "Hand"}.items()}
 
 # An armour record names its slots as LeftPauldron, RightUpperArm and so on.
 # This turns one of those into the key above, side and all.
@@ -73,19 +75,13 @@ TARGETS = {
 
 
 def slot_of(biped_type):
-    """Which of our pieces a slot wants, side included, if any."""
+    """Which of our pieces a slot wants, if any. Sides share one piece."""
     name = str(biped_type or "").lower()
-    side = ""
-    for prefix, letter in (("left", "l"), ("right", "r")):
+    for prefix in ("left", "right"):
         if name.startswith(prefix):
-            name, side = name[len(prefix):], letter
+            name = name[len(prefix):]
             break
-    base = SLOT_OF.get(name)
-    if not base:
-        return None
-    if base in ("chest", "groin", "head"):
-        return base
-    return f"{base}_{side}" if side else None
+    return SLOT_OF.get(name)
 
 
 def emit(mesh_dir="zenar", built=None):
