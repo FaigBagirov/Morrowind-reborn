@@ -423,6 +423,40 @@ The rule is kept on better grounds - good geometry is sculpting rather than
 scripting, and a bad mesh sits under animation and collision - but **reusing
 someone else's mesh is now a working route**, not a theoretical one.
 
+## The Zenaric suit from an imported model - `WORN, WHOLE, ON SCREEN`
+
+Twenty pieces off one downloaded model, head to foot, built by
+`build_armour_set.py` in one command and seen on the character. Read that
+script's header for the route and the traps; what follows is only the state.
+
+**Every slot: head, neck, chest, groin, both clavicles, upper arms, forearms,
+hands, upper legs, knees, ankles, feet.** The four Daedric helms, the cuirass,
+greaves, boots, pauldrons and gauntlets are all repointed at them, and the
+cuirass gains a Neck slot that vanilla armour does not carry - vanilla leaves
+the throat to the naked body, which we replace.
+
+Five things went wrong in front of Faig and each one is now a rule in the
+script rather than a memory:
+
+- **A donor must not be skinned.** Every cuirass in the game is. Replacing the
+  geometry leaves its bone weights describing the old vertices, and the torso
+  shears into a blade reaching the floor.
+- **Both sides must be built.** Vanilla records leave the left slots empty and
+  let the engine mirror; mirroring negates an axis of the local coordinates,
+  which throws an offset piece off the body. Faig's left leg vanished.
+- **A bone with no slot inherits its parent's.** Name-matching alone dropped
+  1,107 of 12,290 vertices - hip cloth, straps, a tail, elbow deformers - and
+  the holes showed as a torso you could see the floor through.
+- **Read every distinct skinned primitive.** The body and the helmet are
+  separate meshes, each listed three times with a different material. Stopping
+  at the first meant no helmet, and the collar lives on the helmet.
+- **Write both facings.** 15 to 27 per cent of the edges in each piece belong
+  to one triangle; with the body replaced, a hole shows the room.
+
+Left open: the model's own dark under-suit reads as black in places, which is
+the model rather than a fault; and the texture is the model's atlas recoloured,
+not yet tuned to the rest of the conversion's palette.
+
 ## Meshes from outside - `WORKING END TO END, BEING FITTED`
 
 Five tools, each doing one thing, all validated against something rather than
