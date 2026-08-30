@@ -19,19 +19,41 @@ Cutting by plane was the alternative and it is worse in two ways: it leaves open
 holes along the cut that want new geometry, and it puts the seam where the
 arithmetic falls rather than where the joint is.
 
-## What this does not settle
+## Each piece comes out in its own bone's frame, and it must
 
-Whether each piece then *fits* the Morrowind skeleton. The proportions of a
-modern character are not Morrowind's, so a forearm cut correctly here can still
-be too long for the arm it is bolted to. That is a fitting problem, measured
-against the vanilla part it replaces, and it comes after this.
+A Morrowind bodypart is not authored in world space. It lives in the frame of
+the bone it hangs on - origin at the joint, axes along the bone - and the frames
+differ from one bone to the next: measured on the vanilla body, the upper arm,
+forearm and thigh run along local X, the knee and calf along Z, the foot along
+Y. A piece cut in the model's world space is in its A-pose, arm hanging down and
+out, so the upper arm comes out diagonal - 2.34 by 2.51 across two axes that
+should be one. Translating and scaling that into a bodypart slot can only
+scatter the suit, which is exactly what it did on screen.
+
+The rig carries the cure. `inverseBindMatrices` is the transform from world
+space into each joint's own frame, so applying the anchor joint's takes a piece
+out of the pose and into the frame Morrowind expects. It is exact - no fitting,
+no guessing. Measured afterwards, the arm, thigh and foot then agree with the
+vanilla parts axis for axis, and only the calf disagrees, by one discrete
+ninety-degree turn.
+
+**Bone-local coordinates are not in world units.** This rig bakes roughly a
+tenth into the bind matrices, so a piece that spanned 2.3 in world space spans
+0.27 here. Nothing downstream may assume otherwise, and the scale is taken from
+the vanilla part rather than carried over.
+
+## What this still does not settle
+
+Whether each piece is then the right *size*. A modern character's proportions
+are not Morrowind's, and that is measured against the vanilla part it replaces,
+in `nif_write.py`.
 """
 
 import argparse
 import os
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import numpy as np
 
@@ -88,7 +110,12 @@ def split(path, out_dir, knee_fraction=0.5):
     skin = model.json["skins"][0]
     bones = [model.json["nodes"][n].get("name", f"node{n}")
              for n in skin["joints"]]
+    # Column-major in the file, so transpose to get row-vector matrices.
+    bind = model.accessor(skin["inverseBindMatrices"])
+    bind = bind.reshape(-1, 4, 4).transpose(0, 2, 1)
 
+    global _BONES
+    _BONES = bones
     pieces = {}
     for mesh in model.json.get("meshes", []):
         for prim in mesh.get("primitives", []):
@@ -133,25 +160,40 @@ def split(path, out_dir, knee_fraction=0.5):
                     pieces[f"knee_{side}"] = got[high].tolist()
                     pieces[key] = got[~high].tolist()
 
-            _emit(pieces, verts, uv, out_dir)
+            _emit(pieces, verts, uv, out_dir, joint, bind)
             return pieces
     raise SystemExit("no skinned primitive found")
 
 
-def _emit(pieces, verts, uv, out_dir):
+def _emit(pieces, verts, uv, out_dir, joint, bind):
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    print(f"{'SLOT':<16}{'VERTS':>8}{'TRIS':>8}  SIZE")
+    print(f"{'SLOT':<16}{'VERTS':>8}{'TRIS':>8}  BONE-LOCAL SIZE   ANCHOR")
     for key in sorted(pieces):
         tris = np.array(pieces[key], np.int32)
         used = np.unique(tris)
         remap = {old: new for new, old in enumerate(used)}
         sub = np.array([[remap[i] for i in t] for t in tris], np.int32)
         pv, puv = verts[used], uv[used]
+
+        # Into the frame of the joint that moves most of this piece. The
+        # majority joint rather than a named one, because the name that anchors
+        # a slot differs between rigs and the weights do not.
+        anchor = Counter(joint[used].tolist()).most_common(1)[0][0]
+        pv = (np.c_[pv, np.ones(len(pv))] @ bind[anchor].T)[:, :3]
+
         size = np.round(pv.max(axis=0) - pv.min(axis=0), 3)
-        print(f"{key:<16}{len(pv):>8}{len(sub):>8}  {size}")
+        print(f"{key:<16}{len(pv):>8}{len(sub):>8}  {str(size):<18}"
+              f"{_bone_name(anchor)}")
         if out_dir:
             write_obj(os.path.join(out_dir, key + ".obj"), pv, puv, sub, key)
+
+
+_BONES = []
+
+
+def _bone_name(i):
+    return _BONES[i] if i < len(_BONES) else str(i)
 
 
 def main():

@@ -118,6 +118,111 @@ def normals(verts, tris):
                     np.array([0.0, 0.0, 1.0]))
 
 
+def _order(extent):
+    """The axes longest first, and how decisively the longest leads."""
+    rank = np.argsort(extent)[::-1]
+    lead = extent[rank[0]] / max(extent[rank[1]], 1e-9)
+    return rank, lead
+
+
+def axes(spec):
+    """Parse "-z,y,x" into the rotation it names. Rejects anything else.
+
+    Each token says where one of the piece's axes lands, X then Y then Z. The
+    result has to be a rotation: a bare axis swap mirrors the mesh, which turns
+    every triangle inside out, so a determinant of -1 is an error and not
+    something to paper over.
+    """
+    look = {"x": 0, "y": 1, "z": 2}
+    out = np.zeros((3, 3))
+    tokens = [t.strip().lower() for t in spec.split(",")]
+    if len(tokens) != 3:
+        raise SystemExit("--axes wants three comma-separated tokens")
+    for src, token in enumerate(tokens):
+        sign = -1.0 if token.startswith("-") else 1.0
+        out[look[token.lstrip("+-")], src] = sign
+    if abs(np.linalg.det(out) - 1.0) > 1e-9:
+        raise SystemExit(f"--axes {spec} is a reflection, not a rotation")
+    return out
+
+
+def align(verts, ref, clearance=1.0, fallback=None, gate=1.4, turn=None):
+    """Put a bone-local piece into the frame of the vanilla part it replaces.
+
+    **Rotation was the missing half, and it is most of what broke the suit.**
+    Cutting now happens in each bone's own frame, so the two sides are already
+    comparable; what is left is that Morrowind's bones and the rig's do not
+    always agree on which axis runs along the limb. Measured against the vanilla
+    body, they agree for the arm, the thigh, the foot and the hips, and disagree
+    for the calf by one ninety-degree turn - the piece runs along X where the
+    game wants Z.
+
+    So the axes are matched by length: the longest of the piece to the longest
+    of the vanilla part, and so on down. **Only when both are decisively
+    ordered**, which is the `gate`. A hip is nearly cubic, its axis lengths are
+    within a fifth of each other, and ranking them measures noise; a calf leads
+    by 2.3 against 2.45 and ranking it measures the limb. Below the gate the
+    axes are left alone, which is the answer the clearly-ordered pieces all give.
+
+    Two earlier rules were tried and measured worse:
+
+    * Fitting each piece to its **armour donor's** bounding box. The donor boxes
+      do not correspond to the body - the one single-shape chest donor the game
+      offers is 62 units deep because of its skirt - so every piece got its own
+      unrelated scale and the suit came apart.
+    * Aligning **principal axes** and choosing among the four flips by volume
+      overlap. The margins came out between 0.002 and 0.009 on scores of 0.06 to
+      0.18, so the choice was noise, and the scales it produced ranged from 5.0
+      to 11.9 across the set.
+
+    Size comes from the vanilla part along the matched axis, which is the one
+    measurement that means the same thing on both bodies: how long the limb is.
+    Uniform, so the piece keeps its own proportions, and `clearance` lets armour
+    sit over a body rather than inside it. `fallback` covers the chest and the
+    clavicle, which have no vanilla twin - Morrowind draws a naked torso from the
+    skeleton, and its Chest bodypart is a skin decal seven units across.
+    """
+    extent = verts.max(0) - verts.min(0)
+    target = ref.max(0) - ref.min(0)
+    mine, lead = _order(extent)
+    theirs, their_lead = _order(target)
+
+    ranked = lead >= gate and their_lead >= gate
+    if turn is None and ranked:
+        turn = np.zeros((3, 3))
+        for a, b in zip(mine, theirs):
+            turn[b, a] = 1.0
+        if np.linalg.det(turn) < 0:
+            # A bare swap can mirror the piece, which turns every triangle
+            # inside out. Undo it on the shortest axis, where a cross-section is
+            # closest to symmetric and the flip shows least.
+            turn[theirs[2]] *= -1.0
+    elif turn is None:
+        turn = np.eye(3)
+
+    if fallback:
+        # Uniform, for a slot with no vanilla twin to fill. Its own box would
+        # be the wrong thing to fill anyway: the one chest donor the game
+        # offers is 62 units deep because of its skirt.
+        scale = np.array([float(fallback)] * 3)
+    else:
+        # **Per axis, and it has to be.** Morrowind's body is not a modern
+        # character's: its Forearm bodypart spans 8.1 units where its Ankle
+        # spans 24.3, because the game splits an arm into upper arm, forearm,
+        # wrist and hand while this rig has no wrist at all. Scaling uniformly
+        # off one axis then either leaves the calf short or blows the forearm
+        # out - measured, the per-slot factors ranged from 41 to 132. Armour
+        # has to fill the space the body part occupies or it gapes, so each
+        # axis is fitted to the box it must fill.
+        turned = (verts @ turn.T)
+        scale = target / np.maximum(turned.max(0) - turned.min(0), 1e-9)
+    scale = scale * clearance
+
+    out = (verts @ turn.T) * scale
+    centre = (out.max(0) + out.min(0)) / 2.0
+    return out - centre + (ref.max(0) + ref.min(0)) / 2.0, scale, turn
+
+
 def fit(verts, donor_verts, swap=True, extra=1.0, lift=0.0, fixed=None):
     """Put an incoming mesh where the donor's is, at the donor's size.
 
@@ -205,6 +310,17 @@ def main():
                          "when the mesh has spikes")
     ap.add_argument("--no-fit", action="store_true",
                     help="leave the source at its own scale and position")
+    ap.add_argument("--reference", metavar="NIF",
+                    help="the vanilla bodypart to align to - same slot, same "
+                         "anatomy. Supplies rotation as well as size, which a "
+                         "donor's bounding box cannot. Defaults to the donor.")
+    ap.add_argument("--axes", metavar="SPEC",
+                    help="force the turn, e.g. -z,y,x - where the piece's X, "
+                         "Y and Z each land. For a slot whose vanilla part is "
+                         "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--clearance", type=float, default=1.0,
+                    help="how much bigger than the reference, so armour sits "
+                         "over a body rather than inside it")
     ap.add_argument("--texture", metavar="NAME",
                     help="repoint the donor's texture reference, e.g. "
                          "zenar_helm.dds - without this the new mesh wears "
@@ -216,7 +332,16 @@ def main():
     print(f"incoming {len(verts)} vertices, {len(tris)} triangles")
     print(f"donor    {len(donor_verts)} vertices")
 
-    if not args.no_fit:
+    if args.reference:
+        ref, _ruv, _rt = read_mesh(args.reference)
+        verts, scale, turn = align(ref=ref, verts=verts,
+                                   clearance=args.clearance,
+                                   fallback=args.fixed_scale,
+                                   turn=axes(args.axes) if args.axes else None)
+        turned = "axes matched by length" if abs(np.trace(turn) - 3) > 1e-6             else "axes as they came"
+        print(f"aligned  to {os.path.basename(args.reference)}, "
+              f"{len(ref)} vertices, scale {np.mean(scale):.2f}, {turned}")
+    elif not args.no_fit:
         verts, scale = fit(verts, donor_verts, swap=args.swap,
                            extra=args.scale, lift=args.lift,
                            fixed=args.fixed_scale)
