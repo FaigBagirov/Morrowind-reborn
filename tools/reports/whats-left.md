@@ -56,13 +56,53 @@ soul, blessing, mostly spell names like Almsivi Intervention. Canon keeps the
 Temple as a cult, so these are a judgement call and are listed here only so
 that the judgement is made against a number.
 
+## The dialogue, which is where the unfinished work actually is
+
+**191 replies were rewritten by rule, across 83 topics, and nobody has read
+them.** A rule pass guarantees the word changed. It does not guarantee the
+sentence still means anything: a line about worshipping Daedra becomes a line
+about worshipping Zenar, and whether that is a sentence the setting can hold
+depends on what else is in it. This is the largest single piece of unfinished
+business in the project and it is reading work, not build work. Every line and
+its before/after is in `tools/reports/transform-diff.csv`.
+
+**80 of those 191 keep one literal old keyword on purpose.** The rule is in
+`CLAUDE.md`: when rewriting an INFO, keep at least one literal instance of the
+topic keyword or the hyperlink stops firing and the player loses the way into
+that conversation. The price is that in those 80 replies both words stand in
+the same paragraph - Zenar in the sentence we substituted, Daedra in the one we
+had to leave.
+
+**17 topics in the player's own topic list are still spelled the old way**, and
+they hold 74 replies:
+
+> Daedra Skin, Orcs at a Daedric ruin, Bad Daedra, Daedra, good Daedra, sealed
+> Daedric ruin, Ald Daedroth, Daedra worship, Daedric summonings, taunt the
+> Daedra, Daedra's heart, Daedric, Daedric sites, daedroth, Daedra Lords,
+> Daedra cults, Daedra's Pawn
+
+In Morrowind a topic's id **is** the word shown, and *Architecture* Part 5
+freezes topic ids because renaming one silently unlinks every reply under it.
+So this is structural rather than an oversight, and it is the single most
+visible place where the conversion shows its seams.
+
+**The hand-written layer is still small**: three books, five overridden
+replies, and one invented topic with six answers. Everything else in dialogue
+is mechanical.
+
+Canon Part 10 also still carries two open items, both of which are in the game
+with working text rather than final text: Vivec's monologue is `NEEDS REVISION`
+and the mitochondrial line is `PROPOSED`. Both must settle before those lines
+can be voiced - *Architecture* Part 15, text first, audio last.
+
 ## Three contradictions that are not vocabulary
 
 1. **The voice mod says the old word out loud.** 181 of our 190 rewritten
    replies have a file in Voices of Vvardenfell, which finds audio by record id
    and never reads the text, so playback works and disagrees with the screen in
-   95% of the lines we touched. *Architecture* Part 15; cheapest fix is that
-   mod's own `greetingsOnly` setting.
+   95% of the lines we touched. **Decided 2026-08-31: those lines get
+   re-voiced**, and nothing is to be reconfigured in the meantime to hide the
+   mismatch. *Architecture* Part 15.
 2. **Eight strings live inside script bodies** - `MessageBox` and `Say` at the
    Vivec shrines and elsewhere. The ESM carries compiled bytecode beside the
    text, the rules freeze script bodies, and no transform can reach them.

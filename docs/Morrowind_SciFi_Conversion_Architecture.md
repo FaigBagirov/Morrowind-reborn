@@ -575,9 +575,25 @@ The rewrite applies to a running game, the three gates pass, and the diff report
 
 ---
 
-## Part 15. Voice Acting, If It Ever Happens `SCOPED, NOT STARTED`
+## Part 15. Voice Acting `DECIDED 2026-08-31: RE-VOICE THE REWRITTEN LINES`
 
-Not a work order. A file of what was measured on 2026-08-28, so the question does not have to be researched twice.
+**Faig's decision, 2026-08-31: the rewritten replies get re-voiced.** That is
+route 3 below. Routes 1 and 2 are closed - `greetingsOnly` buys consistency by
+throwing away the feature the mod exists for, and accepting the mismatch was
+never really on the table. Not started, not scheduled, and deliberately not
+worked around in the meantime: no setting is to be changed to hide the
+mismatch, because hiding it would remove the reason to fix it.
+
+The work is 181 files, and rule 1 below governs when it can begin - **text
+first, audio last**. Every line that is still going to change its wording must
+change it before it is voiced. Canon Part 4's monologue is `NEEDS REVISION` and
+Part 5's line is `PROPOSED`, so at least those two are not ready.
+
+The input exists and needs no new survey: `tools/reports/transform-diff.csv`
+carries every rewritten record with its final text.
+
+The rest of this part is what was measured on 2026-08-28, kept so the question
+does not have to be researched twice.
 
 ### The ground is unusually clean
 
