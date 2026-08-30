@@ -35,6 +35,16 @@ history is.
 6. **Recolour through the ordinary converter**, so the import belongs to the
    same suit as everything else rather than looking like a guest.
 
+7. **Give it to the game.** A mesh in a data directory is invisible: Morrowind
+   reaches a worn piece through two hops, an armour record naming a bodypart
+   and the bodypart naming the mesh. `bodyparts.py` emits one bodypart per
+   built piece and repoints the armour records at them, and `transform.py`
+   calls it. Only the shape changes - name, class, weight, armour rating and
+   enchantment stay as the load order left them.
+
+       python tools/scripts/transform.py --profile momw            --plugins <play openmw.cfg> --out-name scifi-rewrite-momw --write
+       tools/bin/tes3conv.exe tools/build/scifi-rewrite-momw.json            tools/build/scifi-rewrite-momw.esp --overwrite
+
 ## The traps, each of which cost a round
 
 * **Axes.** Morrowind bodyparts are Y-up with +Z forward, the same as glTF, so
@@ -50,6 +60,17 @@ history is.
   has such a donor except Hand: twelve hand meshes parse and not one of them is
   single-shape. The list below is what works, found by trying rather than
   assumed.
+* **Only one side needs building.** The engine mirrors a bodypart for the
+  opposite side, and the mods leave the left slots empty for exactly that
+  reason. Filling them is work for nothing.
+* **The build must not scan its own output.** Once the plugin is installed it
+  sits last in the load order and wins every record it defines - already
+  converted - so the next build reads `Zenar` back as the effective text,
+  matches no rule, and silently emits a plugin with the renames missing. It
+  happened once: 347 records became 21, and nothing warned because every step
+  succeeded. `transform.py` now excludes anything under its own build
+  directory. **If a rebuild ever comes out suspiciously small, check this
+  first**, and compare against `--profile vanilla`, which cannot be affected.
 * **Licence.** A downloaded model usually carries one. See `CREDITS.md`.
 """
 

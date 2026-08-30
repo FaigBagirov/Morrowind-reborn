@@ -423,7 +423,7 @@ The rule is kept on better grounds - good geometry is sculpting rather than
 scripting, and a bad mesh sits under animation and collision - but **reusing
 someone else's mesh is now a working route**, not a theoretical one.
 
-## Meshes from outside - `WORKING, ON SCREEN, BEING FITTED`
+## Meshes from outside - `WORKING END TO END, BEING FITTED`
 
 Five tools, each doing one thing, all validated against something rather than
 asserted:
@@ -436,6 +436,9 @@ asserted:
 | `obj.py` | OBJ in and out; round-trips a mesh with 4.6e-08 of error |
 | `obj_split.py` | cut a whole suit into pieces, by label or by connected component |
 | `nif_write.py` | put new geometry into a donor NIF, fitted and retextured |
+| `glb_bodyparts.py` | cut a rigged body into Morrowind's slots, by bone |
+| `bodyparts.py` | emit the bodypart records and repoint the armour at them |
+| `build_armour_set.py` | the whole route in one command, and the instruction |
 
 Four things worth carrying forward, because each cost a round:
 
@@ -452,6 +455,15 @@ Four things worth carrying forward, because each cost a round:
   along -Y at 0.998 correlation, and Faig's colour-band calibration puts the
   front at +Z. Swapping is a ninety-degree roll about the ear-to-ear axis, and
   on screen that is a helmet nodding at the floor.
+
+**The build must never scan its own output.** Installed, the plugin sits last
+in the load order and wins every record it defines - already converted - so the
+next `--profile momw` build reads `Zenar` back as the effective text, matches no
+rule, and emits a plugin with the renames missing. It happened once: 347 records
+became 21, 327 defined-last became 519, and **nothing warned, because every step
+succeeded**. Fixed by excluding our own build directory. If a rebuild ever comes
+out small, check this first and compare against `--profile vanilla`, which
+cannot be affected.
 
 **A parse bug of mine, now fixed and worth knowing about.** Four bytes sit
 between the vertex count and the vertex array, and `uvmap.py` read every mesh
