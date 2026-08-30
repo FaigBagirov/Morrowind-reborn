@@ -146,6 +146,34 @@ def axes(spec):
     return out
 
 
+def trim(ref, spec):
+    """Keep the half of a reference that corresponds to the piece.
+
+    The game offers exactly one single-shape chest donor and it wears a long
+    skirt: 62 units along its up axis where the body is 26. Fitting a torso to
+    that box puts the shoulders at the waist and half the cuirass where the
+    skirt should be - which is what it did.
+
+    So cut the reference at its own narrowest cross-section, which on a cuirass
+    is the waist, and keep the named side. `spec` is an axis and a sign, "z-"
+    for the negative side of Z.
+    """
+    axis = "xyz".index(spec[0].lower())
+    lo, hi = ref[:, axis].min(), ref[:, axis].max()
+    slices = np.linspace(lo, hi, 12)
+    width = []
+    for a, b in zip(slices, slices[1:]):
+        got = ref[(ref[:, axis] >= a) & (ref[:, axis] < b)]
+        other = [k for k in range(3) if k != axis]
+        width.append(np.prod(got[:, other].max(0) - got[:, other].min(0))
+                     if len(got) > 2 else np.inf)
+    # Ignore the two end slices: a cuirass tapers at the shoulders and the hem,
+    # and the waist is what is wanted, not an end.
+    waist = slices[1 + int(np.argmin(width[1:-1]))]
+    keep = ref[:, axis] < waist if spec[1] == "-" else ref[:, axis] > waist
+    return ref[keep] if keep.sum() > 8 else ref
+
+
 def align(verts, ref, clearance=1.0, fallback=None, gate=1.4, turn=None):
     """Put a bone-local piece into the frame of the vanilla part it replaces.
 
@@ -318,6 +346,10 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--trim", metavar="AXIS",
+                    help="keep only one side of the reference, cut at its own "
+                         "narrowest cross-section, e.g. z- - for a donor that "
+                         "carries a skirt the piece does not")
     ap.add_argument("--clearance", type=float, default=1.0,
                     help="how much bigger than the reference, so armour sits "
                          "over a body rather than inside it")
@@ -334,6 +366,11 @@ def main():
 
     if args.reference:
         ref, _ruv, _rt = read_mesh(args.reference)
+        if args.trim:
+            whole = len(ref)
+            ref = trim(ref, args.trim)
+            print(f"trimmed  reference {whole} -> {len(ref)} vertices, "
+                  f"cut at its own waist")
         verts, scale, turn = align(ref=ref, verts=verts,
                                    clearance=args.clearance,
                                    fallback=args.fixed_scale,

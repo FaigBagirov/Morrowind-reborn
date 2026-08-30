@@ -180,6 +180,7 @@ def _emit(pieces, verts, uv, out_dir, joint, bind):
         # majority joint rather than a named one, because the name that anchors
         # a slot differs between rigs and the weights do not.
         anchor = Counter(joint[used].tolist()).most_common(1)[0][0]
+        world = pv
         pv = (np.c_[pv, np.ones(len(pv))] @ bind[anchor].T)[:, :3]
 
         size = np.round(pv.max(axis=0) - pv.min(axis=0), 3)
@@ -187,6 +188,14 @@ def _emit(pieces, verts, uv, out_dir, joint, bind):
               f"{_bone_name(anchor)}")
         if out_dir:
             write_obj(os.path.join(out_dir, key + ".obj"), pv, puv, sub, key)
+            # The world-space copy as well. Not every Morrowind bodypart is
+            # rigid: **every cuirass in the game is skinned**, carrying the
+            # whole Bip01 skeleton, so its vertices live in the character's
+            # space rather than in a bone's. A chest cut into a bone's frame
+            # cannot be fitted to one of those, and there is no rigid chest
+            # anywhere in the three masters to fit instead.
+            write_obj(os.path.join(out_dir, key + "_world.obj"),
+                      world, puv, sub, key)
 
 
 _BONES = []

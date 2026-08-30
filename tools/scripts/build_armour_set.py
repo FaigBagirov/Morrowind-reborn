@@ -134,31 +134,41 @@ ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 # an armour donor, and to the median scale of the slots that were measured.
 BODY = "meshes/b/b_n_dark elf_m_%s.nif"
 SLOTS = {
-    # slot: (donor, reference or None to reuse the donor, forced axes or None)
-    "chest": ("meshes/a/a_adamantium_cuirass_c.nif", None, "-z,y,x"),
-    "groin": (BODY % "groin", None, None),
-    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, None),
-    "upperarm": (BODY % "upper arm", None, None),
-    "forearm": (BODY % "forearm", None, None),
-    "upperleg": (BODY % "upper leg", None, None),
-    "knee": (BODY % "knee", None, None),
-    "ankle": (BODY % "ankle", None, None),
+    # slot: (donor, reference or None to reuse the donor, forced axes, trim)
+    "chest": ("meshes/a/a_adamantium_cuirass_c.nif", None, "x,z,-y", "z+"),
+    "groin": (BODY % "groin", None, None, None),
+    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, None, None),
+    "upperarm": (BODY % "upper arm", None, None, None),
+    "forearm": (BODY % "forearm", None, None, None),
+    "upperleg": (BODY % "upper leg", None, None, None),
+    "knee": (BODY % "knee", None, None, None),
+    "ankle": (BODY % "ankle", None, None, None),
     # the naked foot carries two shapes and this writer replaces one, so the
     # boot supplies the container while the foot still supplies the fitting
-    "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", None),
+    "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", None, None),
 }
-MEASURED = {s for s, (d, _r, _a) in SLOTS.items() if d.startswith("meshes/b/")}
+MEASURED = {s for s, (d, *_) in SLOTS.items() if d.startswith("meshes/b/")}
 
-# The chest turn is read off the rig, not guessed. In the chest bone's frame the
-# clavicles sit at plus and minus Z and the neck at plus X, so up is X and
-# left-right is Z. On Morrowind's side the cuirass is mirror-symmetric about X,
-# scoring 0.86, and its cross-section runs wide, narrow, wide along Z -
-# shoulders, waist, skirt hem - so there up is Z and left-right is X. The two
-# frames are a quarter turn apart. The sign sends the shoulder end to the deeper
-# end of the donor, 23.5 units against 16.9, a chest being deeper than a hem.
+# **The chest is not like the others, and the reason is structural.** Every
+# cuirass in the three masters is a *skinned* mesh: it carries the whole Bip01
+# skeleton and its vertices sit in the character's space, not in the chest
+# bone's. There is no rigid single-shape chest anywhere to use instead - the
+# search returns zero. So the chest is cut in world space rather than into a
+# bone frame, and turned from the model's convention into the character's:
+# model Y is up and becomes Z, model Z is forward and becomes -Y.
+#
+# Which end of the donor is the top was measured, not reasoned. Bip01 sits at
+# Z 76.06 and `Tri Chest` runs from -41.4 to +20.9 about it, which puts the
+# shoulders at +20.9 and the skirt hem at -41.4, down by the knees. An earlier
+# guess here - that the shoulders were the deeper end, 23.5 units against 16.9 -
+# was wrong, and the trim now keeps the upper half.
+#
+# One thing this does not fix: the donor is skinned, and its bone weights still
+# describe the geometry we replaced. The engine accepts the file and draws it,
+# but that mismatch is unexamined.
 
 # which cut piece feeds each slot; a left-side cut serves both sides
-SOURCE = {"chest": "chest", "groin": "groin", "clavicle": "clavicle_l",
+SOURCE = {"chest": "chest_world", "groin": "groin", "clavicle": "clavicle_l",
           "upperarm": "upperarm_l", "forearm": "forearm_l",
           "upperleg": "upperleg_l", "knee": "knee_l", "ankle": "ankle_l",
           "foot": "foot_l"}
@@ -200,7 +210,7 @@ def main():
     scales, rows = {}, []
 
     def make(slot, fallback=None):
-        donor, ref, turn = SLOTS[slot]
+        donor, ref, turn, cut = SLOTS[slot]
         source = os.path.join(parts, SOURCE[slot] + ".obj")
         if not os.path.exists(source):
             rows.append("%-11s%-28s  no cut piece" % (slot, ""))
@@ -211,6 +221,8 @@ def main():
                 "--texture", args.texture, "--clearance", str(args.clearance)]
         if turn:
             call += ["--axes=" + turn]
+        if cut:
+            call += ["--trim", cut]
         if fallback:
             call += ["--fixed-scale", str(fallback)]
         if not args.write:
@@ -234,18 +246,15 @@ def main():
                        "accepts" if ok else "REJECTS"))
         return scale if ok else None
 
-    # The slots with a vanilla twin go first: their scales are anatomy, measured
-    # limb against limb. The two without one then borrow the median, which is
-    # what keeps a torso in proportion with the arms hanging off it.
+    # Every slot is now fitted against something in its own frame - the vanilla
+    # naked part for the limbs, a rigid pauldron for the clavicle, and for the
+    # chest a skinned cuirass with the piece cut in character space to match.
+    # The median fallback these last two used is gone with it.
     for slot in SLOTS:
-        if slot in MEASURED:
-            got = make(slot)
-            if got:
-                scales[slot] = got
+        got = make(slot)
+        if got:
+            scales[slot] = got
     median = sorted(scales.values())[len(scales) // 2] if scales else 1.0
-    for slot in SLOTS:
-        if slot not in MEASURED:
-            make(slot, fallback=median)
 
     print("\n%-11s%-28s%7s%9s  ENGINE"
           % ("SLOT", "REFERENCE", "SCALE", "BYTES"))
@@ -254,7 +263,8 @@ def main():
     built = sum(1 for r in rows if r.endswith("accepts"))
     if scales:
         print("\nscale off the vanilla body: %.1f to %.1f, median %.1f - and "
-              "the median is what the chest and clavicle use."
+              "They differ because Morrowind's body is not this model's: its "
+              "Forearm bodypart spans 8.1 units where its Ankle spans 24.3."
               % (min(scales.values()), max(scales.values()), median))
     print("\n%d of %d pieces built and accepted." % (built, len(SLOTS)))
     print("Hand is not in the list: no hand bodypart has a single shape.")
