@@ -30,6 +30,25 @@ The exact wording of the credit line is best taken from the model page's own
 licence but does not print a fixed attribution string, so the button is the
 authoritative source.
 
+### The Zenaric heavy set — chosen, not yet imported
+
+Faig picked this on 2026-08-30 to stand in for Dwemer armour, and noted that its
+colour already suits the conversion, so it may need no recolouring at all.
+Recorded now so the licence obligation travels with the decision rather than
+being reconstructed later.
+
+| | |
+| --- | --- |
+| Title | **Power Armor - Wolf. New Order/Colossus** |
+| Author | **Nazar Okruzhko** (`@Hot-Dog_1947`) |
+| Source | https://sketchfab.com/3d-models/power-armor-wolf-new-ordercolossus-2c892da0ccd3439aa8e8ab3800478eb4 |
+| Licence | **CC Attribution 4.0** — https://creativecommons.org/licenses/by/4.0/ |
+| Status | not downloaded or imported yet |
+
+Same condition as the helmet above: **the author must be credited** wherever it
+ships, and the exact wording is best taken from the model page's own COPY
+CREDITS button.
+
 ## Assets whose terms have not been checked
 
 Everything else the conversion touches is a *retexture of what the player has
