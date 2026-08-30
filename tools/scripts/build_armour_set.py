@@ -119,6 +119,11 @@ def main():
     ap.add_argument("--scratch", default=os.path.join(ROOT, "tools", "build",
                                                       "import"))
     ap.add_argument("--texture", default="zenar_body.dds")
+    # One scale for the whole suit. 7.313 is what the helmet came out at once
+    # Faig had approved its size on screen, and the helmet is from this same
+    # model in these same units - so it is a measured conversion from the
+    # model's units to Morrowind's, not a guess.
+    ap.add_argument("--scale", type=float, default=7.313)
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 
@@ -148,7 +153,8 @@ def main():
             continue
         made = run([os.path.join(HERE, "nif_write.py"), source,
                     "--donor", donor, "--out", target,
-                    "--texture", args.texture])
+                    "--texture", args.texture,
+                    "--fixed-scale", str(args.scale)])
         if made.returncode:
             last = (made.stderr.strip().splitlines() or ["failed"])[-1]
             print(f"{slot:<11}{os.path.basename(donor):<30}  {last[:44]}")

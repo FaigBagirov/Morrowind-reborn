@@ -118,7 +118,7 @@ def normals(verts, tris):
                     np.array([0.0, 0.0, 1.0]))
 
 
-def fit(verts, donor_verts, swap=True, extra=1.0, lift=0.0):
+def fit(verts, donor_verts, swap=True, extra=1.0, lift=0.0, fixed=None):
     """Put an incoming mesh where the donor's is, at the donor's size.
 
     **Morrowind bodyparts are Y-up too, and +Z is forward.** That was measured
@@ -134,13 +134,30 @@ def fit(verts, donor_verts, swap=True, extra=1.0, lift=0.0):
     and off the tightest axis so proportions survive. `extra` multiplies that,
     because a box fit is conservative when a mesh has spikes: the first build
     came out about a third too small.
+
+    **`fixed` overrides that, and for a suit it must.** Fitting each piece to
+    its own donor's box gives each piece its own scale, and the donor boxes are
+    not proportional to each other - measured, the upper arm's differed from the
+    piece's by 3.06 on one axis and 1.00 on another, and the chest's by 3.28.
+    Every piece then landed at a different size and the suit came apart. One
+    scale for the whole model is the only thing that keeps the pieces in
+    proportion with each other; the donor is still used to place the piece, just
+    not to size it.
     """
     if swap:
         verts = np.column_stack([verts[:, 0], -verts[:, 2], verts[:, 1]])
     lo, hi = verts.min(axis=0), verts.max(axis=0)
     lo0, hi0 = donor_verts.min(axis=0), donor_verts.max(axis=0)
-    scale = float(np.min((hi0 - lo0) / np.maximum(hi - lo, 1e-9))) * extra
-    out = (verts - (lo + hi) / 2.0) * scale + (lo0 + hi0) / 2.0
+    scale = (float(fixed) if fixed
+             else float(np.min((hi0 - lo0) / np.maximum(hi - lo, 1e-9))) * extra)
+    if fixed:
+        # Place by centroid, not by box centre. The donor boxes carry outliers -
+        # the adamantium cuirass measures 62 units deep where its body is 26 -
+        # and a box centre inherits that displacement. The mean of the vertices
+        # does not.
+        out = (verts - verts.mean(axis=0)) * scale + donor_verts.mean(axis=0)
+    else:
+        out = (verts - (lo + hi) / 2.0) * scale + (lo0 + hi0) / 2.0
     # Up is local +Y here: the node transform maps it to world +Z, and the
     # bodypart's own origin is the attachment point, so a bounding-box fit can
     # centre a piece correctly and still hang it too low on the body.
@@ -178,6 +195,9 @@ def main():
     ap.add_argument("--swap", action="store_true",
                     help="rotate the source into a different up axis - not "
                          "wanted for glTF, which shares Morrowind's")
+    ap.add_argument("--fixed-scale", type=float, default=None,
+                    help="one scale for every piece of a suit, instead of "
+                         "fitting each to its own donor's box")
     ap.add_argument("--lift", type=float, default=0.0,
                     help="raise the piece along the bone, in donor units")
     ap.add_argument("--scale", type=float, default=1.0,
@@ -198,7 +218,8 @@ def main():
 
     if not args.no_fit:
         verts, scale = fit(verts, donor_verts, swap=args.swap,
-                           extra=args.scale, lift=args.lift)
+                           extra=args.scale, lift=args.lift,
+                           fixed=args.fixed_scale)
         print(f"fitted   scale {scale:.3f}"
               f"{', axes swapped' if args.swap else ', axes as they came'}")
     print("bounds   X %.2f..%.2f  Y %.2f..%.2f  Z %.2f..%.2f"
