@@ -37,6 +37,7 @@ from wo1_survey import (  # noqa: E402
     stream_records,
 )
 from momw_compat import TYPE_CODE  # noqa: E402
+import bodyparts  # noqa: E402
 from check_rules import (  # noqa: E402
     apply_rules_keeping, load_frozen, load_rules, validate,
 )
@@ -327,6 +328,22 @@ def main():
         if missing:
             raise SystemExit(f"{len(missing)} content files not found on disk: "
                              f"{missing[:3]}")
+        # Never scan our own output. Once the plugin is installed it sits last
+        # in the load order, so it wins every record it defines - and those
+        # records are already converted. The build would then read `Zenar` back
+        # as the effective text, match no rule against it, and emit a plugin
+        # with the renames missing. It ate itself exactly once: 327 records
+        # defined-last by a mod became 519, and the plugin collapsed from 347
+        # records to 21. Nothing warned, because every step succeeded.
+        mine = os.path.normcase(os.path.abspath(args.out_build))
+        ours = [n for n, path in plugins
+                if os.path.normcase(os.path.abspath(path)).startswith(mine)]
+        if ours:
+            plugins = [(n, path) for n, path in plugins
+                       if os.path.normcase(os.path.abspath(path)).startswith(mine)
+                       is False]
+            print(f"Excluded from the scan, because it is ours: "
+                  f"{', '.join(ours)}")
         print(f"Load order: {len(plugins)} plugin files from {args.plugins}")
         master_names = {m.lower() for m in MASTERS}
         # Only the records a rule could possibly touch. Scanning for all 60,000
@@ -589,6 +606,24 @@ def main():
     # nothing in the masters and nothing depends on them.
     new_records = emit_authored_dialogue(new_topics)
     out.extend(new_records)
+
+    # The imported armour. A mesh in a data directory is invisible until a
+    # bodypart record names it and an armour record names that, so both hops
+    # are made here - and only for pieces that are actually built, because a
+    # record naming a missing mesh shows as nothing at all.
+    built = bodyparts.on_disk(os.path.join(args.out_build,
+                                           f"armour-{args.profile}",
+                                           "Meshes", "zenar"))
+    if built:
+        moved = sum(bodyparts.repoint(r, built) for r in out
+                    if r.get("type") == "Armor")
+        parts = bodyparts.emit(built=built)
+        out.extend(parts)
+        print(f"Imported armour: {len(parts)} bodyparts, "
+              f"{moved} armour slots repointed "
+              f"({', '.join(sorted(built))})")
+    else:
+        print("Imported armour: no built meshes found, nothing repointed")
 
     header["num_objects"] = len(out) - 1
     print(f"  {emitted_dial} topic records emitted to own "

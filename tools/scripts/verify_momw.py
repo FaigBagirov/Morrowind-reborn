@@ -26,7 +26,11 @@ from wo1_survey import record_key, stream_records  # noqa: E402
 
 MASTERS = ("Morrowind.esm", "Tribunal.esm", "Bloodmoon.esm")
 # The only fields the build is allowed to differ in.
-TOUCHABLE = {"name", "text", "description", "value"}
+# Fields we change on purpose, so a difference in them is the point rather than
+# a fault. `biped_objects` joined the list when the imported armour arrived: the
+# conversion repoints each slot at its own bodypart, which is a deliberate
+# rewrite of a field the upstream mod also sets.
+TOUCHABLE = {"name", "text", "description", "value", "biped_objects"}
 
 
 def load_plugin(path, tes3conv, cache_dir):
