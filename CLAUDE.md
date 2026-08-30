@@ -408,16 +408,55 @@ Three things worth carrying forward:
   open question and Faig's call went the other way from the guess: he liked it
   and asked for the cuirass to match, so grain is 1.0 across the suit.
 
-**On the no-geometry rule, stated accurately.** It is a project rule and it was
-followed. Its justification in Canon Part 9 - "the engine validates models on
-load and rejects machine-assembled files" - is **not something this project has
-measured**, and it was quoted to Faig as fact, which was wrong. Reading a NIF is
-demonstrably fine: `uvmap.py` parses one. The real reason not to generate
-geometry is different and stronger: good geometry is sculpting, not scripting,
-and a bad mesh breaks animation and physics and cannot be undone by deleting a
-`data=` line the way a texture can. The honest routes to a new shape are an
-existing mesh from another mod - the plugin can repoint `male_bodypart`, keeping
-name and stats - or hand-modelling.
+**On the no-geometry rule: measured, and the claim was false.** Canon Part 9
+said "the engine validates models on load and rejects machine-assembled files",
+and I quoted it to Faig as fact although nobody here had ever checked it.
+OpenMW ships `niftest`, which is the authority, and it accepts a script-scaled
+mesh, a script-deformed one, and a file carrying 3,269 vertices of downloaded
+geometry. Corrected in Canon Part 9; full account in `tools/reports/nif.md`.
+
+The rule is kept on better grounds - good geometry is sculpting rather than
+scripting, and a bad mesh sits under animation and collision - but **reusing
+someone else's mesh is now a working route**, not a theoretical one.
+
+## Meshes from outside - `WORKING, ON SCREEN, BEING FITTED`
+
+Five tools, each doing one thing, all validated against something rather than
+asserted:
+
+| Script | Does |
+| --- | --- |
+| `nif_info.py` | version, UVs, polycount and OpenMW's own verdict on any downloaded `.nif` |
+| `uvmap.py` | parse and rasterise a mesh; per-pixel height and azimuth |
+| `glb.py` | read glTF and GLB, list primitives, extract one to OBJ |
+| `obj.py` | OBJ in and out; round-trips a mesh with 4.6e-08 of error |
+| `obj_split.py` | cut a whole suit into pieces, by label or by connected component |
+| `nif_write.py` | put new geometry into a donor NIF, fitted and retextured |
+
+Four things worth carrying forward, because each cost a round:
+
+- **`.nif` is a family, not a format.** Morrowind is 4.0.0.2, Oblivion
+  20.0.0.5, Skyrim 20.2.0.7. Same extension, only one loads.
+- **The polycount budget I quoted was wrong.** 89 to 177 vertices is what
+  *vanilla* helmets use, not a ceiling. Across 828 mesh files in the installed
+  modpack: median 986, ninetieth percentile 3,407, largest 14,696.
+  `DaedricArmorM.nif`, worn while I said it, is 8,230.
+- **A donor's texture name is baked into it.** A mesh built on the ebony helm
+  wears the ebony texture until `--texture` repoints it.
+- **Morrowind bodyparts are Y-up with +Z forward**, same as glTF, so no axis
+  swap is wanted. Measured on the ebony helm - the sheet's vertical axis runs
+  along -Y at 0.998 correlation, and Faig's colour-band calibration puts the
+  front at +Z. Swapping is a ninety-degree roll about the ear-to-ear axis, and
+  on screen that is a helmet nodding at the floor.
+
+**A parse bug of mine, now fixed and worth knowing about.** Four bytes sit
+between the vertex count and the vertex array, and `uvmap.py` read every mesh
+four bytes short. A float array at the wrong offset is still a float array, so
+nothing complained - the vertices simply came back shifted against their own
+UVs. That is what made the ebony helm's azimuth map look like a patchwork, and
+I concluded from it that the unwrap could not be painted on. The parser now
+verifies itself against the file's own bounding sphere, which no wrong offset
+can satisfy.
 
 Out of scope on purpose, and each for a reason: Dremora skin (a creature's body,
 not equipment), vanilla Daedric weapons and shields (no specular map exists for
