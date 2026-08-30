@@ -663,6 +663,37 @@ This repo is worked on from two places and they can do different things.
 **Claude Code never launches the game in either environment.** The user runs
 it and brings back `logs/openmw.log`.
 
+## Claude can run the game and look at it `SETTLED 2026-08-30`
+
+**Launch it skipping the menu, straight into `TEST1`.** Faig asked for this to
+be the default, and the save loads in about twenty-five seconds:
+
+    Start-Process "D:\Program Files\OpenMW 0.51.0\openmw.exe" -ArgumentList
+      '--replace config --config "<play profile>" --skip-menu --load-savegame
+       "<...>\saves\Faig\TEST1.omwsave"'
+
+**Never redirect the game's output.** With `-RedirectStandardOutput` that same
+load ran fourteen minutes and never finished. Read the profile's `openmw.log`
+instead. This one cost an hour.
+
+Two ways to see the result, and both need the window **in the foreground and
+actually rendering** - that was the whole of the earlier trouble, not the
+capture method:
+
+- `tools/scripts/grab.ps1 -Target <pid> -Front` reads the window off the
+  screen. One window, nothing else, read-only.
+- **F12 in the game**, sent with `SendInput`, and OpenMW writes a full
+  2.5 MB PNG into `<user data>\screenshots`. This is the better picture.
+
+`minimize on focus loss = false` is set in the play profile. Without it the
+window parks itself off screen the moment anything takes focus, which is what
+used to put the start menu in Faig's own screenshots. `settings.cfg.bak` undoes
+it.
+
+Faig runs a second session of this project in parallel, and its game is a
+different copy. **Always pass `-Target <pid>`**; without it the first version
+grabbed his other window.
+
 ## How in-game tests actually run `SETTLED`
 
 **The user loads an existing save, past character creation.** Not a new game.
