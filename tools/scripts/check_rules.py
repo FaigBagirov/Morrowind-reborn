@@ -369,7 +369,13 @@ def main():
         code = TYPE_CODE.get(rtype)
         if code is None:
             continue
-        rid = str(rec.get("id", "") or "")
+        # The same fallback chain the transform uses: MagicEffect keys on
+        # `effect_id`, Skill on `skill_id`. Reading only `id` left those rows in
+        # the preview with a blank identifier - worse here than in the
+        # transform, because the preview is what a person reads before deciding,
+        # and a nameless row cannot be checked against anything.
+        rid = str(rec.get("id") or rec.get("effect_id")
+                  or rec.get("skill_id") or "")
         for r in rules:
             if rid.lower() in r.exclude:
                 excluded.append((r.id, code, rid))
