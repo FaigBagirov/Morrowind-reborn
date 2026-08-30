@@ -105,7 +105,7 @@ def dominant(model, prim):
     return joints[np.arange(len(joints)), best]
 
 
-def split(path, out_dir, knee_fraction=0.5):
+def split(path, out_dir, knee_fraction=0.5, overlap=2):
     model = Gltf(path)
     skin = model.json["skins"][0]
     bones = [model.json["nodes"][n].get("name", f"node{n}")
@@ -160,15 +160,48 @@ def split(path, out_dir, knee_fraction=0.5):
                     pieces[f"knee_{side}"] = got[high].tolist()
                     pieces[key] = got[~high].tolist()
 
+            # **Grow every piece into its neighbours.** A body cut at the
+            # joints leaves each piece open at both ends, and an open end is a
+            # hole: backfaces are culled, so the player looks straight through
+            # the seam. Faig saw exactly that - no knee, no throat, "thread-like"
+            # edges where a cut ran. Morrowind's own parts avoid it by
+            # overlapping, and this is how they get to.
+            #
+            # A ring is every triangle touching a vertex already in the piece.
+            # Two of them is enough to hide a seam and cheap: it costs vertices
+            # in the overlap only.
+            # Taken after the calf has been split, or the ankle's core would
+            # be the whole calf and the piece would be fitted to twice its
+            # length. It came out 16 units where its reference is 24.
+            core = {k: [list(t) for t in v] for k, v in pieces.items()}
+            if overlap:
+                whole = [tuple(t) for t in tris]
+                for key in list(pieces):
+                    have = {int(i) for t in pieces[key] for i in t}
+                    got = {tuple(t) for t in pieces[key]}
+                    for _ring in range(overlap):
+                        added = [t for t in whole
+                                 if t not in got and any(i in have for i in t)]
+                        got.update(added)
+                        have.update(int(i) for t in added for i in t)
+                    pieces[key] = [list(t) for t in got]
+
             _emit(pieces, verts, uv, out_dir, joint, bind)
+            # The un-grown piece as well. **The overlap must not be fitted.**
+            # A grown piece squeezed into the vanilla part's box makes the limb
+            # itself shorter and spends the difference on the seam. So the
+            # transform is measured from the core and applied to the grown one,
+            # which then sticks out past the joint exactly as intended.
+            _emit(core, verts, uv, out_dir, joint, bind, suffix="_core")
             return pieces
     raise SystemExit("no skinned primitive found")
 
 
-def _emit(pieces, verts, uv, out_dir, joint, bind):
+def _emit(pieces, verts, uv, out_dir, joint, bind, suffix=""):
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    print(f"{'SLOT':<16}{'VERTS':>8}{'TRIS':>8}  BONE-LOCAL SIZE   ANCHOR")
+    if not suffix:
+        print(f"{'SLOT':<16}{'VERTS':>8}{'TRIS':>8}  BONE-LOCAL SIZE   ANCHOR")
     for key in sorted(pieces):
         tris = np.array(pieces[key], np.int32)
         used = np.unique(tris)
@@ -184,17 +217,19 @@ def _emit(pieces, verts, uv, out_dir, joint, bind):
         pv = (np.c_[pv, np.ones(len(pv))] @ bind[anchor].T)[:, :3]
 
         size = np.round(pv.max(axis=0) - pv.min(axis=0), 3)
-        print(f"{key:<16}{len(pv):>8}{len(sub):>8}  {str(size):<18}"
-              f"{_bone_name(anchor)}")
+        if not suffix:
+            print(f"{key:<16}{len(pv):>8}{len(sub):>8}  {str(size):<18}"
+                  f"{_bone_name(anchor)}")
         if out_dir:
-            write_obj(os.path.join(out_dir, key + ".obj"), pv, puv, sub, key)
+            write_obj(os.path.join(out_dir, key + suffix + ".obj"),
+                      pv, puv, sub, key)
             # The world-space copy as well. Not every Morrowind bodypart is
             # rigid: **every cuirass in the game is skinned**, carrying the
             # whole Bip01 skeleton, so its vertices live in the character's
             # space rather than in a bone's. A chest cut into a bone's frame
             # cannot be fitted to one of those, and there is no rigid chest
             # anywhere in the three masters to fit instead.
-            write_obj(os.path.join(out_dir, key + "_world.obj"),
+            write_obj(os.path.join(out_dir, key + suffix + "_world.obj"),
                       world, puv, sub, key)
 
 
@@ -211,8 +246,11 @@ def main():
     ap.add_argument("--out", help="directory for the per-slot .obj files")
     ap.add_argument("--knee", type=float, default=0.5,
                     help="where along the calf the knee slot ends")
+    ap.add_argument("--overlap", type=int, default=1,
+                    help="rings of triangles each piece steals from its "
+                         "neighbours, so the seams do not show as holes")
     args = ap.parse_args()
-    split(args.path, args.out, args.knee)
+    split(args.path, args.out, args.knee, args.overlap)
     return 0
 
 

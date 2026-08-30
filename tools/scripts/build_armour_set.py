@@ -151,16 +151,16 @@ SLOTS = {
     # decides anything.
     "chest": ("meshes/a/a_adamantium_cuirass_c.nif",
               "meshes/b/b_n_dark elf_m_skins.nif", MODEL_TO_GAME, None),
-    "groin": (BODY % "groin", None, None, None),
-    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, None, None),
-    "upperarm": (BODY % "upper arm", None, None, None),
-    "forearm": (BODY % "forearm", None, None, None),
-    "upperleg": (BODY % "upper leg", None, None, None),
-    "knee": (BODY % "knee", None, None, None),
-    "ankle": (BODY % "ankle", None, None, None),
+    "groin": (BODY % "groin", None, MODEL_TO_GAME, None),
+    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, MODEL_TO_GAME, None),
+    "upperarm": (BODY % "upper arm", None, MODEL_TO_GAME, None),
+    "forearm": (BODY % "forearm", None, MODEL_TO_GAME, None),
+    "upperleg": (BODY % "upper leg", None, MODEL_TO_GAME, None),
+    "knee": (BODY % "knee", None, MODEL_TO_GAME, None),
+    "ankle": (BODY % "ankle", None, MODEL_TO_GAME, None),
     # the naked foot carries two shapes and this writer replaces one, so the
     # boot supplies the container while the foot still supplies the fitting
-    "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", None, None),
+    "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", MODEL_TO_GAME, None),
     # The hand had no donor for a long time and the reason was a
     # misunderstanding: **the donor does not have to be a hand.** It supplies
     # the node, the material and the texture reference; where the piece goes is
@@ -177,8 +177,22 @@ MEASURED = {s for s, (d, *_) in SLOTS.items() if d.startswith("meshes/b/")}
 # axis has to be ranked or forced. It is used where the old way could not
 # reach: the only chest donor in the game wears a skirt, and the naked torso
 # turned out to be hiding in the hands file.
+# **Every slot, not just the two that could not be done otherwise.** Ranking a
+# piece's axes by length settles which one runs along the limb and nothing more:
+# the roll about that axis is undetermined whenever the other two are close, and
+# on the foot they are 6.3 against 6.2. Faig saw the foot a quarter turn out.
+# In world space up is up and forward is forward for both sides at once, so
+# there is nothing left to rank.
 IN_WORLD = {
     "chest": ("Chest", "Tri Chest"),
+    "groin": ("Groin", None),
+    "clavicle": ("Left Clavicle", None),
+    "upperarm": ("Left Upper Arm", None),
+    "forearm": ("Left Forearm", None),
+    "upperleg": ("Left Upper Leg", None),
+    "knee": ("Left Knee", None),
+    "ankle": ("Left Ankle", None),
+    "foot": ("Left Foot", None),
     "hand": ("Left Hand", "Left Hand"),
 }
 
@@ -201,10 +215,10 @@ IN_WORLD = {
 # but that mismatch is unexamined.
 
 # which cut piece feeds each slot; a left-side cut serves both sides
-SOURCE = {"chest": "chest_world", "groin": "groin", "clavicle": "clavicle_l",
-          "upperarm": "upperarm_l", "forearm": "forearm_l",
-          "upperleg": "upperleg_l", "knee": "knee_l", "ankle": "ankle_l",
-          "foot": "foot_l", "hand": "hand_l_world"}
+SOURCE = {slot: ("chest" if slot == "chest" else
+                 slot if slot in ("groin",) else slot + "_l") + "_world"
+          for slot in ("chest", "groin", "clavicle", "upperarm", "forearm",
+                       "upperleg", "knee", "ankle", "foot", "hand")}
 
 NIFTEST = r"D:/Program Files/OpenMW 0.51.0/niftest.exe"
 
@@ -225,6 +239,9 @@ def main():
     ap.add_argument("--clearance", type=float, default=1.08,
                     help="how much bigger than the naked body, so armour sits "
                          "over it rather than inside it")
+    ap.add_argument("--overlap", type=int, default=1,
+                    help="rings of triangles each piece steals from its "
+                         "neighbours, so a seam does not read as a hole")
     ap.add_argument("--write", action="store_true")
     args = ap.parse_args()
 
@@ -232,7 +249,7 @@ def main():
     os.makedirs(parts, exist_ok=True)
     print("cutting by bone, into each bone's own frame ...")
     done = run([os.path.join(HERE, "glb_bodyparts.py"), args.model,
-                "--out", parts])
+                "--out", parts, "--overlap", str(args.overlap)])
     print(done.stdout.rstrip() or done.stderr.rstrip())
     if done.returncode:
         return 1
@@ -249,7 +266,10 @@ def main():
             rows.append("%-11s%-28s  no cut piece" % (slot, ""))
             return None
         target = os.path.join(mesh_dir, slot + ".nif")
+        core = os.path.join(parts, SOURCE[slot].replace("_world", "_core_world")
+                            + ".obj")
         call = [os.path.join(HERE, "nif_write.py"), source, "--donor", donor,
+                "--core", core,
                 "--reference", ref or donor, "--out", target,
                 "--texture", args.texture, "--clearance", str(args.clearance)]
         if turn:
@@ -258,7 +278,9 @@ def main():
             call += ["--trim", cut]
         if slot in IN_WORLD:
             bone, which = IN_WORLD[slot]
-            call += ["--bone", bone, "--shape", which]
+            call += ["--bone", bone]
+            if which:
+                call += ["--shape", which]
         if fallback:
             call += ["--fixed-scale", str(fallback)]
         if not args.write:

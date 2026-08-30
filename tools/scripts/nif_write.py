@@ -352,6 +352,11 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--core", metavar="OBJ",
+                    help="measure the fit from this mesh but write the source. "
+                         "The source carries the overlap that hides a seam, and "
+                         "the overlap must not be squeezed into the vanilla "
+                         "part's box or the limb inside it comes out short.")
     ap.add_argument("--bone", metavar="NODE",
                     help="fit in world space against the reference hung on "
                          "this skeleton node, then write back into the "
@@ -380,7 +385,7 @@ def main():
     print(f"donor    {len(donor_verts)} vertices")
 
     if args.bone:
-        from skeleton import SKELETON, all_shapes, place, unplace
+        from skeleton import SKELETON, all_shapes, place, shape, unplace
         from skeleton import world as skeleton_frames
         with open(_resolve(SKELETON), "rb") as f:
             frame = skeleton_frames(f.read())[args.bone]
@@ -391,12 +396,25 @@ def main():
         ref = np.vstack([place(v, frame) for v, _t, _n in parts])
         turn = axes(args.axes) if args.axes else np.eye(3)
         ours = verts @ turn.T
+        core = ours
+        if args.core and os.path.exists(args.core):
+            core_v, _cuv, _ct = read_obj(args.core)
+            core = core_v @ turn.T
         target = ref.max(0) - ref.min(0)
-        scale = (target / np.maximum(ours.max(0) - ours.min(0), 1e-9)
+        scale = (target / np.maximum(core.max(0) - core.min(0), 1e-9)
                  * args.clearance)
-        ours = ours * scale
-        ours += (ref.max(0) + ref.min(0)) / 2.0 - (ours.max(0) + ours.min(0)) / 2.0
-        verts = unplace(ours, frame)
+        shift = ((ref.max(0) + ref.min(0)) / 2.0
+                 - (core.max(0) + core.min(0)) / 2.0 * scale)
+        ours = ours * scale + shift
+        # **Two transforms sit between world space and what gets written**, and
+        # only one of them is the bone. The donor's own NiTriShape carries a
+        # transform too - the vanilla upper leg's swaps X and Z and shifts ten
+        # units - and the engine will apply it to whatever geometry is put in
+        # that file. Undoing only the bone left the thigh 13 units tall where
+        # its own reference is 38.5.
+        with open(_resolve(args.donor), "rb") as f:
+            own = shape(f.read())
+        verts = unplace(unplace(ours, frame), own)
         print(f"aligned  on {args.bone}, {len(parts)} reference shape(s), "
               f"scale {np.mean(scale):.2f}, world height "
               f"{ref[:, 2].min():.1f} to {ref[:, 2].max():.1f}")
