@@ -135,67 +135,37 @@ burial and two Vivec vaults - plus a test crate and one scripted NPC. So the
 five ebony helms in the world become Zenaric silver, and one of them is the
 player's.
 
-## The UV map is solved. The painting on top is not.
+## The closed helm was tried and dropped
 
-**Solved, and reusable.** `tools/scripts/uvmap.py` parses a Morrowind NIF far
-enough to get vertices, UVs and triangles, then rasterises the triangles so
-every texture pixel knows which point of the helmet it is - height and azimuth,
-exactly, no fit. Reading a NIF is not editing one and nothing writes.
+Faig picked the Ebony Closed Helm shape, asked for a Pragmata-like paint job on
+it, and after four rounds called it off: **wind it down and put the ebony helm
+back the way it was.** The helmet is the horned Face of Terror with its gold
+removed, which he had already approved.
 
-The parse validates rather than trusts. Writers disagree on whether the "has
-vertices" flag is one byte or four, so instead of encoding one dialect it
-searches for the arrangement that is *consistent*: finite vertices, UVs in the
-unit square, a triangle header whose point count is three times its triangle
-count, and indices that fit the vertex count. On this helm: 117 vertices, 230
-triangles, 690 points, indices 0..116, 63% sheet coverage.
+Our override of `tx_a_ebony_helmet` is gone, so every ebony closed helm in the
+game is vanilla again. `paint_helm.py` is deleted with it.
 
-Three things that fitting would have got wrong and rasterising got right:
+What the rounds established, since the next painted piece will hit the same
+walls:
 
-* **The unwrap is not cylindrical.** A straight-line fit of u against azimuth
-  leaves 0.10 turns of residual - 36 degrees. Eye slits do not survive that.
-* **Up is not the axis of least variance.** That guess put the pole through the
-  side of the head; a helmet is thinnest across the ears. Up is recovered by
-  regressing position against the sheet's row index, because every helmet unwrap
-  in this game lays height along v.
-* **Geometry cannot say which way a helmet faces.** That is the one number no
-  amount of parsing produces, and it is why the calibration texture exists.
-
-Faig's two readings became the two anchors: `FRONT_AZ = +0.0873`,
-`EYE_H = -0.30`. Height landmarks fall out of the same map - crown +8.6, the
-wide band +4.0, the stud row +1.5, eyes -0.3, flare below -1.7.
-
-**Not solved: the design.** `paint_helm.py` draws on that map and is committed
-switched **off**, because what it produces is worse than the plain helm. Seams
-of constant azimuth converge at the pole and read as a cracked eggshell; the
-wide horizontal bands cross the sheet in visible steps; the visor smears. That
-is art direction, and it wants its own rounds rather than being shipped because
-the machinery under it finally works.
-
-## Eye slits, and why they wait for one screenshot
-
-Faig wants Pragmata's eye slits on the closed helm - opaque is fine, they just
-have to be there. That is the first thing asked of this generator that is
-*painting* rather than transforming, and painting needs to know where the front
-of the head lands on the sheet.
-
-The unwrap is cylindrical: the sheet's horizontal axis runs around the head.
-Nothing in the texture says which column faces forward.
-
-The mesh does, in principle. `meshes/a/a_ebony_helmet.nif` was parsed far enough
-to get both - 117 vertices with positions and UVs, validated by the file size
-working out and the UVs landing in 0..1. Reading a NIF is not editing one, so
-the rule is intact. But the shape sits under a node transform, and the sign
-conventions of a 2002 format are exactly the sort of inference that is right
-until it is silently wrong. Wrong here is eye slits on the back of the skull.
-
-So it is measured instead. `tools/scripts/uv_calibrate.py` paints eight named
-colour bands around the horizontal axis and three rules across the vertical one,
-over the real texture so the piece stays recognisable. Wear it, look from the
-front: the colour in the middle of the face names U, the rule crossing the eyes
-names V. One screenshot and the slits can be placed exactly, once.
-
-The tool is general - any texture, any piece - which is why it is a script and
-not a scratch file. The same question will come up for the weapons.
+* **A texture cannot say which way a helmet faces.** `uv_calibrate.py` answers
+  it by measurement - eight named colour bands and three rules, worn and read
+  off in one look. That worked first time and is kept.
+* **This mesh's unwrap folds and overlaps.** Several parts of the shell share
+  the same pixels, so anything drawn once can appear two or three times: two eye
+  slits came out as four. A continuous band is immune; discrete marks are not.
+* **`uvmap.py` gives an exact per-pixel map** - vertices, UVs and triangles out
+  of the NIF, rasterised - but it cannot rescue an unwrap that overlaps: the
+  azimuth map comes out a patchwork whichever surface you let win. It is kept
+  because reading and rasterising a mesh is generally useful and it validates
+  its own parse.
+* **Contrast has to sit close to the plate.** Trim at 0.78 against a 0.50 plate
+  read as black-and-white stripes on screen. That fix stayed in and helps the
+  whole suit.
+* **Matching a statistic is not matching a look.** Generated veining tuned to
+  the cuirass's high-pass energy came out as even crackle glaze; the cuirass has
+  clean stretches and veined ones. The number was a proxy, and it was not the
+  point.
 
 ## Scope, deliberately narrow for this iteration
 

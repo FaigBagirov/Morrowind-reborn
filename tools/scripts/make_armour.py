@@ -55,8 +55,6 @@ from PIL import Image, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dds import write_dxt  # noqa: E402
-from paint_helm import paint as paint_helm  # noqa: E402
-from uvmap import rasterise, read_mesh  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 
 PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
@@ -70,10 +68,9 @@ FOLDER = "jy_daedric"
 #   plate_from  "spec" or "diffuse" - which map decides plate against mechanism
 #   trim        "red" or "warm" - what the gold is looking for in the original
 #   gold        False keeps the trim but makes it steel
-#   paint       "pragmata" draws a panel layout on top; see paint_helm.py
 DEFAULTS = {"folder": "", "spec": "_s", "normal": "_n", "glow": "_g",
             "plate_from": "spec", "trim": "red", "gold": True,
-            "paint": None, "mesh": None, "veins": 0.0}
+            }
 
 PIECES = (
     {"stem": "daecuir", "folder": "jy_daedric"},
@@ -85,24 +82,6 @@ PIECES = (
     {"stem": "daefacet", "folder": "jy_daedric", "gold": False},
     {"stem": "daeneck", "folder": "jy_daedric"},
     {"stem": "daedrickatana", "folder": "jy_daedric"},
-    # The closed helm Faig chose over the horned one, so that the silhouette is
-    # a sealed dome rather than a face. Three things differ. Its specular map is
-    # a highlight map rather than a hardness map - almost black, with a few
-    # glints - so the plate mask has to come from the diffuse instead, or the
-    # whole helm would be called mechanism and come out black. Its trim is gold
-    # rather than red, which the red detector barely sees. And the map is named
-    # `_spec`.
-    # Gold off here too. Faig on the Pragmata reference: the orange was the one
-    # element he did not like, so the band and the studs go to steel.
-    {"stem": "tx_a_ebony_helmet", "spec": "_spec",
-     "plate_from": "diffuse", "trim": "warm", "gold": False,
-     # A few bold features, drawn on top. The mesh is named so its coverage can
-     # be rasterised: that is what keeps the drawing on the helmet rather than
-     # across the empty margins of the sheet.
-     "paint": "helm", "mesh": "meshes/a/a_ebony_helmet.nif",
-     # Set by measurement, not by eye: this is what brings the helm to the
-     # cuirass's high-pass energy at the fine scale, 0.044 against 0.044.
-     "veins": 1.15},
 )
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
@@ -159,47 +138,6 @@ def _blur(mask, radius):
     im = Image.fromarray((mask * 255).astype(np.uint8))
     return np.array(im.filter(ImageFilter.GaussianBlur(radius))).astype(np.float32) / 255.0
 
-
-def _veins(shape, amount, seed=11):
-    """Marble the cuirass has and a smooth source does not.
-
-    The cuirass's character is its veining, and it is not invented there - it is
-    the artist's own fine detail pulled up by `grain`. The closed helm has none
-    to pull: its source is a smooth painted gradient, so grain does nothing and
-    the two pieces read as different materials standing next to each other,
-    which is exactly what Faig saw.
-
-    So it is generated here, and matched rather than eyeballed. Measured on the
-    shipped textures, the cuirass carries about 1.7 times the helm's high-pass
-    energy at every scale; `amount` is set from that.
-
-    Thin dark filaments along the zero crossings of fractal noise, which is how
-    marble veins, rather than a cloud of grey.
-    """
-    rng = np.random.default_rng(seed)
-    h, w = shape
-    field = np.zeros((h, w), np.float32)
-    # Fine octaves. The first attempt used 5 to 47 cells across the sheet -
-    # features 20 to 200 pixels wide - and changed the measured high-pass energy
-    # by nothing at all, because the cuirass's veining is a few pixels across
-    # and a coarse cloud does not answer it.
-    for cells, weight in ((70, 1.0), (140, 0.66), (280, 0.42), (560, 0.26)):
-        coarse = rng.standard_normal((cells, cells)).astype(np.float32)
-        img = Image.fromarray(((coarse * 40) + 128).clip(0, 255).astype(np.uint8))
-        field += (np.asarray(img.resize((w, h), Image.BICUBIC), np.float32)
-                  - 128.0) / 40.0 * weight
-    field /= max(field.std(), 1e-6)
-    ridge = np.clip(1.0 - np.abs(field) / 0.42, 0.0, 1.0) ** 1.6
-
-    # Clumped, not uniform. Matching the cuirass's high-pass energy alone got
-    # the number right and the character wrong: an even net of hairlines reads
-    # as crackle glaze, while the cuirass has clean stretches and veined ones. A
-    # slow field decides where the veining gathers.
-    coarse = rng.standard_normal((7, 7)).astype(np.float32)
-    img = Image.fromarray(((coarse * 40) + 128).clip(0, 255).astype(np.uint8))
-    where = (np.asarray(img.resize((w, h), Image.BICUBIC), np.float32) - 128.0) / 40.0
-    where = np.clip(0.35 + 0.9 * (where / max(where.std(), 1e-6)), 0.0, 1.0)
-    return ridge * where * amount
 
 
 def _f32(a):
@@ -258,7 +196,7 @@ def _relight(normal_map, tighten=18.0):
 def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
                     grain=0.35, detail=0.25, normal_path=None,
                     kant=0.75, curve=1.0, gloss=0.45, gold_on=True,
-                    plate_from="spec", trim_mode="red", veins=0.0):
+                    plate_from="spec", trim_mode="red"):
     dif = load(diffuse_path)
     size = (dif.shape[1], dif.shape[0])
     spec = load(spec_path, size) if spec_path else dif
@@ -307,8 +245,6 @@ def convert_diffuse(diffuse_path, spec_path, contrast=1.15, blur=1.6,
     tone = _f32(np.clip(form + fine * np.float32(grain), 0.0, 1.0))
     tone = _f32(_smooth(np.clip((tone - 0.5) * np.float32(contrast) + 0.5, 0.0, 1.0)))
 
-    if veins:
-        tone = _f32(np.clip(tone - _veins(tone.shape, veins), 0.0, 1.0))
 
     if normal_path and os.path.exists(normal_path):
         lit, hot = _relight(load(normal_path, size))
@@ -438,11 +374,7 @@ def main():
         before, after, plate = convert_diffuse(
             diffuse, specular, args.contrast, args.blur, args.grain,
             args.detail, normal, args.kant, args.curve, args.gloss,
-            p["gold"], p["plate_from"], p["trim"], p["veins"])
-        if p["paint"] == "helm":
-            _pos, cover = rasterise(*read_mesh(p["mesh"], args.config),
-                                    after.shape[0])
-            after = paint_helm(after, _blur(cover, 1.0))
+            p["gold"], p["plate_from"], p["trim"])
         panels = [("before", before), ("AFTER", after),
                   ("plate mask", np.dstack([plate] * 3))]
         note = ""
