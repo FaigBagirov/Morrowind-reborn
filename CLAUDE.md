@@ -508,7 +508,14 @@ scope question, not a conflict.
   one whole TEXT field with a bare sentinel and the page rendered blank in
   game. Substring substitution preserves the markup by construction - the
   point of this rule is that nothing may ever bypass it.
-- Do not generate or edit NIF files.
+- Do not generate or edit NIF files. **The reason is not the one Canon Part 9
+  gave.** That sentence - "the engine validates models on load and rejects
+  machine-assembled files" - was measured on 2026-08-30 and is false: OpenMW's
+  own `niftest` accepts a mesh a script reshaped. `tools/reports/nif.md`. The
+  rule is kept because good geometry is sculpting rather than scripting, and
+  because a bad mesh sits under animation and collision and cannot be undone by
+  deleting a `data=` line the way a bad texture can. Reading a mesh is fine and
+  is done: `tools/scripts/uvmap.py`.
 - One system per change set. Report the diff summary before applying.
 
 ---

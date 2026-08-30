@@ -424,7 +424,7 @@ OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with
 
 ## Do not touch
 
-* **NIF generation.** Binary format. The engine validates models on load and rejects machine-assembled files. Hand-edit in NifSkope or not at all.
+* **NIF generation.** Binary format. ~~The engine validates models on load and rejects machine-assembled files.~~ **That sentence was measured on 2026-08-30 and is false**: OpenMW's own `niftest` accepts a mesh whose vertices a script computed and wrote, both a plain scale and a real deformation. `tools/reports/nif.md`. The rule against generating geometry is kept, on different and better grounds — good geometry is sculpting rather than scripting, and a bad mesh cannot be undone by deleting one `data=` line the way a bad texture can, because it sits under animation and collision. Hand-edit in NifSkope, reuse an existing mesh, or not at all.
 * **Casting animation.** Shared across all spells and coupled to the combat animations replaced by the mods in Installation Guide 4.3. Guaranteed collision.
 
 ---

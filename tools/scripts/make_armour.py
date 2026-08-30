@@ -82,6 +82,15 @@ PIECES = (
     {"stem": "daefacet", "folder": "jy_daedric", "gold": False},
     {"stem": "daeneck", "folder": "jy_daedric"},
     {"stem": "daedrickatana", "folder": "jy_daedric"},
+    # The shields. Daedric Lord Armor does not replace them, so they are still
+    # the vanilla pair and were the one part of the set left black and red -
+    # everything else worn is `DaedricArmorM.nif` on our four textures, pauldrons
+    # and bracers included. Their specular is a highlight map, near black with a
+    # few glints (mean 0.023 against the cuirass's 0.262), so the plate mask and
+    # the tone both come from the diffuse, as with any piece painted that way.
+    {"stem": "tx_a_shield_daedric", "spec": "_spec", "plate_from": "diffuse"},
+    {"stem": "tx_a_towershield_daedric", "spec": "_spec",
+     "plate_from": "diffuse"},
 )
 
 # The palette. Four colours and two ramps: a plate lit and a plate in shadow, a
