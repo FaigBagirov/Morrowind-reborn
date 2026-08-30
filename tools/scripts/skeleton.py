@@ -256,15 +256,30 @@ def main():
 
     built = os.path.join("tools", "build", "armour-momw", "Meshes", "zenar")
     pieces, report = [], []
-    for slot, bone in BONE.items():
-        if args.ours:
-            path = os.path.join(built, slot + ".nif")
-            if not os.path.exists(path):
+    if args.ours:
+        # Every file on disk, both sides. The first version drew only the left
+        # pieces, and a right pauldron flipped onto its back went to the game
+        # unseen - the self-check has to see everything the player will.
+        for name in sorted(os.listdir(built)):
+            if not name.endswith(".nif"):
                 continue
-            with open(path, "rb") as f:
+            slot = name[:-4]
+            base, side = (slot[:-2], slot[-1]) if slot[-2:] in ("_l", "_r")                 else (slot, "")
+            bone = BONE.get(base)
+            if not bone:
+                continue
+            if side == "r":
+                bone = bone.replace("Left", "Right")
+            with open(os.path.join(built, name), "rb") as f:
                 blob = f.read()
             verts, _uv, tris = parse_trishape(blob)
-        else:
+            put = place(place(verts, shape(blob)), frames[bone])
+            pieces.append((put, tris))
+            report.append((slot, bone, put[:, 2].min(), put[:, 2].max()))
+    for slot, bone in BONE.items():
+        if args.ours:
+            break
+        if True:
             rel = VANILLA.get(slot)
             if not rel:
                 continue

@@ -175,7 +175,9 @@ REFERENCE = {
     "knee": (BODY % "knee", None),
     "ankle": (BODY % "ankle", None),
     "foot": (BODY % "foot", None),
-    "hand": (BODY % "skins", "%s Hand"),
+    # bone-local, so the A-pose wrist twist cancels; the file stores the hand
+    # shapes in the bone's frame already
+    "hand": (BODY % "skins", "Left Hand"),
 }
 # The skeleton node each hangs on, without the side.
 # The helmet mesh is painted on its own sheet, so the two pieces cut from it
@@ -198,6 +200,12 @@ SHEET = {"head": "zenar_helm.dds"}
 # into Morrowind's - and the two agree: the forearm needs no turn, the knee
 # needs X and Z exchanged.
 IN_WORLD = {"chest", "head", "groin"}
+
+# The forearm keeps its length in proportion, anchored at the elbow. The naked
+# Forearm bodypart is 8.1 units long and the model's forearm plate nearly
+# matches its upper arm; box-fitted it shrank to a stub inside the sleeve and
+# Faig reported the forearms invisible.
+PROP = {"forearm": ("x", "min")}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
 # fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
@@ -239,7 +247,12 @@ def slots():
     out = {}
     for slot, donor in DONOR.items():
         ref, shape = REFERENCE[slot]
-        for side in (("l", "r") if slot in SIDED else ("",)):
+        # Only the left side is fitted. **The right is not fitted at all**:
+        # it is the left mirrored through the skeleton's own Left and Right
+        # node transforms, so it is correct by construction. Fitting the right
+        # independently was sign-blind and turned the right pauldron onto its
+        # back like a turtle.
+        for side in (("l",) if slot in SIDED else ("",)):
             key = f"{slot}_{side}" if side else slot
             hand = "Left" if side == "l" else "Right"
             out[key] = {
@@ -319,6 +332,9 @@ def main():
             call += ["--hang"]
         if spec["shape"]:
             call += ["--shape", spec["shape"]]
+        if spec["slot"] in PROP:
+            axis, anchor = PROP[spec["slot"]]
+            call += ["--prop-axis", axis, "--prop-anchor", anchor]
         if not args.write:
             rows.append("%-12s%-22s  dry run" % (key, spec["node"]))
             return None
@@ -342,6 +358,52 @@ def main():
         if got:
             scales[key] = got
     median = sorted(scales.values())[len(scales) // 2] if scales else 1.0
+
+    # **The right side is the left, mirrored through the skeleton itself.**
+    # For stored verts v, the engine shows W_node(T_donor(v)); the right piece
+    # must show the world-mirror of the left, so
+    #   v_r = T^-1( W_right^-1( Mx( W_left( T(v_l) ) ) ) ).
+    # No fitting, no ranking, no sign to guess - which is the point.
+    if args.write:
+        import numpy as np
+        from nif_write import build as build_nif
+        from skeleton import SKELETON, shape as donor_shape, world as frames
+        from uvmap import parse_trishape
+        from nif_write import _resolve
+        with open(_resolve(SKELETON), "rb") as f:
+            F = frames(f.read())
+
+        def into(v, rps):
+            r, pp, sc = rps
+            return (v * sc) @ r.T + pp
+
+        def outof(v, rps):
+            r, pp, sc = rps
+            return ((v - pp) @ r) / sc
+
+        for slot in SIDED:
+            left = os.path.join(mesh_dir, slot + "_l.nif")
+            right = os.path.join(mesh_dir, slot + "_r.nif")
+            if not os.path.exists(left):
+                continue
+            blob = open(left, "rb").read()
+            v, uv, tris = parse_trishape(blob)
+            T = donor_shape(blob)
+            base = NODE[slot] % "Left" if "%s" in NODE[slot] else NODE[slot]
+            wl, wr = F[base], F[base.replace("Left", "Right")]
+            w = into(into(v, T), wl)
+            w[:, 0] *= -1.0
+            vr = outof(outof(w, wr), T)
+            out = build_nif(blob, vr, uv, tris)
+            with open(right, "wb") as f:
+                f.write(out)
+            ok = (os.path.exists(NIFTEST)
+                  and subprocess.run([NIFTEST, right],
+                                     capture_output=True).returncode == 0)
+            rows.append("%-12s%-22s mirror%9d  %s"
+                        % (slot + "_r", base.replace("Left", "Right"),
+                           os.path.getsize(right),
+                           "accepts" if ok else "REJECTS"))
 
     print("\n%-11s%-28s%7s%9s  ENGINE"
           % ("SLOT", "REFERENCE", "SCALE", "BYTES"))

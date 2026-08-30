@@ -352,6 +352,15 @@ def main():
                     help="force the turn, e.g. -z,y,x - where the piece's X, "
                          "Y and Z each land. For a slot whose vanilla part is "
                          "too cubic to rank by length, so the rig has to say.")
+    ap.add_argument("--prop-axis", choices=["x", "y", "z"],
+                    help="bone-local fit: keep this axis in proportion to the "
+                         "other two instead of squeezing it into the "
+                         "reference. The naked Forearm bodypart is 8.1 units "
+                         "long and the model's forearm plate nearly matches "
+                         "its upper arm - box-fitted it shrank to nothing.")
+    ap.add_argument("--prop-anchor", choices=["min", "max"], default="min",
+                    help="which end of that axis stays put; the elbow end for "
+                         "a forearm")
     ap.add_argument("--hang", action="store_true",
                     help="fit width and depth to the reference, keep the "
                          "vertical in proportion, and align tops - for a piece "
@@ -444,16 +453,48 @@ def main():
               f"scale {np.mean(scale):.2f}, world height "
               f"{ref[:, 2].min():.1f} to {ref[:, 2].max():.1f}")
     elif args.reference:
-        ref, _ruv, _rt = read_mesh(args.reference)
+        if args.shape:
+            # A multi-shape reference, its named shapes taken raw - the file
+            # stores them in the bone's frame already. `read_mesh` would have
+            # returned only the first shape, which for skins.nif is one palm.
+            from skeleton import all_shapes
+            with open(_resolve(args.reference), "rb") as f:
+                got = all_shapes(f.read(), only=args.shape)
+            if not got:
+                raise SystemExit(f"no shape named {args.shape}")
+            ref = np.vstack([v for v, _t, _n in got])
+            _rt = None
+        else:
+            ref, _ruv, _rt = read_mesh(args.reference)
         if args.trim:
             whole = len(ref)
             ref = trim(ref, args.trim)
             print(f"trimmed  reference {whole} -> {len(ref)} vertices, "
                   f"cut at its own waist")
+        before = verts
         verts, scale, turn = align(ref=ref, verts=verts,
                                    clearance=args.clearance,
                                    fallback=args.fixed_scale,
                                    turn=axes(args.axes) if args.axes else None)
+        if args.prop_axis:
+            # Keep the named axis in proportion instead of box-filling it.
+            # The naked Forearm bodypart is 8.1 units long against an Ankle of
+            # 24.3, and the model's forearm plate nearly matches its upper arm:
+            # box-fitted it shrank to a stub lost inside the sleeve.
+            axis = "xyz".index(args.prop_axis)
+            others = [k for k in range(3) if k != axis]
+            scale = np.array(scale, float)
+            scale[axis] = float(np.mean(scale[others]))
+            out = (before @ turn.T) * scale
+            centre = (out.max(0) + out.min(0)) / 2.0
+            out = out - centre + (ref.max(0) + ref.min(0)) / 2.0
+            if args.prop_anchor == "min":
+                out[:, axis] += ref[:, axis].min() - out[:, axis].min()
+            else:
+                out[:, axis] += ref[:, axis].max() - out[:, axis].max()
+            verts = out
+            print(f"prop     {args.prop_axis} kept in proportion, anchored "
+                  f"{args.prop_anchor}")
         turned = "axes matched by length" if abs(np.trace(turn) - 3) > 1e-6             else "axes as they came"
         print(f"aligned  to {os.path.basename(args.reference)}, "
               f"{len(ref)} vertices, scale {np.mean(scale):.2f}, {turned}")
