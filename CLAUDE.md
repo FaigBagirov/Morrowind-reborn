@@ -15,6 +15,10 @@ Docs, three files, all of them authoritative over anything written here:
 
 **Read "State of play" below first**, then the docs, before proposing changes.
 
+`CREDITS.md` records third-party work and what it obliges. The closed helm's
+mesh is CC-BY and **must** carry its author's credit if anything is ever
+published. Check that file before a release, not after.
+
 Game: OpenMW 0.51.0, pinned (`resources/version` commit `f4bec414`).
 Clean vanilla dev profile, three masters only.
 Mod files go in `mod/`. Scripts and reports go in `tools/`.

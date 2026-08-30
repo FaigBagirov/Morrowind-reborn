@@ -190,6 +190,12 @@ Left alone on purpose:
 
 ## The helmet built from a downloaded model
 
+**The sculpt is somebody else's and it is licensed CC-BY**, which obliges a
+credit wherever this ships. Author, title and link are in `CREDITS.md` at the
+repository root. Faig asked for that on 2026-08-30 specifically so the
+obligation would outlive the conversation.
+
+
 The one piece here whose geometry is not the game's own. `tools/build/` is
 gitignored, so the command that produces it is recorded here or it is lost:
 
