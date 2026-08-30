@@ -140,93 +140,79 @@ BODY = "meshes/b/b_n_dark elf_m_%s.nif"
 # glTF is Y-up, so the model faces +Z with up along +Y. And the sides are
 # opposite: the game's left hand sits at x -16.7 to -12.1 while the model's is
 # at +4.26, so the model's left is the game's -X.
-#
-# The chest was on backwards and mirrored until this was measured - it had
-# x,z,-y, which points the breastplate at the character's own spine.
 MODEL_TO_GAME = "-x,z,y"
-SLOTS = {
-    # slot: (donor, reference or None to reuse the donor, forced axes, trim)
-    # Fitted in world space against the naked torso, hung on the Chest node -
-    # see BONE below. The donor is only a container now; its skirt no longer
-    # decides anything.
-    # **The donor must not be skinned.** Every cuirass in the game is, and
-    # putting our geometry into one leaves its bone weights describing the 1302
-    # vertices we replaced: the engine then drives our 1978 by weights that mean
-    # nothing, and the whole torso collapses into a thin blade reaching to the
-    # floor. That is what Faig was seeing as a cloak down the middle and two
-    # cones meeting at the knee. A rigid single-shape file serves instead - the
-    # bone decides placement, the donor only carries node, material and texture,
-    # exactly as for the hand.
-    "chest": (BODY % "ankle", "meshes/b/b_n_dark elf_m_skins.nif",
-              MODEL_TO_GAME, None),
-    "groin": (BODY % "groin", None, MODEL_TO_GAME, None),
-    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None, MODEL_TO_GAME, None),
-    "upperarm": (BODY % "upper arm", None, MODEL_TO_GAME, None),
-    "forearm": (BODY % "forearm", None, MODEL_TO_GAME, None),
-    "upperleg": (BODY % "upper leg", None, MODEL_TO_GAME, None),
-    "knee": (BODY % "knee", None, MODEL_TO_GAME, None),
-    "ankle": (BODY % "ankle", None, MODEL_TO_GAME, None),
-    # the naked foot carries two shapes and this writer replaces one, so the
-    # boot supplies the container while the foot still supplies the fitting
-    "foot": ("meshes/a/a_daedric_boots_f.nif", BODY % "foot", MODEL_TO_GAME, None),
-    # The hand had no donor for a long time and the reason was a
-    # misunderstanding: **the donor does not have to be a hand.** It supplies
-    # the node, the material and the texture reference; where the piece goes is
-    # decided by the bone. So any single-shape file whose own shape transform is
-    # identity will do, and the vanilla ankle is one. The reference is the real
-    # hand, three shapes of it, out of the file that also holds the torso.
-    "hand": (BODY % "ankle", BODY % "skins", MODEL_TO_GAME, None),
+
+# The rigid donors. **None of them may be skinned.** Every cuirass in the game
+# is, and putting our geometry into one leaves its bone weights describing the
+# vertices we replaced: the engine drives ours by weights that mean nothing and
+# the torso collapses into a blade reaching the floor. A donor only carries the
+# node, the material and the texture reference - the bone decides placement - so
+# any rigid single-shape file serves, which is how the chest and the hand are
+# done. Checked, not assumed: only the cuirass came back skinned.
+DONOR = {
+    "chest": BODY % "ankle",
+    "groin": BODY % "groin",
+    "clavicle": "meshes/a/a_daedric_pauldron_cl.nif",
+    "upperarm": BODY % "upper arm",
+    "forearm": BODY % "forearm",
+    "upperleg": BODY % "upper leg",
+    "knee": BODY % "knee",
+    "ankle": BODY % "ankle",
+    "foot": "meshes/a/a_daedric_boots_f.nif",
+    "hand": BODY % "ankle",
 }
-MEASURED = {s for s, (d, *_) in SLOTS.items() if d.startswith("meshes/b/")}
-
-# Slots fitted in world space instead: the skeleton node they hang on, and
-# which shapes of the reference file to use. **This is the better way round**
-# and the limbs would be no worse for it - up means up on both sides, so no
-# axis has to be ranked or forced. It is used where the old way could not
-# reach: the only chest donor in the game wears a skirt, and the naked torso
-# turned out to be hiding in the hands file.
-# **Every slot, not just the two that could not be done otherwise.** Ranking a
-# piece's axes by length settles which one runs along the limb and nothing more:
-# the roll about that axis is undetermined whenever the other two are close, and
-# on the foot they are 6.3 against 6.2. Faig saw the foot a quarter turn out.
-# In world space up is up and forward is forward for both sides at once, so
-# there is nothing left to rank.
-IN_WORLD = {
-    "chest": ("Chest", "Tri Chest"),
-    "groin": ("Groin", None),
-    "clavicle": ("Left Clavicle", None),
-    "upperarm": ("Left Upper Arm", None),
-    "forearm": ("Left Forearm", None),
-    "upperleg": ("Left Upper Leg", None),
-    "knee": ("Left Knee", None),
-    "ankle": ("Left Ankle", None),
-    "foot": ("Left Foot", None),
-    "hand": ("Left Hand", "Left Hand"),
+# What each is fitted against, and which shapes of it. `skins.nif` is the Chest
+# bodypart and both Hand bodyparts at once, seven shapes in one file.
+REFERENCE = {
+    "chest": (BODY % "skins", "Tri Chest"),
+    "groin": (BODY % "groin", None),
+    "clavicle": ("meshes/a/a_daedric_pauldron_cl.nif", None),
+    "upperarm": (BODY % "upper arm", None),
+    "forearm": (BODY % "forearm", None),
+    "upperleg": (BODY % "upper leg", None),
+    "knee": (BODY % "knee", None),
+    "ankle": (BODY % "ankle", None),
+    "foot": (BODY % "foot", None),
+    "hand": (BODY % "skins", "%s Hand"),
 }
+# The skeleton node each hangs on, without the side.
+NODE = {"chest": "Chest", "groin": "Groin", "clavicle": "%s Clavicle",
+        "upperarm": "%s Upper Arm", "forearm": "%s Forearm",
+        "upperleg": "%s Upper Leg", "knee": "%s Knee", "ankle": "%s Ankle",
+        "foot": "%s Foot", "hand": "%s Hand"}
 
-# **The chest is not like the others, and the reason is structural.** Every
-# cuirass in the three masters is a *skinned* mesh: it carries the whole Bip01
-# skeleton and its vertices sit in the character's space, not in the chest
-# bone's. There is no rigid single-shape chest anywhere to use instead - the
-# search returns zero. So the chest is cut in world space rather than into a
-# bone frame, and turned from the model's convention into the character's:
-# model Y is up and becomes Z, model Z is forward and becomes -Y.
-#
-# Which end of the donor is the top was measured, not reasoned. Bip01 sits at
-# Z 76.06 and `Tri Chest` runs from -41.4 to +20.9 about it, which puts the
-# shoulders at +20.9 and the skirt hem at -41.4, down by the knees. An earlier
-# guess here - that the shoulders were the deeper end, 23.5 units against 16.9 -
-# was wrong, and the trim now keeps the upper half.
-#
-# One thing this does not fix: the donor is skinned, and its bone weights still
-# describe the geometry we replaced. The engine accepts the file and draws it,
-# but that mismatch is unexamined.
+# **Both sides are built, and that is not waste.** The vanilla armour records
+# leave every left slot empty and let the engine mirror the right one. Mirroring
+# negates an axis of the *local* coordinates, which is harmless for a vanilla
+# part sitting on its own bone and ruinous for ours, which carry an offset from
+# the world-space fit: Faig's left leg was missing outright and his forearms
+# were pushed in towards the middle. Filling both slots removes the mirror from
+# the question.
+SIDED = ("clavicle", "upperarm", "forearm", "upperleg", "knee", "ankle",
+         "foot", "hand")
 
-# which cut piece feeds each slot; a left-side cut serves both sides
-SOURCE = {slot: ("chest" if slot == "chest" else
-                 slot if slot in ("groin",) else slot + "_l") + "_world"
-          for slot in ("chest", "groin", "clavicle", "upperarm", "forearm",
-                       "upperleg", "knee", "ankle", "foot", "hand")}
+
+def slots():
+    """Every piece to build: its name, cut, donor, reference, node and turn."""
+    out = {}
+    for slot, donor in DONOR.items():
+        ref, shape = REFERENCE[slot]
+        for side in (("l", "r") if slot in SIDED else ("",)):
+            key = f"{slot}_{side}" if side else slot
+            hand = "Left" if side == "l" else "Right"
+            out[key] = {
+                "slot": slot,
+                "cut": (f"{slot}_{side}" if side else slot) + "_world",
+                "donor": donor,
+                "reference": ref,
+                "shape": shape % hand if shape and "%s" in shape else shape,
+                "node": NODE[slot] % hand if "%s" in NODE[slot] else NODE[slot],
+                "axes": MODEL_TO_GAME,
+            }
+    return out
+
+
+SLOTS = slots()
 
 NIFTEST = r"D:/Program Files/OpenMW 0.51.0/niftest.exe"
 
@@ -267,59 +253,44 @@ def main():
         os.makedirs(mesh_dir, exist_ok=True)
     scales, rows = {}, []
 
-    def make(slot, fallback=None):
-        donor, ref, turn, cut = SLOTS[slot]
-        source = os.path.join(parts, SOURCE[slot] + ".obj")
+    def make(key):
+        spec = SLOTS[key]
+        source = os.path.join(parts, spec["cut"] + ".obj")
         if not os.path.exists(source):
-            rows.append("%-11s%-28s  no cut piece" % (slot, ""))
+            rows.append("%-12s%-22s  no cut piece" % (key, ""))
             return None
-        target = os.path.join(mesh_dir, slot + ".nif")
-        core = os.path.join(parts, SOURCE[slot].replace("_world", "_core_world")
+        core = os.path.join(parts, spec["cut"].replace("_world", "_core_world")
                             + ".obj")
-        call = [os.path.join(HERE, "nif_write.py"), source, "--donor", donor,
-                "--core", core,
-                "--reference", ref or donor, "--out", target,
+        target = os.path.join(mesh_dir, key + ".nif")
+        call = [os.path.join(HERE, "nif_write.py"), source,
+                "--core", core, "--donor", spec["donor"],
+                "--reference", spec["reference"], "--out", target,
+                "--bone", spec["node"], "--axes=" + spec["axes"],
                 "--texture", args.texture, "--clearance", str(args.clearance)]
-        if turn:
-            call += ["--axes=" + turn]
-        if cut:
-            call += ["--trim", cut]
-        if slot in IN_WORLD:
-            bone, which = IN_WORLD[slot]
-            call += ["--bone", bone]
-            if which:
-                call += ["--shape", which]
-        if fallback:
-            call += ["--fixed-scale", str(fallback)]
+        if spec["shape"]:
+            call += ["--shape", spec["shape"]]
         if not args.write:
-            rows.append("%-11s%-28s  dry run"
-                        % (slot, os.path.basename(ref or donor)))
+            rows.append("%-12s%-22s  dry run" % (key, spec["node"]))
             return None
         made = run(call)
         if made.returncode:
             last = (made.stderr.strip().splitlines() or ["failed"])[-1]
-            rows.append("%-11s%-28s  %s"
-                        % (slot, os.path.basename(ref or donor), last[:40]))
+            rows.append("%-12s%-22s  %s" % (key, spec["node"], last[:40]))
             return None
         said = [x for x in made.stdout.splitlines() if x.startswith("aligned")]
         scale = float(said[0].split("scale ")[1].split(",")[0]) if said else 0.0
         ok = (os.path.exists(NIFTEST)
               and subprocess.run([NIFTEST, target],
                                  capture_output=True).returncode == 0)
-        rows.append("%-11s%-28s%7.1f%9d  %s"
-                    % (slot, os.path.basename(ref or donor), scale,
-                       os.path.getsize(target),
+        rows.append("%-12s%-22s%7.1f%9d  %s"
+                    % (key, spec["node"], scale, os.path.getsize(target),
                        "accepts" if ok else "REJECTS"))
         return scale if ok else None
 
-    # Every slot is now fitted against something in its own frame - the vanilla
-    # naked part for the limbs, a rigid pauldron for the clavicle, and for the
-    # chest a skinned cuirass with the piece cut in character space to match.
-    # The median fallback these last two used is gone with it.
-    for slot in SLOTS:
-        got = make(slot)
+    for key in SLOTS:
+        got = make(key)
         if got:
-            scales[slot] = got
+            scales[key] = got
     median = sorted(scales.values())[len(scales) // 2] if scales else 1.0
 
     print("\n%-11s%-28s%7s%9s  ENGINE"
@@ -333,8 +304,9 @@ def main():
               "Forearm bodypart spans 8.1 units where its Ankle spans 24.3."
               % (min(scales.values()), max(scales.values()), median))
     print("\n%d of %d pieces built and accepted." % (built, len(SLOTS)))
-    print("The hand rides a donor of its own: any single-shape file with an "
-          "identity transform, the bone decides the rest.")
+    print("Both sides are built on purpose: the vanilla records leave every "
+          "left slot empty and rely on the engine mirroring, which throws an "
+          "offset piece off the body.")
     if not args.write:
         print("Dry run. Pass --write to build.")
     return 0

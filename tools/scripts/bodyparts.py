@@ -28,33 +28,34 @@ import os
 
 # Our pieces. The Morrowind part name has to match what the slot expects, and
 # the mesh path is relative to a data directory's Meshes/.
-PARTS = {
-    "chest": ("zenar_chest", "Chest"),
-    "groin": ("zenar_groin", "Groin"),
-    "clavicle": ("zenar_clavicle", "Clavicle"),
-    "upperarm": ("zenar_upperarm", "UpperArm"),
-    "forearm": ("zenar_forearm", "Forearm"),
-    "upperleg": ("zenar_upperleg", "UpperLeg"),
-    "knee": ("zenar_knee", "Knee"),
-    "ankle": ("zenar_ankle", "Ankle"),
-    "foot": ("zenar_foot", "Foot"),
-    "hand": ("zenar_hand", "Hand"),
-}
+# Our pieces. The Morrowind part name has to match what the slot expects, and
+# the mesh path is relative to a data directory's Meshes/.
+#
+# **Both sides, one record each.** The vanilla armour records fill only the
+# right slots and let the engine mirror into the left. Mirroring negates an axis
+# of the local coordinates, which is harmless for a vanilla part sitting on its
+# own bone and ruinous for one carrying an offset: Faig's left leg vanished
+# outright and his forearms were pushed towards the middle. Filling both slots
+# takes the mirror out of the question.
+UNSIDED = {"chest": "Chest", "groin": "Groin"}
+BY_SIDE = {"clavicle": "Clavicle", "upperarm": "UpperArm", "forearm": "Forearm",
+           "upperleg": "UpperLeg", "knee": "Knee", "ankle": "Ankle",
+           "foot": "Foot", "hand": "Hand"}
 
-# Hand was absent for a long time on a false premise: that a donor had to be a
-# hand bodypart, and none of the twelve in the masters has a single shape for
-# this writer to replace. The donor only supplies the node, the material and the
-# texture reference - the bone decides placement - so any single-shape file with
-# an identity transform serves, and the vanilla ankle does.
+PARTS = {k: (f"zenar_{k}", v) for k, v in UNSIDED.items()}
+PARTS.update({f"{k}_{s}": (f"zenar_{k}_{s}", v)
+              for k, v in BY_SIDE.items() for s in ("l", "r")})
 
 # An armour record names its slots as LeftPauldron, RightUpperArm and so on.
-# Strip the side and this is what remains.
+# This turns one of those into the key above, side and all.
 SLOT_OF = {
     "chest": "chest", "groin": "groin",
     "pauldron": "clavicle", "clavicle": "clavicle",
     "upperarm": "upperarm", "forearm": "forearm",
     "upperleg": "upperleg", "knee": "knee",
-    "ankle": "ankle", "foot": "foot", "hand": "hand", "wrist": "hand",
+    "ankle": "ankle", "foot": "foot", "hand": "hand",
+    # No wrist: it would draw the hand a second time on the wrist bone. The
+    # vanilla records leave that slot empty and it stays empty.
 }
 
 # The armour this replaces. Daedric becomes Zenaric throughout the conversion,
@@ -68,13 +69,19 @@ TARGETS = {
 
 
 def slot_of(biped_type):
-    """Which of our pieces a slot wants, if any."""
+    """Which of our pieces a slot wants, side included, if any."""
     name = str(biped_type or "").lower()
-    for prefix in ("left", "right"):
+    side = ""
+    for prefix, letter in (("left", "l"), ("right", "r")):
         if name.startswith(prefix):
-            name = name[len(prefix):]
+            name, side = name[len(prefix):], letter
             break
-    return SLOT_OF.get(name)
+    base = SLOT_OF.get(name)
+    if not base:
+        return None
+    if base in ("chest", "groin"):
+        return base
+    return f"{base}_{side}" if side else None
 
 
 def emit(mesh_dir="zenar", built=None):
@@ -108,11 +115,11 @@ def repoint(record, built=None):
             continue
         if built is not None and slot not in built:
             continue
-        if not biped.get("male_bodypart"):
-            continue          # an empty slot stays empty
+        # An empty slot is filled rather than skipped. It is empty precisely
+        # because the vanilla record expects the engine to mirror the other
+        # side, and that mirror is what threw our pieces off the body.
         biped["male_bodypart"] = PARTS[slot][0]
-        if biped.get("female_bodypart"):
-            biped["female_bodypart"] = PARTS[slot][0]
+        biped["female_bodypart"] = PARTS[slot][0]
         moved += 1
     return moved
 
