@@ -136,10 +136,35 @@ Part 12's `GMST | writable` was measured by a Lua readback, not by the screen.
 Those are different claims. The screen now supports the stronger one for the
 stat sheet, and refutes it for effect names, which need the separate write above.
 
+## Confirmed on screen, 2026-08-31
+
+Every item on the list is now seen rather than inferred, driven from this
+session with `tools/scripts/play2.ps1` against a second, isolated instance:
+
+* the stat sheet reading `Charge 40/40`;
+* the magic window headed `Resist Discharge`, which is the effect line that had
+  been wrong;
+* the potion `Cheap Restore Charge`, seen earlier;
+* *The Firmament*, page 5-6, which carries the whole argument in one image.
+
+That page is worth describing, because it shows both halves of the split at
+once and in the same typeface. The vanilla paragraph is intact and still says
+**"Rain's Hand when magicka was first used by men"** - a mortal's word, kept.
+The added paragraph follows it:
+
+> A note, since no one else troubles to make it. Rain's Hand is not when
+> magicka began. It is when men began to use it, which is a different claim and
+> a much later date. Someone once measured the distance between the two. His
+> figures survive in the Guild's older tables. What he concluded from them does
+> not.
+
+Meanwhile the interface behind that open book says Charge. One screen, both
+rules, no contradiction. The constellation illustration, the pagination and the
+page break mid-sentence into page 7 are all unharmed, which is the book-markup
+rule holding on an authored record rather than a substituted one.
+
 ## Still to do
 
-* Confirm on screen: the effect line reading `Resist Discharge`, the potion
-  `Cheap Restore Charge` (**already seen**), and the Firmament's new paragraph.
-* The interface will say Charge while effect descriptions still say "magic",
+* The interface says Charge while effect descriptions still say "magic",
   "magical", "spell" and "cast". That is a separate and much larger question
   than the one asked, and it has not been touched.
