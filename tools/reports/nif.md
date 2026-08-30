@@ -38,6 +38,56 @@ scratch directory; **no game folder was touched**.
 | 2 | every vertex scaled by 1.25, written by script | **accepted, exit 0** |
 | 3 | a real deformation - a brow ridge raised at eye height, the crown tapered - 79 of 117 vertices moved, mean shift 0.46, max 1.82 | **accepted, exit 0** |
 
+## Then the harder one: a file built rather than patched
+
+The first three runs left assembly untested, and the report said so. Faig said
+try, so it was tried, and it works.
+
+**The layout was not guessed.** It was established by parsing the ebony helm's
+`NiTriShapeData` block into arrays and rebuilding the file from them until all
+**5,761 bytes came back identical**. Only then was the geometry changed.
+
+    ushort numVertices        uint32 flag      float3 * n vertices
+    uint32 flag               float3 * n normals
+    float3 centre             float radius
+    uint32 hasVertexColours   ushort numUVSets    uint32 flag
+    float2 * n texture coordinates
+    ushort numTriangles       uint32 numTrianglePoints
+    ushort3 * m triangles
+
+Three words in there read as neither 0 nor 1 and their meaning is **not known**.
+They are copied from the donor rather than invented, which is honest and works.
+
+| | File | Result |
+| --- | --- | --- |
+| 4 | the helm rebuilt from its own parsed arrays | **5,761 of 5,761 bytes identical** |
+| 5 | a Sketchfab helmet, 3,269 vertices and 5,292 triangles, in a 117-vertex donor - 136,997 bytes against 5,761 | **accepted, exit 0** |
+
+Blocks in this format refer to each other by index and carry no length field, so
+a block that changes size breaks nothing after it. That is why a donor works and
+why nothing had to be written from absolute zero.
+
+`tools/scripts/nif_write.py` does it: OBJ in, donor named, NIF out, with the
+axis swap and a uniform fit into the donor's own bounding box.
+
+## A bug of mine that this uncovered
+
+The four extra bytes before the vertex array are why `uvmap.py` had been reading
+every mesh **four bytes short**. A float array read at the wrong offset is still
+a float array, so nothing complained; the vertices simply came back shifted
+against their own UVs.
+
+That is what made this helm's azimuth map look like a patchwork, and I concluded
+from it that the unwrap overlapped so badly it could not be painted on. With the
+parse corrected the height map is a clean gradient and the azimuth map is smooth
+almost everywhere. **Some overlap is real** - a few rectangular islands remain -
+but the mess was mostly mine.
+
+The parser now verifies itself against something no wrong offset can satisfy:
+the file states its own bounding sphere, and the stated radius has to equal the
+distance to the furthest vertex from the stated centre. On the ebony helm both
+are 13.0252.
+
 ## What that settles, and what it does not
 
 **Settled: the claim as written is false.** OpenMW's own validator accepts a NIF
@@ -46,13 +96,14 @@ not care that no human touched it.
 
 **Not settled, and not to be claimed:**
 
-* A NIF *assembled from nothing* - new vertex and triangle counts, blocks built
-  rather than patched - was not tested. Doing it needs the rest of the
-  `NiTriShapeData` field layout decoded, and that decoding was stopped rather
-  than guessed at: the bounding-sphere fields did not fall where any of three
-  candidate layouts put them.
-* Whether the reshaped helm *looks* right, or animates and collides correctly,
-  was not tested. `niftest` reads a file; it does not wear it.
+* Whether the built helm *looks* right, sits on the head, faces forward or
+  clips was not tested. `niftest` reads a file; it does not wear one.
+* Rigging. Morrowind dresses a body from separate rigid parts, so a helmet needs
+  none - anything spanning a joint would, and that is untried.
+* Collision. The donor's is carried through unexamined.
+* A file built with **no donor at all** is still untested. Nothing needs it: the
+  donor supplies the node, the material and the texture reference, all of which
+  a new piece wants anyway.
 
 ## So why still not do it
 

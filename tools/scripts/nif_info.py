@@ -14,8 +14,9 @@ all, none of which the file name tells you:
 
 * **Does it carry texture coordinates?** Print and sculpt formats do not, and a
   mesh with no UVs has nowhere to put a texture - it renders as flat plastic.
-* **How heavy is it?** Morrowind helmets run 89 to 177 vertices. A model meant
-  for 3D printing runs into the hundreds of thousands.
+* **How heavy is it?** Vanilla helmets run 89 to 177 vertices, but that is a
+  2002 count rather than a ceiling - mods already installed here reach 14,696.
+  A model meant for 3D printing still runs into the hundreds of thousands.
 * **Does OpenMW itself accept it?** `niftest.exe`, shipped with the game, is the
   authority. Its verdict is reported here rather than guessed at.
 """
@@ -40,8 +41,12 @@ KNOWN = {
     0x14030009: ("Fallout 4 era", "needs conversion, and probably not worth it"),
 }
 
-# Vanilla helmets, for scale. Measured, not recalled.
-BUDGET = "Morrowind helmets are 89 to 177 vertices, 61 to 273 triangles"
+# For scale, and stated as what it is. Vanilla helmets are 89 to 177 vertices,
+# but that is 2002 counts and not a limit: measured across 828 mesh files in an
+# installed modpack, the median is 986 vertices, the ninetieth percentile 3,407
+# and the largest 14,696.
+BUDGET = ("vanilla helmets are 89 to 177 vertices; modern mods in this load "
+          "order run to 14,696, median 986")
 
 
 def read_version(blob):
