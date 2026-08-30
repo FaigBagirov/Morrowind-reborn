@@ -244,8 +244,13 @@ public class Play {
   // message rather than two of the same one. Windows sends WM_LBUTTONDBLCLK for
   // the second press, SDL counts its clicks from that message alone, and MyGUI
   // asks SDL. Two plain presses are therefore two single clicks however close
-  // together - which in the inventory picks an item up and then drops it on the
-  // floor, and never opens the book.
+  // together, which in the inventory picks an item up and then drops it.
+  //
+  // Reading a book from the inventory is not a double-click at all. Faig gave
+  // the real gesture: click once to lift the book onto the cursor, move to the
+  // player figure without holding the button, and click again. What I did
+  // instead - place a copy in the world, pitch the camera down with
+  // player->SetAngle X, and activate it - also works and needs no drag.
   public static void PostClick(IntPtr h, int x, int y, int times) {
     IntPtr lp = (IntPtr)((y << 16) | (x & 0xFFFF));
     PostMessage(h, 0x0200, IntPtr.Zero, lp);              // WM_MOUSEMOVE
