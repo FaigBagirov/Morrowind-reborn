@@ -225,8 +225,27 @@ LOCAL_AXES = {"hand": "-x,y,-z", "foot": "z,y,-x"}
 # arms sat a touch too close to the body - the shift is world -1.8 on X,
 # expressed in the arm bone's frame.
 POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
-             "clavicle": "-x,-y,z"}
-POST_SHIFT = {"upperarm": "0.36,0.67,1.63", "head": "0,0,-13"}
+             "clavicle": "-x,-y,z",
+             # palms were facing backward; a quarter roll about the finger
+             # axis turns them in against the thigh
+             "hand": "x,-z,y"}
+
+# **A post-shift is applied in the frame the piece was fitted in**, which for a
+# world-fitted slot is the bodypart's own frame, not the world. Writing the
+# head's drop as a world vector moved it 13 units sideways instead - measured,
+# our head centre sat at x 13.05 against the vanilla 0.05, which is exactly the
+# sideways drift Faig saw. Every entry here is the world movement wanted, put
+# through the node's rotation first.
+# And the conversion is measured, not derived: the local-to-world map is found
+# numerically by nudging the piece one unit along each local axis and reading
+# where its centre goes, then solved. Deriving it by hand went wrong twice -
+# once by ignoring the donor's own rotation, once by dividing where it should
+# have multiplied - and each mistake moved the head sideways instead of down.
+#   head      world (-3, 0, -3)      hand  world (0, 0, -4)
+#   upperarm  world (-1.8, 0, -3)    - the outward spread and the drop together
+POST_SHIFT = {"upperarm": "1.338,0.522,1.475",
+              "hand": "0.099,0.002,-0.008",
+              "head": "-2.894,0.79,-0.003"}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
 # fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
