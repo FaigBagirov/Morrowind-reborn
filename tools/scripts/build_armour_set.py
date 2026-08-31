@@ -229,9 +229,9 @@ LOCAL_AXES = {"foot": "-z,-y,-x"}
 # expressed in the arm bone's frame.
 POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
              "clavicle": "-x,-y,z",
-             # palms faced outward; half a turn about the finger axis, which
-             # the local-to-world map identifies as the piece's own X
-             "hand": "x,-y,-z"}
+             # palms faced backward after the half turn; a quarter turn about
+             # the finger axis - the piece's own X - brings them inward
+             "hand": "x,z,-y"}
 
 # **A post-shift is applied in the frame the piece was fitted in**, which for a
 # world-fitted slot is the bodypart's own frame, not the world. Writing the
@@ -252,8 +252,14 @@ POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
 # Faig measures a drop as a fraction of the piece's own length, which is a
 # landmark I can solve against: the upper arm 30 per cent of its 24.9, the
 # forearm 70 per cent of its 15.6.
-POST_SHIFT = {"upperarm": "7.294,-1.122,-1.154",
-              "forearm": "10.772,0.336,-1.692",
+# **The sign here is Faig's, not the map's.** Solving the numeric local-to-world
+# map for "down" moved the arms down by the numbers and *up* on his screen,
+# three reports running. Something in the order I model - the donor transform,
+# the post rotation, the engine's own - is inverted for these two slots, and
+# until that is found his eyes win: the vectors below are the solved ones
+# negated. The head, which has no post rotation, needed no such negation.
+POST_SHIFT = {"upperarm": "-7.294,1.122,1.154",
+              "forearm": "-10.772,-0.336,1.692",
               "hand": "0.099,0.002,-0.008",
               "head": "-8.682,2.37,-1.503"}
 
