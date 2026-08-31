@@ -229,9 +229,9 @@ LOCAL_AXES = {"foot": "-z,-y,-x"}
 # expressed in the arm bone's frame.
 POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
              "clavicle": "-x,-y,z",
-             # palms were facing backward; a quarter roll about the finger
-             # axis turns them in against the thigh
-             "hand": "x,-z,y"}
+             # palms faced outward; half a turn about the finger axis, which
+             # the local-to-world map identifies as the piece's own X
+             "hand": "x,-y,-z"}
 
 # **A post-shift is applied in the frame the piece was fitted in**, which for a
 # world-fitted slot is the bodypart's own frame, not the world. Writing the
@@ -249,7 +249,12 @@ POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
 # The arm segments are left level with their vanilla twins. Nudging them has
 # now missed in both directions on Faig's screen, so they sit where the
 # measurement puts them until there is a landmark to aim at.
-POST_SHIFT = {"hand": "0.099,0.002,-0.008",
+# Faig measures a drop as a fraction of the piece's own length, which is a
+# landmark I can solve against: the upper arm 30 per cent of its 24.9, the
+# forearm 70 per cent of its 15.6.
+POST_SHIFT = {"upperarm": "7.294,-1.122,-1.154",
+              "forearm": "10.772,0.336,-1.692",
+              "hand": "0.099,0.002,-0.008",
               "head": "-8.682,2.37,-1.503"}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
