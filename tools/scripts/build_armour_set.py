@@ -243,9 +243,10 @@ POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
 # have multiplied - and each mistake moved the head sideways instead of down.
 #   head      world (-3, 0, -3)      hand  world (0, 0, -4)
 #   upperarm  world (-1.8, 0, -3)    - the outward spread and the drop together
-POST_SHIFT = {"upperarm": "1.338,0.522,1.475",
+POST_SHIFT = {"upperarm": "5.244,-0.079,0.857",
+              "forearm": "4.937,0.154,-0.775",
               "hand": "0.099,0.002,-0.008",
-              "head": "-2.894,0.79,-0.003"}
+              "head": "-8.682,2.37,-1.503"}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
 # fabric that hangs to the knees. Box-fitted it was crushed into the crotch;
@@ -281,6 +282,15 @@ NODE = {"head": "Head", "chest": "Chest",
 SIDED = ("clavicle", "upperarm", "forearm", "upperleg", "knee", "ankle",
          "foot", "hand")
 
+# **Which side of the model to cut for a slot, and it is not always the left.**
+# The model's left is the game's right - measured: the model's left hand sits
+# at x +4.26 while the game's is at -16.7. For a limb that hardly matters,
+# since an arm is nearly symmetric; for a hand it matters completely, and Faig
+# saw the hands swapped. So the asymmetric pieces take the model's right cut,
+# which the engine then reads as the game's left. The foot is here for the same
+# reason, before it is reported.
+FROM_RIGHT = {"hand", "foot"}
+
 
 def slots():
     """Every piece to build: its name, cut, donor, reference, node and turn."""
@@ -294,7 +304,8 @@ def slots():
         # left: the game hangs parts on *animated* bones, and the rest pose is
         # not what plays. The engine's mirror lives on the right side of that
         # problem; mine could not.
-        cut = (slot + "_l") if slot in SIDED else slot
+        side = "_r" if slot in FROM_RIGHT else "_l"
+        cut = (slot + side) if slot in SIDED else slot
         out[slot] = {
             "slot": slot,
             "cut": cut + ("_world" if slot in IN_WORLD else ""),
