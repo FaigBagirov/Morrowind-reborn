@@ -214,7 +214,7 @@ PROP = {"forearm": ("x", "min")}
 # the hand, toes and ankle for the foot), one rotated onto the other, snapped
 # to the axis grid. Faig saw the left hand fingers-up and the feet a quarter
 # turn out; ranking had silently picked the wrong sign.
-LOCAL_AXES = {"hand": "-x,y,-z", "foot": "z,y,-x"}
+LOCAL_AXES = {"hand": "-x,-y,z", "foot": "-z,-y,-x"}
 
 # Corrections Faig called from the screen, each verified against a rendered
 # candidate sheet before being written down - three 180-degree turns are
@@ -243,9 +243,10 @@ POST_AXES = {"upperleg": "-x,y,-z", "upperarm": "-x,y,-z",
 # have multiplied - and each mistake moved the head sideways instead of down.
 #   head      world (-3, 0, -3)      hand  world (0, 0, -4)
 #   upperarm  world (-1.8, 0, -3)    - the outward spread and the drop together
-POST_SHIFT = {"upperarm": "5.244,-0.079,0.857",
-              "forearm": "4.937,0.154,-0.775",
-              "hand": "0.099,0.002,-0.008",
+# The arm segments are left level with their vanilla twins. Nudging them has
+# now missed in both directions on Faig's screen, so they sit where the
+# measurement puts them until there is a landmark to aim at.
+POST_SHIFT = {"hand": "0.099,0.002,-0.008",
               "head": "-8.682,2.37,-1.503"}
 
 # The groin carries the model's tabard - hip cloth, front straps, a tail of
