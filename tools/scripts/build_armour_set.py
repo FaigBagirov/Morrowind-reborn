@@ -214,7 +214,10 @@ PROP = {"forearm": ("x", "min")}
 # the hand, toes and ankle for the foot), one rotated onto the other, snapped
 # to the axis grid. Faig saw the left hand fingers-up and the feet a quarter
 # turn out; ranking had silently picked the wrong sign.
-LOCAL_AXES = {"hand": "-x,-y,z", "foot": "-z,-y,-x"}
+# The hand ends up needing no turn at all: the model's right cut, read into
+# the game's left slot, already points the fingers down with the palm inward.
+# Every turn I had put on it was undoing itself.
+LOCAL_AXES = {"foot": "-z,-y,-x"}
 
 # Corrections Faig called from the screen, each verified against a rendered
 # candidate sheet before being written down - three 180-degree turns are

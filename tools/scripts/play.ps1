@@ -9,6 +9,9 @@
 # load ran fourteen minutes and never finished. The profile writes openmw.log
 # anyway, and this waits on that.
 #
+# Sound off: Faig asked for it, and a silent launch is also kinder when the
+# game is started and closed a dozen times in a session.
+#
 # Prints the pid last, which is what `shot.ps1 -Target` needs. Everything in
 # this project that touches the game must name its process: the game can be open
 # more than once, and Faig runs a second session of this project in parallel.
@@ -31,7 +34,7 @@ $log = Join-Path $Config "openmw.log"
 if (Test-Path $log) { Remove-Item $log -ErrorAction SilentlyContinue }
 
 $p = Start-Process -FilePath $Exe -PassThru -ArgumentList (
-  '--replace config --config "{0}" --skip-menu --load-savegame "{1}"' -f $Config, $Save)
+  '--replace config --config "{0}" --skip-menu --no-sound --load-savegame "{1}"' -f $Config, $Save)
 
 for ($i = 1; $i -le 20; $i++) {
   Start-Sleep -Seconds 10
