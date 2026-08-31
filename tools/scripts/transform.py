@@ -273,6 +273,11 @@ def main():
                     default=os.path.join(root, "tools", "bin", "tes3conv.exe"))
     ap.add_argument("--out-name", default="scifi-rewrite",
                     help="base name for the plugin artifacts")
+    ap.add_argument("--import-armour", action="store_true",
+                    help="emit bodypart records for the imported model and "
+                         "repoint the Daedric armour at them. Off on master "
+                         "so the game stays playable; the new-armor branch "
+                         "turns it on.")
     ap.add_argument("--write", action="store_true",
                     help="write the artifacts; without it this is a dry run")
     args = ap.parse_args()
@@ -607,11 +612,18 @@ def main():
     new_records = emit_authored_dialogue(new_topics)
     out.extend(new_records)
 
-    # The imported armour. A mesh in a data directory is invisible until a
-    # bodypart record names it and an armour record names that, so both hops
-    # are made here - and only for pieces that are actually built, because a
-    # record naming a missing mesh shows as nothing at all.
-    built = bodyparts.on_disk(os.path.join(args.out_build,
+    # **The imported armour lives on the `new-armor` branch, not here.** Faig
+    # asked for master to stay playable while the import is still being fitted,
+    # so this step is off by default and the Daedric records keep the meshes
+    # the load order gives them. The Zenaric *recolouring* is untouched: it is
+    # textures written by `make_armour.py`, registered with a `data=` line, and
+    # nothing in the plugin refers to it.
+    #
+    # A mesh in a data directory is invisible until a bodypart record names it
+    # and an armour record names that, so both hops are made here - and only
+    # for pieces that are actually built, because a record naming a missing
+    # mesh shows as nothing at all.
+    built = args.import_armour and bodyparts.on_disk(os.path.join(args.out_build,
                                            f"armour-{args.profile}",
                                            "Meshes", "zenar"))
     if built:
@@ -622,8 +634,10 @@ def main():
         print(f"Imported armour: {len(parts)} bodyparts, "
               f"{moved} armour slots repointed "
               f"({', '.join(sorted(built))})")
-    else:
+    elif args.import_armour:
         print("Imported armour: no built meshes found, nothing repointed")
+    else:
+        print("Imported armour: off (the new-armor branch turns it on)")
 
     header["num_objects"] = len(out) - 1
     print(f"  {emitted_dial} topic records emitted to own "

@@ -423,6 +423,23 @@ The rule is kept on better grounds - good geometry is sculpting rather than
 scripting, and a bad mesh sits under animation and collision - but **reusing
 someone else's mesh is now a working route**, not a theoretical one.
 
+## The imported model lives on `new-armor`, not on master
+
+Faig asked on 2026-08-31 for master to stay playable while the imported suit is
+still being fitted. So:
+
+- **master** carries the Zenaric *recolouring* and nothing else of the import.
+  That is textures written by `make_armour.py` into
+  `tools/build/armour-momw/Textures/jy_daedric`, reached by one `data=` line.
+  `transform.py` no longer emits bodypart records or repoints the Daedric
+  armour: the step is behind `--import-armour`, off by default.
+- **`new-armor`** carries the whole import - the cut, the fit, the tables of
+  corrections, and `--import-armour` in the build command.
+
+The built meshes under `tools/build/armour-momw/Meshes/zenar` are gitignored
+and stay on disk either way; with the plugin not naming them they are simply
+unused, so no profile edit is needed to go back and forth.
+
 ## The Zenaric suit from an imported model - `WORN, WHOLE, ON SCREEN`
 
 Twenty pieces off one downloaded model, head to foot, built by
