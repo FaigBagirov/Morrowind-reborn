@@ -218,6 +218,22 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   actor-ID pass (defect 3 above), not on a judgement call.
 - **Vivec's monologue, final wording.** `NEEDS REVISION` - Canon Part 4.
 - **The mitochondrial line, text and speaker.** `PROPOSED` - Canon Part 5.
+- **Canon Part 8 against *Shared World Canon* Rev 5.** `OPEN` - Rev 5
+  (2026-09-06) applied the Skyrim project's five settled amendments. Shared
+  Part 11 now says everyone needs a key and the form varies: there is no
+  integrated population. Canon Part 8 still says the player has no integrated
+  interface while humanoid casters have one, and its table lists congenital
+  endowments. The mechanic survives (gate the player only; NPCs are assumed to
+  carry theirs, in forms nobody has noticed as one system), the wording does
+  not. Reconcile in Canon Part 8, this side.
+- **Vivec's monologue against the Rev 5 framing rule.** `OPEN` - Shared
+  Part 7 Delivery now reads once per game, by one character, with no framing:
+  no lead-in, no callback, no reaction, no journal entry. The line is appended
+  to his confession under `Dwemer's sin`; check that the placement is not a
+  lead-in and that nothing reacts to it afterwards. Rev 5 also adds Part 9A
+  (authorless text: interface, loading screens, journal) and expands Part 6
+  (Azura, Meridia, the beast forms); none of these needs a Morrowind change
+  today.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
 (and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a
