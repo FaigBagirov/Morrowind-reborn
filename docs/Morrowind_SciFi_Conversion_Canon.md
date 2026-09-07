@@ -74,7 +74,7 @@ This resolves several things at once:
 
 # Part 4 — Vivec's Monologue `NEEDS REVISION`
 
-Delivery of *Shared Canon* Part 7. Spoken **once**, by **one** character: Vivec, in the main-quest conversation, immediately after he confesses that the Tribunal took its power from the Heart.
+Delivery of *Shared Canon* Part 7, Rev 5: **once per game, by one character, with no framing.** Vivec, in the main-quest conversation, immediately after he confesses that the Tribunal took its power from the Heart. The confession is what qualifies him, a mortal called a god conceding the limit of what he took, so the placement is right. What the rule forbids is everything around the line: no lead-in, no second mention, no callback, no reaction from another character, no journal entry.
 
 **Status: working text, kept for now, to be revised later.** Recorded here so the current wording is not lost.
 
@@ -115,6 +115,7 @@ Delivery of *Shared Canon* Part 7. Spoken **once**, by **one** character: Vivec,
 3. **The imperceptibility argument is about containment, not resolution.** Drawing and hand, line and page. Never an argument that implies a better instrument would work.
 4. **The nearness clause is not optional.** Without it the passage reads as deism.
 5. **Vivec's register.** He is a living god who has just told you he is not one. The closing dismissal, "it is elementary", is the arrogance of someone for whom the deepest fact in the cosmos is a triviality, and it is the only trace of godhood he has left.
+6. **No lead-in inside the line.** Checked 2026-09-07 against *Shared Canon* Part 7 Rev 5. The placement passes: no later scene calls the line back, no other character reacts to it, no journal entry mentions it, and Fyr's mitochondrial line echoes the trace in the blood, which is Zenad content and not the Maker. What fails is the second sentence of the appended text, "Now the only thing worth knowing, and then I am done." It tells the listener that the deepest fact is coming. That is preparation, and preparation is the one thing the rule forbids. The revision drops it, so that "I have told you what we did." runs straight into "There were others here before us." The working text above is left as it stands, because the in-game record is built from it and the wording is the open revision, Part 10 item 4.
 
 ## Alternative speaker
 
@@ -327,7 +328,7 @@ Implementation of *Shared Canon* Part 11 for Morrowind.
 
 ## The fiction
 
-The player is an outlander and has no integrated interface. The Empire issues one at the Census and Excise office in Seyda Neen, along with the paperwork.
+The player arrives with nothing, and nothing includes the key. Under *Shared Canon* Part 11 everyone on Nirn needs one and the form varies, a ring, an amulet, a staff, a stone in a pocket, which is why nobody has noticed that it is one system. The Empire issues the player's at the Census and Excise office in Seyda Neen, along with the paperwork.
 
 ## What the gate blocks
 
@@ -377,7 +378,7 @@ Mechanically gating NPCs is tempting for consistency and wrong in practice.
 * Silencing NPCs breaks combat balance globally, breaks scripted fights, and interacts badly with combat AI mods such as Mercy.
 * Any NPC who loses the item goes permanently mute.
 
-**Gate the player only.** Creature casters *are* Zenar constructs and need no device; humanoid casters have integrated interfaces. Optionally hand cosmetic devices to Mages Guild and Telvanni NPCs in a separate Lua pass, decoration only.
+**Gate the player only.** Creature casters *are* Zenar constructs and need no device; humanoid casters carry their own keys in forms the engine does not model, a ring, an amulet, something sewn into a robe, so nothing on screen contradicts *Shared Canon* Part 11. Optionally hand cosmetic devices to Mages Guild and Telvanni NPCs in a separate Lua pass, decoration only.
 
 ## Failure modes
 
@@ -436,7 +437,7 @@ OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with
 | 1 | ~~What is Corprus?~~ | `SETTLED` Part 3a |
 | 2 | ~~Does the device tier?~~ | `SETTLED` Part 8, no tiers |
 | 3 | Which specific texts are rewritten? | `SETTLED` The rules table, `tools/rules/naming.csv`, 23 rules over 611 records |
-| 4 | Vivec's monologue, final wording | `NEEDS REVISION` |
+| 4 | Vivec's monologue, final wording | `NEEDS REVISION`. Constraint 6 added 2026-09-07: the announcing sentence is a lead-in and goes |
 | 5 | Text of the mitochondrial line, and its speaker | `PROPOSED` |
 
 ### Resolved
@@ -459,6 +460,7 @@ Prior art worth reading: **Starwind**, a total conversion of Morrowind into a St
 
 ## Revision log
 
+* **Rev 5.** Brought level with *Shared World Canon* Rev 5, at Faig's request, from the Skyrim project session of 2026-09-07. Part 8: the integrated-interface wording removed in both places it stood; everyone carries a key in some form, the player arrives without one, humanoid casters carry theirs unmodelled. The Abilities and Powers rows stay, congenital endowment being the endosymbiont of Shared Part 3 and not the key. Part 4: header restated to once per game with no framing; constraint 6 added, the announcing sentence identified as a lead-in. No wording of the monologue changed and the in-game record stands until the revision is rebuilt.
 * **Rev 4.** WO1 re-run. Part 7 rewritten against the corrected survey: cast list on the actor-ID filter, cell report repaired, unique-record counts added, `aedra` boundary applied, and the whole thing cross-checked against `esmtool` — which found that INFO ids are not globally unique. Two new findings: display strings inside script bodies are unreachable, and `sMagicDaedrothID` is a record ID living in a writable string field.
 * **Rev 3.** Split. Everything true of the world regardless of game moved to *Shared World Canon*: the Schism, the Heart, the Dwemer, the Sixteen, the Maker, the unreliable narrator, the Rename Test, the naming table, the interface principle. This file now holds Vvardenfell only. Vivec's monologue updated to the current text and marked `NEEDS REVISION`. WO1 results recorded as Part 7.
 * **Rev 2.** Zenad demoted to terraformers. Part 0 added as a hard boundary. Imperceptibility argument reworked.
