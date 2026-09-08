@@ -70,6 +70,12 @@ The other faction declined to contribute. They kept their full capability and th
 
 **They did not make the world. They renovated it, and it ruined them.** What remains of the first faction is a biological trace, not a share of ownership: an endosymbiont inside every living cell on Nirn, a descendant of an outsider that stopped being an outsider. Mortals do not know it is there.
 
+**The trace is not evenly distributed.** Populations carry it in different densities, and exactly one thing follows from that: how much of the medium a body can draw on at once. Access is a separate question and belongs to Part 11, where everyone needs a key regardless of what they are.
+
+Mortals observe the difference and explain it by ancestry, nobility or divine favour. The Altmer are the clearest case: they are factually correct that less has been lost in them, and entirely wrong about what it is that was lost. Breton resistance is the same fact read backwards, a hybrid population coupling poorly with the medium and calling the deficiency a virtue.
+
+Nothing here is a reward and nothing is a rank. It is how much of a spent faction's leftovers a given lineage happens to carry.
+
 The mortal terms follow directly from this and are literally accurate:
 
 * **Zenad** "our ancestors." The faction that spent itself.
@@ -582,6 +588,26 @@ This single principle carries across both games and produces the same mechanic t
 
 One mechanic, two games, no strain. When designing anything new in either game, check whether this principle already answers it before inventing a second system.
 
+## One medium, three ways of addressing it `SETTLED`
+
+The technology is not a collection of separate systems. It is one medium, and mortals have met it from three directions without ever comparing notes.
+
+**What it is.** A swarm of machines distributed through the environment, too small to see and too ordinary to remark on. This is the physical fact.
+
+**What it looks like from inside.** A field: something present everywhere, that responds, that can be drawn on and can run short. This is what a user perceives, and it is the only aspect any mortal has ever described.
+
+The two are the same thing. The swarm is what it is made of; the field is how it behaves toward anyone using it. No mortal has the first word, and every mortal has some version of the second.
+
+| Route | Who takes it | What it requires |
+| --- | --- | --- |
+| Commands in the system's own language | Nord Tongues, dragons | valid credentials on that channel, or decades of brute force |
+| A controller | mages, anyone holding a key | the device described above |
+| Direct supply | the Skyrim defence grid | membership of the system |
+
+Three routes, one medium. **Every name mortals use is a name for the field**, never for the swarm: the Voice, currents, Magnus, magic. That nobody has connected them is the point, and no single mortal word is invented to unify them.
+
+Capacity is a property of the body and is set by Part 3. Access is a property of the key and is set by this part. **Neither substitutes for the other.** A body with a dense trace and no key does nothing at all, and a key in a poor body works within a lower ceiling.
+
 ## A claim with no carrier does not exist `SETTLED`
 
 Every claim in either canon must be said or written by someone inside the game. Claims that live only in design documents reach nobody, and a conversion whose canon outgrows its delivery is a game with two words removed and nothing put in their place.
@@ -594,6 +620,7 @@ In the Skyrim project carriers are tracked in the Delivery Ledger. A claim with 
 
 ## Revision log
 
+* **Rev 6.** Two additions, both originating in the Skyrim project on 2026-09-06. Part 3: the Zenad trace is stated to be unevenly distributed between populations, which is what racial differences in capacity are; the Altmer are correct that less was lost in them and wrong about what was lost, and Breton resistance is the same fact read backwards. Part 11: a new subsection settles that the swarm and the field are one medium seen from two sides, addressed by three routes, and that capacity from Part 3 and access from Part 11 never substitute for each other. The four mortal names are recorded as names for the field only, never for the swarm.
 * **Rev 5.** Four amendments and one addendum from the Skyrim project applied, all SETTLED and confirmed by Faig between 2026-09-02 and 2026-09-05. Part 7 Delivery replaced: once per game, by one character, with no framing, Vivec in Morrowind and Paarthurnax in Skyrim; Part 0's summary sentence brought level with it. Part 11's list replaced: everyone needs a key and the form varies, which is why nobody has noticed one system; the delivery constraint from the same amendment added as a closing subsection, a claim with no carrier does not exist. Part 6: Azura assigned as the analytical input of the installation and Meridia to the villain slot above Alduin; Hircine narrowed from genetic engineering to trials of Zenar technology on local organisms, with vampirism and lycanthropy given their mechanisms and Molag Bal holding the entrance he did not build. New Part 9A, Authorless Text: the interface, loading screens and the journal are corrected because nobody in the world wrote them; numbered 9A so that every reference to Parts 10 and 11 in both projects stays valid. Source documents, in the Skyrim project: Canon_Amendment_Part7_v3, Canon_Amendment_Part11_v3, Canon_Amendment_Part6_Sixteen_v3, Canon_Amendment_Part6_Hircine_v2, Canon_Addendum_Authorless_Text_v3. Their Skyrim-only sections are already in *Skyrim Canon* Rev 4 and are not repeated here. Wording is theirs; the only edits are cross-references restated in this file's own terms.
 * **Rev 4.** Third sense of `Daedric` added to Part 10 and settled: the beings themselves take `Zenar`, alongside `Zenaric` for what they made and `Zetic` for their cult. Measured, not assumed - the collocations behind each are counted in `tools/rules/naming.csv`.
 * **Rev 3.** Substring warning re-stated against measured numbers: the WO1 re-run of 2026-08-28 puts real `aedra` at 62 occurrences in 35 records game-wide, against the 430 the first pass claimed. Adds the plain-matching consequence - a word boundary is worth nothing if the matcher reads the pattern as a regular expression, which Lua's `string.gsub` does.

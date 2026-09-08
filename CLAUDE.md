@@ -232,6 +232,21 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   the working text until then. Rev 5 also adds Part 9A (authorless text) and
   expands Part 6 (Azura, Meridia, the beast forms); none needs a Morrowind
   change.
+- **Morrowind Canon against *Shared World Canon* Rev 6.** `OPEN` - Rev 6
+  landed 2026-09-09, written in the Skyrim project and carried up here
+  unchanged; this repository owns the file, so nothing of it was authored
+  locally. Two additions. Part 3: the Zenad trace is unevenly distributed
+  between populations and that, and only that, is what racial differences in
+  capacity are; the Altmer are right that less was lost in them and wrong
+  about what was lost, and Breton resistance is the same fact read backwards.
+  Part 11: swarm and field are one medium seen from two sides, reached by
+  three routes (commands in the system's own language, a controller, direct
+  supply), and capacity from Part 3 never substitutes for access from Part
+  11. What to check here: whether the racial magicka and resistance numbers
+  the conversion inherits now have a stated cause that any Morrowind text
+  contradicts, and whether Canon Part 2 or Part 8 says anything about the
+  medium that the three-route table supersedes. No Morrowind text is known to
+  break; the check has not been run.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
 (and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a
