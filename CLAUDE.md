@@ -247,6 +247,20 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   contradicts, and whether Canon Part 2 or Part 8 says anything about the
   medium that the three-route table supersedes. No Morrowind text is known to
   break; the check has not been run.
+- **Four reading flags from the Skyrim project.** `OPEN` - written up in
+  `docs/Skyrim_Project_Flags_v1.md`, placed here 2026-09-10 by a Skyrim
+  session. Not canon, not authoritative over `docs/`, and nothing in this
+  repository has been changed for them. Skyrim has now read its entire book
+  corpus, 1 119 records, and four texts came out of it that this project
+  decides: The Firmament, where the divergence from Skyrim's shipped text
+  turns out to be exactly one inserted paragraph and nothing else;
+  Nchunak's Fire and Faith and Hanging Gardens, both Dwemer voices about
+  the Heart that Skyrim carries and mirrors; and The Warrior's Charge, a
+  Redguard poem Skyrim found in its final sweep that dramatises the
+  Firmament's Warrior and his three Charges exactly, which means any
+  decision here about the constellations has a second Skyrim text
+  downstream of it. Nothing blocks Skyrim; it will touch none of them
+  until this side answers.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
 (and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a
