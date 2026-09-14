@@ -22,7 +22,7 @@ rem --replace config matters. Without it OpenMW also reads the parent
 rem My Games\OpenMW\openmw.cfg and the two load orders are merged.
 
 set "OPENMW_EXE=D:\Program Files\OpenMW 0.51.0\openmw.exe"
-set "PLAY_CFG=D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play"
+set "PLAY_CFG=D:\Documents\My Games\OpenMW\play"
 set "PROJECT=%~dp0"
 
 if not exist "%OPENMW_EXE%" (

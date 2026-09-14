@@ -16,7 +16,7 @@ rem nothing outside this project is modified. The WO0 spike sitting in mod\ is
 rem not referenced here and does not load.
 
 set "OPENMW_EXE=D:\Program Files\OpenMW 0.51.0\openmw.exe"
-set "DEV_CFG=D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev"
+set "DEV_CFG=D:\Documents\My Games\OpenMW\dev"
 set "PROJECT=%~dp0"
 
 if not exist "%OPENMW_EXE%" (

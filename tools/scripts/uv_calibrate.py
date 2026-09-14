@@ -33,7 +33,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dds import write_dxt  # noqa: E402
 from make_armour import data_dirs, find_texture, load  # noqa: E402
 
-PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
+PLAY_CFG = r"D:/Documents/My Games/OpenMW/play/openmw.cfg"
 
 # Eight, because eight colours can be told apart at a glance on a small object
 # in a dark room, and 45 degrees around the head is close enough to place a

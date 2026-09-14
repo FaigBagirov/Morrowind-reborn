@@ -68,8 +68,8 @@ $ErrorActionPreference = 'Stop'
 
 $Here    = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)   # the worktree
 $Exe     = "D:\Program Files\OpenMW 0.51.0\openmw.exe"
-$Play    = "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play"  # his, read only
-$Saves   = "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\saves\Faig"
+$Play    = "D:\Documents\My Games\OpenMW\play"  # his, read only
+$Saves   = "D:\Documents\My Games\OpenMW\saves\Faig"
 $MyCfg   = Join-Path $Here 'run\config'
 $MyData  = Join-Path $Here 'run\userdata'
 $Shots   = Join-Path $MyData 'screenshots'

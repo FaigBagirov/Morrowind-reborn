@@ -18,7 +18,7 @@ param(
   [Parameter(Mandatory = $true)][int]$Target,
   [int]$Count = 1,
   [int]$GapSeconds = 8,
-  [string]$Dir = "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\screenshots"
+  [string]$Dir = "D:\Documents\My Games\OpenMW\screenshots"
 )
 
 Add-Type -TypeDefinition @'

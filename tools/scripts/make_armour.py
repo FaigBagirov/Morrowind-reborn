@@ -57,7 +57,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dds import write_dxt  # noqa: E402
 from effective import parse_cfg  # noqa: E402
 
-PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
+PLAY_CFG = r"D:/Documents/My Games/OpenMW/play/openmw.cfg"
 FOLDER = "jy_daedric"
 
 # Every piece names its own maps, because they do not agree across mods. The

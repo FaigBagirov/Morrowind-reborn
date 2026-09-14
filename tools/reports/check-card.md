@@ -69,7 +69,7 @@ It is guarded: if the engine refuses, Light keeps the vanilla flame and nothing
 else is affected. Either way the answer is one line in the log —
 
 ```bash
-findstr /c:"[REWRITE] light:" "D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.log"
+findstr /c:"[REWRITE] light:" "D:\Documents\My Games\OpenMW\play\openmw.log"
 ```
 
 To compare against what you had: delete the one line

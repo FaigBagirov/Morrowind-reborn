@@ -312,7 +312,7 @@ Nothing below is blocked on tooling.
    is still `PROPOSED` there, because being in the game is not the same as the
    wording being approved.
 5. **`--profile momw` is built.** The load order is
-   `D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play\openmw.cfg` - 240
+   `D:\Documents\My Games\OpenMW\play\openmw.cfg` - 240
    plugin files, and it already contains `delta-merged.omwaddon` **and**
    `Voices of Vvardenfell.omwscripts`. 327 of our records are defined last by a
    mod, and the build now carries their version forward: the daedric cuirass
@@ -758,10 +758,13 @@ On the user's Windows machine:
 - `esmtool.exe` sits beside it in the same folder. Note `-t <TYPE>` to filter
   by record type, `-n <name>` for a single record, and **`-p`, without which
   the contents of dialogue, books and scripts are skipped**.
-- Dev profile: `D:\Backups\OneDrive\All\Documents\My Games\OpenMW\dev`
-  This is **not** under `%USERPROFILE%\Documents` - OneDrive has redirected
-  it, and finding it in the WO0 session took a filesystem search. Do not
-  guess this path.
+- Profiles and user data: `D:\Documents\My Games\OpenMW\` - `dev\`,
+  `play\`, `saves\Faig\TEST1.omwsave`, `screenshots\`. **This has moved
+  once already.** It used to be `D:\Backups\OneDrive\All\Documents\...`, where
+  OneDrive had redirected Documents; by 2026-09-14 the folder was at
+  `D:\Documents` and every build failed with `FileNotFoundError` on the
+  old `openmw.cfg`. Neither location is `%USERPROFILE%\Documents`. Do not guess
+  the path - ask Windows: `[Environment]::GetFolderPath('MyDocuments')`.
 - `run-spike.bat` hardcodes the two paths above and launches with
   `--replace config --config <dev> --content wo0-spike.omwscripts`. The spike
   is registered on the command line rather than by editing `dev/openmw.cfg`,

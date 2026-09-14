@@ -47,7 +47,7 @@ from wo1_survey import stream_records  # noqa: E402
 
 MASTERS = ("Morrowind.json", "Tribunal.json", "Bloodmoon.json")
 BSA_DIR = r"D:/ProgramFiles/Steam/steamapps/common/Morrowind/Data Files"
-PLAY_CFG = r"D:/Backups/OneDrive/All/Documents/My Games/OpenMW/play/openmw.cfg"
+PLAY_CFG = r"D:/Documents/My Games/OpenMW/play/openmw.cfg"
 
 DENSE = {"vfx_corprus"}          # Canon Part 9 reserves the swarm for Corprus.
 

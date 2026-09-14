@@ -17,8 +17,8 @@
 # more than once, and Faig runs a second session of this project in parallel.
 
 param(
-  [string]$Config = 'D:\Backups\OneDrive\All\Documents\My Games\OpenMW\play',
-  [string]$Save   = 'D:\Backups\OneDrive\All\Documents\My Games\OpenMW\saves\Faig\TEST1.omwsave',
+  [string]$Config = 'D:\Documents\My Games\OpenMW\play',
+  [string]$Save   = 'D:\Documents\My Games\OpenMW\saves\Faig\TEST1.omwsave',
   [string]$Exe    = 'D:\Program Files\OpenMW 0.51.0\openmw.exe',
   [int]$SettleSeconds = 30
 )
