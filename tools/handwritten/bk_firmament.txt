@@ -1,0 +1,81 @@
+<DIV ALIGN="CENTER"><FONT COLOR="000000" SIZE="3" FACE="Magic Cards"><BR>
+The Firmament<BR>
+by Ffoulke<BR><BR>
+<DIV ALIGN="LEFT"><BR><BR>
+The Stars of Tamriel are divided into thirteen constellations. Three of them are the major constellations, known as the Guardians. These are the Warrior, the Mage, and the Thief. Each of the Guardians protects its three Charges from the thirteenth constellation, the Serpent.<BR>
+<BR>
+When the sun rises near one of the constellations, it is that constellation's season. Each constellation has a Season of approximately one month. The Serpent has no season, for it moves about in the heavens, usually threatening one of the other constellations.
+<BR>
+<DIV ALIGN="CENTER"><BR>
+<IMG SRC="EfoulkeFirmament_Warrior.tga" WIDTH="240" HEIGHT="240"><BR>
+<DIV ALIGN="LEFT"><BR>
+The Warrior<BR>
+<BR>
+<BR>
+The Warrior is the first Guardian Constellation and he protects his charges during their Seasons. The Warrior's own season is Last Seed when his Strength is needed for the harvest. His Charges are the Lady, the Steed, and the Lord. Those born under the sign of the Warrior are skilled with weapons of all kinds, but prone to short tempers.<BR>
+<DIV ALIGN="CENTER"><BR>
+<IMG SRC="EfoulkeFirmament_Wizard.tga" WIDTH="240" HEIGHT="240"><BR>
+<DIV ALIGN="LEFT"><BR>
+The Mage<BR>
+<BR>
+<BR>
+The Mage is a Guardian Constellation whose Season is Rain's Hand when magicka was first used by men. His Charges are the Apprentice, the Golem, and the Ritual. Those born under the Mage have more magicka and talent for all kinds of spellcasting, but are often arrogant and absent-minded.<BR>
+<BR>
+A note, since no one else troubles to make it. Rain's Hand is not when magicka began. It is when men began to use it, which is a different claim and a much later date. Someone once measured the distance between the two. His figures survive in the Guild's older tables. What he concluded from them does not.<BR>
+<DIV ALIGN="CENTER"><BR>
+<IMG SRC="EfoulkeFirmament_Thief.tga" WIDTH="240" HEIGHT="240"><BR>
+<DIV ALIGN="LEFT"><BR>
+The Thief<BR>
+<BR>
+<BR>
+The Thief is the last Guardian Constellation, and her Season is the darkest month of Evening Star. Her Charges are the Lover, the Shadow, and the Tower. Those born under the sign of the Thief are not typically thieves, though they take risks more often and only rarely come to harm. They will run out of luck eventually, however, and rarely live as long as those born under other signs.<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+The Serpent<BR>
+<BR>
+The Serpent wanders about in the sky and has no Season, though its motions are predictable to a degree. No characteristics are common to all who are born under the sign of the Serpent. Those born under this sign are the most blessed and the most cursed.<BR>
+<BR>
+The Lady<BR>
+<BR>
+The Lady is one of the Warrior's Charges and her Season is Heartfire. Those born under the sign of the Lady are kind and tolerant.<BR>
+<BR>
+The Steed<BR>
+<BR>
+The Steed is one of the Warrior's Charges, and her Season is Mid Year. Those born under the sign of the Steed are impatient and always hurrying from one place to another.<BR>
+<BR>
+The Lord<BR>
+<BR>
+The Lord's Season is First Seed and he oversees all of Tamriel during the planting. Those born under the sign of the Lord are stronger and healthier than those born under other signs.<BR>
+<BR>
+<BR>
+<BR>
+The Apprentice<BR>
+<BR>
+The Apprentice's Season is Sun's Height. Those born under the sign of the apprentice have a special affinity for magick of all kinds, but are more vulnerable to magick as well.<BR>
+<BR>
+The Atronach<BR>
+<BR>
+The Atronach (often called the Golem) is one of the Mage's Charges. Its season is Sun's Dusk. Those born under this sign are natural sorcerers with deep reserves of magicka, but they cannot generate magicka of their own.<BR>
+<BR>
+<BR>
+The Ritual<BR>
+<BR>
+The Ritual is one of the Mage's Charges and its Season is Morning Star. Those born under this sign have a variety of abilities depending on the aspects of the moons and the Divines.<BR>
+<BR>
+The Lover<BR>
+<BR>
+The Lover is one of the Thief's Charges and her season is Sun's Dawn. Those born under the sign of the Lover are graceful and passionate.<BR>
+<BR>
+The Shadow<BR>
+<BR>
+The Shadow's Season is Second Seed. The Shadow grants those born under her sign the ability to hide in shadows.<BR>
+<BR>
+The Tower<BR>
+<BR>
+The Tower is one of the Thief's Charges and its Season is Frostfall. Those born under the sign of the Tower have a knack for finding gold and can open locks of all kinds.<BR>
+<BR>

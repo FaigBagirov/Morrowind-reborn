@@ -166,10 +166,20 @@ local function applyRule(value, rule)
     return table.concat(out), hits
 end
 
-local function applyAll(value, recordId)
+-- `code` and `field` decide whether a rule applies at all. A rule may name the
+-- record types and fields it is for, and the magicka rules do: they rename the
+-- resource where the game speaks in its own voice and leave the word alone in
+-- books and dialogue, where mortals are speaking. Ignoring that scope here made
+-- the Lua half rename it inside books while the reports said otherwise - the
+-- two halves describing different mods, which is the one thing the shared rules
+-- table exists to prevent.
+local function applyAll(value, recordId, code, field)
     local total = 0
     for _, rule in ipairs(rules.rules) do
-        if not (rule.exclude and rule.exclude[string.lower(recordId)]) then
+        local skip = rule.exclude and rule.exclude[string.lower(recordId)]
+        if not skip and rule.types and not rule.types[code] then skip = true end
+        if not skip and rule.fields and not rule.fields[field] then skip = true end
+        if not skip then
             local hits
             value, hits = applyRule(value, rule)
             total = total + hits
@@ -189,7 +199,18 @@ local STORE = {
     INGR = 'ingredients',
     GMST = 'gameSettings',
     MGEF = 'magicEffects',
+    ALCH = 'potions',
 }
+
+-- The longest string vanilla ships in each field, from the generated table.
+-- The old guard here was "never longer than what it replaces", which is a
+-- proxy: what matters is whether the string still fits the widget it goes in.
+-- Eighteen strings in the current table legitimately grow, and that guard
+-- would have dropped every one of them without a word.
+local CEILING = {}
+for _, row in ipairs(rules.ceiling or {}) do
+    CEILING[row[1] .. '/' .. row[2]] = row[3]
+end
 
 local function findRecord(store, id)
     for _, variant in ipairs({ id, string.lower(id) }) do
@@ -245,6 +266,14 @@ end
 
 local function run()
     local changed, skipped, failed = 0, 0, 0
+    -- Why a target was skipped, named rather than counted. The first magicka
+    -- build reported "changed 192, skipped 8, failed 0" and then showed the
+    -- vanilla word on screen, which a bare count cannot explain: a write the
+    -- engine accepts and a string the player sees are two different facts.
+    local why = {}
+    local function note(reason, code, id)
+        if #why < 40 then why[#why + 1] = reason .. ' ' .. code .. ' ' .. id end
+    end
 
     for _, target in ipairs(rules.targets) do
         local storeName = STORE[target[1]]
@@ -259,26 +288,42 @@ local function run()
                 local rec, usedId = findRecord(store, recordId)
                 if rec == nil then
                     skipped = skipped + 1
+                    note('no-record', target[1], recordId)
                 elseif field == 'value' then
                     -- gameSettings maps an id straight to its value.
-                    local newValue, hits = applyAll(tostring(rec), recordId)
+                    local newValue, hits = applyAll(tostring(rec), recordId,
+                                                    target[1], field)
                     if hits > 0 then
                         local okw = try(function() store[usedId] = newValue end)
                         if okw then changed = changed + 1 else failed = failed + 1 end
+                        -- Read it straight back. WO0 proved a GMST write is
+                        -- accepted and that Lua can see it again; it never
+                        -- proved the engine's own UI does. Those are different
+                        -- claims and only the screen settles the second.
+                        local _, back = try(function() return tostring(store[usedId]) end)
+                        if recordId == 'sMagic' or recordId == 'sMagicInsufficientSP' then
+                            log('readback ' .. recordId .. ' = ' .. tostring(back))
+                        end
                     else
                         skipped = skipped + 1
+                        note('no-hits', target[1], recordId)
                     end
                 else
                     local okr, old = try(function() return rec[field] end)
                     if not okr or old == nil then
                         skipped = skipped + 1
+                        note('unreadable', target[1], recordId)
                     else
-                        local newValue, hits = applyAll(old, recordId)
-                        if hits > 0 and #newValue <= #old then
+                        local newValue, hits = applyAll(old, recordId,
+                                                        target[1], field)
+                        local limit = CEILING[target[1] .. '/' .. field] or #old
+                        if hits > 0 and #newValue <= math.max(#old, limit) then
                             local okw = try(function() rec[field] = newValue end)
                             if okw then changed = changed + 1 else failed = failed + 1 end
                         else
                             skipped = skipped + 1
+                            note(hits > 0 and 'too-long' or 'no-hits',
+                                 target[1], recordId)
                         end
                     end
                 end
@@ -293,6 +338,7 @@ local function run()
     if failed > 0 then
         log('WARNING: ' .. failed .. ' writes failed - check the API surface')
     end
+    for _, line in ipairs(why) do log('skipped: ' .. line) end
 
     redirectLight()
 end

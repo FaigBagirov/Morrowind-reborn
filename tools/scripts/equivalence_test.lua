@@ -86,7 +86,12 @@ end
 local cases = readFixture(fixturePath)
 local pass, fail = 0, 0
 for _, c in ipairs(cases) do
-    local got = engine.applyAll(c.before, c.id)
+    -- Code and field are not decoration: a rule may name the record types and
+    -- fields it applies to, and calling without them tests a different engine
+    -- from the one the game runs. The magicka rules are scoped that way, and
+    -- while this line passed only two arguments the test first reported the Lua
+    -- half renaming inside books, then not renaming at all.
+    local got = engine.applyAll(c.before, c.id, c.code, c.field)
     if got == c.after then
         pass = pass + 1
     else

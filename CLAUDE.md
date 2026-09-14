@@ -222,6 +222,49 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   actor-ID pass (defect 3 above), not on a judgement call.
 - **Vivec's monologue, final wording.** `NEEDS REVISION` - Canon Part 4.
 - **The mitochondrial line, text and speaker.** `PROPOSED` - Canon Part 5.
+- **Canon Part 8 against *Shared World Canon* Rev 5.** Closed 2026-09-07,
+  Canon Rev 5. The integrated-interface wording is gone: everyone carries a
+  key in some form (Shared Part 11), the player arrives without one and the
+  Empire issues it, humanoid casters carry theirs in forms the engine does
+  not model, so the player-only gate stands. The Abilities and Powers rows
+  stay: congenital endowment is the endosymbiont of Shared Part 3, not the
+  key.
+- **Vivec's monologue against the Rev 5 framing rule.** Checked 2026-09-07.
+  Placement passes; the second sentence of the appended text, "Now the only
+  thing worth knowing, and then I am done", is a lead-in and goes when the
+  monologue is revised. Canon Part 4 constraint 6. The in-game record keeps
+  the working text until then. Rev 5 also adds Part 9A (authorless text) and
+  expands Part 6 (Azura, Meridia, the beast forms); none needs a Morrowind
+  change.
+- **Morrowind Canon against *Shared World Canon* Rev 6.** `OPEN` - Rev 6
+  landed 2026-09-09, written in the Skyrim project and carried up here
+  unchanged; this repository owns the file, so nothing of it was authored
+  locally. Two additions. Part 3: the Zenad trace is unevenly distributed
+  between populations and that, and only that, is what racial differences in
+  capacity are; the Altmer are right that less was lost in them and wrong
+  about what was lost, and Breton resistance is the same fact read backwards.
+  Part 11: swarm and field are one medium seen from two sides, reached by
+  three routes (commands in the system's own language, a controller, direct
+  supply), and capacity from Part 3 never substitutes for access from Part
+  11. What to check here: whether the racial magicka and resistance numbers
+  the conversion inherits now have a stated cause that any Morrowind text
+  contradicts, and whether Canon Part 2 or Part 8 says anything about the
+  medium that the three-route table supersedes. No Morrowind text is known to
+  break; the check has not been run.
+- **Four reading flags from the Skyrim project.** `OPEN` - written up in
+  `docs/Skyrim_Project_Flags_v1.md`, placed here 2026-09-10 by a Skyrim
+  session. Not canon, not authoritative over `docs/`, and nothing in this
+  repository has been changed for them. Skyrim has now read its entire book
+  corpus, 1 119 records, and four texts came out of it that this project
+  decides: The Firmament, where the divergence from Skyrim's shipped text
+  turns out to be exactly one inserted paragraph and nothing else;
+  Nchunak's Fire and Faith and Hanging Gardens, both Dwemer voices about
+  the Heart that Skyrim carries and mirrors; and The Warrior's Charge, a
+  Redguard poem Skyrim found in its final sweep that dramatises the
+  Firmament's Warrior and his three Charges exactly, which means any
+  decision here about the constellations has a second Skyrim text
+  downstream of it. Nothing blocks Skyrim; it will touch none of them
+  until this side answers.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
 (and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a
