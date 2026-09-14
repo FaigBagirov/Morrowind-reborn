@@ -440,6 +440,44 @@ The built meshes under `tools/build/armour-momw/Meshes/zenar` are gitignored
 and stay on disk either way; with the plugin not naming them they are simply
 unused, so no profile edit is needed to go back and forth.
 
+## Testing a mesh in game: two methods Faig set, `SETTLED 2026-09-14`
+
+Every round of the imported-suit fitting cost a full rebuild and a restart per
+guess, and several rounds were lost to one question a screenshot could not
+answer - which way round a piece is. Faig proposed both fixes. **Use them
+before the next fitting round, on `new-armor`, never on master.** Merge master
+into that branch first; it was cut before this section existed.
+
+**1. One restart, several candidates.** Build every candidate - four turns of
+a hand, three drops of a forearm - as its own bodypart, and repoint a
+*different* vanilla armour record at each: chitin gauntlets carry candidate A,
+bonemold B, ebony C, glass D. One launch, then `Equip` each through
+`console.ps1`, photograph, compare. A restart is paid when the method changes,
+not per guess.
+
+- The stand-in records must cover **the same biped slots** as the piece under
+  test. A gauntlet record carries Hand and Wrist; a pauldron test needs
+  pauldron records. Read the slots with esmtool, never recall them.
+- Hand the player every candidate item in the card, `player->AddItem "<id>" 1`,
+  so nothing depends on what the save happens to carry.
+- The stand-ins are a test build. Their own meshes are borrowed for the
+  session and must never reach a plugin on master.
+
+**2. A diagnostic sheet instead of the model's texture.** Paint the pieces
+under test with a grid of small cells, **no two alike** - hue by column,
+lightness by row - so any patch on screen names its place on the UV sheet and
+therefore on the piece. The rainbow bands of `uv_calibrate.py` were the first
+version of this; the grid extends them from one axis to two.
+
+- **Every cell also carries an asymmetric glyph**, an F or an L-notch.
+  Colour alone gives position but not handedness: a mirrored piece shows the
+  same colours in reversed order, which is easy to miss, while a backwards F is
+  not. That is exactly the failure behind the swapped hands and the
+  fingers-up-or-down rounds.
+- Generate it through `dds.py` like every other texture here, and point the
+  candidates at it with `--texture`. The model's own atlas goes back on once
+  the fit is settled.
+
 ## The Zenaric suit from an imported model - `WORN, WHOLE, ON SCREEN`
 
 Twenty pieces off one downloaded model, head to foot, built by
