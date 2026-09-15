@@ -521,7 +521,38 @@ version of this; the grid extends them from one axis to two.
   candidates at it with `--texture`. The model's own atlas goes back on once
   the fit is settled.
 
-## The Zenaric suit from an imported model - `WORN, WHOLE, ON SCREEN`
+## The imported suit, fitted by the skeleton - `SITS ON SCREEN 2026-09-15, AWAITING FAIG`
+
+**`fit_suit.py` replaces `build_armour_set.py`'s placement.** No box fitting,
+no screen-correction tables. The cause of every arm and hand round was one
+missing fact, read from OpenMW 0.51's `attach.cpp`: a rigid part hung on a node
+whose name contains `Left` gets a `(-1, 1, 1)` scale. The old route authored
+pieces in `Left` node frames without it, so arms grew up from the joint.
+
+The route: pose the GLB into `base_anim.nif`'s rest pose (limbs swung, never
+twisted, heads snapped to Bip01 joints, weights from the model), cut by
+dominant bone, write each piece in its `Right` node's frame through the donor's
+node chain, read it back (error 4e-6), let the engine mirror the left. Draws
+`tools/reports/suit-preview.png` as the engine would assemble it.
+
+    python tools/scripts/model_textures.py <glb> --zenar --write --out tools/build/armour-vanilla/Textures
+    python tools/scripts/fit_suit.py <glb> --write --out tools/build/armour-vanilla [--paint]
+    python tools/scripts/transform.py --profile vanilla --import-armour --write
+    tools/bin/tes3conv.exe tools/build/scifi-rewrite.json tools/build/scifi-rewrite.esp
+    powershell -File tools/scripts/fitcheck.ps1     # dev profile, 8 shots, closes itself
+
+- `--paint`: per-slot colours, right warm / left cool, F-glyph grid, emissive
+  material. Left pieces get their own `_l` records only for the colour.
+- `bodyparts.py` adds `Knee` to the greaves and `Forearm` to the gauntlets; the
+  vanilla records lack them and bare knees showed.
+- `fitcheck.ps1` dresses the player with `--script-run tools/viewer/equip.txt`
+  (the console key never arrives under a Russian layout) and
+  `tools/viewer/zenar_viewer.omwscripts` parks a static camera front, side,
+  back, side. game-control's window grab returned stale frames; F12 is truth.
+- The chest is still rigid on `Chest`. Faig flagged that cuirasses are skinned
+  in vanilla; skinning it is the next step if it breaks in motion.
+
+## The Zenaric suit from an imported model - `SUPERSEDED BY fit_suit.py`
 
 Twenty pieces off one downloaded model, head to foot, built by
 `build_armour_set.py` in one command and seen on the character. Read that

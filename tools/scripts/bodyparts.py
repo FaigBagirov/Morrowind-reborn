@@ -74,6 +74,14 @@ TARGETS = {
 }
 
 
+EXTRA_SLOTS = {
+    "daedric_greaves": ("LeftKnee", "RightKnee"),
+    "daedric_greaves_htab": ("LeftKnee", "RightKnee"),
+    "daedric_gauntlet_left": ("LeftForearm",),
+    "daedric_gauntlet_right": ("RightForearm",),
+}
+
+
 def slot_of(biped_type):
     """Which of our pieces a slot wants, if any. Sides share one piece."""
     name = str(biped_type or "").lower()
@@ -93,38 +101,57 @@ def emit(mesh_dir="zenar", built=None):
     """
     out = []
     for slot, (rid, part) in PARTS.items():
-        if built is not None and slot not in built:
-            continue
-        out.append({
-            "type": "Bodypart", "flags": "", "id": rid, "race": "",
-            "mesh": f"{mesh_dir}\\{slot}.nif",
-            "data": {"part": part, "vampire": False, "flags": "",
-                     "bodypart_type": "Armor"},
-        })
+        # A `<slot>_l` mesh is the same piece in a left-side dress - the
+        # diagnostic paint of `fit_suit.py --paint` - and gets its own record.
+        for key, ident in ((slot, rid), (slot + "_l", rid + "_l")):
+            if (key not in built) if built is not None else key != slot:
+                continue
+            out.append({
+                "type": "Bodypart", "flags": "", "id": ident, "race": "",
+                "mesh": f"{mesh_dir}\\{key}.nif",
+                "data": {"part": part, "vampire": False, "flags": "",
+                         "bodypart_type": "Armor"},
+            })
     return out
 
 
 def repoint(record, built=None):
     """Send one armour record's slots at our pieces. Returns how many moved."""
-    if str(record.get("id", "")).lower() not in TARGETS:
+    ident = str(record.get("id", "")).lower()
+    if ident not in TARGETS:
         return 0
+    # Slots the vanilla record never had. Without them the naked body's knee
+    # and forearm are drawn between our pieces - seen on screen as bare brown
+    # knees above the boots - and our knee and forearm meshes are never worn.
+    bipeds = record.setdefault("biped_objects", [])
+    have = {str(b.get("biped_object_type")) for b in bipeds}
+    for extra in EXTRA_SLOTS.get(ident, ()):
+        if extra not in have:
+            bipeds.append({"biped_object_type": extra,
+                           "male_bodypart": "", "female_bodypart": ""})
     moved = 0
-    for biped in record.get("biped_objects") or []:
+    for biped in bipeds:
         slot = slot_of(biped.get("biped_object_type"))
         if not slot or slot not in PARTS:
             continue
         if built is not None and slot not in built:
             continue
-        # An empty slot is filled rather than skipped. It is empty precisely
-        # because the vanilla record expects the engine to mirror the other
-        # side, and that mirror is what threw our pieces off the body.
-        biped["male_bodypart"] = PARTS[slot][0]
-        biped["female_bodypart"] = PARTS[slot][0]
+        # An empty slot is filled with the same piece. The engine mirrors
+        # anything hung on a `Left` node, and `fit_suit.py` authors every
+        # piece for exactly that. A `_l` mesh, when built, is the diagnostic
+        # left-side dress of the same geometry.
+        rid = PARTS[slot][0]
+        left = str(biped.get("biped_object_type") or "").lower()
+        if left.startswith("left") and built is not None \
+                and slot + "_l" in built:
+            rid += "_l"
+        biped["male_bodypart"] = rid
+        biped["female_bodypart"] = rid
         moved += 1
     return moved
 
 
 def on_disk(root):
     """Which slots have a mesh built, so nothing points at a missing file."""
-    return {slot for slot in PARTS
-            if os.path.exists(os.path.join(root, slot + ".nif"))}
+    return {key for slot in PARTS for key in (slot, slot + "_l")
+            if os.path.exists(os.path.join(root, key + ".nif"))}
