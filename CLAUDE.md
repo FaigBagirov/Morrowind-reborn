@@ -521,7 +521,9 @@ version of this; the grid extends them from one axis to two.
   candidates at it with `--texture`. The model's own atlas goes back on once
   the fit is settled.
 
-## The imported suit, fitted by the skeleton - `SITS ON SCREEN 2026-09-15, AWAITING FAIG`
+## The imported suit, fitted by the skeleton - `SITS ON SCREEN 2026-09-15, ORIGINAL COLOURS`
+
+Full guide for any future import: `docs/Armour_Import_Instructions.md`.
 
 **`fit_suit.py` replaces `build_armour_set.py`'s placement.** No box fitting,
 no screen-correction tables. The cause of every arm and hand round was one
@@ -535,7 +537,7 @@ dominant bone, write each piece in its `Right` node's frame through the donor's
 node chain, read it back (error 4e-6), let the engine mirror the left. Draws
 `tools/reports/suit-preview.png` as the engine would assemble it.
 
-    python tools/scripts/model_textures.py <glb> --zenar --write --out tools/build/armour-vanilla/Textures
+    python tools/scripts/model_textures.py <glb> --write --out tools/build/armour-vanilla/Textures   # author colours, Faig 2026-09-15
     python tools/scripts/fit_suit.py <glb> --write --out tools/build/armour-vanilla [--paint]
     python tools/scripts/transform.py --profile vanilla --import-armour --write
     tools/bin/tes3conv.exe tools/build/scifi-rewrite.json tools/build/scifi-rewrite.esp
