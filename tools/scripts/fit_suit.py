@@ -68,27 +68,95 @@ from uvmap import parse_trishape  # noqa: E402
 AXES = np.array([[-1.0, 0, 0], [0, 0, 1.0], [0, 1.0, 0]])
 MIRROR = np.diag([-1.0, 1.0, 1.0])
 
-# The model's bones that have a Morrowind twin.
-TWIN = {"pelvis": "Bip01 Pelvis", "spine_01": "Bip01 Spine",
-        "spine_03": "Bip01 Spine1", "spine_05": "Bip01 Spine2",
-        "neck_01": "Bip01 Neck", "head": "Bip01 Head"}
-# Which of them swing, and toward which child in each skeleton.
-AIM = {}
-for _s, _S in (("l", "L"), ("r", "R")):
-    TWIN.update({f"clavicle_{_s}": f"Bip01 {_S} Clavicle",
-                 f"upperarm_{_s}": f"Bip01 {_S} UpperArm",
-                 f"lowerarm_{_s}": f"Bip01 {_S} Forearm",
-                 f"hand_{_s}": f"Bip01 {_S} Hand",
-                 f"thigh_{_s}": f"Bip01 {_S} Thigh",
-                 f"calf_{_s}": f"Bip01 {_S} Calf",
-                 f"foot_{_s}": f"Bip01 {_S} Foot"})
-    AIM.update({f"clavicle_{_s}": f"upperarm_{_s}",
-                f"upperarm_{_s}": f"lowerarm_{_s}",
-                f"lowerarm_{_s}": f"hand_{_s}",
-                f"hand_{_s}": f"middle_01_{_s}",
-                f"thigh_{_s}": f"calf_{_s}",
-                f"calf_{_s}": f"foot_{_s}"})
-AIM_MW = {"middle_01_l": "Bip01 L Finger1", "middle_01_r": "Bip01 R Finger1"}
+# **Rig profiles.** Each names, in the model's own bone names: the bones with a
+# Morrowind twin, which of those swing toward which child (model child, game
+# child), the two bones that measure height, and which slot a bone feeds.
+# Picked by `rig_of` from the names in the file.
+
+
+def _limbs(model_names, twin, aim):
+    """Fill twin and aim for both sides from a per-side name table."""
+    for s, S in (("l", "L"), ("r", "R")):
+        n = {k: v.format(s=s, S=S) for k, v in model_names.items()}
+        twin.update({n["clavicle"]: f"Bip01 {S} Clavicle",
+                     n["upperarm"]: f"Bip01 {S} UpperArm",
+                     n["forearm"]: f"Bip01 {S} Forearm",
+                     n["hand"]: f"Bip01 {S} Hand",
+                     n["thigh"]: f"Bip01 {S} Thigh",
+                     n["calf"]: f"Bip01 {S} Calf",
+                     n["foot"]: f"Bip01 {S} Foot"})
+        aim.update({n["clavicle"]: (n["upperarm"], f"Bip01 {S} UpperArm"),
+                    n["upperarm"]: (n["forearm"], f"Bip01 {S} Forearm"),
+                    n["forearm"]: (n["hand"], f"Bip01 {S} Hand"),
+                    n["hand"]: (n["finger"], f"Bip01 {S} Finger1"),
+                    n["thigh"]: (n["calf"], f"Bip01 {S} Calf"),
+                    n["calf"]: (n["foot"], f"Bip01 {S} Foot")})
+
+
+def _unreal_slot(name):
+    slot, side = slot_of(name)
+    return FOLD.get(slot, slot), side
+
+
+_VALVE_SLOTS = (("head", "head"), ("neck", "chest"), ("pectoral", "chest"),
+                ("latt", "chest"), ("spine", "chest"), ("pelvis", "groin"),
+                ("clavicle", "clavicle"), ("trapezius", "clavicle"),
+                ("shoulder", "clavicle"), ("bicep", "upperarm"),
+                ("upperarm", "upperarm"), ("elbow", "forearm"),
+                ("forearm", "forearm"), ("ulna", "forearm"),
+                ("wrist", "forearm"), ("hand", "hand"), ("finger", "hand"),
+                ("attachment", "hand"), ("hip", "upperleg"),
+                ("sartorius", "upperleg"), ("quadricep", "upperleg"),
+                ("thigh", "upperleg"), ("knee", "knee"), ("calf", "ankle"),
+                ("foot", "foot"), ("toe", "foot"))
+
+
+def _valve_base(name):
+    return re.sub(r"^(ValveBiped\.)?(Bip01_)?", "", name)
+
+
+def _valve_slot(name):
+    s = _valve_base(name)
+    side = ("l" if re.match(r"L_", s) or s.endswith("LH") else
+            "r" if re.match(r"R_", s) or s.endswith("RH") else "")
+    low = s.lower()
+    for key, slot in _VALVE_SLOTS:
+        if key in low:
+            return slot, side
+    return None, side
+
+
+RIGS = {
+    "unreal": {"base": lambda n: base_name(n), "slot": _unreal_slot,
+               "top": "head", "foot": "foot_l", "root": "pelvis",
+               "twin": {"pelvis": "Bip01 Pelvis", "spine_01": "Bip01 Spine",
+                        "spine_03": "Bip01 Spine1", "spine_05": "Bip01 Spine2",
+                        "neck_01": "Bip01 Neck", "head": "Bip01 Head"},
+               "aim": {}, "limbs": {
+                   "clavicle": "clavicle_{s}", "upperarm": "upperarm_{s}",
+                   "forearm": "lowerarm_{s}", "hand": "hand_{s}",
+                   "finger": "middle_01_{s}", "thigh": "thigh_{s}",
+                   "calf": "calf_{s}", "foot": "foot_{s}"}},
+    "valve": {"base": _valve_base, "slot": _valve_slot,
+              "top": "Head1", "foot": "L_Foot", "root": "Pelvis",
+              "twin": {"Pelvis": "Bip01 Pelvis", "Spine": "Bip01 Spine",
+                       "Spine1": "Bip01 Spine1", "Spine2": "Bip01 Spine2",
+                       "Neck1": "Bip01 Neck", "Head1": "Bip01 Head"},
+              "aim": {}, "limbs": {
+                  "clavicle": "{S}_Clavicle", "upperarm": "{S}_UpperArm",
+                  "forearm": "{S}_Forearm", "hand": "{S}_Hand",
+                  "finger": "{S}_Finger1", "thigh": "{S}_Thigh",
+                  "calf": "{S}_Calf", "foot": "{S}_Foot"}},
+}
+
+
+def rig_of(names):
+    kind = "valve" if any(n.startswith("ValveBiped.") for n in names) \
+        else "unreal"
+    rig = RIGS[kind]
+    if not rig["aim"]:
+        _limbs(rig["limbs"], rig["twin"], rig["aim"])
+    return kind, rig
 
 NODE = {"chest": "Chest", "groin": "Groin", "head": "Head",
         "clavicle": "Clavicle", "upperarm": "Upper Arm", "forearm": "Forearm",
@@ -121,7 +189,7 @@ PAINT = {"head": (245, 245, 245), "chest": (255, 215, 0),
          "ankle_l": (0, 120, 160), "foot_l": (0, 60, 60)}
 
 
-def base(name):
+def base_name(name):
     return re.sub(r"(_\d+)+$", "", name)
 
 
@@ -141,23 +209,62 @@ def swing(a, b):
 
 
 def read_model(path):
+    """Every skinned primitive of every skin, joints merged by name.
+
+    A model may carry one skeleton per body region, each a copy with the same
+    bone names (the Claymore has five), so joints are identified by name and
+    each primitive's joint indices go through its own skin's table.
+    """
     model = Gltf(path)
-    skin = model.json["skins"][0]
-    joints = skin["joints"]
-    names = [model.json["nodes"][n].get("name", f"node{n}") for n in joints]
-    ibm = model.accessor(skin["inverseBindMatrices"]).reshape(-1, 4, 4)
-    ibm = ibm.transpose(0, 2, 1)                    # column-major on disk
-    heads = np.array([np.linalg.inv(m)[:3, 3] for m in ibm])
-    where = {n: i for i, n in enumerate(joints)}
+    js = model.json
+    nodes_js = js["nodes"]
+    label_of = lambda n: nodes_js[n].get("name", f"node{n}")  # noqa: E731
+    names, heads, index, tables = [], [], {}, []
+    for skin in js.get("skins", []):
+        ibm = model.accessor(skin["inverseBindMatrices"]).reshape(-1, 4, 4)
+        ibm = ibm.transpose(0, 2, 1)                # column-major on disk
+        table = []
+        for jn, mat in zip(skin["joints"], ibm):
+            nm = label_of(jn)
+            if nm not in index:
+                index[nm] = len(names)
+                names.append(nm)
+                heads.append(np.linalg.inv(mat)[:3, 3])
+            table.append(index[nm])
+        tables.append(np.array(table))
+    up = {k: i for i, n in enumerate(nodes_js) for k in n.get("children", [])}
     parent = {}
-    for i, node in enumerate(model.json["nodes"]):
-        for kid in node.get("children", []):
-            if kid in where and i in where:
-                parent[where[kid]] = where[i]
-    seen, V, U, T, J, W, P = set(), [], [], [], [], [], []
+    for skin in js.get("skins", []):
+        for jn in skin["joints"]:
+            p = up.get(jn)
+            while p is not None and label_of(p) not in index:
+                p = up.get(p)
+            if p is not None and index[label_of(p)] != index[label_of(jn)]:
+                parent.setdefault(index[label_of(jn)], index[label_of(p)])
+
+    materials, items = {}, []
+
+    def material(prim):
+        mi = prim.get("material")
+        pbr = js["materials"][mi].get("pbrMetallicRoughness", {}) \
+            if mi is not None else {}
+        factor = tuple(round(c, 4) for c in pbr.get("baseColorFactor",
+                                                     [1, 1, 1, 1]))
+        tex = pbr.get("baseColorTexture")
+        img = js["textures"][tex["index"]].get("source") if tex else None
+        key = (img, factor)
+        if key not in materials:
+            materials[key] = len(items)
+            items.append(key)
+        return materials[key]
+
+    seen, V, U, T, J, W, M = set(), [], [], [], [], [], []
     at = 0
-    for mesh in model.json.get("meshes", []):
-        for prim in mesh.get("primitives", []):
+    for node in nodes_js:
+        if "mesh" not in node or node.get("skin") is None:
+            continue
+        table = tables[node["skin"]]
+        for prim in js["meshes"][node["mesh"]]["primitives"]:
             a = prim.get("attributes", {})
             if "JOINTS_0" not in a or "POSITION" not in a:
                 continue
@@ -171,25 +278,27 @@ def read_model(path):
                      if "TEXCOORD_0" in a else np.zeros((len(v), 2)))
             T.append(model.accessor(prim["indices"]).ravel()
                      .astype(np.int64).reshape(-1, 3) + at)
-            J.append(model.accessor(a["JOINTS_0"]).astype(np.int64))
+            J.append(table[model.accessor(a["JOINTS_0"]).astype(np.int64)])
             W.append(model.accessor(a["WEIGHTS_0"]).astype(np.float64))
-            P.append(np.full(len(v), len(P)))
+            M.append(np.full(len(v), material(prim)))
             at += len(v)
     w = np.vstack(W)
     w /= np.maximum(w.sum(1, keepdims=True), 1e-9)
-    return {"names": names, "heads": heads, "parent": parent,
+    kind, rig = rig_of(names)
+    return {"names": names, "heads": np.array(heads), "parent": parent,
             "verts": np.vstack(V), "uv": np.vstack(U), "tris": np.vstack(T),
-            "joints": np.vstack(J), "weights": w, "prim": np.concatenate(P)}
+            "joints": np.vstack(J), "weights": w, "mat": np.concatenate(M),
+            "items": items, "gltf": model, "rig": rig, "kind": kind}
 
 
 def pose(m, frames):
     """Every vertex of the model, in game units, in Morrowind's rest pose."""
-    names, heads, parent = m["names"], m["heads"], m["parent"]
-    by_base = {base(n): i for i, n in enumerate(names)}
+    names, heads, parent, rig = m["names"], m["heads"], m["parent"], m["rig"]
+    by_base = {rig["base"](n): i for i, n in enumerate(names)}
     mw = {k: frames[k][1] for k in frames}
     g = lambda i: AXES @ heads[i]                     # noqa: E731
 
-    tall_model = (g(by_base["head"]) - g(by_base["foot_l"]))[2]
+    tall_model = (g(by_base[rig["top"]]) - g(by_base[rig["foot"]]))[2]
     tall_game = mw["Bip01 Head"][2] - mw["Bip01 L Foot"][2]
     scale = tall_game / tall_model
 
@@ -205,41 +314,72 @@ def pose(m, frames):
     for i in range(len(names)):
         visit(i)
 
+    twin, aim = rig["twin"], rig["aim"]
     rot = np.zeros((len(names), 3, 3))
     anchor = np.zeros((len(names), 3))     # where the effective head goes
     origin = np.zeros((len(names), 3))     # the effective head, model side
-    pelvis = by_base["pelvis"]
+    root = by_base[rig["root"]]
     for i in order:
-        b = base(names[i])
+        b = rig["base"](names[i])
         p = parent.get(i)
-        prot = rot[p] if p is not None and p in done else np.eye(3)
-        if b in TWIN:
+        prot = rot[p] if p is not None else np.eye(3)
+        if b in twin:
             r = prot
-            if b in AIM:
-                kid = by_base[AIM[b]]
-                want = mw[AIM_MW.get(AIM[b], TWIN.get(AIM[b], ""))] \
-                    - mw[TWIN[b]]
+            if b in aim and aim[b][0] in by_base:
+                kid = by_base[aim[b][0]]
+                want = mw[aim[b][1]] - mw[twin[b]]
                 r = swing(prot @ (g(kid) - g(i)), want) @ prot
-            rot[i], anchor[i], origin[i] = r, mw[TWIN[b]], g(i)
+            rot[i], anchor[i], origin[i] = r, mw[twin[b]], g(i)
         elif p is not None:
             rot[i], anchor[i], origin[i] = rot[p], anchor[p], origin[p]
         else:
             rot[i], anchor[i] = np.eye(3), mw["Bip01 Pelvis"]
-            origin[i] = g(pelvis)
+            origin[i] = g(root)
 
+    # Second pass for helper bones (Valve's Bicep, Ulna, Wrist...). They hang
+    # off the clavicle or the upper arm rather than in the chain, so the
+    # hierarchy never swings them the way their slot swings: left alone they
+    # stay in the T-pose and stick out sideways. Each follows the main bone of
+    # the slot it feeds, and its own children follow it.
+    main_bone = {"clavicle": "clavicle", "upperarm": "upperarm",
+                 "forearm": "forearm", "hand": "hand", "upperleg": "thigh",
+                 "knee": "calf", "ankle": "calf", "foot": "foot"}
+    for i in order:
+        if rig["base"](names[i]) in twin:
+            continue
+        slot, side = rig["slot"](names[i])
+        f = None
+        if slot in main_bone and side:
+            want = rig["limbs"][main_bone[slot]].format(s=side, S=side.upper())
+            f = by_base.get(want)
+        if f is None:
+            f = parent.get(i)
+        if f is not None:
+            rot[i], anchor[i], origin[i] = rot[f], anchor[f], origin[f]
+
+    # **Blend only bones that turn alike.** A vertex split between a bone
+    # that swings down with the arm and one that does not (Valve's bicep
+    # against the clavicle, ~80 degrees apart) lands halfway between the two
+    # and draws a spike out of the shoulder. Weights on bones turned more
+    # than 25 degrees away from the vertex's strongest bone are dropped.
     v = m["verts"] @ AXES.T
     out = np.zeros_like(v)
-    for k in range(m["joints"].shape[1]):
-        j, w = m["joints"][:, k], m["weights"][:, k:k + 1]
+    joints, weights = m["joints"], m["weights"].copy()
+    strongest = joints[np.arange(len(joints)), weights.argmax(1)]
+    for k in range(joints.shape[1]):
+        turn = np.einsum("nij,nij->n", rot[strongest], rot[joints[:, k]])
+        weights[(turn - 1) / 2 < np.cos(np.radians(25)), k] = 0.0
+    weights /= np.maximum(weights.sum(1, keepdims=True), 1e-9)
+    for k in range(joints.shape[1]):
+        j, w = joints[:, k], weights[:, k:k + 1]
         local = scale * (v - origin[j])
         out += w * (anchor[j] + np.einsum("nij,nj->ni", rot[j], local))
 
     ratios = {}
-    for b, kid in (("upperarm_r", "lowerarm_r"), ("lowerarm_r", "hand_r"),
-                   ("thigh_r", "calf_r"), ("calf_r", "foot_r")):
-        model_len = np.linalg.norm(g(by_base[kid]) - g(by_base[b])) * scale
-        game_len = np.linalg.norm(mw[TWIN[kid]] - mw[TWIN[b]])
-        ratios[b] = model_len / game_len
+    for b, (kid, mwkid) in aim.items():
+        if kid in by_base and kid in twin and b in by_base:
+            model_len = np.linalg.norm(g(by_base[kid]) - g(by_base[b])) * scale
+            ratios[b] = model_len / np.linalg.norm(mw[mwkid] - mw[twin[b]])
     return out, scale, ratios
 
 
@@ -251,9 +391,8 @@ def label(m, posed, knee_fraction=0.5):
         if i not in cache:
             j, steps = i, 0
             while j is not None and steps < 64:
-                slot, side = slot_of(names[j])
+                slot, side = m["rig"]["slot"](names[j])
                 if slot:
-                    slot = FOLD.get(slot, slot)
                     cache[i] = f"{slot}_{side}" if slot in SIDED else slot
                     break
                 j, steps = parent.get(j), steps + 1
@@ -404,8 +543,10 @@ def main():
     ap.add_argument("model")
     ap.add_argument("--out", default=os.path.join(ROOT, "tools", "build",
                                                   "armour-dev"))
-    ap.add_argument("--texture", default="zenar_body.dds")
-    ap.add_argument("--helm-texture", default="zenar_helm.dds")
+    ap.add_argument("--set", default="zenar",
+                    help="mesh folder and texture prefix; bodyparts.SETS says "
+                         "which armour records it replaces")
+    ap.add_argument("--atlas-size", type=int, default=2048)
     ap.add_argument("--paint", action="store_true",
                     help="diagnostic colours, self-lit, left and right apart")
     ap.add_argument("--write", action="store_true")
@@ -419,26 +560,41 @@ def main():
           f"scale {scale:.4f}")
     print("limb length, model over game: " +
           ", ".join(f"{k} {v:.2f}" for k, v in ratios.items()))
+    print(f"rig: {m['kind']}, {len(m['names'])} joints, "
+          f"{len(m['items'])} materials")
     pieces = label(m, posed)
-    # One shape per file, so one sheet per piece. The helmet is its own
-    # primitive with its own sheet; where its collar was cut into the chest by
-    # the neck bones, it goes back on the helmet.
-    counts = np.bincount(m["prim"])
-    body = int(np.argmax(counts))
-    if "head" in pieces:
-        for key in list(pieces):
-            if key == "head":
-                continue
-            odd = m["prim"][pieces[key][:, 0]] != body
-            if odd.any():
-                pieces["head"] = np.vstack([pieces["head"], pieces[key][odd]])
-                pieces[key] = pieces[key][~odd]
 
-    mesh_dir = os.path.join(args.out, "Meshes", "zenar")
+    mesh_dir = os.path.join(args.out, "Meshes", args.set)
     tex_dir = os.path.join(args.out, "Textures")
     if args.write:
         os.makedirs(mesh_dir, exist_ok=True)
         os.makedirs(tex_dir, exist_ok=True)
+
+    # One texture per bodypart file, so every material goes on one atlas.
+    from atlas import build_atlas, remap_uv
+    from model_textures import images as gltf_images
+    sheets = gltf_images(m["gltf"])
+    items = []
+    for img, factor in m["items"]:
+        if img is None:
+            items.append(tuple(int(round(c * 255)) for c in factor[:3]))
+            continue
+        pic = sheets[img].convert("RGBA")
+        if factor[:3] != (1, 1, 1):
+            arr = np.asarray(pic).astype(np.float64)
+            arr[..., :3] *= np.array(factor[:3])
+            from PIL import Image
+            pic = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), "RGBA")
+        items.append(pic)
+    sheet, rects = build_atlas(items, args.atlas_size)
+    uv_atlas = np.zeros_like(m["uv"])
+    for k, rect in enumerate(rects):
+        pick = m["mat"] == k
+        uv_atlas[pick] = remap_uv(m["uv"][pick], rect)
+    atlas_name = f"{args.set}_atlas.dds"
+    if args.write and not args.paint:
+        from dds import write_dxt
+        write_dxt(os.path.join(tex_dir, atlas_name), np.asarray(sheet), "dxt1")
     preview, worst = [], 0.0
     for key in sorted(pieces):
         slot, side = (key[:-2], key[-1]) if key[-2:] in ("_l", "_r") else (key, "")
@@ -461,14 +617,14 @@ def main():
 
         faces = np.vstack([tris, tris[:, ::-1] + len(used)])
         verts2 = np.vstack([in_shape, in_shape])
-        uv2 = np.vstack([m["uv"][used]] * 2)
+        uv2 = np.vstack([uv_atlas[used]] * 2)
         sides = ("r", "l") if side else ("",)
         for sd in sides:
             name = f"{slot}_l" if sd == "l" else slot
             blob = donor
-            tex = args.texture if m["prim"][used[0]] == body else args.helm_texture
+            tex = atlas_name
             if args.paint:
-                tex = f"zenar_dbg_{name}.dds"
+                tex = f"{args.set}_dbg_{name}.dds"
                 blob = emissive(blob)
                 if args.write:
                     paint_texture(os.path.join(tex_dir, tex),

@@ -43,11 +43,22 @@ being reconstructed later.
 | Author | **Nazar Okruzhko** (`@Hot-Dog_1947`) |
 | Source | https://sketchfab.com/3d-models/power-armor-wolf-new-ordercolossus-2c892da0ccd3439aa8e8ab3800478eb4 |
 | Licence | **CC Attribution 4.0** — https://creativecommons.org/licenses/by/4.0/ |
-| Status | not downloaded or imported yet |
+| Status | downloaded 2026-09-15 (`D:\Downloads\power-armor-wolf-new-ordercolossus.zip`); being imported in place of **Ebony** armour, Faig's call that day |
 
 Same condition as the helmet above: **the author must be credited** wherever it
 ships, and the exact wording is best taken from the model page's own COPY
 CREDITS button.
+
+### Candidates downloaded, not imported
+
+Both CC-BY-type pages as Faig found them on 2026-09-15; set aside because the
+Wolf armour was the easiest of the three to import. Credit them if either is
+ever used.
+
+| Title | Author | Source | Notes |
+| --- | --- | --- | --- |
+| **Claymore (Titanic Scion)** | **VIRKM** | https://sketchfab.com/3d-models/claymore-titanic-scion-47e25ed1912044d3971cb9ff1089d6f3 | CC Attribution; rigged, five separate skins, Mixamo-style bone names |
+| **Fallen Paladin in Corrupted Black Plate Armor** | see page | https://sketchfab.com/3d-models/fallen-paladin-in-corrupted-black-plate-armor-df3056caff7e4f079bd4eec0fa9bcd54 | licence not checked; no skeleton, 1.45 M vertices |
 
 ## Assets whose terms have not been checked
 

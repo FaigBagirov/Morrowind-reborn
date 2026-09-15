@@ -1,0 +1,17 @@
+player->SetStrength 500
+player->AddItem "ebony_cuirass" 1
+player->Equip "ebony_cuirass"
+player->AddItem "ebony_greaves" 1
+player->Equip "ebony_greaves"
+player->AddItem "ebony_boots" 1
+player->Equip "ebony_boots"
+player->AddItem "ebony_pauldron_left" 1
+player->Equip "ebony_pauldron_left"
+player->AddItem "ebony_pauldron_right" 1
+player->Equip "ebony_pauldron_right"
+player->AddItem "ebony_bracer_left" 1
+player->Equip "ebony_bracer_left"
+player->AddItem "ebony_bracer_right" 1
+player->Equip "ebony_bracer_right"
+player->AddItem "ebony_closed_helm" 1
+player->Equip "ebony_closed_helm"

@@ -25,6 +25,7 @@ validator, so the preview and the artifact cannot disagree.
 
 import argparse
 import collections
+import copy
 import csv
 import hashlib
 import json
@@ -767,20 +768,40 @@ def main():
     # and an armour record names that, so both hops are made here - and only
     # for pieces that are actually built, because a record naming a missing
     # mesh shows as nothing at all.
-    built = args.import_armour and bodyparts.on_disk(os.path.join(args.out_build,
-                                           f"armour-{args.profile}",
-                                           "Meshes", "zenar"))
-    if built:
-        moved = sum(bodyparts.repoint(r, built) for r in out
+    any_built = False
+    for set_name in bodyparts.SETS if args.import_armour else ():
+        built = bodyparts.on_disk(os.path.join(
+            args.out_build, f"armour-{args.profile}", "Meshes", set_name))
+        if not built:
+            continue
+        any_built = True
+        # A family the rules never rename is not in the plugin yet: bring the
+        # loaded record in whole, then repoint it like the others.
+        have = {str(r.get("id", "")).lower() for r in out
+                if r.get("type") == "Armor"}
+        # Raw from the masters' own dumps: `records` holds the transform's
+        # reduced view, which tes3conv cannot write back.
+        raw = {}
+        for dump in paths:
+            with open(dump, encoding="utf-8") as fh:
+                for rec in json.load(fh):
+                    ident = str(rec.get("id", "")).lower()
+                    if rec.get("type") == "Armor"                             and ident in bodyparts.SETS[set_name]["targets"]:
+                        raw[ident] = rec
+        for ident, rec in raw.items():
+            if ident not in have:
+                out.append(copy.deepcopy(rec))
+                have.add(ident)
+        moved = sum(bodyparts.repoint(r, built, set_name) for r in out
                     if r.get("type") == "Armor")
-        parts = bodyparts.emit(built=built)
+        parts = bodyparts.emit(mesh_dir=set_name, built=built)
         out.extend(parts)
-        print(f"Imported armour: {len(parts)} bodyparts, "
+        print(f"Imported armour [{set_name}]: {len(parts)} bodyparts, "
               f"{moved} armour slots repointed "
               f"({', '.join(sorted(built))})")
-    elif args.import_armour:
+    if args.import_armour and not any_built:
         print("Imported armour: no built meshes found, nothing repointed")
-    else:
+    elif not args.import_armour:
         print("Imported armour: off (the new-armor branch turns it on)")
 
     header["num_objects"] = len(out) - 1

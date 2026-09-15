@@ -42,11 +42,13 @@ import os
 # bodypart and the engine mirrors it for the right slot natively. Building the
 # right side myself through the rest pose put both pauldrons on the left - the
 # game hangs parts on animated bones, and the rest pose is not what plays.
-PARTS = {k: (f"zenar_{k}", v) for k, v in {
+PART_NAME = {k: v for k, v in {
     "chest": "Chest", "groin": "Groin", "head": "Head",
     "clavicle": "Clavicle", "upperarm": "UpperArm", "forearm": "Forearm",
     "upperleg": "UpperLeg", "knee": "Knee", "ankle": "Ankle",
     "foot": "Foot", "hand": "Hand"}.items()}
+PARTS = {k: (f"zenar_{k}", v) for k, v in PART_NAME.items()}   # the first set
+
 
 # An armour record names its slots as LeftPauldron, RightUpperArm and so on.
 # This turns one of those into the key above, side and all.
@@ -62,7 +64,7 @@ SLOT_OF = {
 
 # The armour this replaces. Daedric becomes Zenaric throughout the conversion,
 # so these are the records whose shape should change with it.
-TARGETS = {
+_DAEDRIC = {
     "daedric_cuirass", "daedric_cuirass_htab", "daedric_greaves",
     "daedric_greaves_htab", "daedric_boots", "daedric_pauldron_left",
     "daedric_pauldron_right", "daedric_gauntlet_left",
@@ -74,12 +76,29 @@ TARGETS = {
 }
 
 
-EXTRA_SLOTS = {
+_DAEDRIC_EXTRA = {
     "daedric_greaves": ("LeftKnee", "RightKnee"),
     "daedric_greaves_htab": ("LeftKnee", "RightKnee"),
     "daedric_gauntlet_left": ("LeftForearm",),
     "daedric_gauntlet_right": ("RightForearm",),
 }
+
+
+# **Sets.** Each imported suit lives in its own mesh folder and replaces one
+# vanilla armour family. The Wolf power armour takes Ebony, Faig's call on
+# 2026-09-15. Ebony has no gauntlets - the bracers hold only the wrist - so the
+# bracers gain the Hand slot, or the hands would stay bare.
+_EBONY = {"ebony_boots", "ebony_bracer_left", "ebony_bracer_left_tgeb",
+          "ebony_bracer_right", "ebony_bracer_right_tgeb", "ebony_closed_helm",
+          "ebony_closed_helm_fghl", "ebony_cuirass", "ebony_greaves",
+          "ebony_pauldron_left", "ebony_pauldron_right"}
+_EBONY_EXTRA = {"ebony_bracer_left": ("LeftHand",),
+                "ebony_bracer_left_tgeb": ("LeftHand",),
+                "ebony_bracer_right": ("RightHand",),
+                "ebony_bracer_right_tgeb": ("RightHand",)}
+SETS = {"zenar": {"targets": _DAEDRIC, "extra": _DAEDRIC_EXTRA},
+        "wolf": {"targets": _EBONY, "extra": _EBONY_EXTRA}}
+TARGETS, EXTRA_SLOTS = _DAEDRIC, _DAEDRIC_EXTRA
 
 
 def slot_of(biped_type):
@@ -93,6 +112,7 @@ def slot_of(biped_type):
 
 
 def emit(mesh_dir="zenar", built=None):
+    parts = {k: (f"{mesh_dir}_{k}", v) for k, v in PART_NAME.items()}
     """A Bodypart record per piece we actually built.
 
     `built` is the set of slots with a mesh on disk. A record naming a mesh that
@@ -100,7 +120,7 @@ def emit(mesh_dir="zenar", built=None):
     fail, so only what exists is emitted.
     """
     out = []
-    for slot, (rid, part) in PARTS.items():
+    for slot, (rid, part) in parts.items():
         # A `<slot>_l` mesh is the same piece in a left-side dress - the
         # diagnostic paint of `fit_suit.py --paint` - and gets its own record.
         for key, ident in ((slot, rid), (slot + "_l", rid + "_l")):
@@ -115,24 +135,31 @@ def emit(mesh_dir="zenar", built=None):
     return out
 
 
-def repoint(record, built=None):
+def repoint(record, built=None, set_name="zenar"):
+    parts = {k: (f"{set_name}_{k}", v) for k, v in PART_NAME.items()}
     """Send one armour record's slots at our pieces. Returns how many moved."""
     ident = str(record.get("id", "")).lower()
-    if ident not in TARGETS:
+    if ident not in SETS[set_name]["targets"]:
         return 0
     # Slots the vanilla record never had. Without them the naked body's knee
     # and forearm are drawn between our pieces - seen on screen as bare brown
     # knees above the boots - and our knee and forearm meshes are never worn.
     bipeds = record.setdefault("biped_objects", [])
     have = {str(b.get("biped_object_type")) for b in bipeds}
-    for extra in EXTRA_SLOTS.get(ident, ()):
+    for extra in SETS[set_name]["extra"].get(ident, ()):
         if extra not in have:
             bipeds.append({"biped_object_type": extra,
                            "male_bodypart": "", "female_bodypart": ""})
     moved = 0
     for biped in bipeds:
+        # The wrist keeps its slot, so the naked wrist stays hidden, but draws
+        # nothing: our forearm and hand cover it, and a vanilla bracer mesh
+        # left there would sit on top of them.
+        if str(biped.get("biped_object_type") or "").lower().endswith("wrist"):
+            biped["male_bodypart"] = biped["female_bodypart"] = ""
+            continue
         slot = slot_of(biped.get("biped_object_type"))
-        if not slot or slot not in PARTS:
+        if not slot or slot not in parts:
             continue
         if built is not None and slot not in built:
             continue
@@ -140,7 +167,7 @@ def repoint(record, built=None):
         # anything hung on a `Left` node, and `fit_suit.py` authors every
         # piece for exactly that. A `_l` mesh, when built, is the diagnostic
         # left-side dress of the same geometry.
-        rid = PARTS[slot][0]
+        rid = parts[slot][0]
         left = str(biped.get("biped_object_type") or "").lower()
         if left.startswith("left") and built is not None \
                 and slot + "_l" in built:

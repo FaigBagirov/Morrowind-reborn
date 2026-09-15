@@ -136,3 +136,28 @@ Read from OpenMW 0.51 source (`components/sceneutil/attach.cpp`,
 - Only checked standing. Walk, run and combat poses are unverified.
 - `build_armour_set.py` is superseded; delete it once `fit_suit.py` has served
   a second model.
+
+## 8. Second model: what generalised (2026-09-15, Power Armor - Wolf on Ebony)
+
+- **Rig profiles** in `fit_suit.py` (`RIGS`, picked by `rig_of` from bone
+  names): `unreal` (pelvis/spine_01/upperarm_l...) and `valve`
+  (ValveBiped.Bip01_L_UpperArm...). A new rig = one entry: twin bones, limb
+  name table, height bones, slot keywords. Mixamo (`LeftArm`, `LeftUpLeg`) is
+  not written yet - the Claymore needs it.
+- **Several skins** (one skeleton copy per body region) are read and merged by
+  joint name.
+- **Helper bones** (Valve's Bicep, Ulna, Wrist) follow the main bone of their
+  slot, not their hierarchy parent. Blend weights across bones turned more than
+  25 degrees apart are dropped, or a vertex lands between an arm that swung and
+  a clavicle that did not.
+- **Atlas** (`atlas.py`): every material (image or flat colour) on one
+  2048 sheet, UVs remapped, edge-padded tiles. Texture is `<set>_atlas.dds`.
+  Tiling UVs (outside 0..1) cannot go on an atlas - the dragon has them.
+- **Sets** (`bodyparts.SETS`): mesh folder `Meshes/<set>`, record ids
+  `<set>_<slot>`, target armour ids, extra slots. Records the rules never
+  rename are copied raw from the master dumps into the plugin. Wrist slots draw
+  nothing (a vanilla bracer mesh would sit on top of our forearm).
+- Ebony has no gauntlets: bracers gain `Hand`.
+- `fitcheck.ps1 -Equip equip_wolf.txt` dresses the other set.
+
+    python tools/scripts/fit_suit.py "<Power Armor.glb>" --set wolf --write --out tools/build/armour-vanilla [--paint]

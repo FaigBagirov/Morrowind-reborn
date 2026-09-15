@@ -13,7 +13,8 @@
 # never reaches the game, and --script-run does not need it.
 param(
   [int]$Kill = 0,
-  [int]$LoadSeconds = 45
+  [int]$LoadSeconds = 45,
+  [string]$Equip = "equip.txt"
 )
 $ErrorActionPreference = "Stop"
 $wt = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
@@ -28,7 +29,7 @@ $argline = @(
   '--data', "`"$wt\tools\viewer`"",
   '--content', 'scifi-rewrite.esp', '--content', 'zenar_viewer.omwscripts',
   '--skip-menu', '--start', 'ToddTest', '--no-sound',
-  '--script-run', "`"$wt\tools\viewer\equip.txt`""
+  '--script-run', "`"$wt\tools\viewer\$Equip`""
 ) -join ' '
 $p = Start-Process $exe -ArgumentList $argline -PassThru
 Write-Output "pid $($p.Id)"
@@ -46,11 +47,11 @@ from PIL import Image
 d = sys.argv[1]
 fs = sorted((f for f in os.listdir(d) if f.endswith('.png')),
             key=lambda f: os.path.getmtime(os.path.join(d, f)))[-8:]
-tiles = [Image.open(os.path.join(d, f)).convert('RGB').crop((740, 180, 1180, 1080))
-         .resize((180, 368)) for f in fs]
-sheet = Image.new('RGB', (720, 736))
+tiles = [Image.open(os.path.join(d, f)).convert('RGB').crop((690, 0, 1230, 1080))
+         .resize((180, 360)) for f in fs]
+sheet = Image.new('RGB', (720, 720))
 for i, t in enumerate(tiles):
-    sheet.paste(t, ((i % 4) * 180, (i // 4) * 368))
+    sheet.paste(t, ((i % 4) * 180, (i // 4) * 360))
 out = os.path.join(sys.argv[2], 'tools', 'reports', 'fitcheck.jpg')
 sheet.save(out, quality=82)
 print(out)
