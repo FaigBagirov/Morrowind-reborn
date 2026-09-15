@@ -39,8 +39,7 @@ Start-Sleep -Seconds $LoadSeconds
 $log = Get-Content (Join-Path $cfg 'openmw.log') -TotalCount 12 |
   Select-String 'Screenshots dir: (.*)$'
 $dir = $log.Matches[0].Groups[1].Value.Trim()
-& (Join-Path $PSScriptRoot 'shot.ps1') -Target $p.Id -Count 8 -GapSeconds 3 -Dir $dir |
-  Out-Null
+& (Join-Path $PSScriptRoot 'shot.ps1') -Target $p.Id -Count 8 -GapSeconds 3 -Dir $dir 2>&1 | Select-Object -Last 3
 python -c @"
 import os, sys
 from PIL import Image

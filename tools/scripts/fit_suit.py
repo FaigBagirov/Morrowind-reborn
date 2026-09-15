@@ -250,7 +250,7 @@ def read_model(path):
             if p is not None and index[label_of(p)] != index[label_of(jn)]:
                 parent.setdefault(index[label_of(jn)], index[label_of(p)])
 
-    materials, items = {}, []
+    materials, items, rough_maps = {}, [], []
 
     def material(prim):
         mi = prim.get("material")
@@ -264,6 +264,9 @@ def read_model(path):
         if key not in materials:
             materials[key] = len(items)
             items.append(key)
+            mr = pbr.get("metallicRoughnessTexture")
+            rough_maps.append(js["textures"][mr["index"]].get("source")
+                              if mr else None)
         return materials[key]
 
     seen, V, U, T, J, W, M = set(), [], [], [], [], [], []
@@ -296,7 +299,7 @@ def read_model(path):
     return {"names": names, "heads": np.array(heads), "parent": parent,
             "verts": np.vstack(V), "uv": np.vstack(U), "tris": np.vstack(T),
             "joints": np.vstack(J), "weights": w, "mat": np.concatenate(M),
-            "items": items, "gltf": model, "rig": rig, "kind": kind}
+            "items": items, "mr": rough_maps, "gltf": model, "rig": rig, "kind": kind}
 
 
 def pose(m, frames):
@@ -569,6 +572,10 @@ def main():
                     help="mesh folder and texture prefix; bodyparts.SETS says "
                          "which armour records it replaces")
     ap.add_argument("--atlas-size", type=int, default=2048)
+    ap.add_argument("--gain", type=float, default=2.5,
+                    help="specular brightness; the engine has no reflections")
+    ap.add_argument("--drop", default="",
+                    help="regex of bone names whose geometry is left out")
     ap.add_argument("--paint", action="store_true",
                     help="diagnostic colours, self-lit, left and right apart")
     ap.add_argument("--write", action="store_true")
@@ -584,6 +591,15 @@ def main():
           ", ".join(f"{k} {v:.2f}" for k, v in ratios.items()))
     print(f"rig: {m['kind']}, {len(m['names'])} joints, "
           f"{len(m['items'])} materials")
+    if args.drop:
+        # Parts Faig does not want, cut by the bones that carry them - a cloth
+        # tabard hangs on its own dynamic bones, so it comes away whole.
+        pattern = re.compile(args.drop, re.I)
+        dom = m["joints"][np.arange(len(m["joints"])), m["weights"].argmax(1)]
+        gone = np.array([bool(pattern.search(n)) for n in m["names"]])[dom]
+        keep = gone[m["tris"]].sum(1) < 2
+        print(f"dropped {int((~keep).sum())} triangles on bones matching {args.drop!r}")
+        m["tris"] = m["tris"][keep]
     pieces = label(m, posed)
 
     mesh_dir = os.path.join(args.out, "Meshes", args.set)
@@ -617,6 +633,23 @@ def main():
     if args.write and not args.paint:
         from dds import write_dxt
         write_dxt(os.path.join(tex_dir, atlas_name), np.asarray(sheet), "dxt1")
+        # Shine: a specular atlas in the same layout, which OpenMW picks up
+        # as `<texture>_spec.dds`. Built from each material's own
+        # metallic-roughness map (spec_maps.py); flat colours get a dim sheen.
+        from PIL import Image as _Image
+        from spec_maps import spec_map
+        spec_items = []
+        for item, mr in zip(items, m["mr"]):
+            if isinstance(item, tuple):
+                spec_items.append(tuple(min(255, int(c * 0.35 * args.gain))
+                                        for c in item[:3]) + (20,))
+                continue
+            rough = sheets[mr] if mr is not None else                 _Image.new("RGB", (4, 4), (0, 128, 0))
+            spec_items.append(_Image.fromarray(spec_map(item, rough, args.gain),
+                                               "RGBA"))
+        spec_sheet, _r = build_atlas(spec_items, args.atlas_size)
+        write_dxt(os.path.join(tex_dir, f"{args.set}_atlas_spec.dds"),
+                  np.asarray(spec_sheet), "dxt5")
     preview, worst = [], 0.0
     for key in sorted(pieces):
         slot, side = (key[:-2], key[-1]) if key[-2:] in ("_l", "_r") else (key, "")
