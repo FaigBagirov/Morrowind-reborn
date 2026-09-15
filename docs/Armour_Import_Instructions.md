@@ -137,7 +137,7 @@ Read from OpenMW 0.51 source (`components/sceneutil/attach.cpp`,
 - `build_armour_set.py` is superseded; delete it once `fit_suit.py` has served
   a second model.
 
-## 8. Second model: what generalised (2026-09-15, Power Armor - Wolf on Ebony)
+## 8. Second model: what generalised (2026-09-15, Power Armor - Wolf on Dwemer)
 
 - **Rig profiles** in `fit_suit.py` (`RIGS`, picked by `rig_of` from bone
   names): `unreal` (pelvis/spine_01/upperarm_l...) and `valve`
@@ -157,7 +157,7 @@ Read from OpenMW 0.51 source (`components/sceneutil/attach.cpp`,
   `<set>_<slot>`, target armour ids, extra slots. Records the rules never
   rename are copied raw from the master dumps into the plugin. Wrist slots draw
   nothing (a vanilla bracer mesh would sit on top of our forearm).
-- Ebony has no gauntlets: bracers gain `Hand`.
+- Dwemer has no gauntlets and no Knee/Forearm slots: bracers gain `Hand`, greaves `Knee`, pauldrons `Forearm`.
 - `fitcheck.ps1 -Equip equip_wolf.txt` dresses the other set.
 
     python tools/scripts/fit_suit.py "<Power Armor.glb>" --set wolf --write --out tools/build/armour-vanilla [--paint]

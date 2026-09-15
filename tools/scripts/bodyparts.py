@@ -85,19 +85,20 @@ _DAEDRIC_EXTRA = {
 
 
 # **Sets.** Each imported suit lives in its own mesh folder and replaces one
-# vanilla armour family. The Wolf power armour takes Ebony, Faig's call on
-# 2026-09-15. Ebony has no gauntlets - the bracers hold only the wrist - so the
-# bracers gain the Hand slot, or the hands would stay bare.
-_EBONY = {"ebony_boots", "ebony_bracer_left", "ebony_bracer_left_tgeb",
-          "ebony_bracer_right", "ebony_bracer_right_tgeb", "ebony_closed_helm",
-          "ebony_closed_helm_fghl", "ebony_cuirass", "ebony_greaves",
-          "ebony_pauldron_left", "ebony_pauldron_right"}
-_EBONY_EXTRA = {"ebony_bracer_left": ("LeftHand",),
-                "ebony_bracer_left_tgeb": ("LeftHand",),
-                "ebony_bracer_right": ("RightHand",),
-                "ebony_bracer_right_tgeb": ("RightHand",)}
+# vanilla armour family. The Wolf power armour takes Dwemer, as Faig first
+# picked on 2026-08-30 (briefly Ebony on 2026-09-15, then corrected). Dwemer has
+# no gauntlets and bare knees and forearms: the bracers gain Hand, the greaves
+# Knee, the pauldrons Forearm.
+_DWEMER = {"dwemer_boots", "dwemer_boots of flying", "dwemer_bracer_left",
+           "dwemer_bracer_right", "dwemer_cuirass", "dwemer_greaves",
+           "dwemer_helm", "dwemer_pauldron_left", "dwemer_pauldron_right"}
+_DWEMER_EXTRA = {"dwemer_bracer_left": ("LeftHand",),
+                 "dwemer_bracer_right": ("RightHand",),
+                 "dwemer_greaves": ("LeftKnee", "RightKnee"),
+                 "dwemer_pauldron_left": ("LeftForearm",),
+                 "dwemer_pauldron_right": ("RightForearm",)}
 SETS = {"zenar": {"targets": _DAEDRIC, "extra": _DAEDRIC_EXTRA},
-        "wolf": {"targets": _EBONY, "extra": _EBONY_EXTRA}}
+        "wolf": {"targets": _DWEMER, "extra": _DWEMER_EXTRA}}
 TARGETS, EXTRA_SLOTS = _DAEDRIC, _DAEDRIC_EXTRA
 
 

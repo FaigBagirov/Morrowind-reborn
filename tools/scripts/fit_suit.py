@@ -139,6 +139,10 @@ RIGS = {
                    "calf": "calf_{s}", "foot": "foot_{s}"}},
     "valve": {"base": _valve_base, "slot": _valve_slot,
               "top": "Head1", "foot": "L_Foot", "root": "Pelvis",
+              # The upper chest carries the collar. Measured from the spine it
+              # keeps the model's longer neck and stood 5.5 units above the
+              # helmet; measured from the neck it sits under the head.
+              "from_child": {"Spine4": "Neck1"},
               "twin": {"Pelvis": "Bip01 Pelvis", "Spine": "Bip01 Spine",
                        "Spine1": "Bip01 Spine1", "Spine2": "Bip01 Spine2",
                        "Neck1": "Bip01 Neck", "Head1": "Bip01 Head"},
@@ -348,7 +352,10 @@ def pose(m, frames):
         if rig["base"](names[i]) in twin:
             continue
         slot, side = rig["slot"](names[i])
-        f = None
+        f = by_base.get(rig.get("from_child", {}).get(rig["base"](names[i])))
+        if f is not None:
+            rot[i], anchor[i], origin[i] = rot[f], anchor[f], origin[f]
+            continue
         if slot in main_bone and side:
             want = rig["limbs"][main_bone[slot]].format(s=side, S=side.upper())
             f = by_base.get(want)

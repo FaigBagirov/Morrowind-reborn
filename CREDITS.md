@@ -43,7 +43,7 @@ being reconstructed later.
 | Author | **Nazar Okruzhko** (`@Hot-Dog_1947`) |
 | Source | https://sketchfab.com/3d-models/power-armor-wolf-new-ordercolossus-2c892da0ccd3439aa8e8ab3800478eb4 |
 | Licence | **CC Attribution 4.0** — https://creativecommons.org/licenses/by/4.0/ |
-| Status | downloaded 2026-09-15 (`D:\Downloads\power-armor-wolf-new-ordercolossus.zip`); being imported in place of **Ebony** armour, Faig's call that day |
+| Status | downloaded 2026-09-15 (`D:\Downloads\power-armor-wolf-new-ordercolossus.zip`); imported in place of **Dwemer** armour (Faig, 2026-08-30; briefly Ebony on 2026-09-15) |
 
 Same condition as the helmet above: **the author must be credited** wherever it
 ships, and the exact wording is best taken from the model page's own COPY
