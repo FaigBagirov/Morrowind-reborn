@@ -128,6 +128,13 @@ def _valve_slot(name):
 
 RIGS = {
     "unreal": {"base": lambda n: base_name(n), "slot": _unreal_slot,
+               # Weights need spine_01 told from spine_05, which base_name
+               # folds together; only the two trailing node numbers go.
+               "skin_base": lambda n: re.sub(r"_\d+_\d+$", "", n),
+               "skin_map": {"pelvis": "Bip01 Pelvis", "spine_01": "Bip01 Spine",
+                            "spine_02": "Bip01 Spine1", "spine_03": "Bip01 Spine1",
+                            "spine_04": "Bip01 Spine2", "spine_05": "Bip01 Spine2",
+                            "neck_01": "Bip01 Neck", "neck_02": "Bip01 Neck"},
                "top": "head", "foot": "foot_l", "root": "pelvis",
                "twin": {"pelvis": "Bip01 Pelvis", "spine_01": "Bip01 Spine",
                         "spine_03": "Bip01 Spine1", "spine_05": "Bip01 Spine2",
@@ -138,6 +145,9 @@ RIGS = {
                    "finger": "middle_01_{s}", "thigh": "thigh_{s}",
                    "calf": "calf_{s}", "foot": "foot_{s}"}},
     "valve": {"base": _valve_base, "slot": _valve_slot,
+              "skin_map": {"Pelvis": "Bip01 Pelvis", "Spine": "Bip01 Spine",
+                           "Spine1": "Bip01 Spine1", "Spine2": "Bip01 Spine2",
+                           "Spine4": "Bip01 Spine2", "Neck1": "Bip01 Neck"},
               "top": "Head1", "foot": "L_Foot", "root": "Pelvis",
               # **The trunk moves as one piece.** Snapping each vertebra to
               # Morrowind's bent the chest: this spine leans back where the
@@ -408,6 +418,49 @@ def pose(m, frames):
     return out, scale, ratios
 
 
+SKINNED = ("chest", "groin")
+
+
+def skin_bone(m, i):
+    """The Morrowind bone a model joint weighs on, within the cuirass donor's
+    skeleton (Pelvis to the upper arms)."""
+    rig, names, parent = m["rig"], m["names"], m["parent"]
+    j, steps = i, 0
+    while j is not None and steps < 64:
+        b = rig.get("skin_base", rig["base"])(names[j])
+        if b in rig["skin_map"]:
+            return rig["skin_map"][b]
+        slot, side = rig["slot"](names[j])
+        S = side.upper() if side else ""
+        if slot == "clavicle" and S:
+            return f"Bip01 {S} Clavicle"
+        if slot in ("upperarm", "forearm", "hand") and S:
+            return f"Bip01 {S} UpperArm"
+        if slot == "head":
+            return "Bip01 Neck"
+        if slot in ("groin", "upperleg", "knee", "ankle", "foot"):
+            return "Bip01 Pelvis"
+        j, steps = parent.get(j), steps + 1
+    return "Bip01 Spine2"
+
+
+def skin_weights(m, used, keep=3):
+    """Per used vertex, up to `keep` (bone, weight) pairs, normalised."""
+    cache = {}
+    out = []
+    for v in used:
+        acc = defaultdict(float)
+        for j, w in zip(m["joints"][v], m["weights"][v]):
+            if w > 0:
+                if j not in cache:
+                    cache[j] = skin_bone(m, int(j))
+                acc[cache[j]] += float(w)
+        top = sorted(acc.items(), key=lambda kv: -kv[1])[:keep]
+        total = sum(w for _b, w in top) or 1.0
+        out.append([(b, w / total) for b, w in top if w / total > 0.01])
+    return out
+
+
 def label(m, posed, knee_fraction=0.5):
     names, parent = m["names"], m["parent"]
     cache = {}
@@ -572,6 +625,9 @@ def main():
                     help="mesh folder and texture prefix; bodyparts.SETS says "
                          "which armour records it replaces")
     ap.add_argument("--atlas-size", type=int, default=2048)
+    ap.add_argument("--skin", action="store_true",
+                    help="chest and groin as skinned meshes that bend with "
+                         "the spine, instead of rigid pieces")
     ap.add_argument("--gain", type=float, default=2.5,
                     help="specular brightness; the engine has no reflections")
     ap.add_argument("--drop", default="",
@@ -662,6 +718,31 @@ def main():
         remap[used] = np.arange(len(used))
         tris = remap[tris]
         target = posed[used]
+        if args.skin and slot in SKINNED:
+            import skin_write
+            with open(_resolve(skin_write.DONOR), "rb") as f:
+                donor = f.read()
+            tex = f"{args.set}_dbg_{slot}.dds" if args.paint else atlas_name
+            if args.paint:
+                donor = emissive(donor)
+                if args.write:
+                    paint_texture(os.path.join(tex_dir, tex), PAINT[slot])
+            weights = skin_weights(m, used)
+            bones = sorted({b for pairs in weights for b, _w in pairs})
+            written, err, wsum = skin_write.write(
+                donor, NODE[slot], target, uv_atlas[used], tris, weights,
+                bones, frames, tex)
+            worst = max(worst, err)
+            if err > 1e-3 or wsum > 1e-3:
+                raise SystemExit(f"{slot}: skinned read-back {err:.4f} off, "
+                                 f"weights off by {wsum:.4f}")
+            if args.write:
+                with open(os.path.join(mesh_dir, slot + ".nif"), "wb") as f:
+                    f.write(written)
+            preview.append((target, tris, PAINT[slot]))
+            print(f"  {key:<12}{'skinned':<17}{len(used):>6} verts  "
+                  f"bones {', '.join(b.replace('Bip01 ', '') for b in bones)}")
+            continue
         r, p, s = frames[node]
         local = ((target - p) @ r) / s
 
