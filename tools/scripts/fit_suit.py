@@ -630,6 +630,8 @@ def main():
                          "the spine, instead of rigid pieces")
     ap.add_argument("--gain", type=float, default=2.5,
                     help="specular brightness; the engine has no reflections")
+    ap.add_argument("--drop-blue", default="",
+                    help="comma-separated pieces whose dark blue texels are cut")
     ap.add_argument("--drop", default="",
                     help="regex of bone names whose geometry is left out")
     ap.add_argument("--paint", action="store_true",
@@ -657,6 +659,33 @@ def main():
         print(f"dropped {int((~keep).sum())} triangles on bones matching {args.drop!r}")
         m["tris"] = m["tris"][keep]
     pieces = label(m, posed)
+    if args.drop_blue:
+        # Faig: nothing blue left around the waist. The cloth bones took the
+        # long tabard; what stays is painted on the body sheet, so it goes by
+        # the colour of the texel each triangle sits on.
+        from model_textures import images as _imgs
+        sheets = _imgs(m["gltf"])
+        cut = 0
+        for key in args.drop_blue.split(","):
+            if key not in pieces:
+                continue
+            keep = []
+            for tri in pieces[key]:
+                u, v = m["uv"][tri].mean(0)
+                img = m["items"][m["mat"][tri[0]]][0]
+                if img is None:
+                    keep.append(tri)
+                    continue
+                pic = sheets[img]
+                x = min(int(u % 1.0 * pic.width), pic.width - 1)
+                y = min(int(v % 1.0 * pic.height), pic.height - 1)
+                r, g, b = pic.getpixel((x, y))[:3]
+                if b + 10 >= r and r + g + b < 330:
+                    cut += 1
+                else:
+                    keep.append(tri)
+            pieces[key] = np.array(keep)
+        print(f"dropped {cut} blue triangles from {args.drop_blue}")
 
     mesh_dir = os.path.join(args.out, "Meshes", args.set)
     tex_dir = os.path.join(args.out, "Textures")
