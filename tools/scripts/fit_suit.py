@@ -139,13 +139,17 @@ RIGS = {
                    "calf": "calf_{s}", "foot": "foot_{s}"}},
     "valve": {"base": _valve_base, "slot": _valve_slot,
               "top": "Head1", "foot": "L_Foot", "root": "Pelvis",
-              # The upper chest carries the collar. Measured from the spine it
-              # keeps the model's longer neck and stood 5.5 units above the
-              # helmet; measured from the neck it sits under the head.
-              "from_child": {"Spine4": "Neck1"},
-              "twin": {"Pelvis": "Bip01 Pelvis", "Spine": "Bip01 Spine",
-                       "Spine1": "Bip01 Spine1", "Spine2": "Bip01 Spine2",
-                       "Neck1": "Bip01 Neck", "Head1": "Bip01 Head"},
+              # **The trunk moves as one piece.** Snapping each vertebra to
+              # Morrowind's bent the chest: this spine leans back where the
+              # game's leans forward, and Spine2 alone moved 7.7 units forward
+              # and 7.3 up, which also stood the collar above the helmet. So
+              # pelvis-to-neck is swung and scaled onto the game's once, and
+              # every trunk bone shares that.
+              "trunk": {"bones": {"Spine", "Spine1", "Spine2", "Spine4",
+                                  "Neck1"},
+                        "from": ("Pelvis", "Bip01 Pelvis"),
+                        "to": ("Neck1", "Bip01 Neck")},
+              "twin": {"Pelvis": "Bip01 Pelvis", "Head1": "Bip01 Head"},
               "aim": {}, "limbs": {
                   "clavicle": "{S}_Clavicle", "upperarm": "{S}_UpperArm",
                   "forearm": "{S}_Forearm", "hand": "{S}_Hand",
@@ -323,11 +327,22 @@ def pose(m, frames):
     anchor = np.zeros((len(names), 3))     # where the effective head goes
     origin = np.zeros((len(names), 3))     # the effective head, model side
     root = by_base[rig["root"]]
+    size = np.ones(len(names))
+    trunk = rig.get("trunk")
+    if trunk:
+        (fb, fm), (tb, tm) = trunk["from"], trunk["to"]
+        model_span = g(by_base[tb]) - g(by_base[fb])
+        game_span = mw[tm] - mw[fm]
+        trunk_rot = swing(model_span, game_span)
+        trunk_size = np.linalg.norm(game_span) / (scale * np.linalg.norm(model_span))
     for i in order:
         b = rig["base"](names[i])
         p = parent.get(i)
         prot = rot[p] if p is not None else np.eye(3)
-        if b in twin:
+        if trunk and b in trunk["bones"]:
+            rot[i], anchor[i], origin[i] = trunk_rot, mw[trunk["from"][1]],                 g(by_base[trunk["from"][0]])
+            size[i] = trunk_size
+        elif b in twin:
             r = prot
             if b in aim and aim[b][0] in by_base:
                 kid = by_base[aim[b][0]]
@@ -336,6 +351,7 @@ def pose(m, frames):
             rot[i], anchor[i], origin[i] = r, mw[twin[b]], g(i)
         elif p is not None:
             rot[i], anchor[i], origin[i] = rot[p], anchor[p], origin[p]
+            size[i] = size[p]
         else:
             rot[i], anchor[i] = np.eye(3), mw["Bip01 Pelvis"]
             origin[i] = g(root)
@@ -349,13 +365,11 @@ def pose(m, frames):
                  "forearm": "forearm", "hand": "hand", "upperleg": "thigh",
                  "knee": "calf", "ankle": "calf", "foot": "foot"}
     for i in order:
-        if rig["base"](names[i]) in twin:
+        b = rig["base"](names[i])
+        if b in twin or (trunk and b in trunk["bones"]):
             continue
         slot, side = rig["slot"](names[i])
-        f = by_base.get(rig.get("from_child", {}).get(rig["base"](names[i])))
-        if f is not None:
-            rot[i], anchor[i], origin[i] = rot[f], anchor[f], origin[f]
-            continue
+        f = None
         if slot in main_bone and side:
             want = rig["limbs"][main_bone[slot]].format(s=side, S=side.upper())
             f = by_base.get(want)
@@ -363,6 +377,7 @@ def pose(m, frames):
             f = parent.get(i)
         if f is not None:
             rot[i], anchor[i], origin[i] = rot[f], anchor[f], origin[f]
+            size[i] = size[f]
 
     # **Blend only bones that turn alike.** A vertex split between a bone
     # that swings down with the arm and one that does not (Valve's bicep
@@ -379,7 +394,7 @@ def pose(m, frames):
     weights /= np.maximum(weights.sum(1, keepdims=True), 1e-9)
     for k in range(joints.shape[1]):
         j, w = joints[:, k], weights[:, k:k + 1]
-        local = scale * (v - origin[j])
+        local = scale * size[j][:, None] * (v - origin[j])
         out += w * (anchor[j] + np.einsum("nij,nj->ni", rot[j], local))
 
     ratios = {}
