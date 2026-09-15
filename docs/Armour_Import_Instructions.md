@@ -161,3 +161,30 @@ Read from OpenMW 0.51 source (`components/sceneutil/attach.cpp`,
 - `fitcheck.ps1 -Equip equip_wolf.txt` dresses the other set.
 
     python tools/scripts/fit_suit.py "<Power Armor.glb>" --set wolf --write --out tools/build/armour-vanilla [--paint]
+
+## 9. Skinned torso (2026-09-16) - the fix for gaps while running
+
+Rigid chest (on `Chest`) and groin (on `Groin`) parted at the small of the back
+as soon as the spine bent. `fit_suit.py --skin` writes both as skinned meshes.
+
+- `skin.py` reads NiSkinInstance / NiSkinData. Layout from OpenMW 0.51
+  `components/nif/data.cpp`; checked to the byte on `a_bonemold_cuirass_c.nif`
+  (every block must end where the next begins; the file ends with an 8-byte
+  footer: root count + root ref).
+- **Measured rule:** for every bone of a vanilla skinned shape, bone world x
+  bone transform = one matrix C. So vertices go in C's space and each bone's
+  transform is inverse(base_anim bone world) x C.
+- `skin_write.py` uses the bonemold cuirass as donor (Bip01 Pelvis .. upper
+  arms): one shape takes our geometry and is renamed `Tri Chest 0` /
+  `Tri Groin 0`, the other seven `Tri Unused N` (the engine copies only names
+  starting with the slot). Its shape data carries vertex colours, so the block
+  is written whole, not patched.
+- Weights: the model's own, mapped per rig (`skin_map`, `skin_base`), top 3 per
+  vertex. Unreal names need `skin_base` - `base_name` folds spine_01..05 into
+  one "spine" and the chest weighed on the pelvis.
+- Read back through the bones: error ~6e-6. `niftest` accepts it.
+- `runcheck.ps1 -Equip <file>`: third person, runs backwards (ToddTest starts
+  facing a wall), F12 during the run. SendInput's INPUT struct is 40 bytes on
+  x64; at 24 every key was silently dropped.
+- Local coder could not write `skin.py`: three rounds of ornith-9b argued with
+  the binary layout instead of writing code. Binary formats stay with Claude.
