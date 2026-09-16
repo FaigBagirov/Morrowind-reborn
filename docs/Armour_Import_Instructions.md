@@ -188,3 +188,24 @@ as soon as the spine bent. `fit_suit.py --skin` writes both as skinned meshes.
   x64; at 24 every key was silently dropped.
 - Local coder could not write `skin.py`: three rounds of ornith-9b argued with
   the binary layout instead of writing code. Binary formats stay with Claude.
+
+## 10. Steel shine (2026-09-16)
+
+Faig: a broad highlight reads as lighter paint, not shine.
+- Specular atlas: neutral grey highlight on non-metal, the surface colour on
+  metal, exponent 30..128 (`spec_maps.py`, `--gain` 2.0).
+- Environment map, as vanilla ebony armour: sphere-map `NiTextureEffect`
+  (`enviro 01.TGA`), applied by OpenMW 0.51 (`nifloader.cpp` handleEffect) to
+  the node that lists it.
+  - Skinned chest/groin: donor is now `a_ebony_cuirass.nif`, whose `Chest`
+    node lists three such effects; the node is copied with the part. Its own
+    ebony shapes must be **detached** from that node (not just renamed) or they
+    draw as a swinging dark mini-skirt. Its skeleton has no upper arms: those
+    weights fall back to the clavicles.
+  - Rigid pieces: `envmap.py` appends the effect and its source texture; all
+    11 rigid donors have a NiTriShape as root, so a new root NiNode is added.
+    Written by gpt-oss-20b to Claude's test (the first spec wrongly assumed a
+    NiNode root - three rounds failed on that, not on the code).
+- Wolf: `--drop-flat-dark ankle_r,ankle_l` removes the black body material on
+  its joint rings (`--drop-blue` there would also cut the dark teal plates).
+

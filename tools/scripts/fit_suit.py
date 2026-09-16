@@ -750,6 +750,7 @@ def main():
         write_dxt(os.path.join(tex_dir, f"{args.set}_atlas_spec.dds"),
                   np.asarray(spec_sheet), "dxt5")
     preview, worst = [], 0.0
+    env_donor = None
     for key in sorted(pieces):
         slot, side = (key[:-2], key[-1]) if key[-2:] in ("_l", "_r") else (key, "")
         if slot not in DONOR or side == "l":
@@ -810,6 +811,16 @@ def main():
                                   PAINT[f"{slot}_{sd}" if sd else slot])
             blob, _was = retexture(blob, tex)
             written = build(blob, verts2, uv2, faces)
+            if not args.paint:
+                # Steel: the ebony cuirass's sphere-map NiTextureEffect, added
+                # to every rigid piece (envmap.py, written by gpt-oss-20b to
+                # Claude's test). The skinned pieces get theirs from the donor.
+                from envmap import add_env_map
+                import skin_write
+                if env_donor is None:
+                    with open(_resolve(skin_write.DONOR), "rb") as f:
+                        env_donor = f.read()
+                written = add_env_map(written, env_donor)
             back, _uv, _t = parse_trishape(written)
             br, bp, bs = chain(written)
             again = bp + bs * (back[:len(used)] @ br.T)
