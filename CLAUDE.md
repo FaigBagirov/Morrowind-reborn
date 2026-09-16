@@ -551,8 +551,18 @@ node chain, read it back (error 4e-6), let the engine mirror the left. Draws
   (the console key never arrives under a Russian layout) and
   `tools/viewer/zenar_viewer.omwscripts` parks a static camera front, side,
   back, side. game-control's window grab returned stale frames; F12 is truth.
-- The chest is still rigid on `Chest`. Faig flagged that cuirasses are skinned
-  in vanilla; skinning it is the next step if it breaks in motion.
+- **Chest and groin are skinned** (`fit_suit.py --skin`, `skin.py`,
+  `skin_write.py`) since 2026-09-16: rigid pieces parted at the small of the
+  back while running. Checked running from behind with `runcheck.ps1`, both
+  sets. Combat, jumping and sneaking not yet looked at.
+- Two sets in one plugin: `zenar` (Ageless, on Daedric, original colours, no
+  tabard or waist cloth: `--drop "_dyn|HipPad|FrontStrap|Tail" --drop-blue
+  "groin,chest,upperleg_r,upperleg_l,knee_r,knee_l"`) and `wolf` (Power Armor,
+  on Dwemer). Build commands and everything learned: `docs/Armour_Import_Instructions.md`.
+- Specular atlases (`<set>_atlas_spec.dds`) are written; Faig found the first
+  version not shiny, the brighter one is not yet seen by him.
+- Local coders: binary-format code by exact spec goes to `ornith-35b`
+  (benchmark 2026-09-16: 35b passed, 20b and 9b did not).
 
 ## The Zenaric suit from an imported model - `SUPERSEDED BY fit_suit.py`
 
