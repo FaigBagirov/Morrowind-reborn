@@ -561,8 +561,12 @@ node chain, read it back (error 4e-6), let the engine mirror the left. Draws
   on Dwemer). Build commands and everything learned: `docs/Armour_Import_Instructions.md`.
 - Specular atlases (`<set>_atlas_spec.dds`) are written; Faig found the first
   version not shiny, the brighter one is not yet seen by him.
-- Local coders: binary-format code by exact spec goes to `ornith-35b`
-  (benchmark 2026-09-16: 35b passed, 20b and 9b did not).
+- Local coders: binary-format code by exact spec goes to `gpt-oss-20b`
+  (passed first try in 9 min when the prompt defined every returned field and
+  forbade checks of its own) or `ornith-35b` (loads ~3 min after an unload: set
+  `max_minutes` 25 and `background: true`); never `ornith-9b`. Full rules:
+  `D:\Work\AI models\CLAUDE.md`, rules 9-14 and the section "Фоновые задачи,
+  сторож и прогресс".
 
 ## The Zenaric suit from an imported model - `SUPERSEDED BY fit_suit.py`
 
