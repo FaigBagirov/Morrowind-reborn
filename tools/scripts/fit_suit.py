@@ -628,8 +628,11 @@ def main():
     ap.add_argument("--skin", action="store_true",
                     help="chest and groin as skinned meshes that bend with "
                          "the spine, instead of rigid pieces")
-    ap.add_argument("--gain", type=float, default=2.5,
+    ap.add_argument("--gain", type=float, default=2.0,
                     help="specular brightness; the engine has no reflections")
+    ap.add_argument("--drop-flat-dark", default="",
+                    help="comma-separated pieces whose dark flat-colour "
+                         "(untextured) material is cut; textures untouched")
     ap.add_argument("--drop-blue", default="",
                     help="comma-separated pieces whose dark blue texels are cut")
     ap.add_argument("--drop", default="",
@@ -659,22 +662,32 @@ def main():
         print(f"dropped {int((~keep).sum())} triangles on bones matching {args.drop!r}")
         m["tris"] = m["tris"][keep]
     pieces = label(m, posed)
-    if args.drop_blue:
+    if args.drop_blue or args.drop_flat_dark:
         # Faig: nothing blue left around the waist. The cloth bones took the
         # long tabard; what stays is painted on the body sheet, so it goes by
         # the colour of the texel each triangle sits on.
         from model_textures import images as _imgs
         sheets = _imgs(m["gltf"])
         cut = 0
-        for key in args.drop_blue.split(","):
+        flat_only = set(filter(None, args.drop_flat_dark.split(",")))
+        for key in filter(None, (args.drop_blue + "," + args.drop_flat_dark).split(",")):
             if key not in pieces:
                 continue
             keep = []
             for tri in pieces[key]:
                 u, v = m["uv"][tri].mean(0)
-                img = m["items"][m["mat"][tri[0]]][0]
-                if img is None:
+                img, factor = m["items"][m["mat"][tri[0]]]
+                if img is not None and key in flat_only:
                     keep.append(tri)
+                    continue
+                if img is None:
+                    # a flat colour: Wolf's joint rings are its black body
+                    # material, seen as black circles on the ankles
+                    r, g, b = (int(c * 255) for c in factor[:3])
+                    if b + 10 >= r and r + g + b < 330:
+                        cut += 1
+                    else:
+                        keep.append(tri)
                     continue
                 pic = sheets[img]
                 x = min(int(u % 1.0 * pic.width), pic.width - 1)
@@ -685,7 +698,8 @@ def main():
                 else:
                     keep.append(tri)
             pieces[key] = np.array(keep)
-        print(f"dropped {cut} blue triangles from {args.drop_blue}")
+        print(f"dropped {cut} dark triangles from "
+              f"{args.drop_blue} {args.drop_flat_dark}")
 
     mesh_dir = os.path.join(args.out, "Meshes", args.set)
     tex_dir = os.path.join(args.out, "Textures")

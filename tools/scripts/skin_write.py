@@ -26,7 +26,14 @@ from nif_write import build, normals  # noqa: F401  (build used)
 from skeleton import blocks, nodes, world
 from skin import read_skin
 
-DONOR = "meshes/a/a_bonemold_cuirass_c.nif"
+# The ebony cuirass, not the bonemold one: its "Chest" node carries three
+# NiTextureEffect sphere maps ("enviro 01.TGA"), which OpenMW 0.51 applies
+# (nifloader.cpp, handleEffect) - vanilla's own steel shine. The node is copied
+# with the part because its name matches the slot filter.
+DONOR = "meshes/a/a_ebony_cuirass.nif"
+# Bones the donor lacks, and who carries their weight instead.
+FALLBACK = {"Bip01 L UpperArm": "Bip01 L Clavicle",
+            "Bip01 R UpperArm": "Bip01 R Clavicle"}
 
 
 def _mat(r, t, s):
@@ -69,7 +76,7 @@ def _retexture_all(blob, texture):
         length, = struct.unpack_from("<I", blob, i)
         if 5 <= length <= 64:
             s = low[i + 4:i + 4 + length]
-            if s.endswith((b".dds", b".tga", b".bmp")) and all(32 <= c < 127 for c in s):
+            if s.endswith((b".dds", b".tga", b".bmp")) and all(32 <= c < 127 for c in s) and b"enviro" not in s:
                 out += blob[p:i] + struct.pack("<I", len(texture)) + texture.encode("ascii")
                 p = i = i + 4 + length
                 continue
@@ -91,6 +98,22 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
     info = target["bone_info"][0]
     C = _mat(r, p, s) @ _mat(info["rotation"], info["translation"], info["scale"])
     Cinv = np.linalg.inv(C)
+    for ref, bi in zip(target["bones"], target["bone_info"]):
+        rr, pp, ss = file_world[tree[ref]["name"]]
+        other = _mat(rr, pp, ss) @ _mat(bi["rotation"], bi["translation"], bi["scale"])
+        if np.abs(other - C).max() > 1e-2:
+            raise SystemExit(f"donor breaks the rule at {tree[ref]['name']}: "
+                             f"{np.abs(other - C).max():.4f}")
+
+    merged = []
+    for pairs in weights:
+        acc = {}
+        for name, w in pairs:
+            name = FALLBACK.get(name, name)
+            acc[name] = acc.get(name, 0.0) + w
+        merged.append(list(acc.items()))
+    weights = merged
+    bone_names = sorted({b for pairs in weights for b, _w in pairs})
 
     node_index = {n["name"]: i for i, n in tree.items()}
     missing = [b for b in bone_names if b not in node_index]
@@ -154,6 +177,10 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
         blob = _rename_shape(blob, sk["shape_index"],
                              f"Tri {slot} 0" if k == 0 else f"Tri Unused {k}")
     blob = _retexture_all(blob, texture)
+    blob = _only_child_shape(blob, read_skin(blob)[0]["shape_index"])
+    for i, node in nodes(blob).items():
+        if node["name"] == "Chest" and slot != "Chest":
+            blob = _rename_shape(blob, i, slot)
 
     # read back as the engine composes it
     from uvmap import parse_trishape  # noqa: F401
@@ -171,6 +198,37 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
             tot[v] += w
     err = float(np.abs(acc[:n] - world_verts).max())
     return blob, err, float(np.abs(tot - 1).max())
+
+
+def _only_child_shape(blob, keep):
+    """Detach every NiTriShape but `keep` from the nodes that hold them.
+
+    The engine copies the slot-named node whole, children and all
+    (CopyRigVisitor walks up to the parent whose name matches). Renamed but
+    still attached, the donor's own ebony shapes were drawn with our texture
+    and their old weights - a dark mini-skirt swinging left and right.
+    Detached blocks stay in the file, unreferenced, and are never loaded.
+    """
+    kinds = blocks(blob)
+    shapes = {i for i, (k, _a) in enumerate(kinds) if k == "NiTriShape"}
+    for i, (kind, at) in enumerate(kinds):
+        if kind != "NiNode":
+            continue
+        p = at
+        length, = struct.unpack_from("<i", blob, p)
+        p += 4 + length + 4 + 4 + 2 + 12 + 36 + 4 + 12
+        props, = struct.unpack_from("<I", blob, p)
+        p += 4 + 4 * props
+        has_box, = struct.unpack_from("<I", blob, p)
+        p += 4 + (64 if has_box else 0)
+        count, = struct.unpack_from("<I", blob, p)
+        kids = list(struct.unpack_from(f"<{count}i", blob, p + 4))
+        kept = [k for k in kids if k not in shapes or k == keep]
+        if kept != kids:
+            blob = (blob[:p] + struct.pack(f"<I{len(kept)}i", len(kept), *kept)
+                    + blob[p + 4 + 4 * count:])
+            kinds = blocks(blob)
+    return blob
 
 
 def _shape_data(verts, uv, tris):

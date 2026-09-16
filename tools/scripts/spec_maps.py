@@ -37,8 +37,12 @@ def spec_map(base, mr, gain):
     # Measured too weak on screen at 0.08 grey and exponents near 125: the
     # highlight was a pinpoint nobody could see. Every surface now reflects
     # in its own colour, and the exponent stays broad.
-    colour = (0.35 + 0.65 * metal) * base * gain
-    shine = 6.0 + (1.0 - rough[..., 0]) * 34.0              # exponent 6..40
+    # Faig, 2026-09-16: that read as a lighter colour, not as shine - a broad
+    # highlight is just brighter paint. Steel is a tight, bright highlight: a
+    # neutral grey on non-metal, the surface's own colour on metal, exponent
+    # 30..128.
+    colour = (0.45 * (1.0 - metal) + base * metal) * gain
+    shine = 30.0 + (1.0 - rough[..., 0]) * 98.0             # exponent 30..128
     out = np.empty(base.shape[:2] + (4,), np.uint8)
     out[..., :3] = np.clip(colour * 255, 0, 255)
     out[..., 3] = np.clip(shine, 0, 255)
@@ -49,7 +53,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("model")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--gain", type=float, default=2.5)
+    ap.add_argument("--gain", type=float, default=2.0)
     args = ap.parse_args()
 
     model = Gltf(args.model)
