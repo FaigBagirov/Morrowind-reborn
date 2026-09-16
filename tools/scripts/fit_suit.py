@@ -421,6 +421,32 @@ def pose(m, frames):
 SKINNED = ("chest", "groin")
 
 
+def tarnish(pic):
+    """Old, darkened silver (Faig, 2026-09-16, for the Zenar suit).
+
+    Blue becomes grey metal of the same lightness - painted over rather than
+    cut, so the chest keeps its plates. Everything darkens with a gamma, which
+    sinks the mid-grey grooves on legs and back further than the highlights;
+    silver gets a faint warm tarnish, gold a further darkening.
+    """
+    from PIL import Image
+    a = np.asarray(pic).astype(np.float64) / 255.0
+    rgb = a[..., :3]
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    mx, mn = rgb.max(-1), rgb.min(-1)
+    sat = (mx - mn) / np.maximum(mx, 1e-6)
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    blue = (b > r + 0.04) & (sat > 0.10)
+    gold = (r > b + 0.12) & (g > b + 0.05) & (sat > 0.20) & ~blue
+    # dark navy by its own lightness went black; steel-grey instead
+    rgb[blue] = (0.45 + 0.5 * lum[blue])[:, None]
+    rgb = np.power(rgb, 1.35) * 0.68
+    rgb[~gold] *= np.array([1.0, 0.975, 0.93])
+    rgb[gold] *= 0.82
+    a[..., :3] = np.clip(rgb, 0, 1)
+    return Image.fromarray((a * 255).astype(np.uint8), "RGBA")
+
+
 def skin_bone(m, i):
     """The Morrowind bone a model joint weighs on, within the cuirass donor's
     skeleton (Pelvis to the upper arms)."""
@@ -625,6 +651,10 @@ def main():
                     help="mesh folder and texture prefix; bodyparts.SETS says "
                          "which armour records it replaces")
     ap.add_argument("--atlas-size", type=int, default=2048)
+    ap.add_argument("--tone", choices=["none", "tarnished"], default="none",
+                    help="recolour the textures before the atlas")
+    ap.add_argument("--flat-colour", default="",
+                    help="r,g,b for flat black materials (Wolf's body)")
     ap.add_argument("--skin", action="store_true",
                     help="chest and groin as skinned meshes that bend with "
                          "the spine, instead of rigid pieces")
@@ -712,11 +742,19 @@ def main():
     from model_textures import images as gltf_images
     sheets = gltf_images(m["gltf"])
     items = []
+    flat = tuple(int(c) for c in args.flat_colour.split(","))         if args.flat_colour else None
     for img, factor in m["items"]:
         if img is None:
-            items.append(tuple(int(round(c * 255)) for c in factor[:3]))
+            colour = tuple(int(round(c * 255)) for c in factor[:3])
+            if flat and sum(colour) < 60:
+                # Faig: Wolf's black body material shows in the running
+                # cracks and as black hands; grey-blue like its plates
+                colour = flat
+            items.append(colour)
             continue
         pic = sheets[img].convert("RGBA")
+        if args.tone == "tarnished":
+            pic = tarnish(pic)
         if factor[:3] != (1, 1, 1):
             arr = np.asarray(pic).astype(np.float64)
             arr[..., :3] *= np.array(factor[:3])
