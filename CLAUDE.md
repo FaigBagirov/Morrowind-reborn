@@ -568,6 +568,33 @@ node chain, read it back (error 4e-6), let the engine mirror the left. Draws
   `D:\Work\AI models\CLAUDE.md`, rules 9-14 and the section "Фоновые задачи,
   сторож и прогресс".
 
+## Open for the next session (Faig, 2026-09-17) - read before touching armour
+
+Faig reviewed both suits in combat and listed, with screenshots, what is wrong.
+All but one come from limbs being rigid pieces; the plan agreed is to skin
+arms, hands and upper legs like the torso. Not started.
+
+| Symptom | Where | Cause |
+| --- | --- | --- |
+| A cylinder sticks out of the elbow instead of a rounded joint | Wolf, Zenar | upper arm and forearm are two rigid pieces cut at the bone; the open tube shows, longer since the 3-ring overlap |
+| A half-round plate grows out of the elbow, from the forearm | Zenar, both elbows | the model's elbow guard is weighted to elbow/forearm bones and rides rigidly with the forearm |
+| Gap between buttock and thigh when the leg bends | Zenar | skinned groin against a rigid upper leg |
+| Texture stretches in the armpit | Zenar | chest skinned to the upper arm, arm raised |
+| Sword passes through the palm along its plane, fingers never close | both, first and third person | rigid open hand; also possibly turned 90 deg about the forearm against vanilla - not yet measured |
+| The cuirass's little tail is a flat single plate | Zenar | model geometry; thicken or cut - ask Faig |
+
+Blocker: no donor has every bone. Bonemold cuirass: upper arms, no forearms,
+hands or fingers. Ebony cuirass: thighs, no upper arms. Look for a vanilla file
+with a fuller skeleton (the body's skinned hands) or learn to append bone
+nodes. If a large self-contained piece comes up, ask the stack session which
+local model to use (memory: delegation rules, >5% saving).
+
+Current build commands:
+
+    zenar: fit_suit.py <ageless.glb> --set zenar --skin --tone tarnished --drop "_dyn|HipPad|FrontStrap|Tail" --drop-blue "groin,chest,upperleg_r,upperleg_l,knee_r,knee_l" --write --out tools/build/armour-vanilla
+    wolf:  fit_suit.py "<Power Armor.glb>" --set wolf --skin --flat-colour 70,88,95 --drop-flat-dark ankle_r,ankle_l --write --out tools/build/armour-vanilla
+    then transform.py --profile vanilla --import-armour --write, tes3conv; game: --script-run tools/viewer/equip_both.txt
+
 ## The Zenaric suit from an imported model - `SUPERSEDED BY fit_suit.py`
 
 Twenty pieces off one downloaded model, head to foot, built by

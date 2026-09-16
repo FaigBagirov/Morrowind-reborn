@@ -1,0 +1,25 @@
+player->SetStrength 500
+player->AddItem "daedric_cuirass" 1
+player->Equip "daedric_cuirass"
+player->AddItem "daedric_greaves" 1
+player->Equip "daedric_greaves"
+player->AddItem "daedric_boots" 1
+player->Equip "daedric_boots"
+player->AddItem "daedric_pauldron_left" 1
+player->Equip "daedric_pauldron_left"
+player->AddItem "daedric_pauldron_right" 1
+player->Equip "daedric_pauldron_right"
+player->AddItem "daedric_gauntlet_left" 1
+player->Equip "daedric_gauntlet_left"
+player->AddItem "daedric_gauntlet_right" 1
+player->Equip "daedric_gauntlet_right"
+player->AddItem "daedric_fountain_helm" 1
+player->Equip "daedric_fountain_helm"
+player->AddItem "dwemer_cuirass" 1
+player->AddItem "dwemer_greaves" 1
+player->AddItem "dwemer_boots" 1
+player->AddItem "dwemer_pauldron_left" 1
+player->AddItem "dwemer_pauldron_right" 1
+player->AddItem "dwemer_bracer_left" 1
+player->AddItem "dwemer_bracer_right" 1
+player->AddItem "dwemer_helm" 1
