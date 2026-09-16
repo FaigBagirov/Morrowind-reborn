@@ -30,7 +30,12 @@ from skin import read_skin
 # NiTextureEffect sphere maps ("enviro 01.TGA"), which OpenMW 0.51 applies
 # (nifloader.cpp, handleEffect) - vanilla's own steel shine. The node is copied
 # with the part because its name matches the slot filter.
-DONOR = "meshes/a/a_ebony_cuirass.nif"
+DONOR = "meshes/a/a_bonemold_cuirass_c.nif"
+# The ebony cuirass carries the sphere map but has no upper-arm bones, and the
+# chest weight moved to the clavicles tore the chest open when Faig raised his
+# arm. So the skeleton comes from bonemold and only the effect from ebony,
+# attached to the slot-named node the engine copies.
+ENV_DONOR = "meshes/a/a_ebony_cuirass.nif"
 # Bones the donor lacks, and who carries their weight instead.
 FALLBACK = {"Bip01 L UpperArm": "Bip01 L Clavicle",
             "Bip01 R UpperArm": "Bip01 R Clavicle"}
@@ -85,7 +90,7 @@ def _retexture_all(blob, texture):
 
 
 def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
-          texture):
+          texture, env_donor=None):
     """donor: bytes. world_verts in the game's rest-pose world. weights: list
     per vertex of [(bone name, w)]. Returns (blob, read-back error)."""
     blob = donor
@@ -109,7 +114,8 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
     for pairs in weights:
         acc = {}
         for name, w in pairs:
-            name = FALLBACK.get(name, name)
+            if name not in {nd["name"] for nd in tree.values()}:
+                name = FALLBACK.get(name, name)
             acc[name] = acc.get(name, 0.0) + w
         merged.append(list(acc.items()))
     weights = merged
@@ -181,6 +187,10 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
     for i, node in nodes(blob).items():
         if node["name"] == "Chest" and slot != "Chest":
             blob = _rename_shape(blob, i, slot)
+    if env_donor is not None:
+        from envmap import add_env_map
+        slot_node = next(i for i, nd in nodes(blob).items() if nd["name"] == slot)
+        blob = add_env_map(blob, env_donor, node=slot_node)
 
     # read back as the engine composes it
     from uvmap import parse_trishape  # noqa: F401

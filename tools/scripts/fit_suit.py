@@ -440,9 +440,11 @@ def tarnish(pic):
     gold = (r > b + 0.12) & (g > b + 0.05) & (sat > 0.20) & ~blue
     # dark navy by its own lightness went black; steel-grey instead
     rgb[blue] = (0.45 + 0.5 * lum[blue])[:, None]
-    rgb = np.power(rgb, 1.35) * 0.34        # Faig: twice as dark again
+    rgb = np.power(rgb, 1.35) * 0.45        # Faig: darker, then a little lighter
     rgb[~gold] *= np.array([1.0, 0.975, 0.93])
-    rgb[gold] *= 0.82
+    # Faig: gold read dark and pale - more saturated, not darkened further
+    gl = (0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2])[gold][:, None]
+    rgb[gold] = (gl + (rgb[gold] - gl) * 1.9) * 1.25
     a[..., :3] = np.clip(rgb, 0, 1)
     return Image.fromarray((a * 255).astype(np.uint8), "RGBA")
 
@@ -794,7 +796,9 @@ def main():
         if slot not in DONOR or side == "l":
             continue
         node = f"Right {NODE[slot]}" if side else NODE[slot]
-        tris = grow(pieces[key], m["tris"])
+        # arms bend at the elbow between two rigid pieces: a wider overlap
+        tris = grow(pieces[key], m["tris"],
+                    rings=3 if slot in ("upperarm", "forearm") else 1)
         used = np.unique(tris)
         remap = np.full(len(m["verts"]), -1)
         remap[used] = np.arange(len(used))
@@ -811,9 +815,13 @@ def main():
                     paint_texture(os.path.join(tex_dir, tex), PAINT[slot])
             weights = skin_weights(m, used)
             bones = sorted({b for pairs in weights for b, _w in pairs})
+            env = None
+            if not args.paint:
+                with open(_resolve(skin_write.ENV_DONOR), "rb") as f:
+                    env = f.read()
             written, err, wsum = skin_write.write(
                 donor, NODE[slot], target, uv_atlas[used], tris, weights,
-                bones, frames, tex)
+                bones, frames, tex, env)
             worst = max(worst, err)
             if err > 1e-3 or wsum > 1e-3:
                 raise SystemExit(f"{slot}: skinned read-back {err:.4f} off, "
@@ -856,7 +864,7 @@ def main():
                 from envmap import add_env_map
                 import skin_write
                 if env_donor is None:
-                    with open(_resolve(skin_write.DONOR), "rb") as f:
+                    with open(_resolve(skin_write.ENV_DONOR), "rb") as f:
                         env_donor = f.read()
                 written = add_env_map(written, env_donor)
             back, _uv, _t = parse_trishape(written)

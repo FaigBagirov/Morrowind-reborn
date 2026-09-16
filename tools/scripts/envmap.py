@@ -58,7 +58,7 @@ def node_effects(blob, i):
     return list(struct.unpack_from(f"<{num_effects}i", blob, E + 4)) if num_effects else []
 
 
-def add_env_map(blob, donor):
+def add_env_map(blob, donor, node=None):
     """Return a new .nif file with the environment map added."""
     # donor blocks
     dblocks = blocks(donor)
@@ -78,7 +78,9 @@ def add_env_map(blob, donor):
     effect_bytes[len(effect_bytes) - 27:len(effect_bytes) - 23] = struct.pack("<i", len(blocks(blob)) + 1)
 
     n = len(blocks(blob))
-    r = root_ref(blob)
+    # node: attach to this NiNode instead of the root (a skinned part's
+    # slot-named node, the one the engine copies) - added by Claude
+    r = root_ref(blob) if node is None else node
     old_count = struct.unpack_from("<I", blob, blob.index(b"\n") + 5)[0]
     case_a = blocks(blob)[r][0] == "NiNode"
 
