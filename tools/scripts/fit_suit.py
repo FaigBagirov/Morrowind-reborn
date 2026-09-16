@@ -440,7 +440,7 @@ def tarnish(pic):
     gold = (r > b + 0.12) & (g > b + 0.05) & (sat > 0.20) & ~blue
     # dark navy by its own lightness went black; steel-grey instead
     rgb[blue] = (0.45 + 0.5 * lum[blue])[:, None]
-    rgb = np.power(rgb, 1.35) * 0.68
+    rgb = np.power(rgb, 1.35) * 0.34        # Faig: twice as dark again
     rgb[~gold] *= np.array([1.0, 0.975, 0.93])
     rgb[gold] *= 0.82
     a[..., :3] = np.clip(rgb, 0, 1)
