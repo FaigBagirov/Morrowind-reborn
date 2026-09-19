@@ -45,6 +45,37 @@ profile as it stands, with the conversion already registered in its own
 `openmw.cfg`, and `openmw.cfg.bak` beside it to undo that. Neither is ever run
 by Claude; the user runs them.
 
+## Who works where `2026-09-19`
+
+Faig runs several sessions at once, each on one line of work. **The main
+session - titled "Morrowind reborn code local" - watches all of them**, merges
+their branches and keeps this file true. Faig's words: texts go to a separate
+fork; the main session keeps an eye on everything at once.
+
+| Line of work | Session | Worktree, branch |
+| --- | --- | --- |
+| Everything, this file, merges | the main session | `D:\Work\Morrowind reborn`, `master` |
+| Texts - books, dialogue, the rule-rewritten replies, canon wording | a text fork of the main session | `D:\Work\Morrowind reborn 2`, `secondary` |
+| Imported armour and its fitting | the armour sessions ("Morrowind reborn code - armor" and its fork) | `...reborn armor` on `new-armor`, `...reborn gen` on `gen-armor` |
+| Generating 3D models | "Main - ..." | `E:\AI-models`, outside this repo |
+| Skyrim | the Skyrim sessions | `D:\Work\Skyrim_Reborn`; they place shared canon into `secondary` |
+
+For a session working in a worktree other than the main one:
+
+- **The shell's working directory resets to `D:\Work\Morrowind reborn` after
+  every command.** Use absolute paths and `git -C "<worktree>"`, always, or the
+  command runs against master.
+- Commit on your own branch. The main session merges it into master, as it did
+  with the first fork on 2026-09-14 (`e1fcfac`). Two sessions committing in one
+  worktree share one index and one set of files, which is the collision this
+  split exists to avoid.
+- The game for the second worktree is `run-play-2.bat` or
+  `tools/scripts/play2.ps1`: an isolated second instance with its own log,
+  saves and screenshots, and the play profile only ever read.
+
+`secondary` was fast-forwarded to master on 2026-09-19, so the text fork starts
+from everything above.
+
 ## WO0 - the answer, and why it is the constraint on everything
 
 Log run 2026-08-21, 93 seconds; raw output `logs/wo0-spike.txt`, full log
@@ -319,7 +350,7 @@ Nothing below is blocked on tooling.
    comes out with our name and the armour mod's mesh. **Confirmed on screen
    2026-08-29** - `Zenaric Cuirass`, armour rating 26, value 70000, worn as
    Daedric Lord Armor. That was the one part of the hybrid route that had only
-   ever been measured. Left to do: put our
+   ever been measured.
    **The Delta merge turns out not to be needed for us**, measured: Delta sees
    our plugin and has nothing to reconcile, because a `--profile momw` build
    already carries the other mods' versions of every record it touches. Install
@@ -328,11 +359,12 @@ Nothing below is blocked on tooling.
    merge fails on the untouched config anyway - `deleted_groundcover.omwaddon`
    has the merge output as its master, which is circular.
    **The user's `play` profile has not been touched.**
-6. **The voice mod question is answered, and the answer is worse than a break.**
-   Voices of Vvardenfell finds its files by INFO record id, never by text, and
-   we keep the ids - so playback works and contradicts the screen. 181 of our
-   190 rewritten replies have a voice file. Architecture Part 15 carries the
-   three ways out; the cheapest is the mod's own `greetingsOnly` setting.
+6. **The voice mod question is answered, and decided.** Voices of Vvardenfell
+   finds its files by INFO record id, never by text, and we keep the ids - so
+   playback works and contradicts the screen. 181 of our 190 rewritten replies
+   have a voice file. **Faig decided 2026-08-31: those lines get re-voiced**,
+   and nothing - `greetingsOnly` included - is reconfigured in the meantime to
+   hide the mismatch. Architecture Part 15. Text settles first, audio last.
 7. ~~The particle textures.~~ **Done, all 36, confirmed in the `play` profile
    2026-08-29.** Light, `self dispel` and `hearth heal` cast in the Vivec
    exterior: every one a hexagon swarm in its own colour, plates at the finer
@@ -346,6 +378,68 @@ Raised and scoped, not started: **AI voice acting** for the rewritten lines.
 Architecture Part 15 has the measurements - vanilla voices no topic dialogue at
 all, none of our 193 lines is voiced, and no vanilla bark says a target word.
 The tooling exists and the one conflict is the Delta merge we already do.
+
+## Texts: what the first fork did, and the queue `MERGED 2026-09-14`
+
+The first fork, "Morrowind reborn code local (fork)", did the lore work on
+2026-08-30/31 while the main session fitted armour. All of it is on master.
+The detail is in `tools/reports/magicka.md` and `tools/reports/whats-left.md`;
+this is what a new session must not have to rediscover.
+
+**Magicka is Charge, in the game's own voice.** 59 records, all on the Lua
+route: 14 game settings, 20 spell names, 15 potion names, 10 effect
+descriptions. The damage-type sense is `Discharge` - Faig's word, over the
+proposed `Signal`. **Mortals keep "magicka"**: 121 dialogue lines and 39 book
+fields, *Shared World Canon* Part 9. Faig put it as "for now", so the split is
+his to revisit. Seen on screen 2026-08-31: the stat sheet reads `Charge 40/40`,
+a spell reads `Resist Discharge`, a potion `Cheap Restore Charge`.
+
+- **Effect names are a separate write.** The engine copies them out of a game
+  setting before our script runs, so they are not a field of any record. The
+  effect id comes from the setting's *value*, not its id - Bethesda's two names
+  disagree, and the ESM and OpenMW spell one effect differently - and is checked
+  against the engine's own list before a target is emitted.
+- **Architecture Part 12's `GMST | writable` was a Lua readback, not the
+  screen.** The screen now confirms it for the stat sheet. One early run showed
+  `Magicka` while the readback said `Charge`; why is not established, and the
+  fork's first conclusion from it - that settings never reach the interface -
+  was wrong. Do not repeat it.
+- **The Firmament carries one added paragraph** after the Mage entry: a hint
+  that it is done with nanites, not an explanation - Faig's call. Read on
+  screen, page 5-6. `tools/handwritten/bk_firmament.txt`. Skyrim's flag 1 asks
+  whether this paragraph is final.
+- The length rule is measured now, not a proxy - see Rules.
+
+**The queue**, counted by `tools/scripts/audit.py` over the masters with the
+rules applied:
+
+1. **191 replies rewritten by rule, across 83 topics, and nobody has read
+   them.** A rule guarantees the word changed, not that the sentence still
+   means something. Before and after are in `tools/reports/transform-diff.csv`.
+   **Faig will read them as a diff, the way git shows one, with the changed
+   words marked in the line** - not as before/after columns, which he finds
+   hard to read. Building that view is the text fork's first task.
+2. 80 of those 191 keep one literal old keyword so the topic link fires, and
+   so carry Zenar and Daedra in one paragraph.
+3. **17 topics in the player's list are still spelled the old way**, holding
+   74 replies - `Daedra`, `Daedra worship`, `Daedric sites` and the rest.
+   Structural: a topic's id is the word shown, and ids are frozen (Architecture
+   Part 5).
+4. **290 arcane words in the engine's own voice** - `Cast Cost`, "a magical
+   shield", `Mage`, `College of Destruction`, `Spell Breaker`. The interface
+   says Charge and then says Cast Cost. The same shape of pass as magicka, but
+   the words have to be decided, not substituted. Separately, 87 religious
+   words (Almsivi Intervention and the like) - a judgement call, listed so it
+   is made against a number.
+5. Canon still open: Vivec's monologue `NEEDS REVISION`, the mitochondrial line
+   `PROPOSED`, the Rev 6 check, the four Skyrim flags. All must settle before
+   the re-voicing of those lines.
+6. The hand-written layer is small: three books, five overridden replies, one
+   invented topic with six answers.
+
+Handing the game to a friend is **too early**, Faig said 2026-08-30; what he
+meant was the list above. The five packaging gaps are in `whats-left.md` for
+when it is time.
 
 ## Particle visuals - `DONE, ALL 141 EFFECTS, CONFIRMED IN THE REAL PROFILE`
 
@@ -610,9 +704,13 @@ in the load order and wins every record it defines - already converted - so the
 next `--profile momw` build reads `Zenar` back as the effective text, matches no
 rule, and emits a plugin with the renames missing. It happened once: 347 records
 became 21, 327 defined-last became 519, and **nothing warned, because every step
-succeeded**. Fixed by excluding our own build directory. If a rebuild ever comes
-out small, check this first and compare against `--profile vanilla`, which
-cannot be affected.
+succeeded**. Excluding our own build directory fixed it once and then failed:
+the installed file is `scifi-rewrite-momw.esp` while `--out-name` defaults to
+`scifi-rewrite`, and a profile can name our plugin from the other worktree. So
+`transform.py` now reads the stamp `Generated by transform.py` from each
+file's own header (`MADE_BY`, `is_ours`), which no rename or move removes. If a
+rebuild ever comes out small, check this first and compare against
+`--profile vanilla`, which cannot be affected.
 
 **A parse bug of mine, now fixed and worth knowing about.** Four bytes sit
 between the vertex count and the vertex array, and `uvmap.py` read every mesh
@@ -678,7 +776,11 @@ scope question, not a conflict.
   responses, journal entries, GMST strings.
 - Never edit Morrowind.esm, Tribunal.esm, or Bloodmoon.esm.
 - All replacement text must be plain ASCII (bytes 0x00-0x7F only).
-- Replacement strings must not be longer than the string they replace.
+- Replacement strings must not be longer than the string they replace,
+  unless the rule sets `allow_longer`. Then every string it produces is held to
+  the longest vanilla string already shipping in the same record type and
+  field, measured off the masters - the validator, the transform and the Lua
+  half all enforce it. `tools/reports/magicka.md`, 2026-08-30.
 - Do not perform substitutions yourself. Write a deterministic transform
   script plus a rules table; the script performs all substitutions.
 - Never modify DIAL topic IDs, general dialogue response text, greetings,
@@ -869,6 +971,11 @@ What follows for every probe from here on:
   the console prints `warning: Stray explicit reference` in red and then runs the
   command anyway, which looks like a failure and is not. `AddItem` and `AddSpell`
   do want it. Seen 2026-08-29.
+- **To read a book**, click it once in the inventory, carry it - button
+  released - onto the player's portrait, and click again. Faig, 2026-08-30.
+- **The console key is the backtick, left of 1, without Shift.** Faig sometimes
+  plays over AnyDesk from a phone, where the on-screen `~` is Shift+backtick
+  and the Russian layout turns the key into `ё`; neither opens the console.
 - Items, spells and effects can all be handed over this way. If a probe needs
   something that cannot be conjured into the inventory - a specific cell, an
   NPC, a quest state - say so up front and let the user decide whether it is
