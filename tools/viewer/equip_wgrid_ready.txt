@@ -1,0 +1,17 @@
+tgm
+player->SetStrength 500
+player->AddItem "dwemer_cuirass" 1
+player->AddItem "dwemer_greaves" 1
+player->AddItem "dwemer_boots" 1
+player->AddItem "dwemer_pauldron_left" 1
+player->AddItem "dwemer_pauldron_right" 1
+player->AddItem "dwemer_bracer_left" 1
+player->AddItem "dwemer_bracer_right" 1
+player->AddItem "ebony_cuirass" 1
+player->AddItem "ebony_greaves" 1
+player->AddItem "ebony_boots" 1
+player->AddItem "ebony_pauldron_left" 1
+player->AddItem "ebony_pauldron_right" 1
+player->AddItem "ebony_bracer_left" 1
+player->AddItem "ebony_bracer_right" 1
+player->AddItem "daedric longsword" 1

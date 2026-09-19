@@ -14,7 +14,9 @@
 param(
   [int]$Kill = 0,
   [int]$LoadSeconds = 45,
-  [string]$Equip = "equip.txt"
+  [string]$Equip = "equip.txt",
+  [string]$Viewer = "zenar_viewer.omwscripts",   # suit_swap.omwscripts: real + grid
+  [int]$Shots = 8
 )
 $ErrorActionPreference = "Stop"
 $wt = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
@@ -27,7 +29,7 @@ $argline = @(
   '--data', "`"$wt\tools\build`"",
   '--data', "`"$wt\tools\build\armour-vanilla`"",
   '--data', "`"$wt\tools\viewer`"",
-  '--content', 'scifi-rewrite.esp', '--content', 'zenar_viewer.omwscripts',
+  '--content', 'scifi-rewrite.esp', '--content', $Viewer,
   '--skip-menu', '--start', 'ToddTest', '--no-sound',
   '--script-run', "`"$wt\tools\viewer\$Equip`""
 ) -join ' '
@@ -39,22 +41,22 @@ Start-Sleep -Seconds $LoadSeconds
 $log = Get-Content (Join-Path $cfg 'openmw.log') -TotalCount 12 |
   Select-String 'Screenshots dir: (.*)$'
 $dir = $log.Matches[0].Groups[1].Value.Trim()
-& (Join-Path $PSScriptRoot 'shot.ps1') -Target $p.Id -Count 8 -GapSeconds 3 -Dir $dir 2>&1 | Select-Object -Last 3
+& (Join-Path $PSScriptRoot 'shot.ps1') -Target $p.Id -Count $Shots -GapSeconds 3 -Dir $dir 2>&1 | Select-Object -Last 3
 python -c @"
 import os, sys
 from PIL import Image
 d = sys.argv[1]
 fs = sorted((f for f in os.listdir(d) if f.endswith('.png')),
-            key=lambda f: os.path.getmtime(os.path.join(d, f)))[-8:]
+            key=lambda f: os.path.getmtime(os.path.join(d, f)))[-int(sys.argv[3]):]
 tiles = [Image.open(os.path.join(d, f)).convert('RGB').crop((690, 0, 1230, 1080))
          .resize((180, 360)) for f in fs]
-sheet = Image.new('RGB', (720, 720))
+sheet = Image.new('RGB', (720, 360 * ((len(tiles) + 3) // 4)))
 for i, t in enumerate(tiles):
     sheet.paste(t, ((i % 4) * 180, (i // 4) * 360))
 out = os.path.join(sys.argv[2], 'tools', 'reports', 'fitcheck.jpg')
 sheet.save(out, quality=82)
 print(out)
-"@ $dir $wt
+"@ $dir $wt $Shots
 Write-Output "pid $($p.Id)"
 # Done looking: close it straight away, by pid, never by name.
 Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue

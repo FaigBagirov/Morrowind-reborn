@@ -36,6 +36,13 @@ DONOR = "meshes/a/a_bonemold_cuirass_c.nif"
 # arm. So the skeleton comes from bonemold and only the effect from ebony,
 # attached to the slot-named node the engine copies.
 ENV_DONOR = "meshes/a/a_ebony_cuirass.nif"
+# Arms, hands and legs: the vanilla Khajiit skinned body. Its skeleton has every
+# bone base_anim.nif has - clavicles to fingers, thighs to feet - and its hand
+# shapes sit under a plain "Right Hand" node (identity transform), which is the
+# holder our shape takes over and renames to the slot. Rule C checked: 0.0000
+# on every shape.
+LIMB_DONOR = "meshes/b/b_n_khajiit_m_skins.nif"
+LIMB_HOLDER = "Right Hand"
 # Bones the donor lacks, and who carries their weight instead.
 FALLBACK = {"Bip01 L UpperArm": "Bip01 L Clavicle",
             "Bip01 R UpperArm": "Bip01 R Clavicle"}
@@ -90,13 +97,18 @@ def _retexture_all(blob, texture):
 
 
 def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
-          texture, env_donor=None):
+          texture, env_donor=None, holder="Chest"):
     """donor: bytes. world_verts in the game's rest-pose world. weights: list
-    per vertex of [(bone name, w)]. Returns (blob, read-back error)."""
+    per vertex of [(bone name, w)]. `holder`: the donor node whose first
+    skinned shape takes our geometry; it is renamed to the slot, which is what
+    the engine's filter copies. Returns (blob, read-back error)."""
     blob = donor
     skins = read_skin(blob)
-    target = skins[0]
     tree = nodes(blob)
+    kids = next(nd.get("kids") or [] for nd in tree.values()
+                if nd["name"] == holder)
+    ti = next(k for k, sk in enumerate(skins) if sk["shape_index"] in kids)
+    target = skins[ti]
     file_world = world(blob)
     b0 = tree[target["bones"][0]]["name"]
     r, p, s = file_world[b0]
@@ -164,7 +176,7 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
         data += struct.pack("<H", len(per_bone[name]))
         for v, w in per_bone[name]:
             data += struct.pack("<Hf", v, w)
-    target = read_skin(blob)[0]
+    target = read_skin(blob)[ti]
     dstart = _start(blob, target["data_index"])
     dname = blocks(blob)[target["data_index"]][0]
     body = blocks(blob)[target["data_index"]][1]
@@ -172,7 +184,7 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
     assert dstart + 4 + len(dname) == body
 
     # 3. skin instance: our bone refs
-    target = read_skin(blob)[0]
+    target = read_skin(blob)[ti]
     at = blocks(blob)[target["instance_index"]][1]
     inst = struct.pack("<iiI", target["data_index"], target["root"], len(bone_names))
     inst += struct.pack(f"<{len(bone_names)}i", *[node_index[b] for b in bone_names])
@@ -181,12 +193,18 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
     # 4. names: ours matches the slot, the rest never do
     for k, sk in enumerate(read_skin(blob)):
         blob = _rename_shape(blob, sk["shape_index"],
-                             f"Tri {slot} 0" if k == 0 else f"Tri Unused {k}")
+                             f"Tri {slot} 0" if k == ti else f"Tri Unused {k}")
     blob = _retexture_all(blob, texture)
-    blob = _only_child_shape(blob, read_skin(blob)[0]["shape_index"])
-    for i, node in nodes(blob).items():
-        if node["name"] == "Chest" and slot != "Chest":
-            blob = _rename_shape(blob, i, slot)
+    blob = _only_child_shape(blob, read_skin(blob)[ti]["shape_index"])
+    # Any other node already carrying the slot's name (the donor's own "Left
+    # Hand" when the holder is "Right Hand") would take the env map below and,
+    # empty, still match the filter; it gives the name up first.
+    hold = next(i for i, nd in nodes(blob).items() if nd["name"] == holder)
+    for i in [i for i, nd in nodes(blob).items()
+              if i != hold and nd["name"].lower().startswith(slot.lower())]:
+        blob = _rename_shape(blob, i, f"Unused Node {i}")
+    if slot != holder:
+        blob = _rename_shape(blob, hold, slot)
     if env_donor is not None:
         from envmap import add_env_map
         slot_node = next(i for i, nd in nodes(blob).items() if nd["name"] == slot)
@@ -194,7 +212,7 @@ def write(donor, slot, world_verts, uv, tris, weights, bone_names, frames,
 
     # read back as the engine composes it
     from uvmap import parse_trishape  # noqa: F401
-    back = read_skin(blob)[0]
+    back = read_skin(blob)[ti]
     tree = nodes(blob)
     dref = struct.unpack_from("<i", blob, _end(blob, back["shape_index"]) - 8)[0]
     vb = _parse_verts(blob, _start(blob, dref))
@@ -221,7 +239,10 @@ def _only_child_shape(blob, keep):
     """
     kinds = blocks(blob)
     shapes = {i for i, (k, _a) in enumerate(kinds) if k == "NiTriShape"}
-    for i, (kind, at) in enumerate(kinds):
+    # Offsets are re-read per node: detaching shrinks the blob, and a list
+    # taken before the first cut points every later node at the wrong byte.
+    for i in range(len(kinds)):
+        kind, at = kinds[i]
         if kind != "NiNode":
             continue
         p = at

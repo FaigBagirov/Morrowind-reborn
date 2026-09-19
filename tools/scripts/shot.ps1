@@ -50,6 +50,11 @@ if ($p.MainWindowHandle -eq 0) { Write-Output "$Target has no window yet"; exit 
 
 $before = @(Get-ChildItem $Dir -Filter *.png -ErrorAction SilentlyContinue).Name
 [Shot]::ShowWindow($p.MainWindowHandle, 9) | Out-Null
+# Windows refuses a foreground change to a process that did not get the last
+# input - it did on 2026-09-20, with Faig working in the Claude window. An Alt
+# press and release first counts as that input and lifts the lock; Alt alone
+# does nothing in the game.
+[Shot]::Tap(0x12)                          # VK_MENU
 [Shot]::SetForegroundWindow($p.MainWindowHandle) | Out-Null
 Start-Sleep -Milliseconds 1800
 

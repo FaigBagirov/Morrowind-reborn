@@ -419,6 +419,57 @@ def pose(m, frames):
 
 
 SKINNED = ("chest", "groin")
+# **Arms, hands and legs skinned too** (`--skin-limbs`, Faig's combat review
+# 2026-09-17). Two rigid pieces meeting at a joint show the open end of the
+# tube when it bends - the elbow cylinders - and the seam opens behind the
+# thigh. Skinned, a vertex on the cut sits in both pieces with the same
+# weights, so both sides of the cut move together and nothing opens. Skinned
+# parts are never mirrored by the engine, so each side is its own file.
+LIMBS = ("clavicle", "upperarm", "forearm", "hand", "upperleg", "knee",
+         "ankle", "foot")
+LIMB_BONE = {"clavicle": "Clavicle", "upperarm": "UpperArm",
+             "forearm": "Forearm", "upperleg": "Thigh", "knee": "Calf",
+             "ankle": "Calf", "foot": "Foot"}
+# base_anim.nif has three finger chains of two bones each: 0 is the thumb,
+# 1 and 2 share the other four fingers.
+_CHAIN = {"thumb": 0, "index": 1, "middle": 1, "ring": 2, "pinky": 2}
+
+
+def _finger(name):
+    low = name.lower()
+    m = re.search(r"(thumb|index|middle|ring|pinky)_0?(\d)", low)
+    if m:
+        return f"Finger{_CHAIN[m.group(1)]}{'' if int(m.group(2)) <= 1 else '1'}"
+    m = re.search(r"finger(\d)(\d?)", low)
+    if m:
+        chain = {0: 0, 1: 1, 2: 1, 3: 2, 4: 2}[int(m.group(1))]
+        return f"Finger{chain}{'1' if m.group(2) else ''}"
+    return None
+
+
+def limb_bone(m, i):
+    """The Morrowind bone a model joint weighs on, in the full skeleton of the
+    limb donor (skin_write.LIMB_DONOR): every bone base_anim.nif has."""
+    rig, names, parent = m["rig"], m["names"], m["parent"]
+    j, steps = i, 0
+    while j is not None and steps < 64:
+        n = names[j]
+        b = rig.get("skin_base", rig["base"])(n)
+        if b in rig["skin_map"]:
+            return rig["skin_map"][b]
+        slot, side = rig["slot"](n)
+        S = side.upper() if side else ""
+        if slot == "hand" and S:
+            f = _finger(n)
+            return f"Bip01 {S} {f}" if f else f"Bip01 {S} Hand"
+        if slot in LIMB_BONE and S:
+            return f"Bip01 {S} {LIMB_BONE[slot]}"
+        if slot == "head":
+            return "Bip01 Head"
+        if slot == "groin":
+            return "Bip01 Pelvis"
+        j, steps = parent.get(j), steps + 1
+    return "Bip01 Spine2"
 
 
 def tarnish(pic):
@@ -472,8 +523,9 @@ def skin_bone(m, i):
     return "Bip01 Spine2"
 
 
-def skin_weights(m, used, keep=3):
+def skin_weights(m, used, keep=3, bone_of=None):
     """Per used vertex, up to `keep` (bone, weight) pairs, normalised."""
+    bone_of = bone_of or skin_bone
     cache = {}
     out = []
     for v in used:
@@ -481,7 +533,7 @@ def skin_weights(m, used, keep=3):
         for j, w in zip(m["joints"][v], m["weights"][v]):
             if w > 0:
                 if j not in cache:
-                    cache[j] = skin_bone(m, int(j))
+                    cache[j] = bone_of(m, int(j))
                 acc[cache[j]] += float(w)
         top = sorted(acc.items(), key=lambda kv: -kv[1])[:keep]
         total = sum(w for _b, w in top) or 1.0
@@ -561,14 +613,19 @@ def chain(blob):
 
 def emissive(blob):
     """Make the donor's material light itself, so a dark room hides nothing."""
+    # Every material: the skinned body donor has one per shape, and the one
+    # our geometry takes is not the first.
     at = blob.find(b"NiMaterialProperty")
     if at < 0:
         raise SystemExit("donor has no NiMaterialProperty")
-    p = at + len(b"NiMaterialProperty")
-    length, = struct.unpack_from("<i", blob, p)
-    p += 4 + length + 4 + 4 + 2                 # name, extra, controller, flags
     colours = struct.pack("<12f", *([1.0] * 12))  # ambient diffuse specular emit
-    return blob[:p] + colours + blob[p + 48:]
+    while at >= 0:
+        p = at + len(b"NiMaterialProperty")
+        length, = struct.unpack_from("<i", blob, p)
+        p += 4 + length + 4 + 4 + 2             # name, extra, controller, flags
+        blob = blob[:p] + colours + blob[p + 48:]
+        at = blob.find(b"NiMaterialProperty", p)
+    return blob
 
 
 def paint_texture(path, rgb, size=256, cells=8):
@@ -660,6 +717,9 @@ def main():
     ap.add_argument("--skin", action="store_true",
                     help="chest and groin as skinned meshes that bend with "
                          "the spine, instead of rigid pieces")
+    ap.add_argument("--skin-limbs", action="store_true",
+                    help="arms, hands and legs skinned as well, each side "
+                         "its own file")
     ap.add_argument("--gain", type=float, default=2.0,
                     help="specular brightness; the engine has no reflections")
     ap.add_argument("--drop-flat-dark", default="",
@@ -793,43 +853,56 @@ def main():
     env_donor = None
     for key in sorted(pieces):
         slot, side = (key[:-2], key[-1]) if key[-2:] in ("_l", "_r") else (key, "")
-        if slot not in DONOR or side == "l":
+        # Chest and groin join the full skeleton too: a groin weighted only to
+        # the pelvis against a thigh weighted to the thigh is the same seam
+        # behind the leg, moved one piece over.
+        limb = args.skin_limbs and (slot in LIMBS or slot in SKINNED)
+        if slot not in DONOR or (side == "l" and not limb):
             continue
         node = f"Right {NODE[slot]}" if side else NODE[slot]
-        # arms bend at the elbow between two rigid pieces: a wider overlap
+        # arms bend at the elbow between two rigid pieces: a wider overlap.
+        # Skinned, the cut moves as one and one ring only hides rounding.
         tris = grow(pieces[key], m["tris"],
-                    rings=3 if slot in ("upperarm", "forearm") else 1)
+                    rings=3 if slot in ("upperarm", "forearm") and not limb
+                    else 1)
         used = np.unique(tris)
         remap = np.full(len(m["verts"]), -1)
         remap[used] = np.arange(len(used))
         tris = remap[tris]
         target = posed[used]
-        if args.skin and slot in SKINNED:
+        if (args.skin and slot in SKINNED) or limb:
             import skin_write
-            with open(_resolve(skin_write.DONOR), "rb") as f:
+            with open(_resolve(skin_write.LIMB_DONOR if limb
+                               else skin_write.DONOR), "rb") as f:
                 donor = f.read()
-            tex = f"{args.set}_dbg_{slot}.dds" if args.paint else atlas_name
+            name = f"{slot}_l" if side == "l" else slot
+            tex = f"{args.set}_dbg_{name}.dds" if args.paint else atlas_name
             if args.paint:
                 donor = emissive(donor)
                 if args.write:
-                    paint_texture(os.path.join(tex_dir, tex), PAINT[slot])
-            weights = skin_weights(m, used)
+                    paint_texture(os.path.join(tex_dir, tex), PAINT[key])
+            weights = skin_weights(m, used, bone_of=limb_bone if limb
+                                   else skin_bone)
             bones = sorted({b for pairs in weights for b, _w in pairs})
             env = None
             if not args.paint:
                 with open(_resolve(skin_write.ENV_DONOR), "rb") as f:
                     env = f.read()
+            part = NODE[slot]
+            if side:
+                part = f"{'Left' if side == 'l' else 'Right'} {part}"
             written, err, wsum = skin_write.write(
-                donor, NODE[slot], target, uv_atlas[used], tris, weights,
-                bones, frames, tex, env)
+                donor, part, target, uv_atlas[used], tris, weights,
+                bones, frames, tex, env,
+                holder=skin_write.LIMB_HOLDER if limb else "Chest")
             worst = max(worst, err)
             if err > 1e-3 or wsum > 1e-3:
                 raise SystemExit(f"{slot}: skinned read-back {err:.4f} off, "
                                  f"weights off by {wsum:.4f}")
             if args.write:
-                with open(os.path.join(mesh_dir, slot + ".nif"), "wb") as f:
+                with open(os.path.join(mesh_dir, name + ".nif"), "wb") as f:
                     f.write(written)
-            preview.append((target, tris, PAINT[slot]))
+            preview.append((target, tris, PAINT[key]))
             print(f"  {key:<12}{'skinned':<17}{len(used):>6} verts  "
                   f"bones {', '.join(b.replace('Bip01 ', '') for b in bones)}")
             continue

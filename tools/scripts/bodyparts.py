@@ -97,8 +97,23 @@ _DWEMER_EXTRA = {"dwemer_bracer_left": ("LeftHand",),
                  "dwemer_greaves": ("LeftKnee", "RightKnee"),
                  "dwemer_pauldron_left": ("LeftForearm",),
                  "dwemer_pauldron_right": ("RightForearm",)}
+# Diagnostic copies (Faig's rule 2026-09-19: every model checked twice in one
+# launch, real texture and the F-grid, each on its own free vanilla record of
+# the same slots). Glass carries the Zenar grid, ebony the Wolf grid.
+_GLASS = {"glass_boots", "glass_bracer_left", "glass_bracer_right",
+          "glass_cuirass", "glass_greaves", "glass_pauldron_left",
+          "glass_pauldron_right"}
+_GLASS_EXTRA = {"glass_bracer_left": ("LeftHand",),
+                "glass_bracer_right": ("RightHand",)}
+_EBONY = {"ebony_boots", "ebony_bracer_left", "ebony_bracer_right",
+          "ebony_cuirass", "ebony_greaves", "ebony_pauldron_left",
+          "ebony_pauldron_right"}
+_EBONY_EXTRA = {"ebony_bracer_left": ("LeftHand",),
+                "ebony_bracer_right": ("RightHand",)}
 SETS = {"zenar": {"targets": _DAEDRIC, "extra": _DAEDRIC_EXTRA},
-        "wolf": {"targets": _DWEMER, "extra": _DWEMER_EXTRA}}
+        "wolf": {"targets": _DWEMER, "extra": _DWEMER_EXTRA},
+        "zgrid": {"targets": _GLASS, "extra": _GLASS_EXTRA},
+        "wgrid": {"targets": _EBONY, "extra": _EBONY_EXTRA}}
 TARGETS, EXTRA_SLOTS = _DAEDRIC, _DAEDRIC_EXTRA
 
 
