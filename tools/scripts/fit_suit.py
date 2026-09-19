@@ -727,6 +727,9 @@ def main():
                          "(untextured) material is cut; textures untouched")
     ap.add_argument("--drop-blue", default="",
                     help="comma-separated pieces whose dark blue texels are cut")
+    ap.add_argument("--drop-at", default="",
+                    help="x,y,z;... pelvis-relative: cut the loose plate "
+                         "nearest each point")
     ap.add_argument("--drop", default="",
                     help="regex of bone names whose geometry is left out")
     ap.add_argument("--paint", action="store_true",
@@ -755,6 +758,37 @@ def main():
         share = (m["weights"] * hit[m["joints"]]).sum(1)
         keep = ~(share[m["tris"]] > 0.2).any(1)
         print(f"dropped {int((~keep).sum())} triangles on bones matching {args.drop!r}")
+        m["tris"] = m["tris"][keep]
+    if args.drop_at:
+        # Loose plates cut by where they sit, pelvis-relative game units: the
+        # flat plates hung behind the pelvis that Faig called the cuirass's
+        # tail (2026-09-17, cut 2026-09-19). A plate is the index-connected
+        # component nearest the point, within 2 units.
+        pel = frames["Bip01 Pelvis"][1]
+        par = np.arange(len(posed))
+
+        def root(a):
+            r = a
+            while par[r] != r:
+                r = par[r]
+            while par[a] != r:
+                par[a], a = r, par[a]
+            return r
+        for a, b, c in m["tris"]:
+            ra, rb, rc = root(a), root(b), root(c)
+            par[rb] = ra
+            par[root(rc)] = ra
+        comp = np.array([root(t[0]) for t in m["tris"]])
+        used = np.unique(m["tris"])
+        gone = set()
+        for spec in args.drop_at.split(";"):
+            point = pel + np.array([float(x) for x in spec.split(",")])
+            d = np.linalg.norm(posed[used] - point, axis=1)
+            if d.min() > 2.0:
+                raise SystemExit(f"--drop-at {spec}: nothing within 2 units")
+            gone.add(root(int(used[d.argmin()])))
+        keep = ~np.isin(comp, list(gone))
+        print(f"dropped {int((~keep).sum())} triangles in {len(gone)} plates at {args.drop_at}")
         m["tris"] = m["tris"][keep]
     pieces = label(m, posed)
     if args.drop_blue or args.drop_flat_dark:
