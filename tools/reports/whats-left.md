@@ -58,6 +58,13 @@ that the judgement is made against a number.
 
 ## The dialogue, which is where the unfinished work actually is
 
+> **Corrected 2026-09-19** by the text fork, from the full before/after texts
+> that `transform.py` now writes: **186** replies are rewritten by rule (the
+> other five of the plugin's 191 are hand-written), and **12** of them - not
+> 80 - keep their topic's old word beside Zenar. The 80 below counted every
+> reply that contains its topic's word at all, `accompany you` and `Balmora`
+> included. Read them as a word diff: `tools/reports/replies-diff.html`.
+
 **191 replies were rewritten by rule, across 83 topics, and nobody has read
 them.** A rule pass guarantees the word changed. It does not guarantee the
 sentence still means anything: a line about worshipping Daedra becomes a line

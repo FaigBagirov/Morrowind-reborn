@@ -456,14 +456,19 @@ a spell reads `Resist Discharge`, a potion `Cheap Restore Charge`.
 **The queue**, counted by `tools/scripts/audit.py` over the masters with the
 rules applied:
 
-1. **191 replies rewritten by rule, across 83 topics, and nobody has read
+1. **186 replies rewritten by rule, across 83 topics, and nobody has read
    them.** A rule guarantees the word changed, not that the sentence still
-   means something. Before and after are in `tools/reports/transform-diff.csv`.
-   **Faig will read them as a diff, the way git shows one, with the changed
-   words marked in the line** - not as before/after columns, which he finds
-   hard to read. Building that view is the text fork's first task.
-2. 80 of those 191 keep one literal old keyword so the topic link fires, and
-   so carry Zenar and Daedra in one paragraph.
+   means something. (The plugin owns 191 dialogue records: these 186 plus the
+   five written by hand. "191 by rule" was a miscount, measured 2026-09-19.)
+   **Faig reads them as a diff, the way git shows one, with the changed words
+   marked in the line** - not as before/after columns, which he finds hard to
+   read. The view exists: `tools/reports/replies-diff.html`, made by
+   `tools/scripts/text_diff.py` from the full texts `transform.py` now writes
+   to `tools/build/<name>-text.json`. Rebuild, then rerun it.
+2. **12** of those 186 keep their topic's own old word - `Daedra`, `Daedric
+   sites` - so the topic link fires, and so carry Zenar and Daedra in one
+   paragraph. The page underlines it. The 80 written here before was the count
+   of replies containing their topic's word at all, `accompany you` included.
 3. **17 topics in the player's list are still spelled the old way**, holding
    74 replies - `Daedra`, `Daedra worship`, `Daedric sites` and the rest.
    Structural: a topic's id is the word shown, and ids are frozen (Architecture

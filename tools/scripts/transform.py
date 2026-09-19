@@ -492,6 +492,10 @@ def main():
     lua_targets = []
     plugin_records = collections.OrderedDict()
     rows = []
+    # The same changes as `rows`, with the whole text on both sides, for
+    # text_diff.py. Faig reads rewritten text as a word diff; the CSV carries
+    # only counts.
+    texts = []
     ceiling = collections.defaultdict(int)  # longest vanilla string per field
     known_effects = effect_keys()
     unmapped = []
@@ -558,6 +562,12 @@ def main():
                     "topic_keyword_after":
                         new.lower().count(low_keep) if low_keep else 0,
                 })
+                texts.append({
+                    "route": route, "record_type": code, "record_id": rid,
+                    "field": field, "topic": keep,
+                    "speaker": str(rec.get("speaker_id", "") or ""),
+                    "rules": rows[-1]["rules"], "before": value, "after": new,
+                })
                 if route == "lua":
                     lua_targets.append((code, rid, field))
                     # A magic effect's NAME is not a record field in the ESM -
@@ -608,6 +618,12 @@ def main():
             "substitutions": 0, "length_delta": len(a["text"]) - len(old),
             "produced": len(a["text"]),
             "topic": "", "topic_keyword_before": 0, "topic_keyword_after": 0,
+        })
+        texts.append({
+            "route": "plugin", "record_type": a["type"], "record_id": a["id"],
+            "field": a["field"], "topic": a.get("topic", "") or "",
+            "speaker": str(records[key].get("speaker_id", "") or ""),
+            "rules": "HAND-WRITTEN", "before": old, "after": a["text"],
         })
         print(f"    {a['type']} {a['id']}: {len(old)} -> {len(a['text'])} bytes"
               f"  ({a['file']})")
@@ -670,6 +686,13 @@ def main():
         w.writeheader()
         w.writerows(rows)
     print("Wrote", os.path.relpath(diff_path, root))
+    # Build directory, not reports: whole book texts on both sides are a few
+    # megabytes, and they regenerate from the masters in seconds.
+    os.makedirs(args.out_build, exist_ok=True)
+    text_path = os.path.join(args.out_build, f"{args.out_name}-text.json")
+    with open(text_path, "w", encoding="utf-8") as f:
+        json.dump(texts, f, ensure_ascii=False, indent=0)
+    print("Wrote", os.path.relpath(text_path, root))
 
     if not args.write:
         print("\nDry run. Pass --write to emit the artifacts.")
