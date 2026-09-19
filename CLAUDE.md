@@ -77,6 +77,9 @@ For a session working in a worktree other than the main one:
   with the first fork on 2026-09-14 (`e1fcfac`). Two sessions committing in one
   worktree share one index and one set of files, which is the collision this
   split exists to avoid.
+- **Take the edit lock before touching a shared document** - see "Book the
+  computer" below. Separate branches stop sessions colliding inside the repo;
+  they do nothing for a file two sessions open at once.
 - The game for the second worktree is `run-play-2.bat` or
   `tools/scripts/play2.ps1`: an isolated second instance with its own log,
   saves and screenshots, and the play profile only ever read.
@@ -944,6 +947,48 @@ Who does what between Claude and the local models is written in
 `E:\AI-models\CLAUDE.md`, section "Распределение ролей", and in
 `E:\AI-models\ИНСТРУКЦИЯ для сессий Claude - локальные модели.md`. Read them before
 delegating anything.
+
+## Book the computer before the game or heavy work `2026-09-19`
+
+Faig's rule, relayed by the "Генерация 3Д моделей" stack. It applies to
+**every session running on Faig's PC**.
+Full text: `D:\AI-Workspace\ПРАВИЛА бронь компьютера.md`.
+Who is holding what right now: `D:\AI-Workspace\COORDINATION.md`.
+
+**Why.** One graphics card, 6 GB. OpenMW, ComfyUI (Pony/klein, 3D models) and
+the local models do not fit in it together - start two at once and everything
+falls over. Separately, several sessions edit the same documents and overwrite
+each other.
+
+**Before launching the game, or any heavy job:**
+
+    C:\Python312\python.exe E:\AI-models\LLM\coord\coord.py gpu-take "<Имя>" game|heavy "<что>" <минут> --sid <свой id сессии>
+
+**Afterwards, without fail:**
+
+    C:\Python312\python.exe E:\AI-models\LLM\coord\coord.py gpu-release "<Имя>"
+
+**Before editing a shared document** - this file, the docs, anything another
+session also writes to - the same script with `edit-take`, and `edit-release`
+when done.
+
+Priority, so nobody has to negotiate:
+
+- **The game goes first.** A heavy job younger than two minutes is cancelled to
+  let it through.
+- **Do not ask whoever holds a booking more than once every fifteen minutes.**
+
+**This matters here for two reasons, not one.** The obvious one is that every
+game launch in the section below needs `gpu-take game` first. The other is the
+edit lock: on 2026-08-27 a web session and Faig edited
+`docs/Morrowind_SciFi_Conversion_Architecture.md` at the same time and the two
+versions had to be merged by hand. Git made that survivable. It will not be,
+for anything outside the repo.
+
+**From the web container none of this runs** - `C:\Python312`, `E:\AI-models`
+and `D:\AI-Workspace` do not exist there, and it has no GPU to book. A web
+session takes no booking and must not assume one is held; if it needs the game
+run, it asks Faig, who is on the PC and subject to the rule.
 
 ## Claude can run the game and look at it `SETTLED 2026-08-30`
 
