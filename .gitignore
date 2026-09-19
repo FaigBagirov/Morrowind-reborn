@@ -23,3 +23,7 @@ run/
 # servers). Machine-specific absolute paths, not part of the mod.
 /.mcp.json
 /.claude/settings.local.json
+
+# Images moved out of Claude session transcripts, one folder per session.
+# Local and large, never part of the mod.
+/session-images/
