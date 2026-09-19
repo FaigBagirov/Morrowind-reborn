@@ -559,7 +559,7 @@ length_delta, topic_keyword_before, topic_keyword_after
 
 * **Gate 1, mechanical.** Idempotence, ASCII, length, keyword retention, determinism. Runs on every invocation.
 * **Gate 2, review.** Claude reads a *sample of the diff* — the most-changed records plus a random draw — and refines the rules. Part 6 stands: the model writes rules and reviews output, and never performs a substitution.
-* **Gate 3, in game.** The user runs it. **The log is not evidence on its own** — WO0's book write was accepted at every layer and rendered blank on screen. The first run checks at least: one rewritten book renders with its markup intact, one renamed item reads correctly in the inventory, and one rewritten INFO still hyperlinks its topic.
+* **Gate 3, in game.** The user or Claude runs it (Claude launches it and checks screenshots; see CLAUDE.md). **The log is not evidence on its own** — WO0's book write was accepted at every layer and rendered blank on screen. The first run checks at least: one rewritten book renders with its markup intact, one renamed item reads correctly in the inventory, and one rewritten INFO still hyperlinks its topic.
 
 Testing convention: the user loads an existing save, so the check card hands its targets over by console command and never by location.
 
