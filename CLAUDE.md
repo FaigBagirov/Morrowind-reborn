@@ -687,32 +687,55 @@ node chain, read it back (error 4e-6), let the engine mirror the left. Draws
   `D:\Work\AI models\CLAUDE.md`, rules 9-14 and the section "Фоновые задачи,
   сторож и прогресс".
 
-## Open for the next session (Faig, 2026-09-17) - read before touching armour
+## Skinned limbs - `ZENAR SEEN ON SCREEN 2026-09-20, WOLF BUILT, NOT YET SEEN`
 
-Faig reviewed both suits in combat and listed, with screenshots, what is wrong.
-All but one come from limbs being rigid pieces; the plan agreed is to skin
-arms, hands and upper legs like the torso. Not started.
+Faig's combat review of 2026-09-17 listed what was wrong; all but the tail came
+from limbs being rigid pieces. `fit_suit.py --skin-limbs` now skins **every
+piece below the head**, each side its own file (skinned parts are never
+mirrored), chest and groin on the same skeleton so every cut moves as one.
 
-| Symptom | Where | Cause |
-| --- | --- | --- |
-| A cylinder sticks out of the elbow instead of a rounded joint | Wolf, Zenar | upper arm and forearm are two rigid pieces cut at the bone; the open tube shows, longer since the 3-ring overlap |
-| A half-round plate grows out of the elbow, from the forearm | Zenar, both elbows | the model's elbow guard is weighted to elbow/forearm bones and rides rigidly with the forearm |
-| Gap between buttock and thigh when the leg bends | Zenar | skinned groin against a rigid upper leg |
-| Texture stretches in the armpit | Zenar | chest skinned to the upper arm, arm raised |
-| Sword passes through the palm along its plane, fingers never close | both, first and third person | rigid open hand; also possibly turned 90 deg about the forearm against vanilla - not yet measured |
-| The cuirass's little tail is a flat single plate | Zenar | model geometry; **cut it** - Faig, 2026-09-19 |
+- **Donor: `meshes/b/b_n_khajiit_m_skins.nif`**, the vanilla skinned body. Its
+  skeleton has every bone `base_anim.nif` has, fingers `0 01 1 11 2 21`, calves
+  and feet; the hand shapes sit under a plain `Right Hand` node, which our shape
+  takes over and renames to the slot. Rule C holds on every shape, 0.0000. Found
+  by surveying all 556 skinned meshes in the three BSAs.
+- **What the engine copies** (attach.cpp, CopyRigVisitor, read 2026-09-20): a
+  drawable whose name starts with the slot name or `tri ` + slot, plus parent
+  nodes while their names match too. Bones are then bound by name.
+- Model bones map by slot (`limb_bone`): clavicle, upper arm, forearm, hand,
+  thigh, calf (knee and ankle), foot; fingers by name onto the three chains
+  (thumb 0, index and middle 1, ring and little 2; first segment `FingerN`,
+  the rest `FingerN1`).
+- **Seen on screen, Zenar, real and grid copies in one launch**: standing, sword
+  drawn, running. No elbow cylinders, no gap behind the thigh, fingers close
+  round the grip. Pictures sent to Faig; his verdict on the grip is pending.
+- **Tail cut** (Faig 2026-09-19): `--drop` now removes a triangle when any
+  corner hangs a fifth or more on a dropped bone. The old two-dominant-corners
+  rule left the tail root as a flat stub. Built, **not yet seen**.
+- Grid copies: `zgrid` on the glass set, `wgrid` on ebony (`bodyparts.SETS`).
+  `tools/viewer/suit_swap.omwscripts` circles every suit whose cuirass the
+  card put in the inventory, first standing then running back and forth, with
+  a sword drawn; cards `equip_zgrid_ready.txt`, `equip_wgrid_ready.txt`.
+  `fitcheck.ps1 -Equip <card> -Viewer suit_swap.omwscripts -Shots 34`.
+- Lua traps met on the way: the built-in `playercontrols.lua` rewrites
+  `self.controls.movement` every frame unless
+  `I.Controls.overrideMovementControls(true)`; a stance set before the sword
+  is in hand stays hand-to-hand (fists); a straight backward run leaves
+  ToddTest and the character dies outside - `tgm` is in the cards.
+- GPU: book with `coord.py gpu-take ... --sid <session>` before a launch and
+  `gpu-release` after, and ask the 3D session by message (Faig's word).
 
-Blocker: no donor has every bone. Bonemold cuirass: upper arms, no forearms,
-hands or fingers. Ebony cuirass: thighs, no upper arms. Look for a vanilla file
-with a fuller skeleton (the body's skinned hands) or learn to append bone
-nodes. If a large self-contained piece comes up, ask the stack session which
-local model to use (memory: delegation rules, >5% saving).
+Still open from the review: the armpit stretch (not yet looked at), and
+whether the hand is turned 90 degrees against the grip - the grid shots
+suggest not, Faig to judge.
 
 Current build commands:
 
-    zenar: fit_suit.py <ageless.glb> --set zenar --skin --tone tarnished --drop "_dyn|HipPad|FrontStrap|Tail" --drop-blue "groin,chest,upperleg_r,upperleg_l,knee_r,knee_l" --write --out tools/build/armour-vanilla
-    wolf:  fit_suit.py "<Power Armor.glb>" --set wolf --skin --flat-colour 70,88,95 --drop-flat-dark ankle_r,ankle_l --write --out tools/build/armour-vanilla
-    then transform.py --profile vanilla --import-armour --write, tes3conv; game: --script-run tools/viewer/equip_both.txt
+    zenar: fit_suit.py <ageless.glb> --set zenar --skin --skin-limbs --tone tarnished --drop "_dyn|HipPad|FrontStrap|Tail" --drop-blue "groin,chest,upperleg_r,upperleg_l,knee_r,knee_l" --write --out tools/build/armour-vanilla
+    grid:  same with --set zgrid --paint (no --tone)
+    wolf:  fit_suit.py "<Power Armor.glb>" --set wolf --skin --skin-limbs --flat-colour 70,88,95 --drop-flat-dark ankle_r,ankle_l --write --out tools/build/armour-vanilla
+    grid:  same with --set wgrid --paint
+    then transform.py --profile vanilla --import-armour --write, tes3conv
 
 ## The Zenaric suit from an imported model - `SUPERSEDED BY fit_suit.py`
 

@@ -747,10 +747,13 @@ def main():
     if args.drop:
         # Parts Faig does not want, cut by the bones that carry them - a cloth
         # tabard hangs on its own dynamic bones, so it comes away whole.
+        # A triangle goes when any corner hangs a fifth or more on a dropped bone.
+        # Two corners by dominant bone, the first rule, left the root of the
+        # tail behind as a flat stub (Faig, 2026-09-17: cut it).
         pattern = re.compile(args.drop, re.I)
-        dom = m["joints"][np.arange(len(m["joints"])), m["weights"].argmax(1)]
-        gone = np.array([bool(pattern.search(n)) for n in m["names"]])[dom]
-        keep = gone[m["tris"]].sum(1) < 2
+        hit = np.array([bool(pattern.search(n)) for n in m["names"]])
+        share = (m["weights"] * hit[m["joints"]]).sum(1)
+        keep = ~(share[m["tris"]] > 0.2).any(1)
         print(f"dropped {int((~keep).sum())} triangles on bones matching {args.drop!r}")
         m["tris"] = m["tris"][keep]
     pieces = label(m, posed)
