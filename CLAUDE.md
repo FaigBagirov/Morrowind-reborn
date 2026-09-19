@@ -47,18 +47,25 @@ by Claude; the user runs them.
 
 ## Who works where `2026-09-19`
 
-Faig runs several sessions at once, each on one line of work. **The main
-session - titled "Morrowind reborn code local" - watches all of them**, merges
-their branches and keeps this file true. Faig's words: texts go to a separate
-fork; the main session keeps an eye on everything at once.
+Faig runs several sessions at once, each on one line of work. **The
+orchestrator - "Main - Orchestrator - Morrowind reborn code local" - watches
+all of them**, merges their branches and keeps this file true. Faig's words:
+texts go to a separate fork; the orchestrator keeps an eye on everything at
+once. It asks the others for status and never gives them orders.
 
-| Line of work | Session | Worktree, branch |
-| --- | --- | --- |
-| Everything, this file, merges | the main session | `D:\Work\Morrowind reborn`, `master` |
-| Texts - books, dialogue, the rule-rewritten replies, canon wording | a text fork of the main session | `D:\Work\Morrowind reborn 2`, `secondary` |
-| Imported armour and its fitting | the armour sessions ("Morrowind reborn code - armor" and its fork) | `...reborn armor` on `new-armor`, `...reborn gen` on `gen-armor` |
-| Generating 3D models | "Main - ..." | `E:\AI-models`, outside this repo |
-| Skyrim | the Skyrim sessions | `D:\Work\Skyrim_Reborn`; they place shared canon into `secondary` |
+Titles change and the sidebar title can differ from the name a session answers
+to; find sessions with `ListAgents`. Two start with "Main": the orchestrator,
+and "Main - Генерация 3Д моделей (fork)", which owns 3D generation.
+
+| Line of work | Session | Worktree, branch | State, 2026-09-19 |
+| --- | --- | --- | --- |
+| Everything, this file, merges | "Main - Orchestrator - Morrowind reborn code local" | `D:\Work\Morrowind reborn`, `master` | |
+| Texts - books, dialogue, the rule-rewritten replies, canon wording | "Text fork - Morrowind reborn code local (fork)" | `D:\Work\Morrowind reborn 2`, `secondary` | just made |
+| Imported armour: Zenar (Ageless model) on Daedric, Wolf power armour on Dwemer | "Morrowind reborn code - armor" | `D:\Work\Morrowind reborn armor`, `new-armor` | both worn on screen; **paused until the weekend** by Faig. Next: merge master, skin arms, hands and thighs. Blocker: no vanilla donor carries the full bone set for skinned arms |
+| Generated armour: a helm from a sketch, then the cuirass | "Своя модель брони" (sidebar: "Контекст проекта и память сессий") | `D:\Work\Morrowind reborn gen`, `gen-armor`, cut from `new-armor` | helm on `chitin helm` with its grid copy on `chitin_mask_helm`, on screen; waiting for new generations to compare. Its own plugin `zenar_gen_helm.esp`. Leaves `new-armor` alone |
+| Generating 3D models | "Main - Генерация 3Д моделей (fork)", "... - новый поиск моделей" | `E:\AI-models`, outside this repo | |
+| Local AI stack: game-control, local-workers | "Pony Diffusion V6 XL setup" | `E:\AI-models` | |
+| Skyrim | the Skyrim sessions | `D:\Work\Skyrim_Reborn`; they place shared canon into `secondary` | |
 
 For a session working in a worktree other than the main one:
 
