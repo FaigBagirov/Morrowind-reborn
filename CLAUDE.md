@@ -84,6 +84,28 @@ For a session working in a worktree other than the main one:
 `secondary` was fast-forwarded to master on 2026-09-19, so the text fork starts
 from everything above.
 
+### Session transcripts: images out, links in `SETTLED 2026-09-19`
+
+Screenshots made the sessions heavy - the orchestrator's transcript was 133 MB,
+most of it images, and Remote Control refused it ("too much data").
+`tools/scripts/swap_session.py` moves every image into
+`session-images/SID8/` (gitignored, with an `index.html` gallery) and leaves a
+local link in its place. **Measured on a live session:** 133.8 MB became 20 MB,
+the session opened, the links click and open the pictures, and Remote Control
+switched on. Done the same day for the old orchestrator (133 to 19 MB), the
+first fork (98 to 14 MB) and the text fork (132 to 19 MB).
+
+- **Never on a running session** - the script refuses while the transcript was
+  written to in the last minute. A session cannot strip its own live transcript:
+  the safety check blocks it, and must. Faig double-clicks
+  `session-images/strip-SID8.bat` with that session closed, or a sister session
+  runs `swap_session.py SID strip` for a closed one - only with his yes.
+- **Nothing is deleted.** A full backup is kept beside the images;
+  `restore-SID8.bat` puts it back and sets the current file aside first.
+- SID is the transcript's file name (the CLI id), not the app's `local_...` id.
+- **Never clear a conversation to make room.** It was tried once and scared
+  Faig; lightening is the answer, wiping is not.
+
 ## WO0 - the answer, and why it is the constraint on everything
 
 Log run 2026-08-21, 93 seconds; raw output `logs/wo0-spike.txt`, full log
