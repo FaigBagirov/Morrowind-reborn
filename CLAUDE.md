@@ -480,10 +480,39 @@ rules applied:
    words (Almsivi Intervention and the like) - a judgement call, listed so it
    is made against a number.
 5. Canon still open: Vivec's monologue `NEEDS REVISION`, the mitochondrial line
-   `PROPOSED`, the Rev 6 check, the four Skyrim flags. All must settle before
-   the re-voicing of those lines.
-6. The hand-written layer is small: three books, five overridden replies, one
+   `PROPOSED`, the swarm word `PROPOSED` (below), the Rev 6 check, the four
+   Skyrim flags. All must settle before the re-voicing of those lines.
+6. The hand-written layer is small: three books, six overridden replies, one
    invented topic with six answers.
+
+**The word for the swarm is in the game, once** - text fork, 2026-09-19,
+`4c85a90`. Faig chose the carrier: a Sleeper of `A1_SleepersAwake`, before
+waking, who does not understand the word (*Shared World Canon* Part 11: the
+name is not in the hardware, no scholar can be its source). The text fork
+chose **Rararyn Radarys** - in Balmora's streets, a commoner, the Sleeper who
+shouts "Sleepers! Awake!" - and his answer on `Dagoth Ur` while Dagoth Fovon
+lives (INFO `11010311511205318175`). His line is kept whole and three sentences
+follow in the same breath:
+
+    ...As Lord Dagoth has said, "All shall greet him as flesh, or as dust."
+    As flesh, or as nanite. Nanite. As dust.
+
+The other six Sleepers keep the vanilla line; freed, he asks whether he was
+under a spell. **Word and wording are `PROPOSED`** (Canon Part 10, row 6):
+"nanite" is the documents' word, Skyrim has not chosen one and will take ours.
+Not yet read on screen - wait for Faig's yes on the wording, then one run:
+`Journal A1_2_AntabolisInformant 10`, find him in Balmora, ask `Dagoth Ur`.
+Under momw the line carries a third filter the master lacks, the local
+`sleeperOn = 1` on his script; if the answer does not come, what sets it is
+the first thing to find out - do not guess.
+
+- **Base an authored reply on the effective text, never the master's.** The
+  first draft copied the line from Morrowind.esm; the momw build showed a mod
+  had changed `said. '...'` to `said, "..."`, and the override would have
+  reverted it silently. Take the "before" from `tools/build/<name>-text.json`.
+- `R580`/`R590` - Rev 7's `Aedric` and "an Aedra" - are in the rules table;
+  see Open decisions. The review page for both changes is
+  `tools/reports/review-sleeper-sithis.html`.
 
 Handing the game to a friend is **too early**, Faig said 2026-08-30; what he
 meant was the list above. The five packaging gaps are in `whats-left.md` for
