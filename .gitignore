@@ -18,3 +18,8 @@ run/
 # A redirected launch once wrote the OpenMW log relative to the working
 # directory; keep that artifact out if it ever happens again.
 /Games/
+
+# Local AI tooling from D:\Work\AI models (game-control, local-workers MCP
+# servers). Machine-specific absolute paths, not part of the mod.
+/.mcp.json
+/.claude/settings.local.json

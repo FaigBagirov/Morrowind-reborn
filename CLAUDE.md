@@ -42,8 +42,9 @@ Two launchers, and they are not interchangeable. `run-mod.bat` is the Gate 3
 harness: clean dev profile, three masters, our two content files passed on the
 command line. `run-play.bat` starts the **real** modded game - the `play`
 profile as it stands, with the conversion already registered in its own
-`openmw.cfg`, and `openmw.cfg.bak` beside it to undo that. Neither is ever run
-by Claude; the user runs them.
+`openmw.cfg`, and `openmw.cfg.bak` beside it to undo that. Claude may run
+either of them itself - see "Claude can run the game and look at it". (The old
+"only the user runs them" rule was lifted by the user on 2026-09-15.)
 
 ## Who works where `2026-09-19`
 
@@ -918,14 +919,31 @@ comments can all be driven from here when a branch is warranted.
 This repo is worked on from two places and they can do different things.
 
 - **Claude Code on Windows** - can read the OpenMW install, run `esmtool` and
-  `tes3conv.exe`. Cannot launch the game.
+  `tes3conv.exe`, and launch the game and look at it (section below).
 - **Claude Code on the web (Linux container)** - has the repo and the three
   masters in `tools/input/`, but no OpenMW install, no `resources/lua_api` to
   check API calls against, and cannot run the two `.exe` tools. **Do not
   reason about API surfaces from here** - defer that work or ask.
 
-**Claude Code never launches the game in either environment.** The user runs
-it and brings back `logs/openmw.log`.
+**Claude Code on Windows may launch the game** (the user lifted the old
+"never" rule on 2026-09-15). The web container still cannot - it has no OpenMW
+install - so from there the user runs it and brings back `logs/openmw.log`.
+
+**Local AI tools from `E:\AI-models`** (moved from `D:\Work\AI models` to the SSD on 2026-09-17) are registered for this repo in
+`.mcp.json` (both files are gitignored, they hold local paths):
+
+- `game-control` - mouse and keyboard only inside an allowed, foreground
+  `openmw.exe` window; PAUSE is the user's kill switch. Screenshots are saved as
+  files in `D:\AI-Workspace\screenshots` - look at the files. If more than one
+  game window is open, pin the right one with `game_target` (the pid rule
+  below still applies).
+- `local-workers` - local models for drafts, reviews, summaries and
+  `local_look` (a local model describes a screenshot).
+
+Who does what between Claude and the local models is written in
+`E:\AI-models\CLAUDE.md`, section "Распределение ролей", and in
+`E:\AI-models\ИНСТРУКЦИЯ для сессий Claude - локальные модели.md`. Read them before
+delegating anything.
 
 ## Claude can run the game and look at it `SETTLED 2026-08-30`
 
