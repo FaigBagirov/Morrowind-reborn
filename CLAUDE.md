@@ -683,6 +683,9 @@ asserted:
 | `bodyparts.py` | emit the bodypart records and repoint the armour at them |
 | `build_armour_set.py` | the whole route in one command, and the instruction |
 
+What the community says about Blender, NifSkope versions and skinning weights -
+not measured here - is in `tools/reports/mesh-tools.md`.
+
 Four things worth carrying forward, because each cost a round:
 
 - **`.nif` is a family, not a format.** Morrowind is 4.0.0.2, Oblivion
