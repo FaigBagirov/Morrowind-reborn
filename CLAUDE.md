@@ -326,6 +326,17 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   decision here about the constellations has a second Skyrim text
   downstream of it. Nothing blocks Skyrim; it will touch none of them
   until this side answers.
+- **Shared World Canon Rev 7.** Applied 2026-09-19, approved by Faig in a
+  conversation between the orchestrator and the Skyrim chat on claude.ai
+  ("Skyrim sci-fi mod"): Retooling (Part 3), the job list and soul gems
+  (Part 11, with the first ever change to Part 0 rule 2), `Aedric` to `Zenad`
+  (Part 10), and four delivery rules (Parts 5, 8, 11). The revision log has the
+  detail. Still `OPEN`: the Tribunal under Part 8's contact rule, and the
+  Morrowind texts have not been checked against Rev 6 or Rev 7. Two text rules
+  follow and are **not yet in the rules table**: `Aedric` to `Zenad` in *Sithis*
+  (`BookSkill_Alteration3`), and "like an Aedra", which the Aedra rule turns
+  into "an Zenad". The Skyrim chat read the Firmament paragraph and found it
+  clean - a description with no name in it.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**
 (and it turns out to be cosmetic, ~20 real lines game-wide); Corprus is a

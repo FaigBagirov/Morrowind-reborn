@@ -28,7 +28,7 @@ This is not a stylistic preference and it is not negotiable. It applies to both 
 
 **1. Nobody in the setting made the world, and nobody in the setting is great.** The Zenar and the Zenad are terraformers: tenants who reworked a house they did not raise. Any phrasing that reads as "the world is made of them", "they built the planet", or that assigns them greatness or majesty, is wrong. Greatness is not theirs to be assigned. They were strong, their strength was barely enough for one world, and it nearly finished them.
 
-**2. The soul gets no technical description.** Under the Rename Test (Part 9), "soul" is a mortal's word for whatever sits in the gem, and the setting never goes behind that word. A soul gem takes a **copy of behaviour**. What a soul actually is remains outside the setting's competence. Never write a line that defines it.
+**2. The soul is never defined.** Under the Rename Test (Part 9), "soul" is a mortal's word for what sits in the gem. The setting says what physically sits there (Part 11) and **never says whether it is the person**. A soul gem takes a **copy of behaviour** because the machines present at death read the body that carried them. What a soul actually is remains outside the setting's competence. Never write a line that defines it.
 
 **3. Where a game shows an afterlife, it is a machine, not a truth.** Any location the player physically enters and finds the dead in is an **archive**: an installation that stored copies. What walks and speaks there is a copy. Mortals call it the hall of the dead because mortals always do, and that is the unreliable narrator (Part 8) doing its job. This makes a claim about one machine and no claim about death.
 
@@ -76,6 +76,33 @@ Mortals observe the difference and explain it by ancestry, nobility or divine fa
 
 Nothing here is a reward and nothing is a rank. It is how much of a spent faction's leftovers a given lineage happens to carry.
 
+## How the loss happened: they retooled themselves `SETTLED`
+
+**The Zenad reconfigured their entire swarm for terraforming. The Zenar did not.** Everything above follows from that without further invention.
+
+* **Why the loss is permanent.** The swarm is not equipment held at arm's length; it is part of how they operate (Part 11). Retooling all of it for one planet's terraforming was not spending a reserve, it was **dismantling themselves into an instrument**. What they lost was not stock. It was the range of things they were capable of being.
+* **Why the Zenar are stronger.** Not because they began stronger. They simply never rebuilt their tools. No greatness on either side, as Part 0 rule 1 demands: one group declined to contribute.
+* **Why they cannot leave.** Their swarm is configured for this planet. Detaching from Nirn means going without the thing they work through. They are not bound by sentiment, obligation or a curse. They are bound the way a man is bound to the only building his key opens.
+* **What it does not mean.** They were not noble and they were not tricked. Lorkhan talked them into it and they tore out his power core when the cost became clear (Part 4). A faction that retooled itself on a bad estimate and then maimed the man who sold them the estimate is exactly the register this setting wants.
+
+## The trace: an accident, not a gift `SETTLED`
+
+**The trace is mitochondria, the biological remnant of the Zenad, and it arrived by accident.** Organisms of theirs crossed into the early biosphere on their own, as endosymbionts do, and stopped being foreign. Nobody donated anything and nobody noticed. Workers walked about a construction site and something of theirs got into the ground. That is why the paragraph above calls the trace a descendant of an outsider that stopped being an outsider: it describes endosymbiosis, not a bequest.
+
+The accidental version is the only safe one. A deliberate contribution is one short step from *they gave life to Nirn*, which Part 0 rule 1 forbids; an accident cannot be read as a gift in any phrasing. Mortals venerate ancestors whose contribution to their bodies was unintended contamination from a building site.
+
+**What the trace does: it powers the swarm**, from the cell's own power plant, which is what a mitochondrion is.
+
+* **Capacity is output.** The density of the trace is how much energy a body can supply to the swarm at once. Not affinity, not attunement.
+* **Death ends the supply.** The resident population keeps a residual charge that nothing can restore, because what restored it stayed in the body. Part 11 builds the soul gem on this.
+* **It is universal.** The trace is in everything alive on Nirn, not only in the thinking kinds, which is why soul gems take animals.
+
+Differences between lineages are not closeness to anyone's ancestors but how efficiently a lineage's cells supply the swarm. The Altmer are proud of something like lung volume.
+
+The substance in every cell creates no claim and binds nobody: an accident is not a contribution. The Zenad are bound to Nirn for one physical reason, their retooled swarm, and only that one. The trace remains capacity and nothing else; it grants no access and selects no job (Part 11).
+
+No mortal can observe either fact. Both belong to a source that knows, and a Dwemer source is the only plausible voice: the Dwemer are the only mortals who took the hardware apart.
+
 The mortal terms follow directly from this and are literally accurate:
 
 * **Zenad** "our ancestors." The faction that spent itself.
@@ -104,6 +131,8 @@ The Dwemer are not a second technological species. They are the mortals who **fo
 Kagrenak went into the reactor itself. The entire people vanished in one instant, which is exactly what happens when you make a mistake at that scale.
 
 This resolves the niche collision: only one species invented the technology. Everyone else is doing archaeology. That includes the Dwemer sites in Skyrim, Blackreach and the Aetherium works.
+
+**Reverse engineering yields mechanism and never vocabulary.** `SETTLED` Taking a device apart tells you what it does, not what its makers called it, because a name is not stored in the hardware. Names reach mortals only through channels that carry language. So a Dwemer text may describe the machinery in as much detail as it likes, and may not name a single word of the Zenar's own vocabulary.
 
 ---
 
@@ -359,6 +388,18 @@ This turns the project from "rewrite the entire game" into "write twenty books a
 
 **In Skyrim this principle is not merely useful, it is load-bearing.** Skyrim has roughly sixty thousand voiced lines. Every mortal saying "Divines", "magic", "soul" or "Daedra" out loud is correct by construction, and no audio file needs touching. Any exception to the principle costs an unfixable audio desync.
 
+## What a mortal may state `SETTLED`
+
+**The existence and nature of the hardware may be stated; how it works is inferred.** A scholar may say that a ring is a device, that the Dwemer copied what they found, and that the work is done by something too small to see. That is an inventory, and a mortal can honestly have one. Explaining what the swarm does to matter is nobody's to do in text.
+
+## Contact with the system is never a reward `SETTLED`
+
+Reaching into the system directly, past any controller, is never presented as an improvement. Kagrenak went into the reactor and his people vanished (Part 5). The Moth priests read the Scrolls and go blind. No text offers direct access as a prize.
+
+* **Using a controller is not contact.** Talos drove a Dwemer machine that came into his hands, through the device made to drive it (Part 11). If the machine drew on his strength, that is the price of use, not a punishment: a machine has to be powered by something. His deification is mortals revering a very powerful man with very advanced equipment, which is Part 9 working as designed. Nothing about him needs rewriting.
+* **The Tribunal is `OPEN`.** They drew on the Heart directly and appear to have succeeded. Whether they did something particular, or were fortunate enough not to trigger a defensive response, is undecided.
+* **Never frame the price as paid by anyone other than the one who reached.** Faig, 2026-09-19.
+
 ---
 
 # Part 9 — The Rename Test `SETTLED`
@@ -499,6 +540,9 @@ All replacements are equal to or shorter than what they replace, per the length 
 | daedra-worshipper | Zenar-worshipper | 17 to 16 |
 | Daedric alphabet | Zenaric script | 16 to 14 |
 | Lesser / Greater Daedra | Lesser / Greater Zenar | shorter |
+| Aedric | Zenad *(attributive)* | 6 to 5 |
+
+**`Aedric` takes no adjective of its own.** `Zenadic` would be longer than the word it replaces, so the noun is used attributively, exactly as the third sense of `Daedric` below uses `Zenar`: *the Aedric weakness* becomes *the Zenad weakness*. It occurs once in each game, in the book *Sithis*.
 
 ## The three senses of "Daedric" `SETTLED`
 
@@ -608,11 +652,78 @@ Three routes, one medium. **Every name mortals use is a name for the field**, ne
 
 Capacity is a property of the body and is set by Part 3. Access is a property of the key and is set by this part. **Neither substitutes for the other.** A body with a dense trace and no key does nothing at all, and a key in a poor body works within a lower ceiling.
 
+## What the medium does: one swarm, a finite list of jobs `SETTLED`
+
+**The swarm is general-purpose. What differs is not the machine but the job it is asked to run.** Conditioning a planet needs a small, closed set of operations, and the installation still exposes them because nobody ever revoked them. What a mortal calls an element is the most visible by-product of one job running. Fire is not a kind of machine; fire is what it looks like from outside when the medium is asked to put energy into matter.
+
+There are no kinds of nanite: no fire swarm, no frost swarm. That would contradict the subsection above, fail the Rename Test (a fire spirit with a new name), make the mortal taxonomy correct and so close the gap Part 8 depends on, and cut across capacity and access.
+
+**The job list is Part 3's sentence in work clothes.**
+
+| Terraforming work | Operation | What it looks like | Mortal name |
+| --- | --- | --- | --- |
+| holding a climate, clearing ground | energy deposited into matter | things burn | fire |
+| turning the rivers, making and keeping ice | energy withdrawn, phase control of water | things freeze | frost |
+| making the atmosphere breathable, salting the seas | charge separated and moved | things spark, the air turns | shock |
+| seeding and keeping the first biosphere | engineered tissue maintained, and read | wounds close | Restoration |
+| the ground itself, before anything could grow | material properties changed | stone bears weight, a body floats, light holds | Alteration |
+| managing the fauna that was seeded | a nervous system addressed directly | fear, calm, frenzy, a thing unseen | Illusion |
+| the work needed hands in places | other units of the system directed to a place | something arrives and serves | Conjuration |
+
+**Within the thermal and electrical block there are exactly three operations: add heat, take heat, move charge.** The claim is about that block only, not about the swarm as a whole. It is why destruction has three elements in both games, why no culture has proposed a fourth, and why the system ships exactly three atronachs, Flame, Frost and Storm: the triad given bodies. A specification, not a tradition.
+
+**Three axes, and none substitutes for another.**
+
+| Axis | Question | Set by |
+| --- | --- | --- |
+| Capacity | how much at once | Part 3, trace density |
+| Access | whether at all | this Part, the key |
+| Job | which operation | this subsection |
+
+A dense trace with no key does nothing. A key in a poor body runs the job at a lower ceiling. Neither tells you which job is being run, and knowing the job grants neither of the others. **A Shout and a spell can run the same job by different routes**, as the route table above predicts: one physics for one fire.
+
+**The list is finite, and that is the tragedy.** The swarm does what the terraformers specified and not one step more. Anything absent from the list does not happen, at any price, for anyone.
+
+* The installation cannot be repaired, because repair was never a job, and the manufacturing base that could have made new capability was spent (Part 3).
+* Nobody can add an operation: not the Zenar, not the Sixteen, not a mortal who reached the console.
+* Every clever mortal use is an existing job aimed somewhere unintended. Vampirism is a medical procedure on the wrong organism, lycanthropy a combat serum with no operator, a soul gem a container catching a decoupling population.
+
+The machine is not a genie with limits. It is a contractor with a scope of work, still honouring the contract long after the client died.
+
+**Symbiosis, and why it works worse here.** The swarm is not a tool the Zenar picked up; it is part of how they work, used natively and far more widely than anything seen on Nirn. Mortals have the far end of it, the Part 3 trace, and two problems:
+
+* **No manual.** Every use is reverse-engineered from what happened to work. Schools, classifications and rituals are guesswork laid over machinery.
+* **The wrong body.** The machines were built for symbiosis with Zenar and Zenad. They adapt to a human and go on working, within limits nobody on Nirn knows are limits rather than laws of nature.
+
+Reading a living organism is a standard function, not a special power: a biosphere cannot be maintained without reading what is alive in it.
+
+**The schools are the filing, not the list.** Mortals laid a filing cabinet over the machine's jobs, and the games prove it without a line changed. Morrowind files six schools and Skyrim five: a filing system changes across a border, a job list does not. Each game files some effects where no job list would, and not in the same place (Soul Trap is Mysticism in Morrowind and Conjuration in Skyrim). Alchemy and Enchanting are crafts, not schools, because they are not jobs: alchemy is chemistry by hand and needs no key, enchanting fits a controller and a cell to an object. Mortals keep their schools and their names for the field (Part 8), and are right for their own reasons.
+
+**The boundary.** The job list stops at the edge of the soul (Part 0 rule 2). Conjuration directs units of the system; it explains nothing about what is in a gem beyond the next subsection.
+
+## What a soul gem holds `SETTLED`
+
+**A living body hosts a population of the machines.** They settle into their host and are charged through the trace (Part 3); the density of that trace is capacity. The mitochondria keep their one job and are given no second one.
+
+**Death is decoupling.** The host stops, and the population loses what bound it and what charged it; nothing else can recharge it. **A soul gem is a container that catches that population at that moment.** That is why Soul Trap is cast on the living: cast on a corpse, there is nothing left to catch.
+
+**The configuration is read, not carried.** The machines do not store their host's configuration. At the moment of death, while the tissue is still live enough to read, they read it: a converter between a body and whatever is listening. So the reading must be immediate, and an archive (Part 0 rule 3) can take a reading directly through its own installation, with no gem involved. Two machines reach a similar result, and neither explains the other.
+
+**White and black differ by format, not by size.** A white gem does not accept a configuration at all: the wrong input, not too little room. Only a black gem accepts one, which is why only a black gem takes a person while a beast larger than a man goes into an ordinary gem. What a person has that a beast has not is a configuration worth the name. Mortals sorted the gems correctly by observation and explained the sorting wrongly, which is Part 8 as designed. The grades within each class remain a capacity ladder. Morrowind ships no black gem, so there no gem takes a person: the same rule with one class of container absent.
+
+**An enchanted item** receives a filled gem's population and charge. The charge decays and can be refilled from another gem.
+
+**What is still refused: whether that population is the person.** A man's machines, his residual charge and a reading of his configuration are in the gem. Whether that constitutes him is outside the setting's competence and stays there (Part 0 rule 2). No line may answer it, hint at an answer, or treat it as a theme. A gem is a container, not an archive (Part 0 rule 3): related technologies, never equated. `Soul Gem` is renamed nothing: mortals watching a bound servant would call the contents a soul, and would be describing the same object under their own word.
+
+Carriers are found in each game's own corpus. Skyrim's do not transfer.
+
 ## A claim with no carrier does not exist `SETTLED`
 
 Every claim in either canon must be said or written by someone inside the game. Claims that live only in design documents reach nobody, and a conversion whose canon outgrows its delivery is a game with two words removed and nothing put in their place.
 
 In the Skyrim project carriers are tracked in the Delivery Ledger. A claim with no row there is not delivered.
+
+**Load-bearing claims live in the mandatory core.** Optional places may deepen a claim, never carry it alone. If a key claim lives only in a location the player can skip, half the players never receive it, and both games are open worlds.
 
 **One specific constraint.** The word for the swarm has no mortal equivalent, so no ordinary speaker can use it. In Skyrim it is spoken once, by Calcelmo in Markarth, as **a term he invents himself** while translating a Dwemer text that resists translation. A translator meeting an untranslatable technical term has no other option. The word does not spread, which is why it appears exactly once in the game.
 
@@ -620,6 +731,7 @@ In the Skyrim project carriers are tracked in the Delivery Ledger. A claim with 
 
 ## Revision log
 
+* **Rev 7.** 2026-09-19. Three amendments from the Skyrim project applied, shared parts only, and four rules adopted, all approved by Faig the same day in a conversation between the Morrowind orchestrator and the Skyrim chat. Part 3: *Canon_Amendment_Part3_Retooling_v1*, the Zenad retooled their whole swarm for terraforming, which is why the loss is permanent and why they cannot leave; the trace is mitochondria that arrived by accident and powers the swarm. Part 11: *Canon_Amendment_Part11_Jobs_v3*, one general-purpose swarm and a finite list of terraforming jobs, elements as by-products, the thermal and electrical triad, three axes, the schools as mortal filing; *Canon_Amendment_Part11_Containers_v3*, what a soul gem holds, the configuration read at death, white and black by format. **Part 0 rule 2 changed for the first time**, as its own approved decision: its heading, and the clause that the setting never goes behind the word, which is now false; it now says what sits in a gem and never whether it is the person, with the competence sentence and the prohibition kept word for word. Part 10: *Canon_Amendment_Part10_Aedric_v1*, `Aedric` takes `Zenad` attributively. Part 5: reverse engineering yields mechanism, never vocabulary. Part 8: a mortal may state the inventory, never the working; contact with the system is never a reward, with Talos ruled not contact (a controller) and the Tribunal left `OPEN`; the price is never framed as paid by others. Part 11: load-bearing claims live in the mandatory core. Not taken: the Skyrim carriers, disclosure schedule and Soul Cairn sections, the Dragonborn clause, and the ledger rule that mechanism is inferred rather than told, which Faig placed as a Skyrim rule about dragon kills, not a general one. Source documents on Google Drive, `Claude_Docs/Skyrim_Reborn/00_Documents`.
 * **Rev 6.** Two additions, both originating in the Skyrim project on 2026-09-06. Part 3: the Zenad trace is stated to be unevenly distributed between populations, which is what racial differences in capacity are; the Altmer are correct that less was lost in them and wrong about what was lost, and Breton resistance is the same fact read backwards. Part 11: a new subsection settles that the swarm and the field are one medium seen from two sides, addressed by three routes, and that capacity from Part 3 and access from Part 11 never substitute for each other. The four mortal names are recorded as names for the field only, never for the swarm.
 * **Rev 5.** Four amendments and one addendum from the Skyrim project applied, all SETTLED and confirmed by Faig between 2026-09-02 and 2026-09-05. Part 7 Delivery replaced: once per game, by one character, with no framing, Vivec in Morrowind and Paarthurnax in Skyrim; Part 0's summary sentence brought level with it. Part 11's list replaced: everyone needs a key and the form varies, which is why nobody has noticed one system; the delivery constraint from the same amendment added as a closing subsection, a claim with no carrier does not exist. Part 6: Azura assigned as the analytical input of the installation and Meridia to the villain slot above Alduin; Hircine narrowed from genetic engineering to trials of Zenar technology on local organisms, with vampirism and lycanthropy given their mechanisms and Molag Bal holding the entrance he did not build. New Part 9A, Authorless Text: the interface, loading screens and the journal are corrected because nobody in the world wrote them; numbered 9A so that every reference to Parts 10 and 11 in both projects stays valid. Source documents, in the Skyrim project: Canon_Amendment_Part7_v3, Canon_Amendment_Part11_v3, Canon_Amendment_Part6_Sixteen_v3, Canon_Amendment_Part6_Hircine_v2, Canon_Addendum_Authorless_Text_v3. Their Skyrim-only sections are already in *Skyrim Canon* Rev 4 and are not repeated here. Wording is theirs; the only edits are cross-references restated in this file's own terms.
 * **Rev 4.** Third sense of `Daedric` added to Part 10 and settled: the beings themselves take `Zenar`, alongside `Zenaric` for what they made and `Zetic` for their cult. Measured, not assumed - the collocations behind each are counted in `tools/rules/naming.csv`.
