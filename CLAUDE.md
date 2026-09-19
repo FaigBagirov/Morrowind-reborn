@@ -333,9 +333,11 @@ Canon Part 10 is the register. Most of what used to be here is now closed.
   (Part 10), and four delivery rules (Parts 5, 8, 11). The revision log has the
   detail. Still `OPEN`: the Tribunal under Part 8's contact rule, and the
   Morrowind texts have not been checked against Rev 6 or Rev 7. Two text rules
-  follow and are **not yet in the rules table**: `Aedric` to `Zenad` in *Sithis*
-  (`BookSkill_Alteration3`), and "like an Aedra", which the Aedra rule turns
-  into "an Zenad". The Skyrim chat read the Firmament paragraph and found it
+  follow, **in the rules table since 2026-09-19** (text fork, `secondary`):
+  `R590` turns `Aedric` into `Zenad` in *Sithis* (`BookSkill_Alteration3`), and
+  `R580` turns "like an Aedra" into "like a Zenad" before the Aedra rule can
+  make it "an Zenad". One firing each, both in that book; the Lua engine agrees
+  with the Python one on all 190 fields. The Skyrim chat read the Firmament paragraph and found it
   clean - a description with no name in it.
 
 Closed since the last handover, do not reopen: `Aedra -> Zenad` **confirmed**

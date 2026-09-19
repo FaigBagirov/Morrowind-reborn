@@ -135,7 +135,7 @@ The netchiman's wife who carried the egg of Vivec within her went looking for th
 The Thirty-Six Lessons of Vivec: Sermon Two<BR><BR>
 <DIV ALIGN=""LEFT""><BR><BR>
 The netchiman's wife who carried the egg of Vivec within her went looking for the lands of the Indoril. Along the journey many spirits came to see her and offer instructions to her son-daughter, the future glorious invisible warrior-poet of Vva ..."
-BOOK,BookSkill_Alteration3,text,lua,R600,0,"<DIV ALIGN=""CENTER""><FONT COLOR=""000000"" SIZE=""3"" FACE=""Magic Cards""><BR>
+BOOK,BookSkill_Alteration3,text,lua,R580 R590 R600,-2,"<DIV ALIGN=""CENTER""><FONT COLOR=""000000"" SIZE=""3"" FACE=""Magic Cards""><BR>
 Sithis<BR><BR>
 <DIV ALIGN=""LEFT""><BR><BR>
 Sithis is the start of the house. Before him was nothing, but the foolish Altmer have names for and revere this nothing. That is because they are lazy slaves. Indeed, from the Sermons, 'stasis asks merely for itself, which is nothing.'<BR>

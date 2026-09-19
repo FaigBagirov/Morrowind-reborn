@@ -127,7 +127,7 @@ lua,INGR,ingred_cursed_daedras_heart_01,name,R500,1,-1,11,,0,0
 lua,INGR,ingred_daedra_skin_01,name,R500,1,-1,10,,0,0
 lua,INGR,ingred_daedras_heart_01,name,R500,1,-1,11,,0,0
 lua,BOOK,BookSkill_Alchemy4,text,R400,2,0,3072,,0,0
-lua,BOOK,BookSkill_Alteration3,text,R600,3,0,1702,,0,0
+lua,BOOK,BookSkill_Alteration3,text,R580 R590 R600,4,-2,1700,,0,0
 lua,BOOK,BookSkill_Athletics3,text,R400 R500,2,-1,3018,,0,0
 lua,BOOK,BookSkill_Block1,text,R500,2,-2,5991,,0,0
 lua,BOOK,BookSkill_Block5,text,R500,2,-2,1830,,0,0
