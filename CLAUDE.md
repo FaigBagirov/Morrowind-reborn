@@ -521,6 +521,23 @@ version of this; the grid extends them from one axis to two.
   candidates at it with `--texture`. The model's own atlas goes back on once
   the fit is settled.
 
+**3. Always two copies, both in the same launch.** `SETTLED 2026-09-19`,
+Faig's rule after the generated helm on `gen-armor`. **Every** 3D model checked
+in this game - and any 3D model at all - goes in twice: once in its real
+texture, once in the diagnostic sheet of method 2, each on a **different** free
+vanilla armour record of the same slot (chitin carries the real one, another
+free record the diagnostic one). Both are loaded in one launch and **both are
+looked at, every time**.
+
+- The reason is Claude, not the model: Claude does not always read a render
+  correctly. On 19.09 a spiked vanilla mask showing through the new helm was
+  taken for the vanilla helm itself, and dark blotches that were a flipped UV
+  were blamed on shading, twice. The grid copy would have named both at once.
+- Coloured copy for shape, direction, mirroring, holes and UV; real copy for
+  how it looks. Neither replaces the other.
+- Use records nobody else is repointing: the Daedric set belongs to the
+  imported suit on `new-armor`.
+
 ## The Zenaric suit from an imported model - `WORN, WHOLE, ON SCREEN`
 
 Twenty pieces off one downloaded model, head to foot, built by
