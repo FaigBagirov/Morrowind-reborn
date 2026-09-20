@@ -766,7 +766,13 @@ script rather than a memory:
   separate meshes, each listed three times with a different material. Stopping
   at the first meant no helmet, and the collar lives on the helmet.
 - **Write both facings.** 15 to 27 per cent of the edges in each piece belong
-  to one triangle; with the body replaced, a hole shows the room.
+  to one triangle; with the body replaced, a hole shows the room. **That
+  percentage is too high** - the architecture session, 2026-09-21: a GLB
+  exported with flat shading or UV seams carries a copy of every split
+  vertex, so edges that are shared read as open. Weld by position before
+  counting edges or measuring dihedral angles (it measured 0.00 on every
+  unwelded mesh, including its reference). The rule stands - the cut pieces
+  do have real holes - only the number is inflated.
 
 Left open: the model's own dark under-suit reads as black in places, which is
 the model rather than a fault; and the texture is the model's atlas recoloured,
