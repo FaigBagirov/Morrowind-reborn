@@ -499,14 +499,15 @@ comes through it before he picks his creed back up:
 
     ...As Lord Dagoth has said, "All shall greet him as flesh, or as dust."
     The ash is not ash. Nanites. Nanites in the ash, in the water, in the
-    walls of this house. They were here before him. They will not stop when
-    he wakes. The Sixth House is risen, and Dagoth is its glory.
+    walls of this house. The Sixth House is risen, and Dagoth is its glory.
 
 **The rule the first draft broke, Faig 2026-09-20: the word must never be
 predicated of Dagoth Ur.** That draft put it inside his slogan - "as flesh, or
 as nanite" - and it read as saying he *is* the swarm. He uses the medium; he is
-not it. The intrusion now speaks about the world, denies the creed's own
-promise, and he does not notice.
+not it. The intrusion speaks about the world instead, and he picks his creed
+back up without noticing. A second draft had it answer the creed - "They were
+here before him. They will not stop when he wakes." - and Faig cut those two
+sentences; the word arrives with nothing argued around it.
 
 The other six Sleepers keep the vanilla line; freed, he asks whether he was
 under a spell. **The word is `SETTLED`** - Faig's yes, 2026-09-20, and Skyrim
