@@ -439,7 +439,7 @@ OMWFX shaders are GLSL, plain text, safe to generate. The pattern: a shader with
 | 3 | Which specific texts are rewritten? | `SETTLED` The rules table, `tools/rules/naming.csv`, 23 rules over 611 records |
 | 4 | Vivec's monologue, final wording | `NEEDS REVISION`. Constraint 6 added 2026-09-07: the announcing sentence is a lead-in and goes |
 | 5 | Text of the mitochondrial line, and its speaker | `PROPOSED` |
-| 6 | The word for the swarm: which word, and who says it | Speaker `SETTLED` by Faig 2026-09-19: a Sleeper of `A1_SleepersAwake`, before waking, not understanding it (*Shared World Canon* Part 11). Placed: Rararyn Radarys, Balmora, topic `Dagoth Ur` while Dagoth Fovon lives. Word and wording `PROPOSED`: "nanite", in "As flesh, or as nanite. Nanite. As dust." Skyrim takes the same word; it has not chosen one |
+| 6 | The word for the swarm: which word, and who says it | `SETTLED` 2026-09-20. Word: **nanite**, Faig's yes; Skyrim takes the same word and has not chosen one yet. Carrier: a Sleeper of `A1_SleepersAwake`, before waking, not understanding it (*Shared World Canon* Part 11) - Rararyn Radarys, Balmora, topic `Dagoth Ur` while Dagoth Fovon lives. Wording `PROPOSED`. **The word must not be predicated of Dagoth Ur**: the first draft put it inside his slogan, "as flesh, or as nanite", and Faig read it as making him the swarm. He uses the medium; he is not it |
 
 ### Resolved
 

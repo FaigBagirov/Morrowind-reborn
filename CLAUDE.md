@@ -456,10 +456,13 @@ a spell reads `Resist Discharge`, a potion `Cheap Restore Charge`.
 **The queue**, counted by `tools/scripts/audit.py` over the masters with the
 rules applied:
 
-1. **186 replies rewritten by rule, across 83 topics, and nobody has read
-   them.** A rule guarantees the word changed, not that the sentence still
-   means something. (The plugin owns 191 dialogue records: these 186 plus the
-   five written by hand. "191 by rule" was a miscount, measured 2026-09-19.)
+1. ~~**186 replies rewritten by rule, across 83 topics, and nobody has read
+   them.**~~ **Read by Faig 2026-09-20 on the diff page, and passed: "там все
+   норм".** The largest single piece of unfinished work in the project is
+   closed. A rule guarantees the word changed, not that the sentence still
+   means something - that is now checked. (The plugin owns 191 dialogue
+   records: these 186 plus the five written by hand. "191 by rule" was a
+   miscount, measured 2026-09-19.)
    **Faig reads them as a diff, the way git shows one, with the changed words
    marked in the line** - not as before/after columns, which he finds hard to
    read. The view exists: `tools/reports/replies-diff.html`, made by
@@ -491,15 +494,23 @@ waking, who does not understand the word (*Shared World Canon* Part 11: the
 name is not in the hardware, no scholar can be its source). The text fork
 chose **Rararyn Radarys** - in Balmora's streets, a commoner, the Sleeper who
 shouts "Sleepers! Awake!" - and his answer on `Dagoth Ur` while Dagoth Fovon
-lives (INFO `11010311511205318175`). His line is kept whole and three sentences
-follow in the same breath:
+lives (INFO `11010311511205318175`). His line is kept whole, and another voice
+comes through it before he picks his creed back up:
 
     ...As Lord Dagoth has said, "All shall greet him as flesh, or as dust."
-    As flesh, or as nanite. Nanite. As dust.
+    The ash is not ash. Nanites. Nanites in the ash, in the water, in the
+    walls of this house. They were here before him. They will not stop when
+    he wakes. The Sixth House is risen, and Dagoth is its glory.
+
+**The rule the first draft broke, Faig 2026-09-20: the word must never be
+predicated of Dagoth Ur.** That draft put it inside his slogan - "as flesh, or
+as nanite" - and it read as saying he *is* the swarm. He uses the medium; he is
+not it. The intrusion now speaks about the world, denies the creed's own
+promise, and he does not notice.
 
 The other six Sleepers keep the vanilla line; freed, he asks whether he was
-under a spell. **Word and wording are `PROPOSED`** (Canon Part 10, row 6):
-"nanite" is the documents' word, Skyrim has not chosen one and will take ours.
+under a spell. **The word is `SETTLED`** - Faig's yes, 2026-09-20, and Skyrim
+takes the same word - **the wording is `PROPOSED`** (Canon Part 10, row 6).
 Not yet read on screen - wait for Faig's yes on the wording, then one run:
 `Journal A1_2_AntabolisInformant 10`, find him in Balmora, ask `Dagoth Ur`.
 Under momw the line carries a third filter the master lacks, the local
