@@ -530,6 +530,27 @@ Handing the game to a friend is **too early**, Faig said 2026-08-30; what he
 meant was the list above. The five packaging gaps are in `whats-left.md` for
 when it is time.
 
+### The Delivery Ledger `NEW 2026-09-20`
+
+`docs/Morrowind_Delivery_Ledger.md` and `tools/reports/delivery-ledger.csv`:
+one row per canon claim - what it is, who says it, where, whether the player
+can miss it, and its status. *Shared World Canon* Part 11: a claim with no
+carrier does not exist. Faig chose this task himself.
+
+**The rule it adds: every new hand-written record adds a row, in the same
+change set.** A record in `tools/handwritten/manifest.csv` with no row in the
+ledger is the defect the file exists to catch.
+
+26 claims: 13 delivered (two `NEEDS REVISION`, two `PROPOSED`), 2 partial, 10
+with no carrier at all, 1 mechanic designed and never built. **The four worst
+holes**, for Faig to decide, are in the ledger's own gap list: Corprus as a
+weapon, which recasts the main quest and which nobody in the game says; Azura
+and the prophecy as a forecast; the two Rev 7 claims - the retooling and what
+a soul gem holds - with no Morrowind carrier at all; and the swarm's word
+sitting in an optional line, which Rev 7's rule 5 may not allow. The magic
+gate of *Architecture* Part 8 is the fifth: specified, and nothing in `mod/`
+mentions it.
+
 ## Particle visuals - `DONE, ALL 141 EFFECTS, CONFIRMED IN THE REAL PROFILE`
 
 Canon Part 9, report `tools/reports/vfx.md`, generator
